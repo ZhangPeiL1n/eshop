@@ -1,6 +1,6 @@
 package com.zpl.eshop.promotion.service;
 
-import com.zpl.eshop.promotion.dto.PromotionActivityDTO;
+import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.zpl.eshop.wms.dto;
+package com.zpl.eshop.wms.domain;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.zpl.eshop.promotion.dto;
+package com.zpl.eshop.promotion.domain;
 
 import java.util.Date;
 

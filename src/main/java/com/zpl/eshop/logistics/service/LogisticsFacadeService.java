@@ -1,6 +1,6 @@
 package com.zpl.eshop.logistics.service;
 
-import com.zpl.eshop.goods.dto.GoodsSkuDTO;
+import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
 
 /**
  * 物流中心对外提供的接口
