@@ -1,8 +1,8 @@
 package com.zpl.eshop.inventory.service;
 
-import com.zpl.eshop.order.dto.OrderDTO;
-import com.zpl.eshop.wms.dto.PurchaseInputOrderDTO;
-import com.zpl.eshop.wms.dto.ReturnGoodsInputOrderDTO;
+import com.zpl.eshop.order.domain.OrderDTO;
+import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
+import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 
 /**
  * 库存中心对外提供的接口
