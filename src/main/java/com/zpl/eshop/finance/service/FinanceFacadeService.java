@@ -1,8 +1,8 @@
 package com.zpl.eshop.finance.service;
 
-import com.zpl.eshop.wms.dto.PurchaseInputOrderDTO;
-import com.zpl.eshop.wms.dto.ReturnGoodsInputOrderDTO;
-import com.zpl.eshop.wms.dto.SaleDeliveryOrderDTO;
+import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
+import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
+import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
 
 /**
  * 财务中心对外提供的接口

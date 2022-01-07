@@ -1,10 +1,10 @@
 package com.zpl.eshop.schedule.service;
 
-import com.zpl.eshop.customer.dto.ReturnGoodsWorksheetDTO;
-import com.zpl.eshop.order.dto.OrderDTO;
-import com.zpl.eshop.purchase.dto.PurchaseOrderDTO;
-import com.zpl.eshop.wms.dto.PurchaseInputOrderDTO;
-import com.zpl.eshop.wms.dto.ReturnGoodsInputOrderDTO;
+import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDTO;
+import com.zpl.eshop.order.domain.OrderDTO;
+import com.zpl.eshop.purchase.domain.PurchaseOrderDTO;
+import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
+import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 
 /**
  * 调度中心对外提供的接口
