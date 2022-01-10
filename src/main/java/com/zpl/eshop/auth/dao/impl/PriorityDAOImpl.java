@@ -1,0 +1,126 @@
+package com.zpl.eshop.auth.dao.impl;
+
+import com.zpl.eshop.auth.dao.PriorityDAO;
+import com.zpl.eshop.auth.domain.PriorityDO;
+import com.zpl.eshop.auth.mapper.PriorityMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * 权限管理模块的DAO组件
+ *
+ * @author ZhangPeiL1n
+ * @date 2022/1/7 22:22
+ **/
+@Repository
+public class PriorityDAOImpl implements PriorityDAO {
+
+    private static final Logger logger = LoggerFactory.getLogger(PriorityDAOImpl.class);
+
+    /**
+     * 权限管理模块 mapper
+     */
+    @Autowired
+    private PriorityMapper priorityMapper;
+
+    /**
+     * 查询根权限
+     *
+     * @return 根权限集合
+     */
+    @Override
+    public List<PriorityDO> listRootPriorities() {
+        try {
+            return priorityMapper.listRootPriorities();
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据父权限id查询子权限
+     *
+     * @param parentId 父权限id
+     * @return 子权限
+     */
+    @Override
+    public List<PriorityDO> listChildPriorities(Long parentId) {
+        try {
+            return priorityMapper.listChildPriorities(parentId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
+
+    }
+
+    /**
+     * 根据id查询权限
+     *
+     * @param id id
+     * @return 权限
+     */
+    @Override
+    public PriorityDO getPriorityById(Long id) {
+        try {
+            return priorityMapper.getPriorityById(id);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
+    }
+
+    /**
+     * 新增权限
+     *
+     * @param priorityDO 权限DO对象
+     */
+    @Override
+    public Boolean savePriority(PriorityDO priorityDO) {
+        try {
+            priorityMapper.savePriority(priorityDO);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 更新权限
+     *
+     * @param priorityDO 权限Do对象
+     */
+    @Override
+    public Boolean updatePriority(PriorityDO priorityDO) {
+        try {
+            priorityMapper.updatePriority(priorityDO);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 删除权限
+     *
+     * @param priorityId 权限id
+     * @return 删除是否成功
+     */
+    @Override
+    public Boolean deletePriority(Long priorityId) {
+        try {
+            priorityMapper.deletePriority(priorityId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+        return true;
+    }
+}
