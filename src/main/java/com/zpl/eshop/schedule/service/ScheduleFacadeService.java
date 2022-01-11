@@ -1,7 +1,7 @@
 package com.zpl.eshop.schedule.service;
 
 import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDTO;
-import com.zpl.eshop.order.domain.OrderDTO;
+import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
@@ -27,7 +27,7 @@ public interface ScheduleFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    Boolean informSubmitOrderEvent(OrderDTO orderDTO);
+    Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知调度中心，“支付订单”事件发生了
@@ -35,7 +35,7 @@ public interface ScheduleFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    Boolean informPayOrderEvent(OrderDTO orderDTO);
+    Boolean informPayOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知调度中心，“取消订单”事件发生了
@@ -43,7 +43,7 @@ public interface ScheduleFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    Boolean cancelOrderEvent(OrderDTO orderDTO);
+    Boolean cancelOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知调度中心，“退货入库”事件发生了
@@ -67,14 +67,14 @@ public interface ScheduleFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    Boolean scheduleSaleDelivery(OrderDTO orderDTO);
+    Boolean scheduleSaleDelivery(OrderInfoDTO orderDTO);
 
     /**
      * 调度退货入库
      *
-     * @param orderDTO 订单DTO
+     * @param orderInfoDTO            订单DTO
      * @param returnGoodsWorksheetDTO 退货入库单DTO
      * @return 处理结果
      */
-    Boolean scheduleReturnGoodsInput(OrderDTO orderDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO);
+    Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfoDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO);
 }

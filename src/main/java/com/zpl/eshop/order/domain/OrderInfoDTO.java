@@ -1,13 +1,22 @@
 package com.zpl.eshop.order.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * 订单 DTO
+ *
  * @author ZhangPeiL1n
  * @date 2022/1/3 18:19
  **/
-public class OrderDTO {
+@Getter
+@Setter
+@ToString
+public class OrderInfoDTO {
     /**
      * id
      */
@@ -89,6 +98,16 @@ public class OrderDTO {
     private String orderComment;
 
     /**
+     * 是否发表评论
+     */
+    private Integer publishComment;
+
+    /**
+     * 确认收货时间
+     */
+    private Date confirmReceiptTime;
+
+    /**
      * 销售出库单创建时间
      */
     private Date gmtCreate;
@@ -97,5 +116,10 @@ public class OrderDTO {
      * 销售出库单修改时间
      */
     private Date gmtModified;
+
+    /**
+     * 订单包含的订单条目
+     */
+    private List<OrderItemDTO> orderItems;
 
 }

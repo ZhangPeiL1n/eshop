@@ -1,6 +1,6 @@
 package com.zpl.eshop.wms.service;
 
-import com.zpl.eshop.order.domain.OrderDTO;
+import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
@@ -44,19 +44,21 @@ public interface WmsFacadeService {
      * @param orderDTO 订单 DTO
      * @return 处理结果
      */
-    Boolean informSubmitOrderEvent(OrderDTO orderDTO);
+    Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知 wms中心，“支付订单”事件发生了
+     *
      * @param orderDTO 订单 DTO
      * @return 处理结果
      */
-    Boolean informPayOrderEvent(OrderDTO orderDTO);
+    Boolean informPayOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知 wms中心，“取消订单”事件发生了
+     *
      * @param orderDTO 订单 DTO
      * @return 处理结果
      */
-    Boolean informCancelOrderEvent(OrderDTO orderDTO);
+    Boolean informCancelOrderEvent(OrderInfoDTO orderDTO);
 }
