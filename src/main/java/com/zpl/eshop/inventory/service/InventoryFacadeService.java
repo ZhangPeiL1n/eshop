@@ -1,6 +1,6 @@
 package com.zpl.eshop.inventory.service;
 
-import com.zpl.eshop.order.domain.OrderDTO;
+import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 
@@ -25,7 +25,7 @@ public interface InventoryFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    Boolean informSubmitOrderEvent(OrderDTO orderDTO);
+    Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知库存中心，“支付订单”事件发生了
@@ -33,7 +33,7 @@ public interface InventoryFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    Boolean informPayOrderEvent(OrderDTO orderDTO);
+    Boolean informPayOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知库存中心，“取消订单”事件发生了
@@ -41,7 +41,7 @@ public interface InventoryFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    Boolean cancelOrderEvent(OrderDTO orderDTO);
+    Boolean cancelOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知库存中心，“退货入库”事件发生了
