@@ -30,7 +30,7 @@ public class OrderInfoDTO {
     /**
      * 用户账号 id
      */
-    private String userAccountId;
+    private Long userAccountId;
 
     /**
      * 用户名
