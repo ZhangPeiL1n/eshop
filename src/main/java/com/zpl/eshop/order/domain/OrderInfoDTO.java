@@ -33,6 +33,11 @@ public class OrderInfoDTO {
     private String userAccountId;
 
     /**
+     * 用户名
+     */
+    private String username;
+
+    /**
      * 订单状态
      */
     private Integer orderStatus;
