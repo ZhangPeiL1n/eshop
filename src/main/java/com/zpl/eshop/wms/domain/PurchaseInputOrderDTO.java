@@ -1,6 +1,7 @@
 package com.zpl.eshop.wms.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 采购入库单 dto
@@ -62,6 +63,16 @@ public class PurchaseInputOrderDTO {
      * 创建时间
      */
     private Date gmtCreate;
+
+    /**
+     * 采购入库单条目集合
+     */
+    private List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList;
+
+    /**
+     * 采购入库单商品上角条目集合
+     */
+    private List<PurchaseInputOrderPutOnItemDTO> purchaseInputOrderPutOnItemDTOList;
 
     /**
      * 修改时间
