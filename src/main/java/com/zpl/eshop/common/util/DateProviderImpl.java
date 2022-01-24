@@ -1,6 +1,5 @@
 package com.zpl.eshop.common.util;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,13 +9,14 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/23 12:15
  **/
-public class DateUtils {
+public class DateProviderImpl implements DateProvider {
     /**
-     * 以线程安全的方式获取DateFormat
+     * 获取当前时间
      *
-     * @return DateFormat
+     * @return 当前时间
      */
-    public static Date getCurrentTime() throws ParseException {
+    @Override
+    public Date getCurrentTime() throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return simpleDateFormat.parse(simpleDateFormat.format(new Date()));
     }
