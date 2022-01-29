@@ -1,5 +1,9 @@
 package com.zpl.eshop.order.service;
 
+import com.zpl.eshop.order.domain.OrderInfoDTO;
+
+import java.util.List;
+
 /**
  * 订单中心对外提供的接口
  *
@@ -54,4 +58,27 @@ public interface OrderFacadeService {
      * @return 处理结果
      */
     Boolean informRefundFinishEvent(Long orderId);
+
+    /**
+     * 通知订单中心，“发表评论”事件发生了
+     *
+     * @param orderId 订单id
+     * @return 处理结果
+     */
+    Boolean informPublishCommentEvent(Long orderId);
+
+    /**
+     * 从订单中心获取，确认收货时间超过了 7天而且没有发表评论的订单
+     *
+     * @return 订单信息 DTO集合
+     */
+    List<OrderInfoDTO> listNotPublishCommentOrders();
+
+    /**
+     * 通知订单中心，“批量发表评论”事件发生了
+     *
+     * @param orderId 订单 id 集合
+     * @return 处理结果
+     */
+    Boolean informBatchPublishCommentEvent(List<Long> orderId);
 }

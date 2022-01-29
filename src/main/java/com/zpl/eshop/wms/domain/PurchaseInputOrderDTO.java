@@ -1,6 +1,11 @@
 package com.zpl.eshop.wms.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * 采购入库单 dto
@@ -8,6 +13,9 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/3 17:43
  **/
+@Getter
+@Setter
+@ToString
 public class PurchaseInputOrderDTO {
     /**
      * id
@@ -64,103 +72,17 @@ public class PurchaseInputOrderDTO {
     private Date gmtCreate;
 
     /**
+     * 采购入库单条目集合
+     */
+    private List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList;
+
+    /**
+     * 采购入库单商品上角条目集合
+     */
+    private List<PurchaseInputOrderPutOnItemDTO> purchaseInputOrderPutOnItemDTOList;
+
+    /**
      * 修改时间
      */
     private Date gmtModified;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(Long supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public Date getExpectArrivalTime() {
-        return expectArrivalTime;
-    }
-
-    public void setExpectArrivalTime(Date expectArrivalTime) {
-        this.expectArrivalTime = expectArrivalTime;
-    }
-
-    public Date getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
-
-    public String getPurchaseContactor() {
-        return purchaseContactor;
-    }
-
-    public void setPurchaseContactor(String purchaseContactor) {
-        this.purchaseContactor = purchaseContactor;
-    }
-
-    public String getPurchaseContactPhoneNumber() {
-        return purchaseContactPhoneNumber;
-    }
-
-    public void setPurchaseContactPhoneNumber(String purchaseContactPhoneNumber) {
-        this.purchaseContactPhoneNumber = purchaseContactPhoneNumber;
-    }
-
-    public String getPurchaseContactEmail() {
-        return purchaseContactEmail;
-    }
-
-    public void setPurchaseContactEmail(String purchaseContactEmail) {
-        this.purchaseContactEmail = purchaseContactEmail;
-    }
-
-    public String getPurchaseInputOrderComment() {
-        return purchaseInputOrderComment;
-    }
-
-    public void setPurchaseInputOrderComment(String purchaseInputOrderComment) {
-        this.purchaseInputOrderComment = purchaseInputOrderComment;
-    }
-
-    public String getPurchaser() {
-        return purchaser;
-    }
-
-    public void setPurchaser(String purchaser) {
-        this.purchaser = purchaser;
-    }
-
-    public Integer getPurchaseInputOrderStatus() {
-        return purchaseInputOrderStatus;
-    }
-
-    public void setPurchaseInputOrderStatus(Integer purchaseInputOrderStatus) {
-        this.purchaseInputOrderStatus = purchaseInputOrderStatus;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
 }
