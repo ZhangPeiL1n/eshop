@@ -23,4 +23,17 @@ public class DateProviderImpl implements DateProvider {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return simpleDateFormat.parse(simpleDateFormat.format(new Date()));
     }
+
+    /**
+     * 将 Date 对象格式化成：yyyy-MM-dd HH:mm:ss
+     *
+     * @param date 日期对象
+     * @return 格式化后字符串
+     * @throws Exception
+     */
+    @Override
+    public String formatDateTime(Date date) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return simpleDateFormat.format(date);
+    }
 }
