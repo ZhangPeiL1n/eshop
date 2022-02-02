@@ -1,7 +1,10 @@
 package com.zpl.eshop.auth.dao.impl;
 
 import com.zpl.eshop.auth.dao.AccountPriorityRelationshipDAO;
+import com.zpl.eshop.auth.domain.AccountPriorityRelationshipDO;
 import com.zpl.eshop.auth.mapper.AccountPriorityRelationshipMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,11 +17,29 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AccountPriorityRelationshipDAOImpl implements AccountPriorityRelationshipDAO {
 
+    private final Logger logger = LoggerFactory.getLogger(AccountPriorityRelationshipDAOImpl.class);
     /**
      * 账户和权限关系管理模块 mapper
      */
     @Autowired
     private AccountPriorityRelationshipMapper accountPriorityRelationshipMapper;
+
+    /**
+     * 新增帐号权限关联关系
+     *
+     * @param accountPriorityRelationshipDO 帐号权限关联关系DO
+     * @return 新增成功返回true
+     */
+    @Override
+    public Boolean save(AccountPriorityRelationshipDO accountPriorityRelationshipDO) {
+        try {
+            accountPriorityRelationshipMapper.save(accountPriorityRelationshipDO);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+        return true;
+    }
 
     /**
      * 根据权限 id 查询记录数
@@ -27,7 +48,12 @@ public class AccountPriorityRelationshipDAOImpl implements AccountPriorityRelati
      * @return 记录数
      */
     @Override
-    public Long getCountByPriorityId(Long priorityId) {
-        return accountPriorityRelationshipMapper.getCountByPriorityId(priorityId);
+    public Long countByPriorityId(Long priorityId) {
+        try {
+            return accountPriorityRelationshipMapper.countByPriorityId(priorityId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
     }
 }

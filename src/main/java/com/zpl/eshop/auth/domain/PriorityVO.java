@@ -1,11 +1,11 @@
 package com.zpl.eshop.auth.domain;
 
 import com.zpl.eshop.common.util.BeanCopierUtils;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Date;
 
 /**
  * 权限 VO 类
@@ -13,6 +13,8 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/7 21:36
  **/
+@Getter
+@Setter
 @ToString
 public class PriorityVO {
     private static final Logger logger = LoggerFactory.getLogger(PriorityVO.class);
@@ -43,11 +45,11 @@ public class PriorityVO {
     /**
      * 权限创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
     /**
      * 权限修改时间
      */
-    private Date gmtModified;
+    private String gmtModified;
 
     /**
      * 克隆方法

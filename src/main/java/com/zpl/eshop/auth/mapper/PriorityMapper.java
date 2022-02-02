@@ -19,16 +19,16 @@ public interface PriorityMapper {
      *
      * @return 根权限集合
      */
-    @Select("select" +
+    @Select("select " +
             "id," +
             "code," +
             "url," +
             "priority_comment," +
             "priority_type," +
-            "parent_id" +
+            "parent_id," +
             "gmt_create," +
-            "gmt_modified" +
-            "from auth_priority" +
+            "gmt_modified " +
+            "from auth_priority " +
             "where parent_id is null")
     @Results({
             @Result(column = "id", property = "id", id = true),
@@ -49,16 +49,16 @@ public interface PriorityMapper {
      * @param parentId 父权限id
      * @return 子权限
      */
-    @Select("select" +
+    @Select("select " +
             "id," +
             "code," +
             "url," +
             "priority_comment," +
             "priority_type," +
-            "parent_id" +
+            "parent_id," +
             "gmt_create," +
-            "gmt_modified" +
-            "from auth_priority" +
+            "gmt_modified " +
+            "from auth_priority " +
             "where parent_id = #{parentId}")
     @Results({
             @Result(column = "id", property = "id", id = true),
@@ -79,16 +79,16 @@ public interface PriorityMapper {
      * @param id id
      * @return 权限
      */
-    @Select("select" +
+    @Select("select " +
             "id," +
             "code," +
             "url," +
             "priority_comment," +
             "priority_type," +
-            "parent_id" +
+            "parent_id," +
             "gmt_create," +
-            "gmt_modified" +
-            "from auth_priority" +
+            "gmt_modified " +
+            "from auth_priority " +
             "where id = #{id}")
     @Results({
             @Result(column = "id", property = "id", id = true),
@@ -110,7 +110,7 @@ public interface PriorityMapper {
      */
     @Insert("INSERT INTO auth_priority(code,url,priority_comment,priority_type,parent_id,gmt_create,gmt_modified)" +
             "VALUES(#{code},#{url},#{priorityComment},#{priorityType},#{parentId},#{gmtCreate},#{gmtModified})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Options(keyColumn = "id", keyProperty = "id", useGeneratedKeys = true)
     void savePriority(PriorityDO priorityDO);
 
     /**
@@ -122,9 +122,7 @@ public interface PriorityMapper {
             "code=#{code},url=#{url}," +
             "priority_comment=#{priorityComment}," +
             "priority_type=#{priorityType}," +
-            "parent_id=#{parentId}," +
-            "gmt_create=#{gmtCreate}," +
-            "gmt_modified=#{gmtModified}" +
+            "gmt_modified=#{gmtModified} " +
             "WHERE id = #{id}")
     void updatePriority(PriorityDO priorityDO);
 
@@ -133,6 +131,6 @@ public interface PriorityMapper {
      *
      * @param priorityId 权限id
      */
-    @Delete("DELETE FROM auth_priority where priority_id = #{priorityId}")
+    @Delete("DELETE FROM auth_priority where id = #{priorityId}")
     void deletePriority(@Param("priorityId") Long priorityId);
 }

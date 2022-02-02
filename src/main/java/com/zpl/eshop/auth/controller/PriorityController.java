@@ -3,6 +3,7 @@ package com.zpl.eshop.auth.controller;
 import com.zpl.eshop.auth.domain.PriorityDTO;
 import com.zpl.eshop.auth.domain.PriorityVO;
 import com.zpl.eshop.auth.service.PriorityService;
+import com.zpl.eshop.common.util.DateProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class PriorityController {
     @Autowired
     private PriorityService priorityService;
 
+    @Autowired
+    private DateProvider dateProvider;
+
     /**
      * 查询根权限
      *
@@ -42,7 +46,10 @@ public class PriorityController {
             }
             List<PriorityVO> priorityVOList = new ArrayList<>(priorityDTOList.size());
             for (PriorityDTO priorityDTO : priorityDTOList) {
-                priorityVOList.add(priorityDTO.clone(PriorityVO.class));
+                PriorityVO priorityVO = priorityDTO.clone(PriorityVO.class);
+                priorityVO.setGmtCreate(dateProvider.formatDateTime(priorityDTO.getGmtCreate()));
+                priorityVO.setGmtModified(dateProvider.formatDateTime(priorityDTO.getGmtModified()));
+                priorityVOList.add(priorityVO);
             }
             return priorityVOList;
         } catch (Exception e) {
@@ -64,7 +71,8 @@ public class PriorityController {
             List<PriorityDTO> priorityDTOList = priorityService.listChildPriorities(parentId);
             List<PriorityVO> priorityVOList = new ArrayList<>(priorityDTOList.size());
             for (PriorityDTO priorityDTO : priorityDTOList) {
-                priorityVOList.add(priorityDTO.clone(PriorityVO.class));
+                PriorityVO priorityVO = convertPriorityDTO2VO(priorityDTO);
+                priorityVOList.add(priorityVO);
             }
             return priorityVOList;
         } catch (Exception e) {
@@ -86,7 +94,7 @@ public class PriorityController {
             if (priorityDTO == null) {
                 priorityDTO = new PriorityDTO();
             }
-            return priorityDTO.clone(PriorityVO.class);
+            return convertPriorityDTO2VO(priorityDTO);
         } catch (Exception e) {
             logger.error("error", e);
         }
@@ -102,7 +110,7 @@ public class PriorityController {
     @PostMapping("/")
     public Boolean savePriority(@RequestBody PriorityVO priorityVO) {
         try {
-            return priorityService.savePriority(priorityVO.clone(PriorityDTO.class));
+            return priorityService.savePriority(convertPriorityVO2DTO(priorityVO));
         } catch (Exception e) {
             logger.error("error", e);
         }
@@ -118,7 +126,7 @@ public class PriorityController {
     @PutMapping("/{id}")
     Boolean updatePriority(@RequestBody PriorityVO priorityVO) {
         try {
-            return priorityService.updatePriority(priorityVO.clone(PriorityDTO.class));
+            return priorityService.updatePriority(convertPriorityVO2DTO(priorityVO));
         } catch (Exception e) {
             logger.error("error", e);
         }
@@ -139,5 +147,28 @@ public class PriorityController {
             logger.error("error", e);
             return false;
         }
+    }
+
+    /**
+     * 将 PriorityDTO 转换为 PriorityVO
+     *
+     * @param priorityDTO priorityDTO
+     * @return priorityVO
+     */
+    private PriorityVO convertPriorityDTO2VO(PriorityDTO priorityDTO) throws Exception {
+        PriorityVO priorityVO = priorityDTO.clone(PriorityVO.class);
+        priorityVO.setGmtCreate(dateProvider.formatDateTime(priorityDTO.getGmtCreate()));
+        priorityVO.setGmtModified(dateProvider.formatDateTime(priorityDTO.getGmtModified()));
+        return priorityVO;
+    }
+
+    /**
+     * 将 PriorityVO 转换为 PriorityDTO
+     *
+     * @param priorityVO priorityVO
+     * @return priorityDTO
+     */
+    private PriorityDTO convertPriorityVO2DTO(PriorityVO priorityVO) throws Exception {
+        return priorityVO.clone(PriorityDTO.class);
     }
 }

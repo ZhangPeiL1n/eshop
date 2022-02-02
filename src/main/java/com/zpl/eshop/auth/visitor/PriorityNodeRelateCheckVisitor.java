@@ -34,7 +34,7 @@ public class PriorityNodeRelateCheckVisitor implements PriorityNodeVisitor {
     @Override
     public void visit(PriorityNode priorityNode) {
 
-        List<PriorityDO> priorityDOList = priorityDAO.listChildPriorities(priorityNode.getParentId());
+        List<PriorityDO> priorityDOList = priorityDAO.listChildPriorities(priorityNode.getId());
         if (priorityDOList != null && priorityDOList.size() > 0) {
             for (PriorityDO priorityDO : priorityDOList) {
                 PriorityNode node = priorityDO.clone(PriorityNode.class);
@@ -54,12 +54,12 @@ public class PriorityNodeRelateCheckVisitor implements PriorityNodeVisitor {
      * @return 是否被关联
      */
     public Boolean relateCheck(PriorityNode priorityNode) {
-        Long roleRelatedCount = rolePriorityRelationshipDAO.getCountByPriorityId(priorityNode.getId());
+        Long roleRelatedCount = rolePriorityRelationshipDAO.countByPriorityId(priorityNode.getId());
         if (roleRelatedCount != null && roleRelatedCount > 0) {
             return true;
         }
 
-        Long accountRelatedCount = accountPriorityRelationshipDAO.getCountByPriorityId(priorityNode.getId());
+        Long accountRelatedCount = accountPriorityRelationshipDAO.countByPriorityId(priorityNode.getId());
         if (accountRelatedCount != null && accountRelatedCount > 0) {
             return true;
         }

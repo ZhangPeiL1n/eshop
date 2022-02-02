@@ -1,6 +1,9 @@
 package com.zpl.eshop.auth.domain;
 
 import com.zpl.eshop.common.util.BeanCopierUtils;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +16,10 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/7 21:36
  **/
+@Getter
+@Setter
 @ToString
+@EqualsAndHashCode
 public class PriorityDTO {
     private static final Logger logger = LoggerFactory.getLogger(PriorityDTO.class);
     /**

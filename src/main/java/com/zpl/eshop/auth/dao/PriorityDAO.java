@@ -43,7 +43,7 @@ public interface PriorityDAO {
      * @param priorityDO 权限DO对象
      * @return 新增是否成功
      */
-    Boolean savePriority(PriorityDO priorityDO);
+    Long savePriority(PriorityDO priorityDO);
 
     /**
      * 更新权限

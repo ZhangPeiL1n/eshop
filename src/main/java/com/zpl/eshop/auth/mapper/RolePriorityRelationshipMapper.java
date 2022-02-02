@@ -1,8 +1,7 @@
 package com.zpl.eshop.auth.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.zpl.eshop.auth.domain.RolePriorityRelationshipDO;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @author ZhangPeiL1n
@@ -11,6 +10,26 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface RolePriorityRelationshipMapper {
 
+
+    /**
+     * 新增角色权限关联关系
+     *
+     * @param rolePriorityRelationshipDO 角色权限关联关系DO
+     */
+    @Insert("INSERT INTO auth_role_priority_relationship(" +
+            "role_id," +
+            "priority_id," +
+            "gmt_create," +
+            "gmt_modified" +
+            ")VALUES(" +
+            "#{roleId}," +
+            "#{priorityId}," +
+            "#{gmtCreate}," +
+            "#{gmtModified}" +
+            ")")
+    @Options(keyColumn = "id", keyProperty = "id", useGeneratedKeys = true)
+    void save(RolePriorityRelationshipDO rolePriorityRelationshipDO);
+
     /**
      * 根据权限id查询记录数
      *
@@ -18,7 +37,7 @@ public interface RolePriorityRelationshipMapper {
      * @return 记录数
      */
     @Select("SELECT count(*) " +
-            "FROM auth_role_priority_relationship" +
+            "FROM auth_role_priority_relationship " +
             "WHERE priority_id = #{priorityId}")
     Long getCountByPriorityId(@Param("priorityId") Long priorityId);
 }

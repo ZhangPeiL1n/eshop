@@ -28,7 +28,7 @@ public class PriorityNodeDeleteVisitor implements PriorityNodeVisitor {
      */
     @Override
     public void visit(PriorityNode priorityNode) {
-        List<PriorityDO> priorityDOList = priorityDAO.listChildPriorities(priorityNode.getParentId());
+        List<PriorityDO> priorityDOList = priorityDAO.listChildPriorities(priorityNode.getId());
         if (priorityDOList != null && priorityDOList.size() > 0) {
             for (PriorityDO priorityDO : priorityDOList) {
                 PriorityNode node = priorityDO.clone(PriorityNode.class);
