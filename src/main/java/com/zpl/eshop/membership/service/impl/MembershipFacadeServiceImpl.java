@@ -1,6 +1,7 @@
 package com.zpl.eshop.membership.service.impl;
 
 import com.zpl.eshop.membership.service.MembershipFacadeService;
+import org.springframework.stereotype.Service;
 
 /**
  * 会员中心对外接口Service组件
@@ -8,6 +9,7 @@ import com.zpl.eshop.membership.service.MembershipFacadeService;
  * @author ZhangPeiL1n
  * @date 2022/2/2 18:58
  **/
+@Service
 public class MembershipFacadeServiceImpl implements MembershipFacadeService {
     /**
      * 通知会员中心，“用户今日第一次登陆”事件发生了
