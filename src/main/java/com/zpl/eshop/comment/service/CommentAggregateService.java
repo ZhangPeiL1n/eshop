@@ -1,5 +1,6 @@
 package com.zpl.eshop.comment.service;
 
+import com.zpl.eshop.comment.domain.CommentAggregateDO;
 import com.zpl.eshop.comment.domain.CommentInfoDTO;
 
 /**
@@ -17,5 +18,5 @@ public interface CommentAggregateService {
      * @param commentInfoDTO 评论信息DTO
      * @return 更新是否成功
      */
-    Boolean updateCommentAggregate(CommentInfoDTO commentInfoDTO);
+    CommentAggregateDO refreshCommentAggregate(CommentInfoDTO commentInfoDTO);
 }

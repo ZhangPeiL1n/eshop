@@ -30,6 +30,6 @@ public interface CommentPictureMapper {
             "#{gmtCreate}," +
             "#{gmtModified}" +
             ")")
-    @Options(useGeneratedKeys = true, keyColumn = "id")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     void saveCommentPicture(CommentPictureDO commentPictureDO);
 }

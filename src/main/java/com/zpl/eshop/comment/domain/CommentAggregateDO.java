@@ -1,5 +1,6 @@
 package com.zpl.eshop.comment.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class CommentAggregateDO {
 
     /**
@@ -45,7 +47,7 @@ public class CommentAggregateDO {
     /**
      * 晒图评论数量
      */
-    private Long showPictureCommentCount;
+    private Long showPicturesCommentCount;
 
     /**
      * 中评数量

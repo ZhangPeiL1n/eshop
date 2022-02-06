@@ -29,10 +29,10 @@ public interface CommentInfoMapper {
             "goods_sku_sale_properties," +
             "total_score," +
             "goods_score," +
-            "customer_score," +
+            "customer_service_score," +
             "logistics_score," +
             "comment_content," +
-            "is_show_picture," +
+            "is_show_pictures," +
             "is_default_comment," +
             "comment_status," +
             "comment_type," +
@@ -49,7 +49,7 @@ public interface CommentInfoMapper {
             "#{goodsSkuSaleProperties}," +
             "#{totalScore}," +
             "#{goodsScore}," +
-            "#{customerScore}," +
+            "#{customerServiceScore}," +
             "#{logisticsScore}," +
             "#{commentContent}," +
             "#{showPicture}," +
@@ -59,6 +59,6 @@ public interface CommentInfoMapper {
             "#{gmtCreate}," +
             "#{gmtModified}" +
             ")")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void saveCommentInfo(CommentInfoDO commentInfoDO);
 }

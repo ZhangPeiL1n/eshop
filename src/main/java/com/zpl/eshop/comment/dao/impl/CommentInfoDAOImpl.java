@@ -27,13 +27,13 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
     private final Logger logger = LoggerFactory.getLogger(CommentInfoDAOImpl.class);
 
     @Override
-    public Boolean saveCommentInfo(CommentInfoDO commentInfoDO) {
+    public Long saveCommentInfo(CommentInfoDO commentInfoDO) {
         try {
             commentInfoMapper.saveCommentInfo(commentInfoDO);
         } catch (Exception e) {
             logger.error("error", e);
-            return false;
+            return null;
         }
-        return true;
+        return commentInfoDO.getId();
     }
 }

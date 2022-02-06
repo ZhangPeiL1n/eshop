@@ -1,6 +1,6 @@
 package com.zpl.eshop.comment.controller;
 
-import com.zpl.eshop.comment.constant.ShowPicture;
+import com.zpl.eshop.comment.constant.ShowPictures;
 import com.zpl.eshop.comment.domain.CommentInfoDTO;
 import com.zpl.eshop.comment.domain.CommentInfoVO;
 import com.zpl.eshop.comment.service.CommentAggregateService;
@@ -70,12 +70,12 @@ public class CommentController {
     @PostMapping("/")
     public Boolean publishComment(HttpServletRequest request, CommentInfoVO commentInfoVO, MultipartFile[] files) {
         try {
-            commentInfoVO.setShowPicture(ShowPicture.NO);
+            commentInfoVO.setShowPicture(ShowPictures.NO);
             // 设置是否晒图
             if (files != null && files.length > 0) {
                 for (MultipartFile file : files) {
                     if (file != null) {
-                        commentInfoVO.setShowPicture(ShowPicture.YES);
+                        commentInfoVO.setShowPicture(ShowPictures.YES);
                         break;
                     }
                 }
@@ -90,14 +90,14 @@ public class CommentController {
             commentPictureService.saveCommentPictures(appBasePath, commentInfoDTO.getId(), files);
 
             // 更新评论统计信息
-            commentAggregateService.updateCommentAggregate(commentInfoDTO);
+            commentAggregateService.refreshCommentAggregate(commentInfoDTO);
 
             // 这里就用门面模式交互了
             // 通知订单中心，发表评论事件发生了
             orderFacadeService.informPublishCommentEvent(commentInfoDTO.getOrderInfoId());
 
             // 通知用户中心，用户已经发表评论
-            membershipFacadeService.informPublishCommentEvent(commentInfoDTO.getUserAccountId(), ShowPicture.YES.equals(commentInfoDTO.getCommentType()));
+            membershipFacadeService.informPublishCommentEvent(commentInfoDTO.getUserAccountId(), ShowPictures.YES.equals(commentInfoDTO.getCommentType()));
         } catch (Exception e) {
             logger.error("error", e);
             return false;

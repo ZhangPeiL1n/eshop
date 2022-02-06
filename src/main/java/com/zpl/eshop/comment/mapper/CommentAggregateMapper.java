@@ -28,8 +28,8 @@ public interface CommentAggregateMapper {
             "medium_comment_count," +
             "bad_comment_count," +
             "gmt_create," +
-            "gmt_modified" +
-            "FROM comment_aggregate" +
+            "gmt_modified " +
+            "FROM comment_aggregate " +
             "WHERE goods_id = #{goodsId}")
     @Results({
             @Result(column = "id", property = "id", id = true),
@@ -55,7 +55,7 @@ public interface CommentAggregateMapper {
             "total_comment_count," +
             "good_comment_count," +
             "good_comment_rate," +
-            "show_picture_comment_count," +
+            "show_pictures_comment_count," +
             "medium_comment_count," +
             "bad_comment_count," +
             "gmt_create," +
@@ -71,6 +71,7 @@ public interface CommentAggregateMapper {
             "#{gmtCreate}," +
             "#{gmtModified}" +
             ")")
+    @Options(keyColumn = "id", keyProperty = "id", useGeneratedKeys = true)
     void saveCommentAggregate(CommentAggregateDO commentAggregateDO);
 
     /**
@@ -78,7 +79,7 @@ public interface CommentAggregateMapper {
      *
      * @param commentAggregateDO 评论统计信息DO
      */
-    @Update("UPDATE comment_aggregate SET" +
+    @Update("UPDATE comment_aggregate SET " +
             "goods_id=#{goodsId}," +
             "total_comment_count=#{totalCommentCount}," +
             "good_comment_count=#{goodCommentCount}," +
@@ -87,7 +88,7 @@ public interface CommentAggregateMapper {
             "medium_comment_count=#{mediumCommentCount}," +
             "bad_comment_count=#{badCommentCount}," +
             "gmt_create=#{gmtCreate}," +
-            "gmt_modified=#{gmtModified}" +
+            "gmt_modified=#{gmtModified} " +
             "WHERE id=#{id}")
     void updateCommentAggregate(CommentAggregateDO commentAggregateDO);
 }

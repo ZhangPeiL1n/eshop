@@ -62,7 +62,7 @@ public class AutoPublishCommentTask {
                         // 先保存自动发表的评论信息
                         CommentInfoDTO commentInfoDTO = commentInfoService.saveAutoPublishedCommentInfo(orderInfoDTO, orderItemDTO);
                         // 更新统计信息
-                        commentAggregateService.updateCommentAggregate(commentInfoDTO);
+                        commentAggregateService.refreshCommentAggregate(commentInfoDTO);
                     }
                     orderInfoIds.add(orderInfoDTO.getId());
                 }

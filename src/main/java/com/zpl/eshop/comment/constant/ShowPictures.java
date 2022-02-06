@@ -6,7 +6,7 @@ package com.zpl.eshop.comment.constant;
  * @author ZhangPeiL1n
  * @date 2022/1/13 22:08
  **/
-public class ShowPicture {
+public class ShowPictures {
 
     public static final Integer YES = 1;
     public static final Integer NO = 0;

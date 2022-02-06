@@ -1,6 +1,7 @@
 package com.zpl.eshop.comment.domain;
 
 import com.zpl.eshop.common.util.BeanCopierUtils;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,6 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class CommentInfoDTO {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentInfoDTO.class);

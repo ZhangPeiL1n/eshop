@@ -3,7 +3,7 @@ package com.zpl.eshop.comment.dao;
 import com.zpl.eshop.comment.domain.CommentAggregateDO;
 
 /**
- * 评论管理模块DAO组件接口
+ * 评论统计信息管理模块DAO组件接口
  *
  * @author ZhangPeiL1n
  * @date 2022/1/18 21:42

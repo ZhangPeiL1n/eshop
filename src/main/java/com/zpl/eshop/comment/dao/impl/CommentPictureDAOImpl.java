@@ -26,13 +26,13 @@ public class CommentPictureDAOImpl implements CommentPictureDAO {
     private final Logger logger = LoggerFactory.getLogger(CommentPictureDAOImpl.class);
 
     @Override
-    public Boolean saveCommentPicture(CommentPictureDO commentPictureDO) {
+    public Long saveCommentPicture(CommentPictureDO commentPictureDO) {
         try {
             mapper.saveCommentPicture(commentPictureDO);
-            return true;
+            return commentPictureDO.getId();
         } catch (Exception e) {
             logger.error("error", e);
-            return false;
+            return null;
         }
     }
 }
