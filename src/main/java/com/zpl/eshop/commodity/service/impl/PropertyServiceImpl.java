@@ -5,6 +5,7 @@ import com.zpl.eshop.commodity.domain.PropertyDO;
 import com.zpl.eshop.commodity.domain.PropertyDTO;
 import com.zpl.eshop.commodity.domain.PropertyQuery;
 import com.zpl.eshop.commodity.service.PropertyService;
+import com.zpl.eshop.common.util.DateProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,12 @@ public class PropertyServiceImpl implements PropertyService {
      */
     @Autowired
     private PropertyDAO propertyDAO;
+
+    /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
 
     /**
      * 分页查询商品属性
@@ -56,6 +63,8 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public Boolean saveProperty(PropertyDTO propertyDTO) {
         try {
+            propertyDTO.setGmtCreate(dateProvider.getCurrentTime());
+            propertyDTO.setGmtModified(dateProvider.getCurrentTime());
             propertyDAO.saveProperty(propertyDTO.clone(PropertyDO.class));
         } catch (Exception e) {
             logger.error("error", e);
@@ -88,6 +97,7 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public Boolean updateProperty(PropertyDTO propertyDTO) {
         try {
+            propertyDTO.setGmtModified(dateProvider.getCurrentTime());
             propertyDAO.updateProperty(propertyDTO.clone(PropertyDO.class));
         } catch (Exception e) {
             logger.error("error", e);

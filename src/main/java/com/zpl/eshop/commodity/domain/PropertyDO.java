@@ -1,6 +1,7 @@
 package com.zpl.eshop.commodity.domain;
 
 import com.zpl.eshop.common.util.BeanCopierUtils;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,6 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class PropertyDO {
 
     private final Logger logger = LoggerFactory.getLogger(PropertyDO.class);
@@ -45,7 +47,7 @@ public class PropertyDO {
     /**
      * 输入可选值
      */
-    private String inputValue;
+    private String inputValues;
 
     /**
      * 创建时间

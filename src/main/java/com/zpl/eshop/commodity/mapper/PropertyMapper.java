@@ -23,21 +23,21 @@ public interface PropertyMapper {
      */
     @Select("<script>" +
             "SELECT " +
-            "id," +
-            "property_name," +
-            "property_desc," +
-            "input_type," +
-            "input_value," +
-            "gmt_create," +
-            "gmt_modified" +
+            "a.id," +
+            "a.property_name," +
+            "a.property_desc," +
+            "a.input_type," +
+            "a.input_values," +
+            "a.gmt_create," +
+            "a.gmt_modified " +
             "FROM commodity_property a," +
             "(" +
             "SELECT id FROM commodity_property " +
             "<if test='propertyName != null'>" +
-            "WHERE property_name like '#{propertyName}%'" +
+            "WHERE property_name like '${propertyName}%'" +
             "</if>" +
             "LIMIT #{offset},#{size}" +
-            ") b" +
+            ") b " +
             "WHERE a.id = b.id" +
             "</script>")
     @Results({
@@ -45,7 +45,7 @@ public interface PropertyMapper {
             @Result(column = "property_name", property = "propertyName"),
             @Result(column = "property_desc", property = "propertyDesc"),
             @Result(column = "input_type", property = "inputType"),
-            @Result(column = "input_value", property = "inputValue"),
+            @Result(column = "input_values", property = "inputValues"),
             @Result(column = "gmt_create", property = "gmtCreate"),
             @Result(column = "gmt_modified", property = "gmtModified")
     })
@@ -60,14 +60,15 @@ public interface PropertyMapper {
             "property_name," +
             "property_desc," +
             "input_type," +
+            "input_values," +
             "gmt_create," +
             "gmt_modified" +
             ")VALUES(" +
             "#{propertyName}," +
             "#{propertyDesc}," +
             "#{inputType}," +
-            "#{inputValue}," +
-            "#{gmtCreate}" +
+            "#{inputValues}," +
+            "#{gmtCreate}," +
             "#{gmtModified}" +
             ")")
     @Options(keyColumn = "id", keyProperty = "id", useGeneratedKeys = true)
@@ -84,9 +85,9 @@ public interface PropertyMapper {
             "property_name," +
             "property_desc," +
             "input_type," +
-            "input_value," +
+            "input_values," +
             "gmt_create," +
-            "gmt_modified" +
+            "gmt_modified " +
             "FROM commodity_property " +
             "WHERE id = #{id}")
     @Results({
@@ -94,7 +95,7 @@ public interface PropertyMapper {
             @Result(column = "property_name", property = "propertyName"),
             @Result(column = "property_desc", property = "propertyDesc"),
             @Result(column = "input_type", property = "inputType"),
-            @Result(column = "input_value", property = "inputValue"),
+            @Result(column = "input_values", property = "inputValues"),
             @Result(column = "gmt_create", property = "gmtCreate"),
             @Result(column = "gmt_modified", property = "gmtModified")
     })
@@ -107,7 +108,7 @@ public interface PropertyMapper {
      */
     @Update("UPDATE commodity_property SET " +
             "property_desc = #{propertyDesc}," +
-            "gmt_creat = #{gmtCreate}" +
+            "gmt_modified = #{gmtModified} " +
             "WHERE id = #{id}")
     void updateProperty(PropertyDO propertyDO);
 }
