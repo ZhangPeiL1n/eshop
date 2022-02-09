@@ -61,7 +61,7 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      */
     @Override
     public Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO) {
-        return false;
+        return true;
     }
 
     /**
@@ -72,7 +72,7 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      */
     @Override
     public Boolean informPayOrderEvent(OrderInfoDTO orderDTO) {
-        return false;
+        return true;
     }
 
     /**
@@ -83,7 +83,7 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      */
     @Override
     public Boolean cancelOrderEvent(OrderInfoDTO orderDTO) {
-        return false;
+        return true;
     }
 
     /**
@@ -112,6 +112,6 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      */
     @Override
     public Long getSaleStockQuantity(Long goodsSkuId) {
-        return 0L;
+        return 133221333L;
     }
 }

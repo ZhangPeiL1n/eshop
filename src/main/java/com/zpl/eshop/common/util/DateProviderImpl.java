@@ -13,6 +13,7 @@ import java.util.Date;
  **/
 @Component
 public class DateProviderImpl implements DateProvider {
+
     /**
      * 获取当前时间
      *
@@ -22,5 +23,31 @@ public class DateProviderImpl implements DateProvider {
     public Date getCurrentTime() throws Exception {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+    }
+
+    /**
+     * 将 Date 对象格式化成：yyyy-MM-dd HH:mm:ss
+     *
+     * @param date 日期对象
+     * @return 格式化后字符串
+     * @throws Exception
+     */
+    @Override
+    public String formatDateTime(Date date) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return simpleDateFormat.format(date);
+    }
+
+    /**
+     * 将 格式化字符串转 换为日期
+     *
+     * @param datetime 日期字符串
+     * @return 日期
+     * @throws Exception
+     */
+    @Override
+    public Date parse2Datetime(String datetime) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return simpleDateFormat.parse(datetime);
     }
 }

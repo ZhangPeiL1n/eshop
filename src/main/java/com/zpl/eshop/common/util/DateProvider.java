@@ -17,4 +17,22 @@ public interface DateProvider {
      * @throws Exception
      */
     Date getCurrentTime() throws Exception;
+
+    /**
+     * 将 Date 对象格式化成：yyyy-MM-dd HH:mm:ss
+     *
+     * @param date 日期对象
+     * @return 格式化后字符串
+     * @throws Exception
+     */
+    String formatDateTime(Date date) throws Exception;
+
+    /**
+     * 将 格式化字符串转 换为日期
+     *
+     * @param datetime 日期字符串
+     * @return 日期
+     * @throws Exception
+     */
+    Date parse2Datetime(String datetime) throws Exception;
 }
