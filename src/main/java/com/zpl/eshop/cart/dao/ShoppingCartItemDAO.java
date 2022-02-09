@@ -3,6 +3,8 @@ package com.zpl.eshop.cart.dao;
 import com.zpl.eshop.cart.domain.ShoppingCartItemDO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 购物车条目管理模块DAO组件接口
  *
@@ -36,6 +38,14 @@ public interface ShoppingCartItemDAO {
      * @return 更新成功返回 true
      */
     Boolean updateShoppingCartItem(ShoppingCartItemDO shoppingCartItemDO);
+
+    /**
+     * 查询购物车中的所有条目
+     *
+     * @param shoppingCartId 购物车id
+     * @return 购物车中所有条目DO集合
+     */
+    List<ShoppingCartItemDO> listShoppingCartItemByCartSkuId(@Param("shoppingCartId") Long shoppingCartId);
 
 
 }

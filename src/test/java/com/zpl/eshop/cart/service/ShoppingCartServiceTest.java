@@ -53,7 +53,7 @@ public class ShoppingCartServiceTest {
      * 测试添加购物车条目
      */
     @Test
-    public void testAddShoppingCartItem() throws ParseException {
+    public void testAddShoppingCartItem() throws Exception {
         // 准备一些参数
         Long userAccountId = 1L;
         Long goodsSkuId = 1L;

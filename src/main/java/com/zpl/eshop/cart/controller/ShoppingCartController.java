@@ -1,14 +1,14 @@
 package com.zpl.eshop.cart.controller;
 
-import com.zpl.eshop.cart.domain.AddShoppingCartItemQuery;
+import com.zpl.eshop.cart.domain.*;
 import com.zpl.eshop.cart.service.ShoppingCartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ZhangPeiL1n
@@ -38,6 +38,30 @@ public class ShoppingCartController {
         } catch (Exception e) {
             logger.error("error", e);
             return false;
+        }
+    }
+
+    /**
+     * 查看购物车
+     *
+     * @param userAccountId 用户帐号id
+     * @return 购物车
+     */
+    @GetMapping("/view/{userAccountId}")
+    public ShoppingCartVO getShoppingCartVO(@PathVariable("userAccountId") Long userAccountId) {
+        try {
+            ShoppingCartDTO shoppingCartDTO = shoppingCartService.getShoppingCartDTOByUserAccountId(userAccountId);
+            ShoppingCartVO shoppingCartVO = shoppingCartDTO.clone(ShoppingCartVO.class);
+
+            List<ShoppingCartItemVO> shoppingCartItemVOList = new ArrayList<>();
+            shoppingCartVO.setShoppingCartItemVOList(shoppingCartItemVOList);
+            for (ShoppingCartItemDTO shoppingCartItemDTO : shoppingCartDTO.getShoppingCartItemDTOList()) {
+                shoppingCartItemVOList.add(shoppingCartItemDTO.clone(ShoppingCartItemVO.class));
+            }
+            return shoppingCartVO;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new ShoppingCartVO();
         }
     }
 }
