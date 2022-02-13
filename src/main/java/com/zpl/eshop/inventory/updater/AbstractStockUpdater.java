@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.command;
+package com.zpl.eshop.inventory.updater;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.constant.StockStatus;
@@ -10,14 +10,14 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 /**
- * 商品库存工薪命令的抽象基类
+ * 商品库存更新命令的抽象基类
  *
  * @author ZhangPeiL1n
  * @date 2022/1/24 22:31
  **/
-public abstract class AbstractGoodsStockUpdateCommand implements GoodsStockUpdateCommand {
+public abstract class AbstractStockUpdater implements StockUpdater {
 
-    private final Logger logger = LoggerFactory.getLogger(AbstractGoodsStockUpdateCommand.class);
+    private final Logger logger = LoggerFactory.getLogger(AbstractStockUpdater.class);
 
     /**
      * 商品库存对象
@@ -41,7 +41,7 @@ public abstract class AbstractGoodsStockUpdateCommand implements GoodsStockUpdat
      * @param goodsStockDAO    商品库存管理模块DAO组件
      * @param dateProvider     日期辅助组件
      */
-    public AbstractGoodsStockUpdateCommand(List<GoodsStockDO> goodsStockDOList, GoodsStockDAO goodsStockDAO, DateProvider dateProvider) {
+    public AbstractStockUpdater(List<GoodsStockDO> goodsStockDOList, GoodsStockDAO goodsStockDAO, DateProvider dateProvider) {
         this.goodsStockDOList = goodsStockDOList;
         this.goodsStockDAO = goodsStockDAO;
         this.dateProvider = dateProvider;
@@ -55,6 +55,7 @@ public abstract class AbstractGoodsStockUpdateCommand implements GoodsStockUpdat
             updateSaledStockQuantity();
             updateStockStatus();
             updateGmtModified();
+            executeUpdateGoodsStock();
         } catch (Exception e) {
             logger.error("error", e);
             return false;

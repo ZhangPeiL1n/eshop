@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.command;
+package com.zpl.eshop.inventory.updater;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.dao.GoodsStockDAO;
@@ -14,7 +14,7 @@ import java.util.Map;
  * @author ZhangPeiL1n
  * @date 2022/1/25 21:16
  **/
-public class ReturnGoodsInputStockUpdateCommand extends AbstractGoodsStockUpdateCommand {
+public class ReturnInputStockUpdater extends AbstractStockUpdater {
 
     /**
      * 退货入库单条目DTO集合
@@ -28,7 +28,7 @@ public class ReturnGoodsInputStockUpdateCommand extends AbstractGoodsStockUpdate
      * @param goodsStockDAO    商品库存管理模块DAO组件
      * @param dateProvider     日期辅助组件
      */
-    public ReturnGoodsInputStockUpdateCommand(
+    public ReturnInputStockUpdater(
             List<GoodsStockDO> goodsStockDOList,
             GoodsStockDAO goodsStockDAO,
             DateProvider dateProvider,

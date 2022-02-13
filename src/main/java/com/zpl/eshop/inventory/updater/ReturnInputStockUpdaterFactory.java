@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.command;
+package com.zpl.eshop.inventory.updater;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.dao.GoodsStockDAO;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @date 2022/1/25 22:20
  **/
 @Component
-public class ReturnGoodsInputStockUpdateCommandFactory extends AbstractGoodsStockUpdateCommandFactory<ReturnGoodsInputOrderDTO> {
+public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<ReturnGoodsInputOrderDTO> {
 
 
     /**
@@ -30,7 +30,7 @@ public class ReturnGoodsInputStockUpdateCommandFactory extends AbstractGoodsStoc
      * @param dateProvider  日期辅助组件
      */
     @Autowired
-    public ReturnGoodsInputStockUpdateCommandFactory(GoodsStockDAO goodsStockDAO, DateProvider dateProvider) {
+    public ReturnInputStockUpdaterFactory(GoodsStockDAO goodsStockDAO, DateProvider dateProvider) {
         super(goodsStockDAO, dateProvider);
     }
 
@@ -65,7 +65,7 @@ public class ReturnGoodsInputStockUpdateCommandFactory extends AbstractGoodsStoc
      * @throws Exception
      */
     @Override
-    protected GoodsStockUpdateCommand create(List<GoodsStockDO> goodsStockDOList, ReturnGoodsInputOrderDTO parameter) throws Exception {
+    protected StockUpdater create(List<GoodsStockDO> goodsStockDOList, ReturnGoodsInputOrderDTO parameter) throws Exception {
         List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOList = parameter.getReturnGoodsInputOrderItemDTOList();
 
         Map<Long, ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOMap = new HashMap<>();
@@ -76,6 +76,6 @@ public class ReturnGoodsInputStockUpdateCommandFactory extends AbstractGoodsStoc
                 returnGoodsInputOrderItemDTOMap.put(returnGoodsInputOrderItemDTO.getId(), returnGoodsInputOrderItemDTO);
             }
         }
-        return new ReturnGoodsInputStockUpdateCommand(goodsStockDOList, goodsStockDAO, dateProvider, returnGoodsInputOrderItemDTOMap);
+        return new ReturnInputStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, returnGoodsInputOrderItemDTOMap);
     }
 }

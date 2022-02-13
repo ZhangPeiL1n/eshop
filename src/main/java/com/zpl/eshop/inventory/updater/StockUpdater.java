@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.command;
+package com.zpl.eshop.inventory.updater;
 
 /**
  * 商品库存更新命令接口
@@ -6,7 +6,7 @@ package com.zpl.eshop.inventory.command;
  * @author ZhangPeiL1n
  * @date 2022/1/24 22:29
  **/
-public interface GoodsStockUpdateCommand {
+public interface StockUpdater {
     /**
      * 更新商品库存
      *

@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.command;
+package com.zpl.eshop.inventory.updater;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.dao.GoodsStockDAO;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @date 2022/1/25 22:20
  **/
 @Component
-public class PurchaseInputStockUpdateCommandFactory extends AbstractGoodsStockUpdateCommandFactory<PurchaseInputOrderDTO> {
+public class PurchaseInputStockUpdaterFactory extends AbstractStockUpdaterFactory<PurchaseInputOrderDTO> {
 
 
     /**
@@ -30,7 +30,7 @@ public class PurchaseInputStockUpdateCommandFactory extends AbstractGoodsStockUp
      * @param dateProvider  日期辅助组件
      */
     @Autowired
-    public PurchaseInputStockUpdateCommandFactory(GoodsStockDAO goodsStockDAO, DateProvider dateProvider) {
+    public PurchaseInputStockUpdaterFactory(GoodsStockDAO goodsStockDAO, DateProvider dateProvider) {
         super(goodsStockDAO, dateProvider);
     }
 
@@ -64,7 +64,7 @@ public class PurchaseInputStockUpdateCommandFactory extends AbstractGoodsStockUp
      * @throws Exception
      */
     @Override
-    protected GoodsStockUpdateCommand create(List<GoodsStockDO> goodsStockDOList, PurchaseInputOrderDTO parameter) throws Exception {
+    protected StockUpdater create(List<GoodsStockDO> goodsStockDOList, PurchaseInputOrderDTO parameter) throws Exception {
         List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList = parameter.getPurchaseInputOrderItemDTOList();
 
         Map<Long, PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOMap = new HashMap<>();
@@ -76,7 +76,7 @@ public class PurchaseInputStockUpdateCommandFactory extends AbstractGoodsStockUp
             }
         }
 
-        return new PurchaseInputStockUpdateCommand(goodsStockDOList, goodsStockDAO, dateProvider, purchaseInputOrderItemDTOMap);
+        return new PurchaseInputStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, purchaseInputOrderItemDTOMap);
     }
 
 }

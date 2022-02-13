@@ -22,26 +22,26 @@ public interface InventoryFacadeService {
     /**
      * 通知库存中心，“提交订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param orderInfoDTO 订单DTO
      * @return 处理结果
      */
-    Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informSubmitOrderEvent(OrderInfoDTO orderInfoDTO);
 
     /**
      * 通知库存中心，“支付订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param orderInfoDTO 订单DTO
      * @return 处理结果
      */
-    Boolean informPayOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informPayOrderEvent(OrderInfoDTO orderInfoDTO);
 
     /**
      * 通知库存中心，“取消订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param orderInfoDTO 订单DTO
      * @return 处理结果
      */
-    Boolean cancelOrderEvent(OrderInfoDTO orderDTO);
+    Boolean cancelOrderEvent(OrderInfoDTO orderInfoDTO);
 
     /**
      * 通知库存中心，“退货入库”事件发生了
