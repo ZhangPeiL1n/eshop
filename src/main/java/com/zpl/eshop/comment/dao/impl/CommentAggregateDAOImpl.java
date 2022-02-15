@@ -22,7 +22,7 @@ public class CommentAggregateDAOImpl implements CommentAggregateDAO {
     @Autowired
     private CommentAggregateMapper commentAggregateMapper;
 
-    private final Logger logger = LoggerFactory.getLogger(CommentAggregateDAOImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommentAggregateDAOImpl.class);
 
     /**
      * 根据商品 id 查询评论统计信息

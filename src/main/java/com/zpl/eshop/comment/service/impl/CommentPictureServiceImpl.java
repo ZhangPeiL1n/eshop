@@ -23,7 +23,7 @@ import java.util.Date;
 @Service
 public class CommentPictureServiceImpl implements CommentPictureService {
 
-    private final Logger logger = LoggerFactory.getLogger(CommentPictureServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommentPictureServiceImpl.class);
     /**
      * 评论晒图管理模块DAO组件
      */

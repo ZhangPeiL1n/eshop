@@ -32,7 +32,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private ShoppingCartItemDAO shoppingCartItemDAO;
 
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
 
 
     /**

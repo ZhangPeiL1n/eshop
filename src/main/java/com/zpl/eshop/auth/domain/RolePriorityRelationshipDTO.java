@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.util.Date;
 
 /**
- * 角色权限关系DO
+ * 角色权限关系DTO
  *
  * @author ZhangPeiL1n
  * @date 2022/2/1 23:35
@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class RolePriorityRelationshipDO extends AbstractObject {
+public class RolePriorityRelationshipDTO extends AbstractObject {
 
     /**
      * id

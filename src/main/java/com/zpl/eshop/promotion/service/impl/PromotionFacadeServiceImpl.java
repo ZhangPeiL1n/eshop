@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class PromotionFacadeServiceImpl implements PromotionFacadeService {
 
-    private final Logger logger = LoggerFactory.getLogger(PromotionFacadeServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(PromotionFacadeServiceImpl.class);
 
     /**
      * 根据商品 id 查询促销活动

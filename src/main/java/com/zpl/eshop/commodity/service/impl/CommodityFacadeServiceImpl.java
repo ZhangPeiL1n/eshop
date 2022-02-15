@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 @Service
 public class CommodityFacadeServiceImpl implements CommodityFacadeService {
 
-    private final Logger logger = LoggerFactory.getLogger(CommodityFacadeServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommodityFacadeServiceImpl.class);
 
     /**
      * 根据 id 查询商品 sku

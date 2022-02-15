@@ -23,7 +23,7 @@ import java.util.Date;
 @Service
 public class CommentAggregateServiceImpl implements CommentAggregateService {
 
-    private final Logger logger = LoggerFactory.getLogger(CommentAggregateServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommentAggregateServiceImpl.class);
     @Autowired
     private CommentAggregateDAO commentAggregateDAO;
 

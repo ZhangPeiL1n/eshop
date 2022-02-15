@@ -20,7 +20,7 @@ import java.util.Date;
 @ToString
 public class CommentInfoVO {
 
-    private final Logger logger = LoggerFactory.getLogger(CommentInfoVO.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommentInfoVO.class);
 
     /**
      * id

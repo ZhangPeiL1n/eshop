@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cart")
 public class ShoppingCartController {
 
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
     /**
      * 购物车管理模块Service组件
      */

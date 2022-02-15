@@ -23,7 +23,7 @@ public class CommentPictureDAOImpl implements CommentPictureDAO {
     @Autowired
     private CommentPictureMapper mapper;
 
-    private final Logger logger = LoggerFactory.getLogger(CommentPictureDAOImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommentPictureDAOImpl.class);
 
     @Override
     public Boolean saveCommentPicture(CommentPictureDO commentPictureDO) {

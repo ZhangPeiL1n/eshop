@@ -24,7 +24,7 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
     @Autowired
     private CommentInfoMapper commentInfoMapper;
 
-    private final Logger logger = LoggerFactory.getLogger(CommentInfoDAOImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommentInfoDAOImpl.class);
 
     @Override
     public Boolean saveCommentInfo(CommentInfoDO commentInfoDO) {

@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 角色和权限关系管理模块 DAO 组件
  *
@@ -21,9 +23,9 @@ public class RolePriorityRelationshipDAOImpl implements RolePriorityRelationship
      * 角色和权限管理关系模块 mapper
      */
     @Autowired
-    RolePriorityRelationshipMapper rolePriorityRelationshipMapper;
+    RolePriorityRelationshipMapper relationshipMapper;
 
-    private final Logger logger = LoggerFactory.getLogger(RolePriorityRelationshipDAOImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RolePriorityRelationshipDAOImpl.class);
 
     /**
      * 新增角色权限关联关系
@@ -34,7 +36,7 @@ public class RolePriorityRelationshipDAOImpl implements RolePriorityRelationship
     @Override
     public Boolean save(RolePriorityRelationshipDO rolePriorityRelationshipDO) {
         try {
-            rolePriorityRelationshipMapper.save(rolePriorityRelationshipDO);
+            relationshipMapper.save(rolePriorityRelationshipDO);
         } catch (Exception e) {
             logger.error("error", e);
             return false;
@@ -51,10 +53,42 @@ public class RolePriorityRelationshipDAOImpl implements RolePriorityRelationship
     @Override
     public Long countByPriorityId(Long priorityId) {
         try {
-            return rolePriorityRelationshipMapper.getCountByPriorityId(priorityId);
+            return relationshipMapper.getCountByPriorityId(priorityId);
         } catch (Exception e) {
             logger.error("error", e);
             return null;
+        }
+    }
+
+    /**
+     * 根据角色id 查找出相关权限
+     *
+     * @param roleId 角色id
+     * @return 角色权限关系集合
+     */
+    @Override
+    public List<RolePriorityRelationshipDO> listByRoleId(Long roleId) {
+        try {
+            return relationshipMapper.listByRoleId(roleId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据角色删除关联关系
+     *
+     * @param roleId 角色id
+     */
+    @Override
+    public Boolean removeByRoleId(Long roleId) {
+        try {
+            relationshipMapper.removeByRoleId(roleId);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
         }
     }
 }

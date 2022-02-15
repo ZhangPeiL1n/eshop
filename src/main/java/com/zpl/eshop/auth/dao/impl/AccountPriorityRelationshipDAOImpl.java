@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AccountPriorityRelationshipDAOImpl implements AccountPriorityRelationshipDAO {
 
-    private final Logger logger = LoggerFactory.getLogger(AccountPriorityRelationshipDAOImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountPriorityRelationshipDAOImpl.class);
     /**
      * 账户和权限关系管理模块 mapper
      */

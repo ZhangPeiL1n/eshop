@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ShoppingCartDAOImpl implements ShoppingCartDAO {
 
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartDAOImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShoppingCartDAOImpl.class);
     /**
      * 购物车管理模块DAO组件
      */
