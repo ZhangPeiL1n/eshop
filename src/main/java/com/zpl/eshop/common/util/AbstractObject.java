@@ -15,7 +15,7 @@ public abstract class AbstractObject {
      * @param <T>   目标类型
      * @return 拷贝结果
      */
-    protected <T> T clone(Class<T> clazz) throws Exception {
+    public <T> T clone(Class<T> clazz) throws Exception {
         T target = clazz.newInstance();
         BeanCopierUtils.copyProperties(this, target);
         return target;
