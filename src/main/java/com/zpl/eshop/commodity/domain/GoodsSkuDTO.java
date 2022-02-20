@@ -1,5 +1,7 @@
 package com.zpl.eshop.commodity.domain;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -8,6 +10,7 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/3 17:09
  **/
+@Data
 public class GoodsSkuDTO {
     /**
      * id
@@ -20,9 +23,39 @@ public class GoodsSkuDTO {
     private Long goodsId;
 
     /**
+     * 商品名称
+     */
+    private String goodsName;
+
+    /**
      * 商品sku编号
      */
     private String goodsSkuCode;
+
+    /**
+     * 销售属性
+     */
+    private String saleProperties;
+
+    /**
+     * 商品毛重
+     */
+    private Double grossWeight;
+
+    /**
+     * 商品长度
+     */
+    private Double goodsLength;
+
+    /**
+     * 商品宽度
+     */
+    private Double goodsWidth;
+
+    /**
+     * 商品高度
+     */
+    private Double goodsHeight;
 
     /**
      * 采购价格
@@ -49,68 +82,4 @@ public class GoodsSkuDTO {
      */
     private Date gmtModified;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Long goodsId) {
-        this.goodsId = goodsId;
-    }
-
-    public String getGoodsSkuCode() {
-        return goodsSkuCode;
-    }
-
-    public void setGoodsSkuCode(String goodsSkuCode) {
-        this.goodsSkuCode = goodsSkuCode;
-    }
-
-    public Double getPurchasePrice() {
-        return purchasePrice;
-    }
-
-    public void setPurchasePrice(Double purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
-
-    public Double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
-    }
-
-    public Double getDiscountPrice() {
-        return discountPrice;
-    }
-
-    public void setDiscountPrice(Double discountPrice) {
-        this.discountPrice = discountPrice;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
 }
