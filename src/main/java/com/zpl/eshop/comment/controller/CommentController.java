@@ -1,22 +1,27 @@
 package com.zpl.eshop.comment.controller;
 
 import com.zpl.eshop.comment.constant.ShowPictures;
-import com.zpl.eshop.comment.domain.CommentInfoDTO;
-import com.zpl.eshop.comment.domain.CommentInfoVO;
+import com.zpl.eshop.comment.domain.*;
 import com.zpl.eshop.comment.service.CommentAggregateService;
 import com.zpl.eshop.comment.service.CommentInfoService;
 import com.zpl.eshop.comment.service.CommentPictureService;
+import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.membership.service.MembershipFacadeService;
 import com.zpl.eshop.order.service.OrderFacadeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 评论管理模块Controller组件
@@ -105,4 +110,60 @@ public class CommentController {
         return true;
     }
 
+    /**
+     * 分页查询评论信息
+     *
+     * @param query 查询条件
+     * @return 评论信息
+     */
+    @GetMapping("/")
+    public List<CommentInfoVO> listByPage(CommentInfoQuery query) {
+        try {
+            List<CommentInfoDTO> comments = commentInfoService.listByPage(query);
+            return ObjectUtils.convertList(comments, CommentInfoVO.class);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new ArrayList<>();
+        }
+    }
+
+    @GetMapping("/{id}")
+    public CommentInfoVO getById(@PathVariable("id") Long id) {
+        try {
+            CommentInfoVO vo = commentInfoService.getById(id).clone(CommentInfoVO.class);
+            List<CommentPictureDTO> commentPictures = commentPictureService.listByCommentId(id);
+            vo.setPictures(ObjectUtils.convertList(commentPictures, CommentPictureVO.class));
+            return vo;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new CommentInfoVO();
+        }
+    }
+
+    @GetMapping("/picture/{id}")
+    public void viewPicture(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) {
+        FileInputStream fis = null;
+        try {
+            CommentPictureDTO picture = commentPictureService.getById(id);
+            File file = new File(picture.getCommentPicturePath());
+            fis = new FileInputStream(file);
+            byte[] bytes = new byte[fis.available()];
+            fis.read(bytes);
+
+            response.setContentType("image/jpg");
+            OutputStream outputStream = response.getOutputStream();
+            outputStream.write(bytes);
+            outputStream.flush();
+        } catch (Exception e) {
+            logger.error("error", e);
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    logger.error("error", e);
+                }
+            }
+        }
+    }
 }

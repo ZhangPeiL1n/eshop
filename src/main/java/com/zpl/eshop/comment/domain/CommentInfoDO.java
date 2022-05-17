@@ -1,5 +1,6 @@
 package com.zpl.eshop.comment.domain;
 
+import com.zpl.eshop.common.util.AbstractObject;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.util.Date;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class CommentInfoDO {
+public class CommentInfoDO extends AbstractObject {
 
     /**
      * id

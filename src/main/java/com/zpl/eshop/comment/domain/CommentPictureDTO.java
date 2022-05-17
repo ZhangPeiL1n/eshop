@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class CommentPictureDO extends AbstractObject {
+public class CommentPictureDTO extends AbstractObject {
     /**
      * id
      */

@@ -1,6 +1,6 @@
 package com.zpl.eshop.comment.domain;
 
-import com.zpl.eshop.common.util.BeanCopierUtils;
+import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 评论信息
@@ -18,7 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class CommentInfoVO {
+public class CommentInfoVO extends AbstractObject {
 
     private final Logger logger = LoggerFactory.getLogger(CommentInfoVO.class);
 
@@ -118,21 +119,7 @@ public class CommentInfoVO {
     private Date gmtModified;
 
     /**
-     * 深拷贝方法
-     *
-     * @param clazz 目标类
-     * @param <T>   目标类型
-     * @return 拷贝结果
+     * 评论图片集合
      */
-    public <T> T clone(Class<T> clazz) {
-        T target = null;
-        try {
-            target = clazz.newInstance();
-            BeanCopierUtils.copyProperties(this, target);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
-        return target;
-    }
+    private List<CommentPictureVO> pictures;
 }
