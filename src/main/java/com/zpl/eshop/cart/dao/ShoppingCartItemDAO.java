@@ -45,7 +45,7 @@ public interface ShoppingCartItemDAO {
      * @param shoppingCartId 购物车id
      * @return 购物车中所有条目DO集合
      */
-    List<ShoppingCartItemDO> listShoppingCartItemByCartSkuId(@Param("shoppingCartId") Long shoppingCartId);
+    List<ShoppingCartItemDO> listShoppingCartItemByCartId(@Param("shoppingCartId") Long shoppingCartId);
 
 
 }

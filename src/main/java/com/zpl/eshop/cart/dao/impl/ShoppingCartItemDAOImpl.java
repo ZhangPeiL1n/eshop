@@ -85,7 +85,7 @@ public class ShoppingCartItemDAOImpl implements ShoppingCartItemDAO {
      * @return 购物车中所有条目DO集合
      */
     @Override
-    public List<ShoppingCartItemDO> listShoppingCartItemByCartSkuId(Long shoppingCartId) {
+    public List<ShoppingCartItemDO> listShoppingCartItemByCartId(Long shoppingCartId) {
         try {
             return shoppingCartItemMapper.listShoppingCartItemByCartSkuId(shoppingCartId);
         } catch (Exception e) {

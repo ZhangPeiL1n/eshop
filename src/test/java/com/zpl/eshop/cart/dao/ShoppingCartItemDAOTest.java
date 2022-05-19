@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 购物车条目DAO测试类
@@ -38,7 +41,7 @@ public class ShoppingCartItemDAOTest {
      */
     @Test
     public void testSaveShoppingCartItem() throws ParseException {
-        ShoppingCartItemDO shoppingCartItemDO = createShoppingCartItem();
+        ShoppingCartItemDO shoppingCartItemDO = createShoppingCartItem(1L, 1L, 1L);
         Long shoppingCartItemId = shoppingCartItemDO.getId();
         Assert.assertNotNull(shoppingCartItemId);
         Assert.assertThat(shoppingCartItemId, Matchers.greaterThan(0L));
@@ -49,7 +52,7 @@ public class ShoppingCartItemDAOTest {
      */
     @Test
     public void testGetShoppingCartItemByGoodsSkuId() throws ParseException {
-        ShoppingCartItemDO shoppingCartItemDO = createShoppingCartItem();
+        ShoppingCartItemDO shoppingCartItemDO = createShoppingCartItem(1L, 2L, 1L);
         ShoppingCartItemDO resultShoppingCartItemDO = shoppingCartItemDAO.getShoppingCartItemByGoodsSkuId(shoppingCartItemDO.getShoppingCartId(), shoppingCartItemDO.getGoodsSkuId());
         Assert.assertEquals(shoppingCartItemDO, resultShoppingCartItemDO);
     }
@@ -59,7 +62,7 @@ public class ShoppingCartItemDAOTest {
      */
     @Test
     public void testUpdateShoppingCartItem() throws ParseException {
-        ShoppingCartItemDO shoppingCartItemDO = createShoppingCartItem();
+        ShoppingCartItemDO shoppingCartItemDO = createShoppingCartItem(1L, 2L, 3L);
         Long newQuantity = shoppingCartItemDO.getPurchaseQuantity() + 1L;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date newGmtModified = dateFormat.parse(dateFormat.format(new Date()));
@@ -74,10 +77,28 @@ public class ShoppingCartItemDAOTest {
         Assert.assertEquals(newGmtModified, resultShoppingCartItemDO.getGmtModified());
     }
 
-    public ShoppingCartItemDO createShoppingCartItem() throws ParseException {
-        Long shoppingCartId = 1L;
-        Long goodsSkuId = 1L;
-        Long purchaseQuantity = 1L;
+    @Test
+    public void testListShoppingCartItemByCartId() throws ParseException {
+        Long cartId = 1L;
+        Map<Long, ShoppingCartItemDO> items = new HashMap<>();
+        ShoppingCartItemDO item;
+        item = createShoppingCartItem(cartId, 1L, 3L);
+        items.put(item.getId(), item);
+        item = createShoppingCartItem(cartId, 2L, 44L);
+        items.put(item.getId(), item);
+        item = createShoppingCartItem(cartId, 3L, 5L);
+        items.put(item.getId(), item);
+
+        List<ShoppingCartItemDO> resultItems = shoppingCartItemDAO.listShoppingCartItemByCartId(cartId);
+
+        Assert.assertEquals(3, resultItems.size());
+        for (ShoppingCartItemDO resultItem : resultItems) {
+            ShoppingCartItemDO targetItem = items.get(resultItem.getId());
+            Assert.assertEquals(targetItem, resultItem);
+        }
+    }
+
+    public ShoppingCartItemDO createShoppingCartItem(Long shoppingCartId, Long goodsSkuId, Long purchaseQuantity) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date currentTime = dateFormat.parse(dateFormat.format(new Date()));
         ShoppingCartItemDO shoppingCartItemDO = new ShoppingCartItemDO();

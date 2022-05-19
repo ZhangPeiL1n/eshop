@@ -47,7 +47,7 @@ public class ShoppingCartController {
      * @param userAccountId 用户帐号id
      * @return 购物车
      */
-    @GetMapping("/view/{userAccountId}")
+    @GetMapping("/{userAccountId}")
     public ShoppingCartVO getShoppingCartVO(@PathVariable("userAccountId") Long userAccountId) {
         try {
             ShoppingCartDTO shoppingCartDTO = shoppingCartService.getShoppingCartDTOByUserAccountId(userAccountId);
