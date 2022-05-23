@@ -4,7 +4,9 @@ import com.zpl.eshop.inventory.async.StockUpdateMessage;
 import com.zpl.eshop.inventory.async.StockUpdateQueue;
 import com.zpl.eshop.inventory.async.StockUpdateResultManager;
 import com.zpl.eshop.inventory.constant.GoodsStockUpdateOperation;
-import com.zpl.eshop.inventory.service.InventoryFacadeService;
+import com.zpl.eshop.inventory.dao.GoodsStockDAO;
+import com.zpl.eshop.inventory.domain.GoodsStockDO;
+import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.inventory.updater.*;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
@@ -23,9 +25,9 @@ import java.util.UUID;
  * @date 2022/1/29 21:55
  **/
 @Service
-public class InventoryFacadeServiceImpl implements InventoryFacadeService {
+public class InventoryServiceImpl implements InventoryService {
 
-    private final Logger logger = LoggerFactory.getLogger(InventoryFacadeServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(InventoryServiceImpl.class);
 
     /**
      * 采购入库库存更新命令工厂
@@ -58,6 +60,12 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
     private CancelOrderStockUpdaterFactory cancelOrderStockUpdaterFactory;
 
     /**
+     * 商品库存管理模块DAO组件
+     */
+    @Autowired
+    private GoodsStockDAO goodsStockDAO;
+
+    /**
      * 商品库存更新消息队列
      */
     @Autowired
@@ -68,6 +76,7 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      */
     @Autowired
     private StockUpdateResultManager stockUpdateResultManager;
+
 
     /**
      * 通知库存中心，“采购入库完成”事件发生了
@@ -152,7 +161,7 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      * @return 处理结果
      */
     @Override
-    public Boolean cancelOrderEvent(OrderInfoDTO orderInfoDTO) {
+    public Boolean informCancelOrderEvent(OrderInfoDTO orderInfoDTO) {
         try {
             // 更新本地库存
             StockUpdater stockUpdater = cancelOrderStockUpdaterFactory.create(orderInfoDTO);
@@ -198,6 +207,15 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      */
     @Override
     public Long getSaleStockQuantity(Long goodsSkuId) {
-        return 133221333L;
+        try {
+            GoodsStockDO goodsStockDO = goodsStockDAO.getGoodsStockBySkuId(goodsSkuId);
+            if (goodsStockDO == null) {
+                return 0L;
+            }
+            return goodsStockDO.getSaleStockQuantity();
+        } catch (Exception e) {
+            logger.error("error", e);
+            return 0L;
+        }
     }
 }

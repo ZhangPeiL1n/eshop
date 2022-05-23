@@ -49,7 +49,7 @@ public class PurchaseInputStockUpdater extends AbstractStockUpdater {
     protected void updateSaleStockQuantity() throws Exception {
         for (GoodsStockDO goodsStockDO : goodsStockDOList) {
             // 获取采购条目DTO对象
-            PurchaseInputOrderItemDTO purchaseInputOrderItemDTO = purchaseInputOrderItemDTOMap.get(goodsStockDO.getId());
+            PurchaseInputOrderItemDTO purchaseInputOrderItemDTO = purchaseInputOrderItemDTOMap.get(goodsStockDO.getGoodsSkuId());
             // 设置入库后的库存
             goodsStockDO.setSaleStockQuantity(goodsStockDO.getSaleStockQuantity() + purchaseInputOrderItemDTO.getArrivalCount());
         }

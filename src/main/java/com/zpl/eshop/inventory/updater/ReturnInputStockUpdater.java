@@ -46,7 +46,7 @@ public class ReturnInputStockUpdater extends AbstractStockUpdater {
     protected void updateSaleStockQuantity() throws Exception {
         for (GoodsStockDO goodsStockDO : goodsStockDOList) {
             // 获取采购条目DTO对象
-            ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO = returnGoodsInputOrderItemDTOMap.get(goodsStockDO.getId());
+            ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO = returnGoodsInputOrderItemDTOMap.get(goodsStockDO.getGoodsSkuId());
             // 设置入库后的库存
             goodsStockDO.setSaleStockQuantity(goodsStockDO.getSaleStockQuantity() + returnGoodsInputOrderItemDTO.getArrivalCount());
         }
@@ -71,9 +71,9 @@ public class ReturnInputStockUpdater extends AbstractStockUpdater {
     protected void updateSaledStockQuantity() throws Exception {
         for (GoodsStockDO goodsStockDO : goodsStockDOList) {
             // 获取采购条目DTO对象
-            ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO = returnGoodsInputOrderItemDTOMap.get(goodsStockDO.getId());
+            ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO = returnGoodsInputOrderItemDTOMap.get(goodsStockDO.getGoodsSkuId());
             // 设置入库后的库存
-            goodsStockDO.setSaleStockQuantity(goodsStockDO.getSaledStockQuantity() - returnGoodsInputOrderItemDTO.getArrivalCount());
+            goodsStockDO.setSaledStockQuantity(goodsStockDO.getSaledStockQuantity() - returnGoodsInputOrderItemDTO.getArrivalCount());
         }
     }
 }

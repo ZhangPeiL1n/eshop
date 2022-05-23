@@ -10,7 +10,7 @@ import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
  * @author ZhangPeiL1n
  * @date 2022/1/3 21:48
  **/
-public interface InventoryFacadeService {
+public interface InventoryService {
     /**
      * 通知库存中心，“采购入库完成”事件发生了
      *
@@ -41,7 +41,7 @@ public interface InventoryFacadeService {
      * @param orderInfoDTO 订单DTO
      * @return 处理结果
      */
-    Boolean cancelOrderEvent(OrderInfoDTO orderInfoDTO);
+    Boolean informCancelOrderEvent(OrderInfoDTO orderInfoDTO);
 
     /**
      * 通知库存中心，“退货入库”事件发生了

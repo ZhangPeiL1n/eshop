@@ -119,7 +119,7 @@ public class ReturnGoodsInputOrderDTO {
     /**
      * 退货入库单创建时间
      */
-    private Date gmtCreateTime;
+    private Date gmtCreate;
 
     /**
      * 退货入库单修改时间

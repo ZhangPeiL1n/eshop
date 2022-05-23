@@ -22,7 +22,7 @@ public interface StockUpdateQueue {
      * @return 消息
      * @throws Exception
      */
-    StockUpdateMessage get() throws Exception;
+    StockUpdateMessage take() throws Exception;
 
     /**
      * 直接将消息入队
@@ -31,5 +31,13 @@ public interface StockUpdateQueue {
      * @throws Exception
      */
     void putDirect(StockUpdateMessage message) throws Exception;
+
+    /**
+     * 获取队列大小
+     *
+     * @return
+     * @throws Exception
+     */
+    Integer size() throws Exception;
 }
 

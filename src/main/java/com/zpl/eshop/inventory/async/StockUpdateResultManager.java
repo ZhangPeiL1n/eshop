@@ -22,4 +22,13 @@ public interface StockUpdateResultManager {
      * @param result    处理结果
      */
     void inform(String messageId, Boolean result);
+
+
+    /**
+     * 获取库存更新结果观察目标
+     *
+     * @param messageId 消息id
+     * @return
+     */
+    StockUpdateObservable getObservable(String messageId);
 }

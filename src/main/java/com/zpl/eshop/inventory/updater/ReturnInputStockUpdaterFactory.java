@@ -73,7 +73,7 @@ public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<
         // 卫语句,没有就返回空集合
         if (returnGoodsInputOrderItemDTOList != null && returnGoodsInputOrderItemDTOList.size() > 0) {
             for (ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO : returnGoodsInputOrderItemDTOList) {
-                returnGoodsInputOrderItemDTOMap.put(returnGoodsInputOrderItemDTO.getId(), returnGoodsInputOrderItemDTO);
+                returnGoodsInputOrderItemDTOMap.put(returnGoodsInputOrderItemDTO.getGoodsSkuId(), returnGoodsInputOrderItemDTO);
             }
         }
         return new ReturnInputStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, returnGoodsInputOrderItemDTOMap);

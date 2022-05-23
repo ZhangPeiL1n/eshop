@@ -49,7 +49,7 @@ public class PurchaseInputStockUpdaterFactory extends AbstractStockUpdaterFactor
         }
 
         // 构造商品skuId集合
-        ArrayList<Long> goodsSkuIds = new ArrayList<>(purchaseInputOrderItemDTOList.size());
+        List<Long> goodsSkuIds = new ArrayList<>(purchaseInputOrderItemDTOList.size());
         for (PurchaseInputOrderItemDTO purchaseInputOrderItemDTO : purchaseInputOrderItemDTOList) {
             goodsSkuIds.add(purchaseInputOrderItemDTO.getGoodsSkuId());
         }
@@ -72,7 +72,7 @@ public class PurchaseInputStockUpdaterFactory extends AbstractStockUpdaterFactor
         // 卫语句,没有就返回空集合
         if (purchaseInputOrderItemDTOList != null && purchaseInputOrderItemDTOList.size() > 0) {
             for (PurchaseInputOrderItemDTO purchaseInputOrderItemDTO : purchaseInputOrderItemDTOList) {
-                purchaseInputOrderItemDTOMap.put(purchaseInputOrderItemDTO.getId(), purchaseInputOrderItemDTO);
+                purchaseInputOrderItemDTOMap.put(purchaseInputOrderItemDTO.getGoodsSkuId(), purchaseInputOrderItemDTO);
             }
         }
 

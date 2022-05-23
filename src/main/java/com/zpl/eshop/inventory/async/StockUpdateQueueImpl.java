@@ -62,7 +62,7 @@ public class StockUpdateQueueImpl implements StockUpdateQueue {
      * @throws Exception
      */
     @Override
-    public StockUpdateMessage get() throws Exception {
+    public StockUpdateMessage take() throws Exception {
         return queue.take();
     }
 
@@ -76,5 +76,10 @@ public class StockUpdateQueueImpl implements StockUpdateQueue {
     @Override
     public void putDirect(StockUpdateMessage message) throws Exception {
         queue.put(message);
+    }
+
+    @Override
+    public Integer size() throws Exception {
+        return queue.size();
     }
 }

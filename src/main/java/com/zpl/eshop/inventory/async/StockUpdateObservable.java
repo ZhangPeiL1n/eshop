@@ -1,5 +1,6 @@
 package com.zpl.eshop.inventory.async;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.Observable;
@@ -11,6 +12,7 @@ import java.util.Observable;
  * @date 2022/2/12 14:28
  **/
 @Getter
+@EqualsAndHashCode
 public class StockUpdateObservable extends Observable {
 
 
@@ -35,7 +37,7 @@ public class StockUpdateObservable extends Observable {
      */
     public void setResult(Boolean result) {
         StockUpdateResult stockUpdateResult = new StockUpdateResult();
-        stockUpdateResult.setId(messageId);
+        stockUpdateResult.setMessageId(messageId);
         stockUpdateResult.setResult(result);
         this.setChanged();
         this.notifyObservers(stockUpdateResult);

@@ -1,5 +1,6 @@
 package com.zpl.eshop.inventory.async;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,12 +12,13 @@ import lombok.Setter;
  **/
 @Getter
 @Setter
+@EqualsAndHashCode
 public class StockUpdateResult {
 
     /**
      * 商品库存更新消息id
      */
-    private String id;
+    private String messageId;
 
     /**
      * 商品库存更新结果

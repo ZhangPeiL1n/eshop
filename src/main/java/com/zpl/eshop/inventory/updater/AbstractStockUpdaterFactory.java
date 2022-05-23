@@ -86,23 +86,35 @@ public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFact
      * @return 商品库存DO对象集合
      */
     private List<GoodsStockDO> createGoodsStockDOList(List<Long> goodsSkuIds) throws Exception {
-        List<GoodsStockDO> goodsStockDOList = new ArrayList<>(goodsSkuIds.size());
+        List<GoodsStockDO> goodsStocks = new ArrayList<>(goodsSkuIds.size());
         for (Long goodsSkuId : goodsSkuIds) {
-            GoodsStockDO goodsStockDO = goodsStockDAO.getGoodsStockBySkuId(goodsSkuId);
+            GoodsStockDO goodsStock = goodsStockDAO.getGoodsStockBySkuId(goodsSkuId);
             // 如果没有库存对象就新建一个
-            if (goodsStockDO == null) {
-                goodsStockDO = new GoodsStockDO();
-                goodsStockDO.setGoodsSkuId(goodsSkuId);
-                goodsStockDO.setSaleStockQuantity(0L);
-                goodsStockDO.setLockedStockQuantity(0L);
-                goodsStockDO.setSaledStockQuantity(0L);
-                goodsStockDO.setStockStatus(StockStatus.NOT_IN_STOCK);
-                goodsStockDO.setGmtCreate(dateProvider.getCurrentTime());
-                goodsStockDO.setGmtModified(dateProvider.getCurrentTime());
-                goodsStockDAO.saveGoodsStock(goodsStockDO);
+            if (goodsStock == null) {
+                goodsStock = createGoodsStockDO(goodsSkuId);
+                goodsStockDAO.saveGoodsStock(goodsStock);
             }
-            goodsStockDOList.add(goodsStockDO);
+            goodsStocks.add(goodsStock);
         }
-        return goodsStockDOList;
+        return goodsStocks;
+    }
+
+    /**
+     * 创建商品库存DO对象
+     *
+     * @param goodsSkuId 商品skuId
+     * @return 商品库存DO对象
+     * @throws Exception
+     */
+    private GoodsStockDO createGoodsStockDO(Long goodsSkuId) throws Exception {
+        GoodsStockDO goodsStockDO = new GoodsStockDO();
+        goodsStockDO.setGoodsSkuId(goodsSkuId);
+        goodsStockDO.setSaleStockQuantity(0L);
+        goodsStockDO.setLockedStockQuantity(0L);
+        goodsStockDO.setSaledStockQuantity(0L);
+        goodsStockDO.setStockStatus(StockStatus.NOT_IN_STOCK);
+        goodsStockDO.setGmtCreate(dateProvider.getCurrentTime());
+        goodsStockDO.setGmtModified(dateProvider.getCurrentTime());
+        return goodsStockDO;
     }
 }
