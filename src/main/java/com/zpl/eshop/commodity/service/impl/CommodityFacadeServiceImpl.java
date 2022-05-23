@@ -31,7 +31,7 @@ public class CommodityFacadeServiceImpl implements CommodityFacadeService {
 
         try {
             GoodsSkuDTO goodsSkuDTO = new GoodsSkuDTO();
-            goodsSkuDTO.setId(999L);
+            goodsSkuDTO.setId(goodsSkuId);
             goodsSkuDTO.setGoodsId(999L);
             goodsSkuDTO.setGoodsName("iPhonePlus");
             goodsSkuDTO.setGoodsSkuCode("MXD133221");
