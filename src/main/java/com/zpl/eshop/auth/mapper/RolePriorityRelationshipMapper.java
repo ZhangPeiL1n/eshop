@@ -57,6 +57,13 @@ public interface RolePriorityRelationshipMapper {
             "gmt_modified " +
             "FROM auth_role_priority_relationship " +
             "WHERE role_id=#{roleId}")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "role_id", property = "roleId"),
+            @Result(column = "priority_id", property = "priorityId"),
+            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "gmt_modified", property = "gmtModified")
+    })
     List<RolePriorityRelationshipDO> listByRoleId(@Param("roleId") Long roleId);
 
 

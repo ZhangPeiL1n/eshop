@@ -64,13 +64,13 @@ public class RoleDAOImpl implements RoleDAO {
      * @param roleDO 角色DO
      */
     @Override
-    public Boolean save(RoleDO roleDO) {
+    public Long save(RoleDO roleDO) {
         try {
             roleMapper.save(roleDO);
-            return true;
+            return roleDO.getId();
         } catch (Exception e) {
             logger.error("error", e);
-            return false;
+            return 0L;
         }
     }
 

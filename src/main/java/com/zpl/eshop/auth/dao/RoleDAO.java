@@ -34,7 +34,7 @@ public interface RoleDAO {
      *
      * @param roleDO 角色DO
      */
-    Boolean save(RoleDO roleDO);
+    Long save(RoleDO roleDO);
 
     /**
      * 更新角色

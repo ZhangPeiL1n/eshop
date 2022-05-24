@@ -1,11 +1,14 @@
 package com.zpl.eshop.auth.domain;
 
+import lombok.Data;
+
 /**
  * 角色查询条件
  *
  * @author ZhangPeiL1n
  * @date 2022/2/15 15:48
  **/
+@Data
 public class RoleQuery {
 
     /**
