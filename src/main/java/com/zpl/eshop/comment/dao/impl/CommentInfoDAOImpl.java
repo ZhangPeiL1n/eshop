@@ -75,4 +75,37 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
             return null;
         }
     }
+
+    /**
+     * 更新评论
+     *
+     * @param comment 评论信息
+     */
+    @Override
+    public Boolean update(CommentInfoDO comment) {
+        try {
+            commentInfoMapper.update(comment);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param id id
+     * @return 是否成功
+     */
+    @Override
+    public Boolean delete(Long id) {
+        try {
+            commentInfoMapper.delete(id);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
 }

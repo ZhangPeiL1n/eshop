@@ -167,7 +167,7 @@ public interface CommentInfoMapper {
             "comment_type," +
             "gmt_create," +
             "gmt_modified " +
-            "from comment_info" +
+            "from comment_info " +
             "where id = #{id}")
     @Results({
             @Result(column = "id", property = "id", id = true),
@@ -192,4 +192,23 @@ public interface CommentInfoMapper {
     })
     CommentInfoDO getById(@Param("id") Long id);
 
+    /**
+     * 更新评论
+     *
+     * @param comment 评论信息
+     */
+    @Update("update comment_info set " +
+            "comment_status = #{commentStatus}," +
+            "gmt_modified = #{gmtModified} " +
+            "where id = #{id}")
+    void update(CommentInfoDO comment);
+
+    /**
+     * 删除评论
+     *
+     * @param id id
+     */
+    @Delete("delete from comment_info " +
+            "where id = #{id}")
+    void delete(Long id);
 }

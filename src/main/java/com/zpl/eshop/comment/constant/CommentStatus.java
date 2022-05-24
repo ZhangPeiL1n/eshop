@@ -12,9 +12,18 @@ public class CommentStatus {
      */
     public static final Integer APPROVING = 1;
     /**
-     * 已审核
+     * 审核通过
      */
     public static final Integer APPROVED = 2;
 
+    /**
+     * 审核未通过
+     */
+    public static final Integer APPROVE_REJECT = 3;
+
+    private CommentStatus() {
+    }
+
+    ;
 
 }

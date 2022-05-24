@@ -36,6 +36,22 @@ public interface CommentInfoDAO {
      * @param id 评论id
      * @return 评论详情
      */
-
     CommentInfoDO getById(@Param("id") Long id);
+
+
+    /**
+     * 更新评论
+     *
+     * @param comment 评论信息
+     * @return 是否成功
+     */
+    Boolean update(CommentInfoDO comment);
+
+    /**
+     * 删除评论
+     *
+     * @param id id
+     * @return 是否成功
+     */
+    Boolean delete(Long id);
 }

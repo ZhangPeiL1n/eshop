@@ -174,4 +174,40 @@ public class CommentInfoServiceImpl implements CommentInfoService {
         }
     }
 
+    /**
+     * 更新评论
+     *
+     * @param comment 评论信息
+     * @return 是否成功
+     */
+    @Override
+    public Boolean update(CommentInfoDTO comment) {
+        try {
+            CommentInfoDO commentInfoDO = comment.clone(CommentInfoDO.class);
+            commentInfoDO.setGmtModified(dateProvider.getCurrentTime());
+            commentInfoDAO.update(commentInfoDO);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param id id
+     * @return 是否成功
+     */
+    @Override
+    public Boolean delete(Long id) {
+        try {
+            commentInfoDAO.delete(id);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
 }

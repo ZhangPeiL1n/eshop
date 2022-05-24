@@ -1,5 +1,7 @@
 package com.zpl.eshop.comment.controller;
 
+import com.zpl.eshop.comment.constant.CommentApproved;
+import com.zpl.eshop.comment.constant.CommentStatus;
 import com.zpl.eshop.comment.constant.ShowPictures;
 import com.zpl.eshop.comment.domain.*;
 import com.zpl.eshop.comment.service.CommentAggregateService;
@@ -164,6 +166,41 @@ public class CommentController {
                     logger.error("error", e);
                 }
             }
+        }
+    }
+
+    /**
+     * 审核评论
+     *
+     * @param id       评论id
+     * @param approved 是否通过
+     */
+    @PutMapping("/approve/{id}")
+    public Boolean update(@PathVariable("id") Long id, Integer approved) {
+        try {
+            CommentInfoDTO targetComment = new CommentInfoDTO();
+            targetComment.setId(id);
+            targetComment.setCommentStatus(CommentApproved.YES.equals(approved) ? CommentStatus.APPROVED : CommentStatus.APPROVE_REJECT);
+            return commentInfoService.update(targetComment);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public Boolean delete(@PathVariable("id") Long id) {
+        try {
+            return commentInfoService.delete(id);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
         }
     }
 }
