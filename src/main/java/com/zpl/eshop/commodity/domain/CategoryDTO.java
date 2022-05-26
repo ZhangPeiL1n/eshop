@@ -56,6 +56,11 @@ public class CategoryDTO extends AbstractObject {
     private List<CategoryPropertyRelationshipDTO> propertyRelations;
 
     /**
+     * 类目关联的属性
+     */
+    private List<PropertyDTO> properties;
+
+    /**
      * 属性分组与属性的关系
      */
     private List<PropertyGroupDTO> propertyGroups;

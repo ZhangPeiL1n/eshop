@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 属性分组DAO组件
  *
@@ -17,10 +19,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PropertyGroupDAOImpl implements PropertyGroupDAO {
 
+    private static final Logger logger = LoggerFactory.getLogger(PropertyGroupDAOImpl.class);
     @Autowired
     private PropertyGroupMapper propertyGroupMapper;
-
-    private static final Logger logger = LoggerFactory.getLogger(PropertyGroupDAOImpl.class);
 
     /**
      * 新增属性分组
@@ -32,6 +33,21 @@ public class PropertyGroupDAOImpl implements PropertyGroupDAO {
         try {
             propertyGroupMapper.save(propertyGroupDO);
             return propertyGroupDO.getCategoryId();
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据类目id查找属性分组
+     *
+     * @param categoryId 类目id
+     * @return 属性分组
+     */
+    public List<PropertyGroupDO> listByCategoryId(Long categoryId) {
+        try {
+            return propertyGroupMapper.listByCategoryId(categoryId);
         } catch (Exception e) {
             logger.error("error", e);
             return null;

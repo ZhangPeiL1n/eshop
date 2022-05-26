@@ -68,6 +68,33 @@ public interface CategoryMapper {
     List<CategoryDO> listChildren(@Param("id") Long id);
 
     /**
+     * 根据id查询类目
+     *
+     * @param id 类目id
+     * @return 子类目集合
+     */
+    @Select("select " +
+            "id," +
+            "name," +
+            "description," +
+            "is_leaf," +
+            "parent_id," +
+            "gmt_create," +
+            "gmt_modified " +
+            "from commodity_category " +
+            "where id = #{id}")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "name", property = "name"),
+            @Result(column = "description", property = "description"),
+            @Result(column = "is_leaf", property = "isLeaf"),
+            @Result(column = "parent_id", property = "parentId"),
+            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "gmt_modified", property = "gmtModified")
+    })
+    CategoryDO getById(@Param("id") Long id);
+
+    /**
      * 新增类目
      *
      * @param categoryDO 类目

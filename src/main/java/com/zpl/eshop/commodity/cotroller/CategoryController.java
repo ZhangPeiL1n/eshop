@@ -2,6 +2,7 @@ package com.zpl.eshop.commodity.cotroller;
 
 import com.zpl.eshop.commodity.domain.*;
 import com.zpl.eshop.commodity.service.CategoryService;
+import com.zpl.eshop.common.util.CloneDirection;
 import com.zpl.eshop.common.util.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,6 +87,23 @@ public class CategoryController {
         } catch (Exception e) {
             logger.error("error", e);
             return false;
+        }
+    }
+
+    /**
+     * 根据id获取类目
+     *
+     * @param id 类目id
+     * @return 类目
+     */
+    @GetMapping("/{id}")
+    public CategoryVO getById(@PathVariable("id") Long id) {
+        try {
+            CategoryDTO categoryDTO = categoryService.getById(id);
+            return categoryDTO.clone(CategoryVO.class, CloneDirection.OPPOSITE);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
         }
     }
 }

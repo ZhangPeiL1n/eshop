@@ -2,6 +2,8 @@ package com.zpl.eshop.commodity.dao;
 
 import com.zpl.eshop.commodity.domain.CategoryPropertyRelationshipDO;
 
+import java.util.List;
+
 /**
  * 类目属性关系DAO组件接口
  *
@@ -17,4 +19,12 @@ public interface CategoryPropertyRelationshipDAO {
      * @return 新增成功
      */
     Boolean save(CategoryPropertyRelationshipDO relationshipDO);
+
+    /**
+     * 根据类目id查询类目与属性的关联关系
+     *
+     * @param categoryId 类目id
+     * @return 类目属性关联关系DO
+     */
+    List<CategoryPropertyRelationshipDO> listByCategoryId(Long categoryId);
 }

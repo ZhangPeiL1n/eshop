@@ -59,4 +59,9 @@ public class CategoryVO extends AbstractObject {
      * 属性分组与属性的关系
      */
     private List<PropertyGroupVO> propertyGroups;
+
+    /**
+     * 类目关联的属性
+     */
+    private List<PropertyVO> properties;
 }

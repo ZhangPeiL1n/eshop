@@ -1,6 +1,7 @@
 package com.zpl.eshop.commodity.dao;
 
 import com.zpl.eshop.commodity.domain.CategoryDO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,6 +28,14 @@ public interface CategoryDAO {
      * @return 子类目集合
      */
     List<CategoryDO> listChildren(Long id);
+
+    /**
+     * 根据id查询类目
+     *
+     * @param id 类目id
+     * @return 子类目集合
+     */
+    CategoryDO getById(@Param("id") Long id);
 
     /**
      * 新增类目

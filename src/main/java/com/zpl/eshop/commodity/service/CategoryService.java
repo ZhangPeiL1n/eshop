@@ -29,7 +29,16 @@ public interface CategoryService {
     /**
      * 新增类目
      *
-     * @return 类目
+     * @param categoryDTO 类目
+     * @return 处理结果
      */
     Boolean save(CategoryDTO categoryDTO);
+
+    /**
+     * 根据id查询类目
+     *
+     * @param id 类目id
+     * @return 类目
+     */
+    CategoryDTO getById(Long id);
 }

@@ -1,6 +1,6 @@
 package com.zpl.eshop.commodity.domain;
 
-import com.zpl.eshop.common.util.BeanCopierUtils;
+import com.zpl.eshop.common.util.AbstractObject;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ import java.util.Date;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class PropertyDO {
+public class PropertyDO extends AbstractObject {
 
     private final Logger logger = LoggerFactory.getLogger(PropertyDO.class);
 
@@ -58,17 +58,5 @@ public class PropertyDO {
      * 修改时间
      */
     private Date gmtModified;
-
-    public <T> T clone(Class<T> clazz) {
-        T target = null;
-        try {
-            target = clazz.newInstance();
-            BeanCopierUtils.copyProperties(this, target);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
-        return target;
-    }
 
 }

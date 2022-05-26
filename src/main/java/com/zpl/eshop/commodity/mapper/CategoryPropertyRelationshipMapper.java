@@ -1,9 +1,9 @@
 package com.zpl.eshop.commodity.mapper;
 
 import com.zpl.eshop.commodity.domain.CategoryPropertyRelationshipDO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 /**
  * 类目属性关系管理mapper组件
@@ -36,4 +36,31 @@ public interface CategoryPropertyRelationshipMapper {
             ")")
     @Options(keyColumn = "id", keyProperty = "id", useGeneratedKeys = true)
     void save(CategoryPropertyRelationshipDO relationshipDO);
+
+    /**
+     * 根据类目id查询类目与属性的关联关系
+     *
+     * @param categoryId 类目id
+     * @return 类目属性关联关系DO
+     */
+    @Select("SELECT " +
+            "id," +
+            "category_id," +
+            "property_id," +
+            "is_required," +
+            "property_types," +
+            "gmt_create," +
+            "gmt_modified " +
+            "from commodity_category_property_relationship " +
+            "where category_id = #{categoryId}")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "category_id", property = "categoryId"),
+            @Result(column = "property_id", property = "propertyId"),
+            @Result(column = "is_required", property = "isRequired"),
+            @Result(column = "property_types", property = "propertyType"),
+            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "gmt_modified", property = "gmtModified")
+    })
+    List<CategoryPropertyRelationshipDO> listByCategoryId(@Param("categoryId") Long categoryId);
 }

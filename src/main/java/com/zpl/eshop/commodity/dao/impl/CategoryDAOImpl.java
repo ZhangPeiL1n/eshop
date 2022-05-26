@@ -56,6 +56,21 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     /**
+     * 根据id查询类目
+     *
+     * @param id 类目id
+     * @return 子类目集合
+     */
+    public CategoryDO getById(Long id) {
+        try {
+            return categoryMapper.getById(id);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
+    }
+
+    /**
      * 新增类目
      *
      * @param categoryDO 类目
