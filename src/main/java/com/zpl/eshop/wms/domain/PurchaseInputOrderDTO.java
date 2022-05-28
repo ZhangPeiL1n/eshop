@@ -52,9 +52,9 @@ public class PurchaseInputOrderDTO {
     private String purchaseContactEmail;
 
     /**
-     * 采购入库单备注
+     * 采购单备注
      */
-    private String purchaseInputOrderComment;
+    private String purchaseOrderComment;
 
     /**
      * 采购员
