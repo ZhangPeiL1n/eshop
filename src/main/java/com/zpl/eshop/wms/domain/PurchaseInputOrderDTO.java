@@ -75,12 +75,12 @@ public class PurchaseInputOrderDTO extends AbstractObject {
     /**
      * 采购入库单条目集合
      */
-    private List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList;
+    private List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOs;
 
     /**
-     * 采购入库单商品上角条目集合
+     * 采购入库单商品上架条目集合
      */
-    private List<PurchaseInputOrderPutOnItemDTO> purchaseInputOrderPutOnItemDTOList;
+    private List<PurchaseInputOrderPutOnItemDTO> purchaseInputOrderPutOnItemDTOs;
 
     /**
      * 修改时间

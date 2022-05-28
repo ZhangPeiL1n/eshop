@@ -3,10 +3,19 @@ package com.zpl.eshop.schedule.service.impl;
 import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDTO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderDTO;
+import com.zpl.eshop.purchase.domain.PurchaseOrderItemDTO;
 import com.zpl.eshop.schedule.service.ScheduleFacadeService;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
+import com.zpl.eshop.wms.domain.PurchaseInputOrderItemDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
+import com.zpl.eshop.wms.service.WmsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 调度中心对外接口Service组件
@@ -16,6 +25,15 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ScheduleFacadeServiceImpl.class);
+
+    /**
+     * wms 对外接口service组件
+     */
+    @Autowired
+    private WmsService wmsService;
+
     /**
      * 通知调度中心，“采购入库完成”事件发生了
      *
@@ -24,6 +42,7 @@ public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
      */
     @Override
     public Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrderDTO) {
+
         return true;
     }
 
@@ -74,12 +93,37 @@ public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
     /**
      * 调度采购入库
      *
-     * @param purchaseOrderDTO 采购单DTO
+     * @param purchaseOrder 采购单DTO
      * @return 处理结果
      */
     @Override
-    public Boolean schedulePurchaseInput(PurchaseOrderDTO purchaseOrderDTO) {
-        return true;
+    public Boolean schedulePurchaseInput(PurchaseOrderDTO purchaseOrder) {
+        try {
+            // 拷贝采购单中基本信息到采购入库单中
+            PurchaseInputOrderDTO purchaseInputOrder = purchaseOrder.clone(PurchaseInputOrderDTO.class);
+            purchaseInputOrder.setId(null);
+            purchaseInputOrder.setGmtCreate(null);
+            purchaseInputOrder.setGmtModified(null);
+
+            // 拷贝采购单条目到采购入库单条目
+            List<PurchaseInputOrderItemDTO> purchaseInputOrderItems = new ArrayList<>(purchaseOrder.getItems().size());
+            for (PurchaseOrderItemDTO purchaseOrderItem : purchaseOrder.getItems()) {
+                PurchaseInputOrderItemDTO purchaseInputOrderItem = purchaseOrderItem.clone(PurchaseInputOrderItemDTO.class);
+                purchaseInputOrderItem.setId(null);
+                purchaseInputOrderItem.setGmtCreate(null);
+                purchaseInputOrderItem.setGmtModified(null);
+                purchaseInputOrderItems.add(purchaseInputOrderItem);
+            }
+
+            purchaseInputOrder.setPurchaseInputOrderItemDTOs(purchaseInputOrderItems);
+
+            // 调用wms中心接口
+            wmsService.createPurchaseInputOrder(purchaseInputOrder);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**

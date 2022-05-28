@@ -319,7 +319,7 @@ public class InventoryServiceTest {
         order.setPurchaseContactor("彦祖");
         order.setPurchaseContactPhoneNumber("18623568899");
         order.setPurchaseContactEmail("yanzu@163.com");
-        order.setPurchaseInputOrderComment("测试采购入库单");
+        order.setPurchaseOrderComment("测试采购入库单");
         order.setPurchaser("A");
         order.setPurchaseInputOrderStatus(5);
         order.setGmtCreate(dateProvider.parse2Datetime("2022-05-19 00:00:00"));
@@ -329,13 +329,13 @@ public class InventoryServiceTest {
         for (int i = 0; i < goodsSkuIds.length; i++) {
             items.add(createPurchaseInputOrderItem((long) i, goodsSkuIds[i], 1L, count));
         }
-        order.setPurchaseInputOrderItemDTOList(items);
+        order.setPurchaseInputOrderItemDTOs(items);
 
         List<PurchaseInputOrderPutOnItemDTO> putOnItems = new ArrayList<>();
         for (int i = 0; i < goodsSkuIds.length; i++) {
             putOnItems.add(createPurchaseInputOrderPutOnItemDTO((long) i, (long) i, goodsSkuIds[i]));
         }
-        order.setPurchaseInputOrderPutOnItemDTOList(putOnItems);
+        order.setPurchaseInputOrderPutOnItemDTOs(putOnItems);
 
         return order;
     }
