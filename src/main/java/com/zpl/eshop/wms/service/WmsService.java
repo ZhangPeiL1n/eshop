@@ -11,7 +11,7 @@ import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
  * @author ZhangPeiL1n
  * @date 2022/1/3 17:41
  **/
-public interface WmsFacadeService {
+public interface WmsService {
 
 
     /**
