@@ -9,6 +9,7 @@ import com.zpl.eshop.cart.domain.ShoppingCartItemDTO;
 import com.zpl.eshop.cart.service.ShoppingCartService;
 import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
 import com.zpl.eshop.commodity.service.CommodityFacadeService;
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.service.InventoryFacadeService;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
 import com.zpl.eshop.promotion.service.PromotionFacadeService;
@@ -60,6 +61,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private PromotionFacadeService promotionFacadeService;
 
     private final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
+
+    /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
 
 
     /**
@@ -189,4 +196,5 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         List<PromotionActivityDTO> promotionActivityDTOList = promotionFacadeService.listPromotionActivityByGoodsId(item.getGoodsId());
         item.setPromotionActivityDTOList(promotionActivityDTOList);
     }
+
 }

@@ -48,4 +48,12 @@ public interface ShoppingCartItemDAO {
     List<ShoppingCartItemDO> listShoppingCartItemByCartId(@Param("shoppingCartId") Long shoppingCartId);
 
 
+    /**
+     * 删除购物车条目
+     *
+     * @param id 购物车条目id
+     * @return 操作结果
+     */
+    Boolean remove(Long id);
+
 }

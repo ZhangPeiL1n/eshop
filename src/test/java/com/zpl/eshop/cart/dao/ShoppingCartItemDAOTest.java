@@ -98,7 +98,25 @@ public class ShoppingCartItemDAOTest {
         }
     }
 
+    /**
+     * 测试删除购物车条目
+     */
+    @Test
+    public void testRemove() throws Exception {
+        Long shoppingCartId = 1L;
+        Long goodsSkuId = 1L;
+        Long purchaseQuantity = 3L;
+        ShoppingCartItemDO shoppingCartItem = createShoppingCartItem(shoppingCartId, goodsSkuId, purchaseQuantity);
+        shoppingCartItemDAO.remove(shoppingCartItem.getId());
+        ShoppingCartItemDO item = shoppingCartItemDAO.getShoppingCartItemByGoodsSkuId(shoppingCartId, goodsSkuId);
+        Assert.assertNull(item);
+    }
+
     public ShoppingCartItemDO createShoppingCartItem(Long shoppingCartId, Long goodsSkuId, Long purchaseQuantity) throws ParseException {
+        ShoppingCartItemDO item = shoppingCartItemDAO.getShoppingCartItemByGoodsSkuId(shoppingCartId, goodsSkuId);
+        if (item != null) {
+            shoppingCartItemDAO.remove(item.getId());
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date currentTime = dateFormat.parse(dateFormat.format(new Date()));
         ShoppingCartItemDO shoppingCartItemDO = new ShoppingCartItemDO();

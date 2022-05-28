@@ -26,4 +26,6 @@ public interface ShoppingCartService {
      * @return 购物车DTO对象
      */
     ShoppingCartDTO getShoppingCartDTOByUserAccountId(Long userAccountId);
+
+
 }

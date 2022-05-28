@@ -98,4 +98,13 @@ public interface ShoppingCartItemMapper {
             @Result(column = "gmt_modified", property = "gmtModified")
     })
     List<ShoppingCartItemDO> listShoppingCartItemByCartSkuId(@Param("shoppingCartId") Long shoppingCartId);
+
+    /**
+     * 删除购物车条目
+     *
+     * @param id 购物车条目id
+     */
+    @Delete("delete from shopping_cart_item " +
+            "where id = #{id}")
+    void remove(@Param("id") Long id);
 }
