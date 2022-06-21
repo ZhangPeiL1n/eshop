@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 帐号权限关系DO
@@ -16,7 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class AccountPriorityRelationshipDO extends AbstractObject {
+public class AccountPriorityRelationshipVO extends AbstractObject {
 
     /**
      * id
@@ -38,4 +39,14 @@ public class AccountPriorityRelationshipDO extends AbstractObject {
      * 修改时间
      */
     private Date gmtModified;
+
+    /**
+     * 帐号角色关联关系
+     */
+    private List<AccountRoleRelationshipVO> roleRelations;
+
+    /**
+     * 帐号权限关联关系
+     */
+    private List<AccountPriorityRelationshipVO> priorityRelations;
 }

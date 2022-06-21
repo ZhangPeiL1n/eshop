@@ -1,39 +1,49 @@
 package com.zpl.eshop.auth.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
- * 帐号权限关系DO
+ * 帐号DO类
  *
  * @author ZhangPeiL1n
- * @date 2022/2/1 23:35
+ * @date 2022/5/28 15:43
  **/
-@Getter
-@Setter
-@ToString
-public class AccountPriorityRelationshipDO extends AbstractObject {
+@Data
+public class AccountDO extends AbstractObject {
 
     /**
      * id
      */
     private Long id;
+
     /**
-     * 帐号id
+     * 用户名
      */
-    private Long accountId;
+    private String username;
+
     /**
-     * 权限id
+     * 姓名
      */
-    private Long priorityId;
+    private String name;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 备注
+     */
+    private String remark;
+
     /**
      * 创建时间
      */
     private Date gmtCreate;
+
     /**
      * 修改时间
      */

@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class AccountPriorityRelationshipDO extends AbstractObject {
+public class AccountPriorityRelationshipDTO extends AbstractObject {
 
     /**
      * id
