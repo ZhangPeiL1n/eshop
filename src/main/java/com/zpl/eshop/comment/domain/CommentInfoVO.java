@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -111,12 +110,12 @@ public class CommentInfoVO extends AbstractObject {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改时间
      */
-    private Date gmtModified;
+    private String gmtModified;
 
     /**
      * 评论图片集合

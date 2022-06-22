@@ -161,7 +161,7 @@ public class CommentInfoServiceTest {
         commentInfoDO.setGoodsSkuId(commentInfoDTO.getGoodsSkuId());
         commentInfoDO.setGoodsSkuSaleProperties(commentInfoDTO.getGoodsSkuSaleProperties());
         commentInfoDO.setCommentContent(commentInfoDTO.getCommentContent());
-        commentInfoDO.setShowPicture(commentInfoDTO.getShowPicture());
+        commentInfoDO.setShowPictures(commentInfoDTO.getShowPicture());
         commentInfoDO.setGoodsScore(commentInfoDTO.getGoodsScore());
         commentInfoDO.setCustomerServiceScore(commentInfoDTO.getCustomerServiceScore());
         commentInfoDO.setLogisticsScore(commentInfoDTO.getLogisticsScore());

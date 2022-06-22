@@ -88,7 +88,7 @@ public class CommentInfoDO extends AbstractObject {
     /**
      * 是否晒图
      */
-    private Integer showPicture;
+    private Integer showPictures;
 
     /**
      * 是否系统自动给的默认评论

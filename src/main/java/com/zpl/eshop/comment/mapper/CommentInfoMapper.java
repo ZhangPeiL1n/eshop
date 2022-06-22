@@ -53,7 +53,7 @@ public interface CommentInfoMapper {
             "#{customerServiceScore}," +
             "#{logisticsScore}," +
             "#{commentContent}," +
-            "#{showPicture}," +
+            "#{showPictures}," +
             "#{defaultComment}," +
             "#{commentStatus}," +
             "#{commentType}," +
@@ -83,6 +83,7 @@ public interface CommentInfoMapper {
             "a.goods_score," +
             "a.customer_service_score," +
             "a.logistics_score," +
+            "a.comment_content," +
             "a.is_show_pictures," +
             "a.is_default_comment," +
             "a.comment_status," +
@@ -94,33 +95,33 @@ public interface CommentInfoMapper {
             "FROM comment_info " +
             "WHERE 1=1 " +
             "<if test='startTime != null'>" +
-            "AND gmt_create>=#{startTIme} " +
+            "AND gmt_create>=#{startTime} " +
             "</if>" +
-            "<if test='endTime != null'" +
-            "AND gmt_create<=#{endTime} " +
+            "<if test='endTime != null'>" +
+            "AND gmt_create&lt;=#{endTime} " +
             "</if>" +
-            "<if test='totalScore != null'" +
+            "<if test='totalScore != null'>" +
             "AND total_score=#{totalScore} " +
             "</if>" +
-            "<if test='commentStatus != null'" +
+            "<if test='commentStatus != null'>" +
             "AND comment_status=#{commentStatus} " +
             "</if>" +
-            "<if test='commentType != null'" +
+            "<if test='commentType != null'>" +
             "AND comment_type=#{commentType} " +
             "</if>" +
-            "<if test='showPictures != null'" +
-            "AND show_pictures=#{showPictures} " +
+            "<if test='showPictures != null'>" +
+            "AND is_show_pictures=#{showPictures} " +
             "</if>" +
-            "<if test='defaultComment != null'" +
+            "<if test='defaultComment != null'>" +
             "AND is_default_comment=#{defaultComment} " +
             "</if>" +
             "limit #{offsite},#{size}" +
             ") b " +
             "WHERE a.id = b.id" +
-            "</scripty>")
+            "</script>")
     @Results({
             @Result(column = "id", property = "id", id = true),
-            @Result(column = "user_account_id", property = "userAccount_id"),
+            @Result(column = "user_account_id", property = "userAccountId"),
             @Result(column = "username", property = "username"),
             @Result(column = "order_info_id", property = "orderInfoId"),
             @Result(column = "order_Item_id", property = "orderItemId"),
@@ -129,11 +130,11 @@ public interface CommentInfoMapper {
             @Result(column = "goods_sku_sale_properties", property = "goodsSkuSaleProperties"),
             @Result(column = "total_score", property = "totalScore"),
             @Result(column = "goods_score", property = "goodsScore"),
-            @Result(column = "custom_service_score", property = "customServiceScore"),
+            @Result(column = "customer_service_score", property = "customerServiceScore"),
             @Result(column = "logistics_score", property = "logisticsScore"),
             @Result(column = "comment_content", property = "commentContent"),
-            @Result(column = "is_show_pictures", property = "isShowPictures"),
-            @Result(column = "is_default_comment", property = "isDefaultComment"),
+            @Result(column = "is_show_pictures", property = "showPictures"),
+            @Result(column = "is_default_comment", property = "defaultComment"),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "comment_type", property = "commentType"),
             @Result(column = "gmt_create", property = "gmtCreate"),
@@ -161,6 +162,7 @@ public interface CommentInfoMapper {
             "goods_score," +
             "customer_service_score," +
             "logistics_score," +
+            "comment_content," +
             "is_show_pictures," +
             "is_default_comment," +
             "comment_status," +
@@ -171,7 +173,7 @@ public interface CommentInfoMapper {
             "where id = #{id}")
     @Results({
             @Result(column = "id", property = "id", id = true),
-            @Result(column = "user_account_id", property = "userAccount_id"),
+            @Result(column = "user_account_id", property = "userAccountId"),
             @Result(column = "username", property = "username"),
             @Result(column = "order_info_id", property = "orderInfoId"),
             @Result(column = "order_Item_id", property = "orderItemId"),
@@ -180,11 +182,11 @@ public interface CommentInfoMapper {
             @Result(column = "goods_sku_sale_properties", property = "goodsSkuSaleProperties"),
             @Result(column = "total_score", property = "totalScore"),
             @Result(column = "goods_score", property = "goodsScore"),
-            @Result(column = "custom_service_score", property = "customServiceScore"),
+            @Result(column = "customer_service_score", property = "customerServiceScore"),
             @Result(column = "logistics_score", property = "logisticsScore"),
             @Result(column = "comment_content", property = "commentContent"),
-            @Result(column = "is_show_pictures", property = "isShowPictures"),
-            @Result(column = "is_default_comment", property = "isDefaultComment"),
+            @Result(column = "is_show_pictures", property = "showPictures"),
+            @Result(column = "is_default_comment", property = "defaultComment"),
             @Result(column = "comment_status", property = "commentStatus"),
             @Result(column = "comment_type", property = "commentType"),
             @Result(column = "gmt_create", property = "gmtCreate"),
