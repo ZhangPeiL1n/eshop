@@ -29,14 +29,9 @@ public class PropertyGroupDAOImpl implements PropertyGroupDAO {
      * @param propertyGroupDO 属性分组
      * @return 新增成功
      */
-    public Long save(PropertyGroupDO propertyGroupDO) {
-        try {
-            propertyGroupMapper.save(propertyGroupDO);
-            return propertyGroupDO.getCategoryId();
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public Long save(PropertyGroupDO propertyGroupDO) throws Exception {
+        propertyGroupMapper.save(propertyGroupDO);
+        return propertyGroupDO.getCategoryId();
     }
 
     /**
@@ -45,12 +40,17 @@ public class PropertyGroupDAOImpl implements PropertyGroupDAO {
      * @param categoryId 类目id
      * @return 属性分组
      */
-    public List<PropertyGroupDO> listByCategoryId(Long categoryId) {
-        try {
-            return propertyGroupMapper.listByCategoryId(categoryId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public List<PropertyGroupDO> listByCategoryId(Long categoryId) throws Exception {
+        return propertyGroupMapper.listByCategoryId(categoryId);
+    }
+
+    /**
+     * 根据类目id删除属性分组
+     *
+     * @param categoryId 类目id
+     */
+    @Override
+    public void removeByCategoryId(Long categoryId) throws Exception {
+        propertyGroupMapper.removeByCategoryId(categoryId);
     }
 }

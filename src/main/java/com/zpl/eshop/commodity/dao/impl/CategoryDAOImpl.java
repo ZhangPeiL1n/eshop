@@ -30,13 +30,8 @@ public class CategoryDAOImpl implements CategoryDAO {
      * @return 根类目集合
      */
     @Override
-    public List<CategoryDO> listRoots() {
-        try {
-            return categoryMapper.listRoots();
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public List<CategoryDO> listRoots() throws Exception {
+        return categoryMapper.listRoots();
     }
 
     /**
@@ -46,13 +41,8 @@ public class CategoryDAOImpl implements CategoryDAO {
      * @return 子类目集合
      */
     @Override
-    public List<CategoryDO> listChildren(Long id) {
-        try {
-            return categoryMapper.listChildren(id);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public List<CategoryDO> listChildren(Long id) throws Exception {
+        return categoryMapper.listChildren(id);
     }
 
     /**
@@ -61,13 +51,8 @@ public class CategoryDAOImpl implements CategoryDAO {
      * @param id 类目id
      * @return 子类目集合
      */
-    public CategoryDO getById(Long id) {
-        try {
-            return categoryMapper.getById(id);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public CategoryDO getById(Long id) throws Exception {
+        return categoryMapper.getById(id);
     }
 
     /**
@@ -76,13 +61,28 @@ public class CategoryDAOImpl implements CategoryDAO {
      * @param categoryDO 类目
      * @return 是否成功
      */
-    public Long save(CategoryDO categoryDO) {
-        try {
-            categoryMapper.save(categoryDO);
-            return categoryDO.getId();
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public Long save(CategoryDO categoryDO) throws Exception {
+        categoryMapper.save(categoryDO);
+        return categoryDO.getId();
+    }
+
+    /**
+     * 更新类目
+     *
+     * @param categoryDO 类目
+     */
+    @Override
+    public void update(CategoryDO categoryDO) throws Exception {
+        categoryMapper.update(categoryDO);
+    }
+
+    /**
+     * 删除类目
+     *
+     * @param id 类目id
+     */
+    @Override
+    public void remove(Long id) throws Exception {
+        categoryMapper.remove(id);
     }
 }

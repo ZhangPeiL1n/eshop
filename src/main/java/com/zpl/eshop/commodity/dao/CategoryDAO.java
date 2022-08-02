@@ -19,7 +19,7 @@ public interface CategoryDAO {
      *
      * @return 根类目集合
      */
-    List<CategoryDO> listRoots();
+    List<CategoryDO> listRoots() throws Exception;
 
     /**
      * 查询子类目
@@ -27,7 +27,7 @@ public interface CategoryDAO {
      * @param id 父类目 id
      * @return 子类目集合
      */
-    List<CategoryDO> listChildren(Long id);
+    List<CategoryDO> listChildren(Long id) throws Exception;
 
     /**
      * 根据id查询类目
@@ -35,7 +35,7 @@ public interface CategoryDAO {
      * @param id 类目id
      * @return 子类目集合
      */
-    CategoryDO getById(@Param("id") Long id);
+    CategoryDO getById(@Param("id") Long id) throws Exception;
 
     /**
      * 新增类目
@@ -43,5 +43,19 @@ public interface CategoryDAO {
      * @param categoryDO 类目
      * @return 是否成功
      */
-    Long save(CategoryDO categoryDO);
+    Long save(CategoryDO categoryDO) throws Exception;
+
+    /**
+     * 更新类目
+     *
+     * @param categoryDO 类目
+     */
+    void update(CategoryDO categoryDO) throws Exception;
+
+    /**
+     * 删除类目
+     *
+     * @param id 类目id
+     */
+    void remove(Long id) throws Exception;
 }

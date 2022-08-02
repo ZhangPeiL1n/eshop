@@ -62,4 +62,11 @@ public interface PropertyGroupRelationshipMapper {
             @Result(column = "gmt_modified", property = "gmtModified")})
     List<PropertyGroupRelationshipDO> listByPropertyGroupId(@Param("propertyGroupId") Long propertyGroupId);
 
+    /**
+     * 根据属性分组id删除属性分组和属性关联关系
+     *
+     * @param propertyGroupId 属性分组id
+     */
+    @Delete("delete from commodity_property_group_relationship where property_group_id = #{propertyGroupId}")
+    void removeByPropertyGroupId(@Param("propertyGroupId") Long propertyGroupId);
 }

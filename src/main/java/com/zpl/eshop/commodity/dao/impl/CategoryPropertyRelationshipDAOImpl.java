@@ -5,6 +5,7 @@ import com.zpl.eshop.commodity.domain.CategoryPropertyRelationshipDO;
 import com.zpl.eshop.commodity.mapper.CategoryPropertyRelationshipMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class CategoryPropertyRelationshipDAOImpl
     private static final Logger logger = LoggerFactory.getLogger(
             CategoryPropertyRelationshipDAOImpl.class);
 
+    @Autowired
     private CategoryPropertyRelationshipMapper categoryPropertyRelationMapper;
 
     /**
@@ -28,14 +30,9 @@ public class CategoryPropertyRelationshipDAOImpl
      *
      * @param relation 类目属性关系
      */
-    public Boolean save(CategoryPropertyRelationshipDO relation) {
-        try {
-            categoryPropertyRelationMapper.save(relation);
-            return true;
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
+    public Boolean save(CategoryPropertyRelationshipDO relation) throws Exception {
+        categoryPropertyRelationMapper.save(relation);
+        return true;
     }
 
     /**
@@ -44,12 +41,17 @@ public class CategoryPropertyRelationshipDAOImpl
      * @param categoryId 类目id
      * @return 类目与属性的关联关系
      */
-    public List<CategoryPropertyRelationshipDO> listByCategoryId(Long categoryId) {
-        try {
-            return categoryPropertyRelationMapper.listByCategoryId(categoryId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public List<CategoryPropertyRelationshipDO> listByCategoryId(Long categoryId) throws Exception {
+        return categoryPropertyRelationMapper.listByCategoryId(categoryId);
+    }
+
+    /**
+     * 根据类目id删除
+     *
+     * @param categoryId 类目id
+     */
+    @Override
+    public void removeByCategoryId(Long categoryId) throws Exception {
+        categoryPropertyRelationMapper.removeByCategoryId(categoryId);
     }
 }

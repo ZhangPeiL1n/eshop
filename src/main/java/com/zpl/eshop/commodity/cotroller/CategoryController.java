@@ -106,4 +106,32 @@ public class CategoryController {
             return null;
         }
     }
+
+
+    @PutMapping("/{id}")
+    public Boolean update(CategoryVO category) {
+        try {
+            categoryService.update(category.clone(CategoryDTO.class, CloneDirection.FORWARD));
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 删除类目
+     *
+     * @param id 类目id
+     * @return 结果
+     */
+    @DeleteMapping("/{id}")
+    public Boolean remove(@PathVariable("id") Long id) {
+        try {
+            return categoryService.remove(id);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
 }

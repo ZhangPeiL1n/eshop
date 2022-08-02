@@ -116,4 +116,23 @@ public interface CategoryMapper {
             ")")
     @Options(keyColumn = "id", keyProperty = "id", useGeneratedKeys = true)
     void save(CategoryDO categoryDO);
+
+    /**
+     * 更新类目
+     *
+     * @param categoryDO 类目
+     */
+    @Update("update commodity_category set " +
+            "description = #{description}," +
+            "gmt_modified = #{gmtModified} " +
+            "where id = #{id}")
+    void update(CategoryDO categoryDO);
+
+    /**
+     * 删除类目
+     *
+     * @param id 类目id
+     */
+    @Delete("delete from commodity_category where id = #{id}")
+    void remove(@Param("id") Long id);
 }

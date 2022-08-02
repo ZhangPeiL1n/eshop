@@ -3,12 +3,14 @@ package com.zpl.eshop.commodity.service.impl;
 import com.zpl.eshop.commodity.dao.*;
 import com.zpl.eshop.commodity.domain.*;
 import com.zpl.eshop.commodity.service.CategoryService;
+import com.zpl.eshop.common.bean.SpringApplicationContext;
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
  * @date 2022/5/17 22:36
  **/
 @Service
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
@@ -56,18 +59,19 @@ public class CategoryServiceImpl implements CategoryService {
     private DateProvider dateProvider;
 
     /**
+     * Spring 容器组件
+     */
+    @Autowired
+    SpringApplicationContext context;
+
+    /**
      * 查询根类目
      *
      * @return 根类目集合
      */
-    public List<CategoryDTO> listRoots() {
-        try {
-            List<CategoryDO> roots = categoryDAO.listRoots();
-            return ObjectUtils.convertList(roots, CategoryDTO.class);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public List<CategoryDTO> listRoots() throws Exception {
+        List<CategoryDO> roots = categoryDAO.listRoots();
+        return ObjectUtils.convertList(roots, CategoryDTO.class);
     }
 
     /**
@@ -76,14 +80,9 @@ public class CategoryServiceImpl implements CategoryService {
      * @param id 父类目 id
      * @return 子类目集合
      */
-    public List<CategoryDTO> listChildren(Long id) {
-        try {
-            List<CategoryDO> children = categoryDAO.listChildren(id);
-            return ObjectUtils.convertList(children, CategoryDTO.class);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public List<CategoryDTO> listChildren(Long id) throws Exception {
+        List<CategoryDO> children = categoryDAO.listChildren(id);
+        return ObjectUtils.convertList(children, CategoryDTO.class);
     }
 
     /**
@@ -92,19 +91,14 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 类目
      */
     @Override
-    public Boolean save(CategoryDTO categoryDTO) {
-        try {
-            // 保存类目基本信息
-            saveCategory(categoryDTO);
-            // 保存类目与属性之间的关联关系
-            saveCategoryPropertyRelations(categoryDTO);
-            // 保存属性分组
-            savePropertyGroup(categoryDTO);
-            return true;
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
+    public Boolean save(CategoryDTO categoryDTO) throws Exception {
+        // 保存类目基本信息
+        saveCategory(categoryDTO);
+        // 保存类目与属性之间的关联关系
+        saveCategoryPropertyRelations(categoryDTO);
+        // 保存属性分组
+        savePropertyGroup(categoryDTO);
+        return true;
     }
 
     /**
@@ -113,7 +107,6 @@ public class CategoryServiceImpl implements CategoryService {
      * @param categoryDTO 类目基本信息
      */
     private void saveCategory(CategoryDTO categoryDTO) throws Exception {
-
         categoryDTO.setGmtCreate(dateProvider.getCurrentTime());
         categoryDTO.setGmtModified(dateProvider.getCurrentTime());
         Long categoryId = categoryDAO.save(categoryDTO.clone(CategoryDO.class));
@@ -182,30 +175,25 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 类目
      */
     @Override
-    public CategoryDTO getById(Long id) {
-        try {
-            // 查询类目基本信息
-            CategoryDTO category = categoryDAO.getById(id).clone(CategoryDTO.class);
-            // 查询类目属性关联关系
-            List<CategoryPropertyRelationshipDO> relations = categoryPropertyRelationDAO.listByCategoryId(id);
-            category.setPropertyRelations(ObjectUtils.convertList(relations, CategoryPropertyRelationshipDTO.class));
+    public CategoryDTO getById(Long id) throws Exception {
+        // 查询类目基本信息
+        CategoryDTO category = categoryDAO.getById(id).clone(CategoryDTO.class);
+        // 查询类目属性关联关系
+        List<CategoryPropertyRelationshipDO> relations = categoryPropertyRelationDAO.listByCategoryId(id);
+        category.setPropertyRelations(ObjectUtils.convertList(relations, CategoryPropertyRelationshipDTO.class));
 
-            // 查询类目关联的属性
-            List<PropertyDO> properties = new ArrayList<>();
-            for (CategoryPropertyRelationshipDO relation : relations) {
-                properties.add(propertyDAO.getPropertyById(relation.getPropertyId()));
-            }
-            category.setProperties(ObjectUtils.convertList(properties, PropertyDTO.class));
-
-            // 查询类目关联的属性分组
-            List<PropertyGroupDTO> propertyGroups = getPropertyByCategoryId(id);
-            category.setPropertyGroups(propertyGroups);
-
-            return category;
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
+        // 查询类目关联的属性
+        List<PropertyDO> properties = new ArrayList<>();
+        for (CategoryPropertyRelationshipDO relation : relations) {
+            properties.add(propertyDAO.getPropertyById(relation.getPropertyId()));
         }
+        category.setProperties(ObjectUtils.convertList(properties, PropertyDTO.class));
+
+        // 查询类目关联的属性分组
+        List<PropertyGroupDTO> propertyGroups = getPropertyByCategoryId(id);
+        category.setPropertyGroups(propertyGroups);
+
+        return category;
     }
 
     /**
@@ -235,5 +223,52 @@ public class CategoryServiceImpl implements CategoryService {
             resultPropertyGroups.add(resultPropertyGroup);
         }
         return resultPropertyGroups;
+    }
+
+    /**
+     * 更新类目
+     *
+     * @param category 类目dto
+     */
+    @Override
+    public void update(CategoryDTO category) throws Exception {
+        category.setGmtModified(dateProvider.getCurrentTime());
+        categoryDAO.update(category.clone(CategoryDO.class));
+
+        categoryPropertyRelationDAO.removeByCategoryId(category.getId());
+        saveCategoryPropertyRelations(category);
+        removePropertyGroupRelations(category);
+        propertyGroupDAO.removeByCategoryId(category.getId());
+        savePropertyGroup(category);
+    }
+
+    /**
+     * 删除类目的属性分组与属性的关联关系
+     *
+     * @param category 类目
+     */
+    private void removePropertyGroupRelations(CategoryDTO category) throws Exception {
+        for (PropertyGroupDTO propertyGroup : category.getPropertyGroups()) {
+            propertyGroupRelationDAO.removeByPropertyGroupId(propertyGroup.getId());
+        }
+    }
+
+
+    /**
+     * 删除类目
+     *
+     * @param id 类目id
+     * @throws Exception
+     */
+    @Override
+    public Boolean remove(Long id) throws Exception {
+        Category category = new Category(id);
+        CategoryRelatedCheckOperation relatedCheckOperation = context.getBean(CategoryRelatedCheckOperation.class);
+        Boolean result = category.execute(relatedCheckOperation);
+        if (!result) {
+            return false;
+        }
+        CategoryRemoveOperation removeOperation = context.getBean(CategoryRemoveOperation.class);
+        return category.execute(removeOperation);
     }
 }

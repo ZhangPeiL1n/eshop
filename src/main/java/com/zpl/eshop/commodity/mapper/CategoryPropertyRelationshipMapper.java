@@ -63,4 +63,14 @@ public interface CategoryPropertyRelationshipMapper {
             @Result(column = "gmt_modified", property = "gmtModified")
     })
     List<CategoryPropertyRelationshipDO> listByCategoryId(@Param("categoryId") Long categoryId);
+
+
+    /**
+     * 根据类目id删除
+     *
+     * @param categoryId 类目id
+     */
+    @Delete("delete from commodity_category_property_relationship " +
+            "where category_id = #{categoryId}")
+    void removeByCategoryId(@Param("categoryId") Long categoryId);
 }

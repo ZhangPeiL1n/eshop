@@ -5,6 +5,7 @@ import com.zpl.eshop.commodity.domain.PropertyGroupRelationshipDO;
 import com.zpl.eshop.commodity.mapper.PropertyGroupRelationshipMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class PropertyGroupRelationshipDAOImpl implements PropertyGroupRelationsh
     private static final Logger logger = LoggerFactory.getLogger(
             PropertyGroupRelationshipDAOImpl.class);
 
+    @Autowired
     private PropertyGroupRelationshipMapper propertyGroupRelationMapper;
 
     /**
@@ -27,14 +29,11 @@ public class PropertyGroupRelationshipDAOImpl implements PropertyGroupRelationsh
      *
      * @param relation 属性分组与属性关系
      */
-    public Boolean save(PropertyGroupRelationshipDO relation) {
-        try {
-            propertyGroupRelationMapper.save(relation);
-            return true;
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
+    @Override
+    public Boolean save(PropertyGroupRelationshipDO relation) throws Exception {
+        propertyGroupRelationMapper.save(relation);
+        return true;
+
     }
 
     /**
@@ -43,13 +42,18 @@ public class PropertyGroupRelationshipDAOImpl implements PropertyGroupRelationsh
      * @param propertyGroupId 属性分组id
      * @return 属性分组与属性的关联关系
      */
-    public List<PropertyGroupRelationshipDO> listByPropertyGroupId(Long propertyGroupId) {
-        try {
-            return propertyGroupRelationMapper.listByPropertyGroupId(propertyGroupId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    @Override
+    public List<PropertyGroupRelationshipDO> listByPropertyGroupId(Long propertyGroupId) throws Exception {
+        return propertyGroupRelationMapper.listByPropertyGroupId(propertyGroupId);
     }
 
+    /**
+     * 根据属性分组id删除属性分组和属性关联关系
+     *
+     * @param propertyGroupId 属性分组id
+     */
+    @Override
+    public void removeByPropertyGroupId(Long propertyGroupId) throws Exception {
+        propertyGroupRelationMapper.removeByPropertyGroupId(propertyGroupId);
+    }
 }
