@@ -1,5 +1,6 @@
 package com.zpl.eshop.commodity.domain;
 
+import com.zpl.eshop.common.util.AbstractObject;
 import com.zpl.eshop.common.util.BeanCopierUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class PropertyDTO {
+public class PropertyDTO extends AbstractObject {
 
     private final Logger logger = LoggerFactory.getLogger(PropertyDTO.class);
 

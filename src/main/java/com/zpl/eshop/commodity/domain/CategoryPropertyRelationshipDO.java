@@ -29,7 +29,7 @@ public class CategoryPropertyRelationshipDO extends AbstractObject {
     /**
      * 是否必填
      */
-    private Integer required;
+    private Integer isRequired;
     /**
      * 属性类型：1.关键属性，2.销售属性，3.非关键属性，4.导购属性
      * 可多个值拼接

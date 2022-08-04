@@ -2,7 +2,7 @@ package com.zpl.eshop.commodity.dao;
 
 
 import com.zpl.eshop.commodity.constant.PropertyRequired;
-import com.zpl.eshop.commodity.domain.CategoryPropertyRelationshipDO;
+import com.zpl.eshop.commodity.domain.PropertyGroupRelationshipDO;
 import com.zpl.eshop.common.util.DateProvider;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -21,19 +21,19 @@ import java.util.Random;
 
 
 /**
- * 类目与属性关系管理DAO组件单元测试类
+ * 属性分组与属性管理DAO组件单元测试类
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 @Rollback
-public class CategoryPropertyRelationshipDAOTest {
+public class PropertyGroupRelationshipDAOTest {
 
     /**
      * 类目与属性关联关系DAO组件
      */
     @Autowired
-    private CategoryPropertyRelationshipDAO relationDAO;
+    private PropertyGroupRelationshipDAO relationDAO;
 
     /**
      * 日期辅助组件
@@ -46,9 +46,10 @@ public class CategoryPropertyRelationshipDAOTest {
      *
      * @throws Exception
      */
+    @Test
     public void testSave() throws Exception {
         Long categoryId = 1L;
-        CategoryPropertyRelationshipDO relation = createRelation(categoryId);
+        PropertyGroupRelationshipDO relation = createRelation(categoryId);
 
         Assert.assertNotNull(relation.getId());
         Assert.assertThat(relation.getId(), Matchers.greaterThan(0L));
@@ -61,14 +62,14 @@ public class CategoryPropertyRelationshipDAOTest {
      * @throws Exception
      */
     @Test
-    public void testListByCategoryId() throws Exception {
-        Long categoryId = 1L;
+    public void testListByPropertyGroupId() throws Exception {
+        Long propertyGroupId = 1L;
         int relationSize = 5;
-        Map<Long, CategoryPropertyRelationshipDO> relationMap = createRelations(categoryId, relationSize);
+        Map<Long, PropertyGroupRelationshipDO> relationMap = createRelations(propertyGroupId, relationSize);
 
-        List<CategoryPropertyRelationshipDO> relations = relationDAO.listByCategoryId(categoryId);
+        List<PropertyGroupRelationshipDO> relations = relationDAO.listByPropertyGroupId(propertyGroupId);
         Assert.assertThat(relations.size(), Matchers.greaterThanOrEqualTo(relationSize));
-        for (CategoryPropertyRelationshipDO relation : relations) {
+        for (PropertyGroupRelationshipDO relation : relations) {
             Assert.assertEquals(relationMap.get(relation.getId()), relation);
         }
     }
@@ -77,12 +78,12 @@ public class CategoryPropertyRelationshipDAOTest {
      * 根据类目id 删除类目与属性的关联关系
      */
     @Test
-    public void testRemoveByCategoryId() throws Exception {
-        Long categoryId = 1L;
+    public void testRemoveByPropertyGroupId() throws Exception {
+        Long propertyGroupId = 1L;
         int relationSize = 5;
-        createRelations(categoryId, relationSize);
-        relationDAO.removeByCategoryId(categoryId);
-        List<CategoryPropertyRelationshipDO> relations = relationDAO.listByCategoryId(categoryId);
+        createRelations(propertyGroupId, relationSize);
+        relationDAO.removeByPropertyGroupId(propertyGroupId);
+        List<PropertyGroupRelationshipDO> relations = relationDAO.listByPropertyGroupId(propertyGroupId);
         Assert.assertEquals(0, relations.size());
     }
 
@@ -95,10 +96,10 @@ public class CategoryPropertyRelationshipDAOTest {
      * @return
      * @throws Exception
      */
-    private Map<Long, CategoryPropertyRelationshipDO> createRelations(Long categoryId, int relationSize) throws Exception {
-        Map<Long, CategoryPropertyRelationshipDO> relationMap = new HashMap<>();
+    private Map<Long, PropertyGroupRelationshipDO> createRelations(Long categoryId, int relationSize) throws Exception {
+        Map<Long, PropertyGroupRelationshipDO> relationMap = new HashMap<>();
         for (int i = 0; i < relationSize; i++) {
-            CategoryPropertyRelationshipDO relation = createRelation(categoryId);
+            PropertyGroupRelationshipDO relation = createRelation(categoryId);
             relationMap.put(relation.getId(), relation);
         }
         return relationMap;
@@ -109,17 +110,17 @@ public class CategoryPropertyRelationshipDAOTest {
      *
      * @return
      */
-    private CategoryPropertyRelationshipDO createRelation(Long categoryId) throws Exception {
+    private PropertyGroupRelationshipDO createRelation(Long propertyGroupId) throws Exception {
         Random random = new Random();
 
 
-        CategoryPropertyRelationshipDO relation = new CategoryPropertyRelationshipDO();
-        relation.setCategoryId(categoryId);
+        PropertyGroupRelationshipDO relation = new PropertyGroupRelationshipDO();
+        relation.setPropertyGroupId(propertyGroupId);
         relation.setGmtCreate(dateProvider.getCurrentTime());
         relation.setGmtModified(dateProvider.getCurrentTime());
         relation.setPropertyId(random.nextLong());
         relation.setPropertyTypes("测试类型");
-        relation.setIsRequired(PropertyRequired.YES);
+        relation.setRequired(PropertyRequired.YES);
         relationDAO.save(relation);
         return relation;
     }

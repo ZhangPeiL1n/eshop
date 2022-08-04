@@ -58,7 +58,7 @@ public interface CategoryPropertyRelationshipMapper {
             @Result(column = "category_id", property = "categoryId"),
             @Result(column = "property_id", property = "propertyId"),
             @Result(column = "is_required", property = "isRequired"),
-            @Result(column = "property_types", property = "propertyType"),
+            @Result(column = "property_types", property = "propertyTypes"),
             @Result(column = "gmt_create", property = "gmtCreate"),
             @Result(column = "gmt_modified", property = "gmtModified")
     })
