@@ -2,6 +2,7 @@ package com.zpl.eshop.commodity.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  * @date 2022/5/17 22:08
  **/
 @Data
+@EqualsAndHashCode
 public class CategoryDO extends AbstractObject {
 
     /**
