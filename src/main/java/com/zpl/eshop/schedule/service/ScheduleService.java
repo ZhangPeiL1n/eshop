@@ -12,7 +12,7 @@ import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
  * @author ZhangPeiL1n
  * @date 2022/1/3 21:58
  **/
-public interface ScheduleFacadeService {
+public interface ScheduleService {
     /**
      * 通知调度中心，“采购入库完成”事件发生了
      *

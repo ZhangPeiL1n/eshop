@@ -3,6 +3,7 @@ package com.zpl.eshop.schedule.service.impl;
 import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDTO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderDTO;
+import com.zpl.eshop.schedule.service.ScheduleService;
 import com.zpl.eshop.purchase.domain.PurchaseOrderItemDTO;
 import com.zpl.eshop.schedule.service.ScheduleFacadeService;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
@@ -24,7 +25,7 @@ import java.util.List;
  * @date 2022/2/12 13:42
  **/
 @Service
-public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
+public class ScheduleServiceImpl implements ScheduleService {
 
     private static final Logger logger = LoggerFactory.getLogger(ScheduleFacadeServiceImpl.class);
 
