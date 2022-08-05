@@ -2,6 +2,7 @@ package com.zpl.eshop.purchase.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * @date 2022/1/3 22:02
  **/
 @Data
+@EqualsAndHashCode
 public class PurchaseOrderDTO extends AbstractObject {
     /**
      * id
@@ -37,17 +39,17 @@ public class PurchaseOrderDTO extends AbstractObject {
     /**
      * 采购联系人电话
      */
-    private String contactPhoneNumber;
+    private String contactorPhoneNumber;
 
     /**
      * 采购联系人邮箱
      */
-    private String contactEmail;
+    private String contactorEmail;
 
     /**
      * 采购单备注
      */
-    private String purchaseOrderComment;
+    private String remark;
 
     /**
      * 采购员
@@ -57,7 +59,7 @@ public class PurchaseOrderDTO extends AbstractObject {
     /**
      * 采购单状态
      */
-    private Integer purchaseOrderStatus;
+    private Integer status;
 
     /**
      * 采购单创建时间
