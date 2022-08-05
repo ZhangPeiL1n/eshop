@@ -232,14 +232,33 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void update(CategoryDTO category) throws Exception {
+        updateCategory(category);
+
+        removeCategoryPropertyRelations(category);
+        saveCategoryPropertyRelations(category);
+
+        removePropertyGroupRelations(category);
+        savePropertyGroup(category);
+    }
+
+    /**
+     * 更新类目
+     * @param category 类目
+     * @throws Exception
+     */
+    private void updateCategory(CategoryDTO category) throws Exception{
         category.setGmtModified(dateProvider.getCurrentTime());
         categoryDAO.update(category.clone(CategoryDO.class));
+    }
 
+    /**
+     * 删除类目与属性的关联关系
+     * @param category 类目
+     * @throws Exception
+     */
+    private void removeCategoryPropertyRelations(CategoryDTO category) throws Exception{
         categoryPropertyRelationDAO.removeByCategoryId(category.getId());
-        saveCategoryPropertyRelations(category);
-        removePropertyGroupRelations(category);
-        propertyGroupDAO.removeByCategoryId(category.getId());
-        savePropertyGroup(category);
+
     }
 
     /**
@@ -248,11 +267,12 @@ public class CategoryServiceImpl implements CategoryService {
      * @param category 类目
      */
     private void removePropertyGroupRelations(CategoryDTO category) throws Exception {
-        for (PropertyGroupDTO propertyGroup : category.getPropertyGroups()) {
+        List<PropertyGroupDO> propertyGroups = propertyGroupDAO.listByCategoryId(category.getId());
+        for (PropertyGroupDO propertyGroup : propertyGroups) {
             propertyGroupRelationDAO.removeByPropertyGroupId(propertyGroup.getId());
         }
+        propertyGroupDAO.removeByCategoryId(category.getId());
     }
-
 
     /**
      * 删除类目
@@ -265,7 +285,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = new Category(id);
         CategoryRelatedCheckOperation relatedCheckOperation = context.getBean(CategoryRelatedCheckOperation.class);
         Boolean result = category.execute(relatedCheckOperation);
-        if (!result) {
+        if (result) {
             return false;
         }
         CategoryRemoveOperation removeOperation = context.getBean(CategoryRemoveOperation.class);

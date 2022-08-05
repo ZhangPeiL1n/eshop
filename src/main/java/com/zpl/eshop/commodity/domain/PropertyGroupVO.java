@@ -41,4 +41,9 @@ public class PropertyGroupVO extends AbstractObject {
      */
     private List<PropertyGroupRelationshipVO> relations;
 
+    /**
+     * 属性分组关联的属性
+     */
+    private List<PropertyDTO> properties;
+
 }

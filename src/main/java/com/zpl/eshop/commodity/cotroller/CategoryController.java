@@ -109,7 +109,7 @@ public class CategoryController {
 
 
     @PutMapping("/{id}")
-    public Boolean update(CategoryVO category) {
+    public Boolean update(@RequestBody CategoryVO category) {
         try {
             categoryService.update(category.clone(CategoryDTO.class, CloneDirection.FORWARD));
             return true;
