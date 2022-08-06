@@ -353,7 +353,7 @@ public class InventoryServiceTest {
         item.setPurchaseInputOrderId(orderId);
         item.setGoodsSkuId(goodsSkuId);
         item.setPurchaseCount(count);
-        item.setPurchasePrice(88L);
+        item.setPurchasePrice(88.0);
         item.setQualifiedCount(count);
         item.setArrivalCount(count);
         item.setGmtCreate(dateProvider.parse2Datetime("2022-05-19 00:00:00"));

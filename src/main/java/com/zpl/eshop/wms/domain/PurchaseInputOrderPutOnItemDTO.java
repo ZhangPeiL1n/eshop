@@ -1,8 +1,7 @@
 package com.zpl.eshop.wms.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -12,9 +11,8 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/24 23:15
  **/
-@Getter
-@Setter
-@ToString
+@Data
+@EqualsAndHashCode
 public class PurchaseInputOrderPutOnItemDTO {
     /**
      * id
