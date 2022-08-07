@@ -52,21 +52,27 @@ public abstract class AbstractObject {
             field.setAccessible(true);
             // 如果某个字段是 List 类型的
             // filed.getType() 是 List 不是 List<Relation>
-            if (field.getType() == List.class) {
-                // 获取集合泛型
-                Class<?> listGenericClazz = getListGenericType(field);
-                // 获取目标类名，也就是要拷贝的类名, eg:集合是 List<CategoryDTO> 那么 forward 的目标类型就是 CategoryVO
-                Class<?> cloneTargetClazz = getCloneTargetClass(listGenericClazz, cloneDirection);
-                // 将 list 集合克隆到目标 list 集合
-                List<AbstractObject> clonedList = new ArrayList<>();
-                // 获取实际的 list 集合
-                List<?> list = (List<?>) field.get(this);
-                // 遍历 List，继续深拷贝 List 中的元素
-                cloneList(list, clonedList, cloneTargetClazz, cloneDirection);
-                // 获取克隆好的 setter 方法，准备 set 构造好的 List
-                Method setMethod = getSetCloneListFiledSetMethodName(field, clazz);
-                setMethod.invoke(target, clonedList);
+            if (field.getType() != List.class) {
+                continue;
             }
+            // 获取实际的 list 集合
+            List<?> list = (List<?>) field.get(this);
+            if (list == null || list.size() == 0){
+                continue;
+            }
+
+            // 获取集合泛型
+            Class<?> listGenericClazz = getListGenericType(field);
+            // 获取目标类名，也就是要拷贝的类名, eg:集合是 List<CategoryDTO> 那么 forward 的目标类型就是 CategoryVO
+            Class<?> cloneTargetClazz = getCloneTargetClass(listGenericClazz, cloneDirection);
+            // 将 list 集合克隆到目标 list 集合
+            List<AbstractObject> clonedList = new ArrayList<>();
+
+            // 遍历 List，继续深拷贝 List 中的元素
+            cloneList(list, clonedList, cloneTargetClazz, cloneDirection);
+            // 获取克隆好的 setter 方法，准备 set 构造好的 List
+            Method setMethod = getSetCloneListFiledSetMethodName(field, clazz);
+            setMethod.invoke(target, clonedList);
         }
 
         return target;
