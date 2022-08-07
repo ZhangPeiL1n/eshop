@@ -1,6 +1,6 @@
 package com.zpl.eshop.comment.service;
 
-import com.zpl.eshop.comment.domain.CommentAggregateDO;
+import com.zpl.eshop.comment.domain.CommentAggregateDTO;
 import com.zpl.eshop.comment.domain.CommentInfoDTO;
 
 /**
@@ -18,5 +18,13 @@ public interface CommentAggregateService {
      * @param commentInfoDTO 评论信息DTO
      * @return 更新是否成功
      */
-    CommentAggregateDO refreshCommentAggregate(CommentInfoDTO commentInfoDTO);
+    CommentAggregateDTO refreshCommentAggregate(CommentInfoDTO commentInfoDTO) throws Exception;
+
+    /**
+     * 根据商品 id 查询评论统计信息
+     *
+     * @param goodsId 商品id
+     * @return 评论统计信息
+     */
+    CommentAggregateDTO getCommentAggregateByGoodsId(Long goodsId) throws Exception;
 }

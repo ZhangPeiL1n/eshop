@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public class CommentAggregateDAOImpl implements CommentAggregateDAO {
+
     /**
      * 评论统计信息管理模块Mapper
      */

@@ -4,6 +4,7 @@ import com.zpl.eshop.comment.constant.CommentType;
 import com.zpl.eshop.comment.constant.ShowPictures;
 import com.zpl.eshop.comment.dao.CommentAggregateDAO;
 import com.zpl.eshop.comment.domain.CommentAggregateDO;
+import com.zpl.eshop.comment.domain.CommentAggregateDTO;
 import com.zpl.eshop.comment.domain.CommentInfoDTO;
 import com.zpl.eshop.comment.service.CommentAggregateService;
 import com.zpl.eshop.common.util.DateProvider;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
 
@@ -21,6 +23,7 @@ import java.text.DecimalFormat;
  * @date 2022/1/18 21:53
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class CommentAggregateServiceImpl implements CommentAggregateService {
 
     private final Logger logger = LoggerFactory.getLogger(CommentAggregateServiceImpl.class);
@@ -42,20 +45,25 @@ public class CommentAggregateServiceImpl implements CommentAggregateService {
      * @return 更新是否成功
      */
     @Override
-    public CommentAggregateDO refreshCommentAggregate(CommentInfoDTO commentInfoDTO) {
-        CommentAggregateDO commentAggregateDO;
-        try {
-            commentAggregateDO = commentAggregateDAO.getCommentAggregateByGoodsId(commentInfoDTO.getGoodsId());
-            if (commentAggregateDO == null) {
-                commentAggregateDO = saveCommentAggregate(commentInfoDTO);
-            } else {
-                updateCommentAggregate(commentAggregateDO, commentInfoDTO);
-            }
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
+    public CommentAggregateDTO refreshCommentAggregate(CommentInfoDTO commentInfoDTO) throws Exception {
+        CommentAggregateDO commentAggregateDO = commentAggregateDAO.getCommentAggregateByGoodsId(commentInfoDTO.getGoodsId());
+        if (commentAggregateDO == null) {
+            commentAggregateDO = saveCommentAggregate(commentInfoDTO);
+        } else {
+            updateCommentAggregate(commentAggregateDO, commentInfoDTO);
         }
-        return commentAggregateDO;
+        return commentAggregateDO.clone(CommentAggregateDTO.class);
+    }
+
+    /**
+     * 根据商品 id 查询评论统计信息
+     *
+     * @param goodsId 商品id
+     * @return 评论统计信息
+     */
+    @Override
+    public CommentAggregateDTO getCommentAggregateByGoodsId(Long goodsId) throws Exception {
+        return commentAggregateDAO.getCommentAggregateByGoodsId(goodsId).clone(CommentAggregateDTO.class);
     }
 
     /**

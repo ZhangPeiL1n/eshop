@@ -14,7 +14,7 @@ import java.util.Date;
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class CommentAggregateDO extends AbstractObject {
+public class CommentAggregateDTO extends AbstractObject {
 
     /**
      * id

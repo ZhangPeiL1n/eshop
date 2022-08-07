@@ -1,10 +1,8 @@
 package com.zpl.eshop.comment.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,10 +14,8 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/11 22:14
  **/
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class CommentInfoDTO extends AbstractObject {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentInfoDTO.class);

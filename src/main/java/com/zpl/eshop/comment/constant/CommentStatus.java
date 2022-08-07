@@ -7,10 +7,12 @@ package com.zpl.eshop.comment.constant;
  * @date 2022/1/13 21:42
  **/
 public class CommentStatus {
+
     /**
      * 待审核
      */
     public static final Integer APPROVING = 1;
+
     /**
      * 审核通过
      */
@@ -23,7 +25,4 @@ public class CommentStatus {
 
     private CommentStatus() {
     }
-
-    ;
-
 }

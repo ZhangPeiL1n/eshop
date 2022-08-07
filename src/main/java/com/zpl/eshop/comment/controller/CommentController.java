@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 评论管理模块Controller组件
@@ -202,5 +203,63 @@ public class CommentController {
             logger.error("error", e);
             return false;
         }
+    }
+
+
+    /**
+     * 在前台展示评论信息
+     *
+     * @param goodsId 商品id
+     * @return
+     */
+    @GetMapping("/show/#{goodsId}")
+    public CommentShowVO show(@PathVariable("goodsId") Long goodsId, CommentInfoQuery commentInfoQuery) {
+        try {
+            // 构造评论展示的VO对象
+            CommentShowVO commentShow = new CommentShowVO();
+            commentShow.setGoodsId(goodsId);
+            // 查询评论统计信息
+            CommentAggregateDTO aggregate = commentAggregateService.getCommentAggregateByGoodsId(goodsId);
+            commentShow.setAggregate(aggregate.clone(CommentAggregateVO.class));
+            // 查询评论列表
+            commentInfoQuery.setCommentStatus(CommentStatus.APPROVED);
+            List<CommentInfoDTO> comments = commentInfoService.listByPage(commentInfoQuery);
+            List<CommentInfoVO> targetComments
+                    = comments
+                    .stream()
+                    .map(commentInfoDTO -> {
+                        try {
+                            CommentInfoVO targetComment = commentInfoDTO.clone(CommentInfoVO.class);
+                            targetComment.setUsername(getEncryptedUsername(commentInfoDTO.getUsername()));
+                            List<CommentPictureDTO> pictures = commentPictureService.listByCommentId(commentInfoDTO.getId());
+                            targetComment.setPictures(ObjectUtils.convertList(pictures, CommentPictureVO.class));
+                            return targetComment;
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .collect(Collectors.toList());
+            commentShow.setComments(targetComments);
+            return commentShow;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new CommentShowVO();
+        }
+    }
+
+    /**
+     * 获取加密后的用户名
+     *
+     * @param username 用户名
+     * @return 加密后的用户名
+     */
+    private String getEncryptedUsername(String username) {
+        StringBuilder builder = new StringBuilder("");
+        builder.append(username.charAt(0));
+        for (int i = 1; i < username.length() - 1; i++) {
+            builder.append("*");
+        }
+        builder.append(username.substring(username.length() - 1));
+        return builder.toString();
     }
 }

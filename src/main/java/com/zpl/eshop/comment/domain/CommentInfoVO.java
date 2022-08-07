@@ -1,11 +1,7 @@
 package com.zpl.eshop.comment.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.Data;
 
 import java.util.List;
 
@@ -15,12 +11,8 @@ import java.util.List;
  * @author ZhangPeiL1n
  * @date 2022/1/11 22:14
  **/
-@Getter
-@Setter
-@ToString
+@Data
 public class CommentInfoVO extends AbstractObject {
-
-    private final Logger logger = LoggerFactory.getLogger(CommentInfoVO.class);
 
     /**
      * id
