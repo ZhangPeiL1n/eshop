@@ -1,5 +1,6 @@
 package com.zpl.eshop.wms.domain;
 
+import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class PurchaseInputOrderDTO {
+public class PurchaseInputOrderDTO extends AbstractObject {
     /**
      * id
      */
@@ -52,9 +53,9 @@ public class PurchaseInputOrderDTO {
     private String purchaseContactEmail;
 
     /**
-     * 采购入库单备注
+     * 采购单备注
      */
-    private String purchaseInputOrderComment;
+    private String purchaseOrderComment;
 
     /**
      * 采购员

@@ -1,31 +1,25 @@
-package com.zpl.eshop.schedule.service.impl;
+package com.zpl.eshop.schedule.service;
 
 import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDTO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderDTO;
-import com.zpl.eshop.schedule.service.ScheduleFacadeService;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
-import org.springframework.stereotype.Service;
 
 /**
- * 调度中心对外接口Service组件
+ * 调度中心对外提供的接口
  *
  * @author ZhangPeiL1n
- * @date 2022/2/12 13:42
+ * @date 2022/1/3 21:58
  **/
-@Service
-public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
+public interface ScheduleService {
     /**
      * 通知调度中心，“采购入库完成”事件发生了
      *
      * @param purchaseInputOrderDTO 采购入库单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrderDTO) {
-        return true;
-    }
+    Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrderDTO);
 
     /**
      * 通知调度中心，“提交订单”事件发生了
@@ -33,10 +27,7 @@ public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO) {
-        return true;
-    }
+    Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知调度中心，“支付订单”事件发生了
@@ -44,10 +35,7 @@ public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean informPayOrderEvent(OrderInfoDTO orderDTO) {
-        return true;
-    }
+    Boolean informPayOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知调度中心，“取消订单”事件发生了
@@ -55,10 +43,7 @@ public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean cancelOrderEvent(OrderInfoDTO orderDTO) {
-        return true;
-    }
+    Boolean cancelOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知调度中心，“退货入库”事件发生了
@@ -66,10 +51,7 @@ public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
      * @param returnGoodsInputOrderDTO 退货入库DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO) {
-        return true;
-    }
+    Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO);
 
     /**
      * 调度采购入库
@@ -77,10 +59,7 @@ public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
      * @param purchaseOrderDTO 采购单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean schedulePurchaseInput(PurchaseOrderDTO purchaseOrderDTO) {
-        return true;
-    }
+    Boolean schedulePurchaseInput(PurchaseOrderDTO purchaseOrderDTO);
 
     /**
      * 调度销售出库
@@ -88,10 +67,7 @@ public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean scheduleSaleDelivery(OrderInfoDTO orderDTO) {
-        return true;
-    }
+    Boolean scheduleSaleDelivery(OrderInfoDTO orderDTO);
 
     /**
      * 调度退货入库
@@ -100,8 +76,5 @@ public class ScheduleFacadeServiceImpl implements ScheduleFacadeService {
      * @param returnGoodsWorksheetDTO 退货入库单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfoDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO) {
-        return true;
-    }
+    Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfoDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO);
 }
