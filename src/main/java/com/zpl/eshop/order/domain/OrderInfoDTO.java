@@ -73,12 +73,12 @@ public class OrderInfoDTO {
     private Double totalAmount;
 
     /**
-     * 折扣金额
+     * 促销活动减免金额
      */
     private Double discountAmount;
 
     /**
-     * 优惠券抵扣金额
+     * 优惠券减免金额
      */
     private Double couponAmount;
 
