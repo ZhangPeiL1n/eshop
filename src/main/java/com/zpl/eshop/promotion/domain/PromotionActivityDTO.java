@@ -1,5 +1,9 @@
 package com.zpl.eshop.promotion.domain;
 
+import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.Date;
 
 /**
@@ -8,7 +12,9 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/3 21:25
  **/
-public class PromotionActivityDTO {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class PromotionActivityDTO extends AbstractObject {
     /**
      * id
      */
@@ -17,32 +23,37 @@ public class PromotionActivityDTO {
     /**
      * 促销活动名称
      */
-    private String promotionActivityName;
+    private String name;
 
     /**
      * 促销活动开始时间
      */
-    private Date promotionActivityStartTime;
+    private Date startTime;
 
     /**
      * 促销活动结束时间
      */
-    private Date promotionActivityEndTime;
+    private Date endTime;
 
     /**
      * 促销活动备注
      */
-    private String promotionActivityComment;
+    private String remark;
 
     /**
      * 促销活动状态
      */
-    private Integer promotionActivityStatus;
+    private Integer status;
 
     /**
      * 促销活动规则
      */
-    private String promotionActivityRule;
+    private String rule;
+
+    /**
+     * 促销活动类型
+     */
+    private Integer type;
 
     /**
      * 促销活动创建时间
@@ -53,76 +64,4 @@ public class PromotionActivityDTO {
      * 促销活动修改时间
      */
     private Date gmtModified;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPromotionActivityName() {
-        return promotionActivityName;
-    }
-
-    public void setPromotionActivityName(String promotionActivityName) {
-        this.promotionActivityName = promotionActivityName;
-    }
-
-    public Date getPromotionActivityStartTime() {
-        return promotionActivityStartTime;
-    }
-
-    public void setPromotionActivityStartTime(Date promotionActivityStartTime) {
-        this.promotionActivityStartTime = promotionActivityStartTime;
-    }
-
-    public Date getPromotionActivityEndTime() {
-        return promotionActivityEndTime;
-    }
-
-    public void setPromotionActivityEndTime(Date promotionActivityEndTime) {
-        this.promotionActivityEndTime = promotionActivityEndTime;
-    }
-
-    public String getPromotionActivityComment() {
-        return promotionActivityComment;
-    }
-
-    public void setPromotionActivityComment(String promotionActivityComment) {
-        this.promotionActivityComment = promotionActivityComment;
-    }
-
-    public Integer getPromotionActivityStatus() {
-        return promotionActivityStatus;
-    }
-
-    public void setPromotionActivityStatus(Integer promotionActivityStatus) {
-        this.promotionActivityStatus = promotionActivityStatus;
-    }
-
-    public String getPromotionActivityRule() {
-        return promotionActivityRule;
-    }
-
-    public void setPromotionActivityRule(String promotionActivityRule) {
-        this.promotionActivityRule = promotionActivityRule;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
 }
