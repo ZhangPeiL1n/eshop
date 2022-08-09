@@ -5,7 +5,7 @@ import com.zpl.eshop.comment.service.CommentAggregateService;
 import com.zpl.eshop.comment.service.CommentInfoService;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
-import com.zpl.eshop.order.service.OrderFacadeService;
+import com.zpl.eshop.order.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class AutoPublishCommentTask {
      * 订单中心Service组件
      */
     @Autowired
-    private OrderFacadeService orderFacadeService;
+    private OrderService orderService;
 
     /**
      * 评论信息管理模块Service组件
@@ -48,7 +48,7 @@ public class AutoPublishCommentTask {
     public void execute() {
         try {
             // 先从订单中心查询确认时间超过7天，且没有发表评论的订单
-            List<OrderInfoDTO> orderInfoDTOs = orderFacadeService.listNotPublishCommentOrders();
+            List<OrderInfoDTO> orderInfoDTOs = orderService.listNotPublishCommentOrders();
             if (orderInfoDTOs != null && orderInfoDTOs.size() > 0) {
                 List<Long> orderInfoIds = new ArrayList<>(orderInfoDTOs.size());
                 for (OrderInfoDTO orderInfoDTO : orderInfoDTOs) {
@@ -67,7 +67,7 @@ public class AutoPublishCommentTask {
                     orderInfoIds.add(orderInfoDTO.getId());
                 }
                 // 通知订单中心批量发表评论
-                orderFacadeService.informBatchPublishCommentEvent(orderInfoIds);
+                orderService.informBatchPublishCommentEvent(orderInfoIds);
             }
         } catch (Exception e) {
             logger.error("error", e);
