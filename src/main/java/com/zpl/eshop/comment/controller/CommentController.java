@@ -130,6 +130,12 @@ public class CommentController {
         }
     }
 
+    /**
+     * 根据id获取评论
+     *
+     * @param id 评论id
+     * @return 评论
+     */
     @GetMapping("/{id}")
     public CommentInfoVO getById(@PathVariable("id") Long id) {
         try {
@@ -143,6 +149,13 @@ public class CommentController {
         }
     }
 
+    /**
+     * 显示图片
+     *
+     * @param id       图片
+     * @param request  请求
+     * @param response 响应
+     */
     @GetMapping("/picture/{id}")
     public void viewPicture(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) {
         FileInputStream fis = null;
