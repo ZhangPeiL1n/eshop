@@ -8,10 +8,11 @@ import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
  * @author ZhangPeiL1n
  * @date 2022/1/3 21:20
  **/
-public interface LogisticsFacadeService {
+public interface LogisticsService {
 
     /**
      * 计算商品 sku 的运费
+     *
      * @param goodsSkuDTO 商品 sku DTO
      * @return 商品 sku 的运费
      */

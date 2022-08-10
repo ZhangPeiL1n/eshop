@@ -8,7 +8,7 @@ import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
  * @author ZhangPeiL1n
  * @date 2022/1/3 17:20
  **/
-public interface CommodityFacadeService {
+public interface CommodityService {
 
     /**
      * 根据 id 查询商品 sku
