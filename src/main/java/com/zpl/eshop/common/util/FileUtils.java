@@ -48,8 +48,13 @@ public class FileUtils {
             uploadDir.mkdir();
         }
 
-        String filename = UUID.randomUUID().toString().replace("-", "");
-        File targetFile = new File(uploadDirPath + filename);
+        // 当前系统的路径分隔符，linux 和 windows 不同
+        String pathSeparator = System.getProperties().getProperty("file.separator");
+        String originalFilename = file.getOriginalFilename();
+        String suffix = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+        String filename = UUID.randomUUID().toString().replace("-", "") + "." + suffix;
+        String targetFilepath = uploadDirPath + pathSeparator + filename + suffix;
+        File targetFile = new File(targetFilepath);
 
         file.transferTo(targetFile);
 
