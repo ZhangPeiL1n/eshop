@@ -133,9 +133,6 @@ public interface BrandMapper {
             "<if test='#{introduction} != null'>" +
             "introduction = #{introduction}," +
             "</if>" +
-            "<if test='#{authVoucherPath} != null'>" +
-            "auth_voucher_path = #{authVoucherPath}," +
-            "</if>" +
             "<if test='#{location} != null'>" +
             "location = #{location}," +
             "</if>" +
@@ -146,6 +143,29 @@ public interface BrandMapper {
             "where id = #{id}" +
             "</script>")
     void update(BrandDO brand);
+
+    /**
+     * 更新品牌logo图片路径
+     *
+     * @param brand 品牌
+     */
+    @Update("UPDATE commodity_brand set " +
+            "logo_path = #{logoPath}," +
+            "gmt_modified = #{gmtModified} " +
+            "where id = #{id}")
+    void updateLogoPicture(BrandDO brand);
+
+    /**
+     * 更新品牌授权认证图片路径
+     *
+     * @param brand 品牌
+     */
+    @Update("UPDATE commodity_brand set " +
+            "auth_voucher_path = #{authVoucherPath}," +
+            "gmt_modified = #{gmtModified} " +
+            "where id = #{id}")
+    void updateAuthVoucherPicture(BrandDO brand);
+
 
     /**
      * 删除品牌

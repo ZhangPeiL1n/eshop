@@ -74,7 +74,7 @@ public class BrandController {
      * @param brandVO 品牌VO
      */
     @PostMapping("/")
-    public Boolean saveProperty(@RequestBody BrandVO brandVO, MultipartFile logoFile, MultipartFile authVoucherFile) {
+    public Boolean saveProperty(BrandVO brandVO, MultipartFile logoFile, MultipartFile authVoucherFile) {
         try {
             brandService.save(brandVO.clone(BrandDTO.class), logoFile, authVoucherFile);
         } catch (Exception e) {
@@ -85,14 +85,14 @@ public class BrandController {
     }
 
     /**
-     * 更新商品属性
+     * 更新品牌
      *
-     * @param brandVO 商品属性VO
+     * @param brandVO 品牌属性VO
      */
     @PutMapping("/")
-    public Boolean update(@RequestBody BrandVO brandVO, MultipartFile logoFile, MultipartFile authVoucherFile) {
+    public Boolean update(@RequestBody BrandVO brandVO) {
         try {
-            brandService.update(brandVO.clone(BrandDTO.class), logoFile, authVoucherFile);
+            brandService.update(brandVO.clone(BrandDTO.class));
         } catch (Exception e) {
             logger.error("error", e);
             return false;
@@ -100,11 +100,51 @@ public class BrandController {
         return true;
     }
 
-    @DeleteMapping("/#{id}")
+    /**
+     * 更新商品属性
+     *
+     * @param id       品牌id
+     * @param logoFile logo图片
+     */
+    @PostMapping("/logo/{id}")
+    public Boolean updateLogoPicture(@PathVariable("id") Long id, MultipartFile logoFile) {
+        try {
+            brandService.updateLogoPicture(id, logoFile);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 更新品牌授权认证图片
+     *
+     * @param id       品牌id
+     * @param logoFile 授权认证图片
+     * @return
+     */
+    @PostMapping("/auth_voucher/{id}")
+    public Boolean updateAuthVoucherPicture(@PathVariable("id") Long id, MultipartFile logoFile) {
+        try {
+            brandService.updateAuthVoucherPicture(id, logoFile);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 删除品牌
+     *
+     * @param id 品牌id
+     * @return
+     */
+    @DeleteMapping("/{id}")
     public Boolean remove(@PathVariable("id") Long id) {
         try {
             brandService.remove(id);
-
         } catch (Exception e) {
             logger.error("error", e);
             return false;

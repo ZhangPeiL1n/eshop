@@ -45,6 +45,20 @@ public interface BrandDAO {
     void update(BrandDO brand);
 
     /**
+     * 更新品牌logo图片路径
+     *
+     * @param brand 品牌
+     */
+    void updateLogoPicture(BrandDO brand);
+
+    /**
+     * 更新品牌授权认证图片路径
+     *
+     * @param brand 品牌
+     */
+    void updateAuthVoucherPicture(BrandDO brand);
+
+    /**
      * 删除品牌
      *
      * @param id 品牌id

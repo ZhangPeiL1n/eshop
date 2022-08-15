@@ -67,6 +67,26 @@ public class BrandDAOImpl implements BrandDAO {
     }
 
     /**
+     * 更新品牌logo图片路径
+     *
+     * @param brand 品牌
+     */
+    @Override
+    public void updateLogoPicture(BrandDO brand) {
+        brandMapper.updateLogoPicture(brand);
+    }
+
+    /**
+     * 更新品牌授权认证图片路径
+     *
+     * @param brand 品牌
+     */
+    @Override
+    public void updateAuthVoucherPicture(BrandDO brand) {
+        brandMapper.updateAuthVoucherPicture(brand);
+    }
+
+    /**
      * 删除品牌
      *
      * @param id 品牌id

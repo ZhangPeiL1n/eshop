@@ -19,7 +19,7 @@ public class BrandDO extends AbstractObject {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 中文名称

@@ -145,18 +145,44 @@ public class BrandServiceImpl implements BrandService {
     /**
      * 更新批判
      *
-     * @param brand           品牌
-     * @param logoFile        logo图片
-     * @param authVoucherFile 品牌授权认证图片
+     * @param brand 品牌
      */
     @Override
-    public void update(BrandDTO brand, MultipartFile logoFile, MultipartFile authVoucherFile) throws Exception {
-        String logoPath = uploadLogoFile(logoFile);
-        String authVoucherPath = uploadAuthVoucherFile(authVoucherFile);
-        brand.setLogoPath(logoPath);
-        brand.setAuthVoucherPath(authVoucherPath);
+    public void update(BrandDTO brand) throws Exception {
         brand.setGmtModified(dateProvider.getCurrentTime());
         brandDAO.update(brand.clone(BrandDO.class));
+    }
+
+    /**
+     * 更新品牌图片
+     *
+     * @param id       品牌id
+     * @param logoFile 图片文件
+     */
+    @Override
+    public void updateLogoPicture(Long id, MultipartFile logoFile) throws Exception {
+        BrandDO brand = brandDAO.getById(id);
+        FileUtils.deleteFile(brand.getLogoPath());
+        String logoPath = uploadLogoFile(logoFile);
+        brand.setLogoPath(logoPath);
+        brand.setGmtModified(dateProvider.getCurrentTime());
+        brandDAO.updateLogoPicture(brand);
+    }
+
+    /**
+     * 更新品牌授权认证图片
+     *
+     * @param id              品牌id
+     * @param authVoucherFile 授权认证图片
+     */
+    @Override
+    public void updateAuthVoucherPicture(Long id, MultipartFile authVoucherFile) throws Exception {
+        BrandDO brand = brandDAO.getById(id);
+        String authVoucherPath = uploadAuthVoucherFile(authVoucherFile);
+        FileUtils.deleteFile(brand.getAuthVoucherPath());
+        brand.setAuthVoucherPath(authVoucherPath);
+        brand.setGmtModified(dateProvider.getCurrentTime());
+        brandDAO.updateAuthVoucherPicture(brand);
     }
 
     /**
@@ -166,6 +192,9 @@ public class BrandServiceImpl implements BrandService {
      */
     @Override
     public void remove(Long id) {
+        BrandDO brand = brandDAO.getById(id);
+        FileUtils.deleteFile(brand.getLogoPath());
+        FileUtils.deleteFile(brand.getAuthVoucherPath());
         brandDAO.remove(id);
     }
 }

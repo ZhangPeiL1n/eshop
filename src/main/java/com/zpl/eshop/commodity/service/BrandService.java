@@ -40,13 +40,27 @@ public interface BrandService {
     void save(BrandDTO brand, MultipartFile logoFile, MultipartFile authVoucherFile) throws Exception;
 
     /**
-     * 更新批判
+     * 更新品牌
      *
-     * @param brand           品牌
-     * @param logoFile        logo图片
-     * @param authVoucherFile 品牌授权认证图片
+     * @param brand 品牌
      */
-    void update(BrandDTO brand, MultipartFile logoFile, MultipartFile authVoucherFile) throws Exception;
+    void update(BrandDTO brand) throws Exception;
+
+    /**
+     * 更新品牌图片
+     *
+     * @param id       品牌id
+     * @param logoFile 图片文件
+     */
+    void updateLogoPicture(Long id, MultipartFile logoFile) throws Exception;
+
+    /**
+     * 更新品牌授权认证图片
+     *
+     * @param id              品牌id
+     * @param authVoucherFile 授权认证图片
+     */
+    void updateAuthVoucherPicture(Long id, MultipartFile authVoucherFile) throws Exception;
 
     /**
      * 删除品牌
