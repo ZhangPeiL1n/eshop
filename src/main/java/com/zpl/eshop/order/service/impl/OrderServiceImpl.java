@@ -1,20 +1,20 @@
 package com.zpl.eshop.order.service.impl;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
-import com.zpl.eshop.order.service.OrderFacadeService;
+import com.zpl.eshop.order.service.OrderService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 订单中心对外提供接口Service组件
+ * 订单中心接口Service组件
  *
  * @author ZhangPeiL1n
  * @date 2022/2/2 18:54
  **/
 @Service
-public class OrderFacadeServiceImpl implements OrderFacadeService {
+public class OrderServiceImpl implements OrderService {
     /**
      * 通知订单中心，“商品完成发货”事件发生了
      *
