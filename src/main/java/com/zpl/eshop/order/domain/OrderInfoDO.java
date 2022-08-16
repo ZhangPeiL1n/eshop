@@ -5,17 +5,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
-import java.util.List;
 
 /**
- * 订单 DTO
+ * 订单 DO
  *
  * @author ZhangPeiL1n
  * @date 2022/1/3 18:19
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class OrderInfoDTO extends AbstractObject {
+public class OrderInfoDO extends AbstractObject {
     /**
      * id
      */
@@ -120,10 +119,5 @@ public class OrderInfoDTO extends AbstractObject {
      * 销售出库单修改时间
      */
     private Date gmtModified;
-
-    /**
-     * 订单包含的订单条目
-     */
-    private List<OrderItemDTO> orderItems;
 
 }

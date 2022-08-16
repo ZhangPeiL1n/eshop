@@ -14,7 +14,7 @@ import java.util.Date;
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class OrderItemDTO extends AbstractObject {
+public class OrderItemVO extends AbstractObject {
 
     /**
      * id

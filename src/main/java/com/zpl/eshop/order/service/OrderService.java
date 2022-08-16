@@ -81,12 +81,4 @@ public interface OrderService {
      * @return 处理结果
      */
     Boolean informBatchPublishCommentEvent(List<Long> orderId);
-
-    /**
-     * 计算订单价格
-     *
-     * @param order 订单
-     * @return 计算金额后的订单
-     */
-    OrderInfoDTO calculateOrderPrice(OrderInfoDTO order) throws Exception;
 }

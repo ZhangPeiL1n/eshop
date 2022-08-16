@@ -8,14 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 订单 DTO
+ * 订单 VO
  *
  * @author ZhangPeiL1n
- * @date 2022/1/3 18:19
+ * @date 2022/8/16 15:23
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class OrderInfoDTO extends AbstractObject {
+public class OrderInfoVO extends AbstractObject {
     /**
      * id
      */
@@ -124,6 +124,6 @@ public class OrderInfoDTO extends AbstractObject {
     /**
      * 订单包含的订单条目
      */
-    private List<OrderItemDTO> orderItems;
+    private List<OrderItemVO> orderItems;
 
 }
