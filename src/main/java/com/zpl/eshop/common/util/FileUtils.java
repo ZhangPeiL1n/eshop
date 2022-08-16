@@ -48,11 +48,27 @@ public class FileUtils {
             uploadDir.mkdir();
         }
 
-        String filename = UUID.randomUUID().toString().replace("-", "");
-        File targetFile = new File(uploadDirPath + filename);
+        // 当前系统的路径分隔符，linux 和 windows 不同
+        String pathSeparator = System.getProperties().getProperty("file.separator");
+        String originalFilename = file.getOriginalFilename();
+        String suffix = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+        String filename = UUID.randomUUID().toString().replace("-", "") + "." + suffix;
+        String targetFilepath = uploadDirPath + pathSeparator + filename + suffix;
+        File targetFile = new File(targetFilepath);
 
         file.transferTo(targetFile);
 
         return targetFile.getAbsolutePath();
+    }
+
+    /**
+     * 删除文件
+     *
+     * @param filepath 文件路径
+     * @return 结果
+     */
+    public static Boolean deleteFile(String filepath) {
+        File file = new File(filepath);
+        return file.delete();
     }
 }
