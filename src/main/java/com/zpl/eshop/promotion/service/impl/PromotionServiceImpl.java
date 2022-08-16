@@ -3,6 +3,7 @@ package com.zpl.eshop.promotion.service.impl;
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.promotion.constant.PromotionActivityStatus;
 import com.zpl.eshop.promotion.constant.PromotionActivityType;
+import com.zpl.eshop.promotion.domain.CouponDTO;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
 import com.zpl.eshop.promotion.service.PromotionService;
 import org.slf4j.Logger;
@@ -89,5 +90,16 @@ public class PromotionServiceImpl implements PromotionService {
         promotionActivity.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
         promotionActivity.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
         return promotionActivity;
+    }
+
+    /**
+     * 查询用户当前可以使用的优惠券
+     *
+     * @param userAccountId 用户帐号id
+     * @return 有效优惠券
+     */
+    @Override
+    public List<CouponDTO> listValidByUserAccount(Long userAccountId) {
+        return null;
     }
 }
