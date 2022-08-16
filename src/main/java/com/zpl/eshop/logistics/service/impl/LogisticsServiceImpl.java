@@ -2,6 +2,7 @@ package com.zpl.eshop.logistics.service.impl;
 
 import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
 import com.zpl.eshop.logistics.service.LogisticsService;
+import com.zpl.eshop.membership.domain.DeliveryAddressDTO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LogisticsServiceImpl implements LogisticsService {
     @Override
-    public Double calculateFreight(GoodsSkuDTO goodsSkuDTO) {
+    public Double calculateFreight(GoodsSkuDTO goodsSkuDTO, DeliveryAddressDTO deliveryAddress) {
         return 5.5;
     }
 }
