@@ -8,19 +8,34 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 销售出库单DTO
+ * 发货单DTO
  *
  * @author ZhangPeiL1n
  * @date 2022/1/3 17:52
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SaleDeliveryOrderDTO extends AbstractObject {
+public class SendOutOrderDTO extends AbstractObject {
 
     /**
      * id
      */
     private Long id;
+
+    /**
+     * 销售出库单id
+     */
+    private Long saleDeliveryOrderId;
+
+    /**
+     * 用户账号 id
+     */
+    private String userAccountId;
+
+    /**
+     * 用户名称
+     */
+    private String username;
 
     /**
      * 订单 id
@@ -31,11 +46,6 @@ public class SaleDeliveryOrderDTO extends AbstractObject {
      * 订单编号
      */
     private String orderNo;
-
-    /**
-     * 用户账号 id
-     */
-    private String userAccountId;
 
     /**
      * 收货人
@@ -103,33 +113,18 @@ public class SaleDeliveryOrderDTO extends AbstractObject {
     private Integer saleDeliveryOrderStatus;
 
     /**
-     * 实际发货时间
-     */
-    private Date deliveryTime;
-
-    /**
-     * 销售出库单创建时间
+     * 创建时间
      */
     private Date gmtCreate;
 
     /**
-     * 销售出库单修改时间
+     * 修改时间
      */
     private Date gmtModified;
 
     /**
-     * 销售出库单条目
+     * 发货单单条目
      */
-    private List<SaleDeliveryOrderItemDTO> saleDeliveryOrderItems;
-
-    /**
-     * 发货单
-     */
-    private SendOutOrderDTO sendOutOrder;
-
-    /**
-     * 物流单
-     */
-    private LogisticOrderDTO logisticOrder;
+    private List<SendOutOrderItemDTO> sendOutOrderItems;
 
 }
