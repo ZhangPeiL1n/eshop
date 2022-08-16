@@ -1,5 +1,6 @@
 package com.zpl.eshop.promotion.service;
 
+import com.zpl.eshop.promotion.domain.CouponDTO;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
 
 import java.util.List;
@@ -27,4 +28,12 @@ public interface PromotionService {
      * @return 促销活动
      */
     PromotionActivityDTO getById(Long id) throws Exception;
+
+    /**
+     * 查询用户当前可以使用的优惠券
+     *
+     * @param userAccountId 用户帐号id
+     * @return 有效优惠券
+     */
+    List<CouponDTO> listValidByUserAccount(Long userAccountId);
 }
