@@ -21,12 +21,25 @@ public abstract class AbstractObject {
      *
      * @param clazz
      * @param <T>
-     * @return
+     * @return 新对象
      * @throws Exception
      */
     public <T> T clone(Class<T> clazz) throws Exception {
         // 基本字段的浅克隆
         T target = clazz.newInstance();
+        BeanCopierUtils.copyProperties(this, target);
+        return target;
+    }
+
+    /**
+     * 浅克隆
+     *
+     * @param <T>
+     * @return 传入的对象
+     * @throws Exception
+     */
+    public <T> T clone(T target) throws Exception {
+        // 基本字段的浅克隆
         BeanCopierUtils.copyProperties(this, target);
         return target;
     }
