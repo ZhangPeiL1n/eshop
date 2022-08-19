@@ -108,11 +108,6 @@ public class SendOutOrderDTO extends AbstractObject {
     private String orderComment;
 
     /**
-     * 销售出库单状态
-     */
-    private Integer saleDeliveryOrderStatus;
-
-    /**
      * 创建时间
      */
     private Date gmtCreate;
