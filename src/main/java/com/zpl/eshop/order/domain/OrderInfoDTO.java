@@ -1,8 +1,8 @@
 package com.zpl.eshop.order.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 import java.util.List;
@@ -13,10 +13,9 @@ import java.util.List;
  * @author ZhangPeiL1n
  * @date 2022/1/3 18:19
  **/
-@Getter
-@Setter
-@ToString
-public class OrderInfoDTO {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class OrderInfoDTO extends AbstractObject {
     /**
      * id
      */
