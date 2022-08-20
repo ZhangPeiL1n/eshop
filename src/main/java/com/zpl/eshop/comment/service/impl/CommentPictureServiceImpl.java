@@ -44,12 +44,13 @@ public class CommentPictureServiceImpl implements CommentPictureService {
 
     @Override
     public Boolean saveCommentPictures(String appBasePath, Long commentInfoId, MultipartFile[] files) {
+        String realUploadPath = uploadDirPath;
         if (CommentPictureUploadDirType.RELATIVE.equals(uploadDirType)) {
-            uploadDirPath = appBasePath + uploadDirPath;
+            realUploadPath = appBasePath + realUploadPath;
         }
 
         try {
-            File uploadDir = new File(uploadDirPath);
+            File uploadDir = new File(realUploadPath);
             // 如果上传目录不存在，则创建目录
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -59,7 +60,7 @@ public class CommentPictureServiceImpl implements CommentPictureService {
                     continue;
                 }
 
-                String targetFilePath = uploadDirPath + file.getOriginalFilename();
+                String targetFilePath = realUploadPath + file.getOriginalFilename();
                 File targetFile = new File(targetFilePath);
                 // 如果目标文件已存在，则删除
                 if (targetFile.exists()) {
