@@ -8,6 +8,7 @@ import com.zpl.eshop.schedule.service.ScheduleService;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderItemDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
+import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
 import com.zpl.eshop.wms.service.WmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,12 @@ public class ScheduleServiceImpl implements ScheduleService {
      */
     @Autowired
     private WmsService wmsService;
+
+    /**
+     * 销售出库单构造工厂
+     */
+    @Autowired
+    private SaleDeliveryOrderBuilderFactory saleDeliveryOrderBuilderFactory;
 
     /**
      * 通知调度中心，“采购入库完成”事件发生了
@@ -121,6 +128,45 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     /**
+     * 调度销售出库
+     *
+     * @param order 订单DTO
+     * @return 处理结果
+     */
+    @Override
+    public Boolean scheduleSaleDelivery(OrderInfoDTO order) {
+        try {
+            SaleDeliveryOrderBuilder saleDeliveryOrderBuilder = saleDeliveryOrderBuilderFactory.get();
+            SaleDeliveryOrderDTO saleDeliveryOrder = saleDeliveryOrderBuilder
+                    .setOrderRelatedData(order)
+                    .createSaleDeliveryOrderItems(order.getOrderItems())
+                    .createSendOutOrder(order)
+                    .createLogisticOrder(order)
+                    .initStatus()
+                    .initTimes()
+                    .create();
+
+            wmsService.createSaleDeliveryOrder(saleDeliveryOrder);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 调度退货入库
+     *
+     * @param orderInfoDTO            订单DTO
+     * @param returnGoodsWorksheetDTO 退货入库单DTO
+     * @return 处理结果
+     */
+    @Override
+    public Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfoDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO) {
+        return true;
+    }
+
+    /**
      * 创建一个采购入库单
      *
      * @param purchaseOrder 采购单
@@ -155,28 +201,5 @@ public class ScheduleServiceImpl implements ScheduleService {
         purchaseInputOrderItem.setGmtCreate(null);
         purchaseInputOrderItem.setGmtModified(null);
         return purchaseInputOrderItem;
-    }
-
-    /**
-     * 调度销售出库
-     *
-     * @param orderDTO 订单DTO
-     * @return 处理结果
-     */
-    @Override
-    public Boolean scheduleSaleDelivery(OrderInfoDTO orderDTO) {
-        return true;
-    }
-
-    /**
-     * 调度退货入库
-     *
-     * @param orderInfoDTO            订单DTO
-     * @param returnGoodsWorksheetDTO 退货入库单DTO
-     * @return 处理结果
-     */
-    @Override
-    public Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfoDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO) {
-        return true;
     }
 }
