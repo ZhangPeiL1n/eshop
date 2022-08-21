@@ -5,12 +5,12 @@ import com.zpl.eshop.order.domain.OrderInfoDTO;
 import java.util.List;
 
 /**
- * 订单中心对外提供的接口
+ * 订单中心接口
  *
  * @author ZhangPeiL1n
  * @date 2022/1/3 21:08
  **/
-public interface OrderFacadeService {
+public interface OrderService {
     /**
      * 通知订单中心，“商品完成发货”事件发生了
      *

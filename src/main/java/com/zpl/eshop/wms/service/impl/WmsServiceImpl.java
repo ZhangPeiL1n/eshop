@@ -1,11 +1,14 @@
 package com.zpl.eshop.wms.service.impl;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
+import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
 import com.zpl.eshop.wms.service.WmsService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author ZhangPeiL1n
@@ -78,5 +81,16 @@ public class WmsServiceImpl implements WmsService {
     @Override
     public Boolean informCancelOrderEvent(OrderInfoDTO orderDTO) {
         return true;
+    }
+
+    /**
+     * 根据商品 skuId 查询货位库存明细
+     *
+     * @param goodsSkuId 商品sku
+     * @return 货位库存明细
+     */
+    @Override
+    public List<GoodsAllocationStockDetailDTO> listStockDetailsByGoodsSkuId(Long goodsSkuId) {
+        return null;
     }
 }

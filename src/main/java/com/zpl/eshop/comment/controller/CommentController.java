@@ -9,7 +9,7 @@ import com.zpl.eshop.comment.service.CommentInfoService;
 import com.zpl.eshop.comment.service.CommentPictureService;
 import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.membership.service.MembershipFacadeService;
-import com.zpl.eshop.order.service.OrderFacadeService;
+import com.zpl.eshop.order.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class CommentController {
      * 订单中心的Service组件
      */
     @Autowired
-    private OrderFacadeService orderFacadeService;
+    private OrderService orderService;
 
     /**
      * 会员中心的Service组件
@@ -102,7 +102,7 @@ public class CommentController {
 
             // 这里就用门面模式交互了
             // 通知订单中心，发表评论事件发生了
-            orderFacadeService.informPublishCommentEvent(commentInfoDTO.getOrderInfoId());
+            orderService.informPublishCommentEvent(commentInfoDTO.getOrderInfoId());
 
             // 通知用户中心，用户已经发表评论
             membershipFacadeService.informPublishCommentEvent(commentInfoDTO.getUserAccountId(), ShowPictures.YES.equals(commentInfoDTO.getCommentType()));
