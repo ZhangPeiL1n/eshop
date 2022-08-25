@@ -1,4 +1,4 @@
-package com.zpl.eshop.order.domain;
+package com.zpl.eshop.wms.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Data;
@@ -7,14 +7,14 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 订单条目DTO
+ * 发货单条目DTO
  *
  * @author ZhangPeiL1n
- * @date 2022/1/11 21:46
+ * @date 2022/8/16 18:30
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class OrderItemDTO extends AbstractObject {
+public class SendOutOrderItemDTO extends AbstractObject {
 
     /**
      * id
@@ -22,9 +22,9 @@ public class OrderItemDTO extends AbstractObject {
     private Long id;
 
     /**
-     * 订单id
+     * 发货单id
      */
-    private Long orderInfoId;
+    private Long sendOutOrderId;
 
     /**
      * 商品id
@@ -32,12 +32,12 @@ public class OrderItemDTO extends AbstractObject {
     private Long goodsId;
 
     /**
-     * 商品 sku id
+     * 商品skuId
      */
     private Long goodsSkuId;
 
     /**
-     * 商品编码
+     * 商品sku编号
      */
     private String goodsSkuCode;
 
@@ -47,7 +47,7 @@ public class OrderItemDTO extends AbstractObject {
     private String goodsName;
 
     /**
-     * 商品sku的销售属性
+     * 销售属性
      */
     private String saleProperties;
 
@@ -57,22 +57,17 @@ public class OrderItemDTO extends AbstractObject {
     private Double goodsGrossWeight;
 
     /**
-     * 商品sku的购买数量
+     * 购买数量
      */
     private Long purchaseQuantity;
 
     /**
-     * 商品sku的购买价格
+     * 购买价格
      */
     private Double purchasePrice;
 
     /**
-     * 商品sku使用的促销活动id
-     */
-    private Long promotionActivityId;
-
-    /**
-     * 产品长度
+     * 商品长度
      */
     private Double goodsLength;
 
@@ -87,13 +82,12 @@ public class OrderItemDTO extends AbstractObject {
     private Double goodsHeight;
 
     /**
-     * 订单创建时间
+     * 创建时间
      */
     private Date gmtCreate;
 
     /**
-     * 订单更新时间
+     * 修改时间
      */
     private Date gmtModified;
-
 }
