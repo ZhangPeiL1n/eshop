@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * 促销活动 DTO
@@ -15,7 +14,7 @@ import java.util.List;
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PromotionActivityDTO extends AbstractObject {
+public class PromotionActivityDO extends AbstractObject {
     /**
      * id
      */
@@ -65,9 +64,4 @@ public class PromotionActivityDTO extends AbstractObject {
      * 促销活动修改时间
      */
     private Date gmtModified;
-
-    /**
-     * 促销活动与商品的关联关系
-     */
-    private List<PromotionActivityGoodsRelationDTO> relations;
 }

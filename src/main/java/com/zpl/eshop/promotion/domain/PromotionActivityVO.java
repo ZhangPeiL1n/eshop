@@ -15,7 +15,7 @@ import java.util.List;
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PromotionActivityDTO extends AbstractObject {
+public class PromotionActivityVO extends AbstractObject {
     /**
      * id
      */
@@ -67,7 +67,7 @@ public class PromotionActivityDTO extends AbstractObject {
     private Date gmtModified;
 
     /**
-     * 促销活动与商品的关联关系
+     * 促销活动与商品关联关系
      */
-    private List<PromotionActivityGoodsRelationDTO> relations;
+    private List<PromotionActivityGoodsRelationVO> relations;
 }

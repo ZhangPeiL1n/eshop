@@ -19,7 +19,7 @@ public interface PromotionService {
      * @param goodsId 商品 id
      * @return 促销活动
      */
-    List<PromotionActivityDTO> listByGoodsId(Long goodsId);
+    List<PromotionActivityDTO> listByGoodsId(Long goodsId) throws Exception;
 
     /**
      * 根据id查询促销活动
