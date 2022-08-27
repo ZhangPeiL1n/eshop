@@ -79,4 +79,16 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
     public Long getSaleStockQuantity(Long goodsSkuId) {
         return 133221333L;
     }
+
+    /**
+     * 设置销售库存
+     *
+     * @param goodsSkuId        商品skuId
+     * @param saleStockQuantity 销售库存
+     * @return 设置结果
+     */
+    @Override
+    public Boolean setSaleStockQuantity(Long goodsSkuId, Long saleStockQuantity) {
+        return true;
+    }
 }
