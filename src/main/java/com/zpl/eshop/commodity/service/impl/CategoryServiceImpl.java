@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2022/5/17 22:36
  **/
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class CategoryServiceImpl implements CategoryService {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);

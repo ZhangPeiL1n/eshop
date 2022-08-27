@@ -64,6 +64,33 @@ public interface CategoryPropertyRelationshipMapper {
     })
     List<CategoryPropertyRelationshipDO> listByCategoryId(@Param("categoryId") Long categoryId);
 
+    /**
+     * 根据id查询类目与属性的关联关系
+     *
+     * @param id 类目属性关联关系id
+     * @return 类目属性关联关系DO
+     */
+    @Select("SELECT " +
+            "id," +
+            "category_id," +
+            "property_id," +
+            "is_required," +
+            "property_types," +
+            "gmt_create," +
+            "gmt_modified " +
+            "from commodity_category_property_relationship " +
+            "where id = #{id}")
+    @Results({
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "category_id", property = "categoryId"),
+            @Result(column = "property_id", property = "propertyId"),
+            @Result(column = "is_required", property = "isRequired"),
+            @Result(column = "property_types", property = "propertyTypes"),
+            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "gmt_modified", property = "gmtModified")
+    })
+    CategoryPropertyRelationshipDO getById(@Param("id") Long id);
+
 
     /**
      * 根据类目id删除

@@ -43,7 +43,7 @@ public class BrandController {
      * @return 品牌列表
      */
     @GetMapping("/")
-    List<BrandVO> listPropertiesByPage(BrandQuery query) {
+    List<BrandVO> listPropertiesByPage(@RequestBody BrandQuery query) {
         try {
             return ObjectUtils.convertList(brandService.listByPage(query), BrandVO.class);
         } catch (Exception e) {

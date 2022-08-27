@@ -37,7 +37,7 @@ public class PropertyController {
      * @return 商品属性
      */
     @GetMapping("/")
-    List<PropertyVO> listPropertiesByPage(PropertyQuery propertyQuery) {
+    List<PropertyVO> listPropertiesByPage(@RequestBody PropertyQuery propertyQuery) {
         try {
             List<PropertyDTO> propertyDTOList = propertyService.listPropertiesByPage(propertyQuery);
             ArrayList<PropertyVO> propertyVOList = new ArrayList<>(propertyDTOList.size());

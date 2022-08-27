@@ -5,18 +5,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
-import java.util.List;
 
 /**
- * 商品 sku dto
- *
  * @author ZhangPeiL1n
- * @date 2022/1/3 17:09
+ * @date 2022/8/25 22:16
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class GoodsSkuDTO extends AbstractObject {
-
+public class GoodsSkuDO extends AbstractObject {
     /**
      * id
      */
@@ -26,41 +22,10 @@ public class GoodsSkuDTO extends AbstractObject {
      * 商品id
      */
     private Long goodsId;
-
-    /**
-     * 商品名称
-     */
-    private String goodsName;
-
     /**
      * 商品sku编号
      */
-    private String goodsSkuCode;
-
-    /**
-     * 销售属性
-     */
-    private String saleProperties;
-
-    /**
-     * 商品毛重
-     */
-    private Double grossWeight;
-
-    /**
-     * 商品长度
-     */
-    private Double goodsLength;
-
-    /**
-     * 商品宽度
-     */
-    private Double goodsWidth;
-
-    /**
-     * 商品高度
-     */
-    private Double goodsHeight;
+    private String skuCode;
 
     /**
      * 采购价格
@@ -78,9 +43,9 @@ public class GoodsSkuDTO extends AbstractObject {
     private Double discountPrice;
 
     /**
-     * 商品sku销售属性值
+     * 销售属性
      */
-    List<GoodsSkuSalePropertyValueDTO> propertyValues;
+    private String saleProperties;
 
     /**
      * 创建时间
@@ -91,9 +56,4 @@ public class GoodsSkuDTO extends AbstractObject {
      * 修改时间
      */
     private Date gmtModified;
-    /**
-     * 商品sku的销售库存
-     */
-    private Long saleStockQuantity;
-
 }

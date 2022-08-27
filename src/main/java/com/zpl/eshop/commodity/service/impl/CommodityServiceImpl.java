@@ -5,6 +5,7 @@ import com.zpl.eshop.commodity.service.CommodityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
  * @date 2022/2/8 22:26
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class CommodityServiceImpl implements CommodityService {
 
     private final Logger logger = LoggerFactory.getLogger(CommodityServiceImpl.class);

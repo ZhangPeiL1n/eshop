@@ -30,6 +30,7 @@ public class CategoryPropertyRelationshipDAOImpl
      *
      * @param relation 类目属性关系
      */
+    @Override
     public Boolean save(CategoryPropertyRelationshipDO relation) throws Exception {
         categoryPropertyRelationMapper.save(relation);
         return true;
@@ -41,8 +42,20 @@ public class CategoryPropertyRelationshipDAOImpl
      * @param categoryId 类目id
      * @return 类目与属性的关联关系
      */
+    @Override
     public List<CategoryPropertyRelationshipDO> listByCategoryId(Long categoryId) throws Exception {
         return categoryPropertyRelationMapper.listByCategoryId(categoryId);
+    }
+
+    /**
+     * 根据id查询类目与属性的关联关系
+     *
+     * @param id 类目属性关联关系id
+     * @return 类目属性关联关系DO
+     */
+    @Override
+    public CategoryPropertyRelationshipDO getById(Long id) {
+        return categoryPropertyRelationMapper.getById(id);
     }
 
     /**

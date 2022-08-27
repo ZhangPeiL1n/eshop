@@ -1,5 +1,10 @@
 package com.zpl.eshop.commodity.dao;
 
+import com.zpl.eshop.commodity.domain.GoodsDO;
+import com.zpl.eshop.commodity.domain.GoodsQuery;
+
+import java.util.List;
+
 /**
  * 商品管理DAO组件接口
  *
@@ -23,4 +28,20 @@ public interface GoodsDAO {
      * @return 商品数量
      */
     Long countByBrandId(Long brandId);
+
+    /**
+     * 分页查询商品
+     *
+     * @param query 查询条件
+     * @return 商品集合
+     */
+    List<GoodsDO> listByPage(GoodsQuery query);
+
+    /**
+     * 新增商品
+     *
+     * @param goods 商品
+     * @return 商品id
+     */
+    Long save(GoodsDO goods);
 }

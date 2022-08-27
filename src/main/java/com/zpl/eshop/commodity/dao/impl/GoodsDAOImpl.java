@@ -1,9 +1,13 @@
 package com.zpl.eshop.commodity.dao.impl;
 
 import com.zpl.eshop.commodity.dao.GoodsDAO;
+import com.zpl.eshop.commodity.domain.GoodsDO;
+import com.zpl.eshop.commodity.domain.GoodsQuery;
 import com.zpl.eshop.commodity.mapper.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 商品管理DAO组件
@@ -41,5 +45,27 @@ public class GoodsDAOImpl implements GoodsDAO {
     @Override
     public Long countByBrandId(Long brandId) {
         return goodsMapper.countByBrandId(brandId);
+    }
+
+    /**
+     * 分页查询商品
+     *
+     * @param query 查询条件
+     * @return 商品集合
+     */
+    @Override
+    public List<GoodsDO> listByPage(GoodsQuery query) {
+        return goodsMapper.listByPage(query);
+    }
+
+    /**
+     * 新增商品
+     *
+     * @param goods 商品
+     */
+    @Override
+    public Long save(GoodsDO goods) {
+        goodsMapper.save(goods);
+        return goods.getId();
     }
 }
