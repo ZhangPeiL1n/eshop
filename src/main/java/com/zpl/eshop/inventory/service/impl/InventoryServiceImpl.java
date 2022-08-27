@@ -1,6 +1,6 @@
 package com.zpl.eshop.inventory.service.impl;
 
-import com.zpl.eshop.inventory.service.InventoryFacadeService;
+import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @date 2022/2/8 22:56
  **/
 @Service
-public class InventoryFacadeServiceImpl implements InventoryFacadeService {
+public class InventoryServiceImpl implements InventoryService {
     /**
      * 通知库存中心，“采购入库完成”事件发生了
      *
@@ -78,5 +78,17 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
     @Override
     public Long getSaleStockQuantity(Long goodsSkuId) {
         return 133221333L;
+    }
+
+    /**
+     * 设置销售库存
+     *
+     * @param goodsSkuId        商品skuId
+     * @param saleStockQuantity 销售库存
+     * @return 设置结果
+     */
+    @Override
+    public Boolean setSaleStockQuantity(Long goodsSkuId, Long saleStockQuantity) {
+        return true;
     }
 }
