@@ -1,5 +1,6 @@
 package com.zpl.eshop.inventory.service.impl;
 
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.async.StockUpdateMessage;
 import com.zpl.eshop.inventory.async.StockUpdateQueue;
 import com.zpl.eshop.inventory.async.StockUpdateResultManager;
@@ -28,6 +29,12 @@ import java.util.UUID;
 public class InventoryServiceImpl implements InventoryService {
 
     private final Logger logger = LoggerFactory.getLogger(InventoryServiceImpl.class);
+
+    /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
 
     /**
      * 采购入库库存更新命令工厂
@@ -76,7 +83,6 @@ public class InventoryServiceImpl implements InventoryService {
      */
     @Autowired
     private StockUpdateResultManager stockUpdateResultManager;
-
 
     /**
      * 通知库存中心，“采购入库完成”事件发生了
@@ -216,6 +222,38 @@ public class InventoryServiceImpl implements InventoryService {
         } catch (Exception e) {
             logger.error("error", e);
             return 0L;
+        }
+    }
+
+    /**
+     * 设置销售库存
+     *
+     * @param goodsSkuId        商品skuId
+     * @param saleStockQuantity 销售库存
+     * @return 设置结果
+     */
+    @Override
+    public Boolean setSaleStockQuantity(Long goodsSkuId, Long saleStockQuantity) {
+        try {
+            GoodsStockDO goodsStock = goodsStockDAO.getGoodsStockBySkuId(goodsSkuId);
+            if (goodsStock == null) {
+                goodsStock = new GoodsStockDO();
+                goodsStock.setGoodsSkuId(goodsSkuId);
+                goodsStock.setSaleStockQuantity(saleStockQuantity);
+                goodsStock.setLockedStockQuantity(0L);
+                goodsStock.setSaledStockQuantity(0L);
+                goodsStock.setStockStatus(saleStockQuantity > 0L ? 1 : 0);
+                goodsStock.setGmtCreate(dateProvider.getCurrentTime());
+                goodsStock.setGmtModified(dateProvider.getCurrentTime());
+                goodsStockDAO.saveGoodsStock(goodsStock);
+            } else {
+                goodsStock.setSaleStockQuantity(goodsStock.getSaleStockQuantity() + saleStockQuantity);
+                goodsStockDAO.updateGoodsStock(goodsStock);
+            }
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
         }
     }
 }
