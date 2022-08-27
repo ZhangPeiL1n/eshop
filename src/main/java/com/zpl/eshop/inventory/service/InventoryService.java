@@ -1,29 +1,23 @@
-package com.zpl.eshop.inventory.service.impl;
+package com.zpl.eshop.inventory.service;
 
-import com.zpl.eshop.inventory.service.InventoryFacadeService;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
-import org.springframework.stereotype.Service;
 
 /**
- * 库存中心对外接口Service组件
+ * 库存中心对外提供的接口
  *
  * @author ZhangPeiL1n
- * @date 2022/2/8 22:56
+ * @date 2022/1/3 21:48
  **/
-@Service
-public class InventoryFacadeServiceImpl implements InventoryFacadeService {
+public interface InventoryService {
     /**
      * 通知库存中心，“采购入库完成”事件发生了
      *
      * @param purchaseInputOrderDTO 采购入库单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrderDTO) {
-        return true;
-    }
+    Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrderDTO);
 
     /**
      * 通知库存中心，“提交订单”事件发生了
@@ -31,10 +25,7 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO) {
-        return true;
-    }
+    Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知库存中心，“支付订单”事件发生了
@@ -42,10 +33,7 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean informPayOrderEvent(OrderInfoDTO orderDTO) {
-        return true;
-    }
+    Boolean informPayOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知库存中心，“取消订单”事件发生了
@@ -53,21 +41,14 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean cancelOrderEvent(OrderInfoDTO orderDTO) {
-        return true;
-    }
+    Boolean cancelOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知库存中心，“退货入库”事件发生了
-     *
      * @param returnGoodsInputOrderDTO 退货入库DTO
      * @return 处理结果
      */
-    @Override
-    public Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO) {
-        return true;
-    }
+    Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO);
 
     /**
      * 查询商品 sku 的库存
@@ -75,10 +56,7 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      * @param goodsSkuId 商品 sku id
      * @return 库存
      */
-    @Override
-    public Long getSaleStockQuantity(Long goodsSkuId) {
-        return 133221333L;
-    }
+    Long getSaleStockQuantity(Long goodsSkuId);
 
     /**
      * 设置销售库存
@@ -87,8 +65,6 @@ public class InventoryFacadeServiceImpl implements InventoryFacadeService {
      * @param saleStockQuantity 销售库存
      * @return 设置结果
      */
-    @Override
-    public Boolean setSaleStockQuantity(Long goodsSkuId, Long saleStockQuantity) {
-        return true;
-    }
+    Boolean setSaleStockQuantity(Long goodsSkuId, Long saleStockQuantity);
+
 }
