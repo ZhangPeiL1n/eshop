@@ -1,6 +1,5 @@
 package com.zpl.eshop.order.service;
 
-import com.zpl.eshop.membership.domain.DeliveryAddressDTO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.promotion.domain.CouponDTO;
 
@@ -18,7 +17,7 @@ public interface OrderInfoService {
      * @param order 订单
      * @return 计算金额后的订单
      */
-    OrderInfoDTO calculateOrderPrice(OrderInfoDTO order, DeliveryAddressDTO deliveryAddress) throws Exception;
+    OrderInfoDTO calculateOrderPrice(OrderInfoDTO order) throws Exception;
 
     /**
      * 计算优惠券减免价格

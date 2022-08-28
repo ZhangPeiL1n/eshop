@@ -1,9 +1,7 @@
 package com.zpl.eshop.order.price;
 
-import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
-import com.zpl.eshop.commodity.service.CommodityService;
 import com.zpl.eshop.logistics.service.LogisticsService;
-import com.zpl.eshop.membership.domain.DeliveryAddressDTO;
+import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,20 +22,13 @@ public class DefaultFreightCalculator implements FreightCalculator {
     private LogisticsService logisticsService;
 
     /**
-     * 商品中心接口
-     */
-    @Autowired
-    private CommodityService commodityService;
-
-    /**
      * 计算运费
      *
-     * @param item 订单条目
+     * @param orderItem 订单条目
      * @return
      */
     @Override
-    public Double calculate(OrderItemDTO item, DeliveryAddressDTO deliveryAddress, PromotionActivityResult result) {
-        GoodsSkuDTO goodsSku = commodityService.getGoodsSkuById(item.getGoodsSkuId());
-        return logisticsService.calculateFreight(goodsSku, deliveryAddress);
+    public Double calculate(OrderInfoDTO order, OrderItemDTO orderItem, PromotionActivityResult result) {
+        return logisticsService.calculateFreight(order, orderItem);
     }
 }

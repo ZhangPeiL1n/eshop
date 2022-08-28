@@ -1,9 +1,7 @@
 package com.zpl.eshop.order.price;
 
-import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
-import com.zpl.eshop.commodity.service.CommodityService;
 import com.zpl.eshop.logistics.service.LogisticsService;
-import com.zpl.eshop.membership.domain.DeliveryAddressDTO;
+import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,27 +24,20 @@ public class GiftIncludedFreightCalculator implements FreightCalculator {
     private LogisticsService logisticsService;
 
     /**
-     * 商品中心接口
-     */
-    @Autowired
-    private CommodityService commodityService;
-
-    /**
      * 计算运费
      *
-     * @param item   订单条目
-     * @param result
+     * @param order     订单
+     * @param orderItem 订单条目
+     * @param result    计算结果
      * @return
      */
     @Override
-    public Double calculate(OrderItemDTO item, DeliveryAddressDTO deliveryAddress, PromotionActivityResult result) {
+    public Double calculate(OrderInfoDTO order, OrderItemDTO orderItem, PromotionActivityResult result) {
         Double freight = 0.0;
-        GoodsSkuDTO goodsSku = commodityService.getGoodsSkuById(item.getGoodsSkuId());
-        freight += logisticsService.calculateFreight(goodsSku, deliveryAddress);
+        freight += logisticsService.calculateFreight(order, orderItem);
         List<OrderItemDTO> gifts = result.getOrderItems();
         for (OrderItemDTO gift : gifts) {
-            GoodsSkuDTO giftGoodsSku = commodityService.getGoodsSkuById(gift.getGoodsSkuId());
-            freight += logisticsService.calculateFreight(giftGoodsSku, deliveryAddress);
+            freight += logisticsService.calculateFreight(order, gift);
         }
         return freight;
     }

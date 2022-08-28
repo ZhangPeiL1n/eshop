@@ -1,8 +1,7 @@
 package com.zpl.eshop.order.controller;
 
 import com.zpl.eshop.common.util.CloneDirection;
-import com.zpl.eshop.membership.domain.DeliveryAddressDTO;
-import com.zpl.eshop.membership.domain.DeliveryAddressVO;
+import com.zpl.eshop.order.domain.CalculateCouponDiscountPriceVO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderInfoVO;
 import com.zpl.eshop.order.service.OrderInfoService;
@@ -11,7 +10,10 @@ import com.zpl.eshop.promotion.domain.CouponVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 订单管理 controller 组件
@@ -38,10 +40,10 @@ public class OrderInfoController {
      * @param order 订单
      * @return 计算金额后的订单
      */
-    @GetMapping("/price")
-    public OrderInfoVO calculateOrderPrice(@RequestBody OrderInfoVO order, @RequestBody DeliveryAddressVO deliveryAddress) throws Exception {
+    @PostMapping("/price")
+    public OrderInfoVO calculateOrderPrice(@RequestBody OrderInfoVO order) throws Exception {
         try {
-            return orderInfoService.calculateOrderPrice(order.clone(OrderInfoDTO.class, CloneDirection.FORWARD), deliveryAddress.clone(DeliveryAddressDTO.class)).clone(OrderInfoVO.class, CloneDirection.OPPOSITE);
+            return orderInfoService.calculateOrderPrice(order.clone(OrderInfoDTO.class, CloneDirection.FORWARD)).clone(OrderInfoVO.class, CloneDirection.OPPOSITE);
         } catch (Exception e) {
             logger.error("error", e);
         }
@@ -51,17 +53,19 @@ public class OrderInfoController {
     /**
      * 计算优惠券减免价格
      *
-     * @param order 订单
+     * @param vo 计算优惠券抵扣金额VO
      * @return 计算金额后的订单
      */
-    @GetMapping("/coupon")
-    public OrderInfoVO calculateCouponDiscountPrice(@RequestBody OrderInfoVO order, @RequestBody CouponVO coupon) {
+    @PostMapping("/coupon")
+    public OrderInfoVO calculateCouponDiscountPrice(@RequestBody CalculateCouponDiscountPriceVO vo) {
         try {
+            OrderInfoVO order = vo.getOrder();
+            CouponVO coupon = vo.getCoupon();
             return orderInfoService.calculateCouponDiscountPrice(order.clone(OrderInfoDTO.class, CloneDirection.FORWARD), coupon.clone(CouponDTO.class)).clone(OrderInfoVO.class, CloneDirection.OPPOSITE);
         } catch (Exception e) {
             logger.error("error", e);
+            return vo.getOrder();
         }
-        return order;
     }
 
     /**

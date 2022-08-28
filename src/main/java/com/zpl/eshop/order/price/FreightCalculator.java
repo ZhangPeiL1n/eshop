@@ -1,6 +1,6 @@
 package com.zpl.eshop.order.price;
 
-import com.zpl.eshop.membership.domain.DeliveryAddressDTO;
+import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
 
 /**
@@ -14,10 +14,10 @@ public interface FreightCalculator {
     /**
      * 计算运费
      *
-     * @param item            订单条目
-     * @param deliveryAddress 收货地址
-     * @param result          计算结果
+     * @param order  订单
+     * @param item   订单条目
+     * @param result 计算结果
      * @return 运费
      */
-    Double calculate(OrderItemDTO item, DeliveryAddressDTO deliveryAddress, PromotionActivityResult result);
+    Double calculate(OrderInfoDTO order, OrderItemDTO item, PromotionActivityResult result);
 }

@@ -1,7 +1,8 @@
 package com.zpl.eshop.order.service.impl;
 
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.membership.domain.DeliveryAddressDTO;
+import com.zpl.eshop.order.constant.OrderStatus;
+import com.zpl.eshop.order.constant.PublishedComment;
 import com.zpl.eshop.order.dao.OrderInfoDAO;
 import com.zpl.eshop.order.dao.OrderItemDAO;
 import com.zpl.eshop.order.domain.OrderInfoDO;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -83,15 +85,17 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      * @return 计算金额后的订单
      */
     @Override
-    public OrderInfoDTO calculateOrderPrice(OrderInfoDTO order, DeliveryAddressDTO deliveryAddress) throws Exception {
+    public OrderInfoDTO calculateOrderPrice(OrderInfoDTO order) throws Exception {
         // 定义各种价格
         Double totalAmount = 0.0;
         Double discountAmount = 0.0;
         Double freightAmount = 0.0;
 
-        for (OrderItemDTO item : order.getOrderItems()) {
+        ArrayList<OrderItemDTO> giftOrderItems = new ArrayList<>();
+
+        for (OrderItemDTO orderItem : order.getOrderItems()) {
             // 查询订单条目使用的促销活动
-            PromotionActivityDTO promotionActivity = promotionService.getById(item.getPromotionActivityId());
+            PromotionActivityDTO promotionActivity = promotionService.getById(orderItem.getPromotionActivityId());
             // 根据促销活动获取订单计算组件工厂
             OrderPriceCalculatorFactory orderPriceCalculatorFactory = getOrderPriceCalculatorFactory(promotionActivity);
             // 从订单计算组件工厂中获取一套订单的价格计算组件
@@ -100,13 +104,13 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             FreightCalculator freightCalculator = orderPriceCalculatorFactory.createFreightCalculator();
 
             // 计算订单条目总金额
-            totalAmount += totalPriceCalculator.calculate(item);
+            totalAmount += totalPriceCalculator.calculate(orderItem);
             // 处理促销活动，计算促销活动的减免金额及促销活动的赠品
-            PromotionActivityResult result = promotionActivityCalculator.calculate(item, promotionActivity);
-            order.getOrderItems().addAll(result.getOrderItems());
+            PromotionActivityResult result = promotionActivityCalculator.calculate(orderItem, promotionActivity);
+            giftOrderItems.addAll(result.getOrderItems());
             discountAmount += result.getDiscountAmount();
             // 计算订单条目的运费
-            freightAmount += freightCalculator.calculate(item, deliveryAddress, result);
+            freightAmount += freightCalculator.calculate(order, orderItem, result);
         }
 
         // 给订单设置计算后的结果（同时已经包含了所有条目的赠品）
@@ -114,6 +118,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         order.setDiscountAmount(discountAmount);
         order.setFreight(freightAmount);
         order.setPayableAmount(totalAmount + freightAmount - discountAmount);
+        order.getOrderItems().addAll(giftOrderItems);
         return order;
     }
 
@@ -162,6 +167,8 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public OrderInfoDTO save(OrderInfoDTO order) throws Exception {
         order.setOrderNo(UUID.randomUUID().toString().replaceAll("-", ""));
+        order.setPublishComment(PublishedComment.NO);
+        order.setOrderStatus(OrderStatus.WAITING_FOR_PAY);
         order.setGmtCreate(dateProvider.getCurrentTime());
         order.setGmtModified(dateProvider.getCurrentTime());
         Long id = orderInfoDAO.save(order.clone(OrderInfoDO.class));
