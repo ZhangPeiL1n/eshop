@@ -19,8 +19,7 @@ public interface OrderInfoMapper {
      *
      * @param order 订单
      */
-    @Insert("INSERT INTO " +
-            "order_info(" +
+    @Insert("INSERT INTO order_info(" +
             "user_account_id, " +
             "username, " +
             "order_no, " +
@@ -43,7 +42,6 @@ public interface OrderInfoMapper {
             "gmt_modified" +
             ") VALUES (" +
             "#{userAccountId}," +
-            "#{userAccountId}," +
             "#{username}," +
             "#{orderNo}," +
             "#{orderStatus}," +
@@ -53,11 +51,13 @@ public interface OrderInfoMapper {
             "#{freight}," +
             "#{payType}," +
             "#{totalAmount}," +
+            "#{discountAmount}," +
+            "#{couponAmount}," +
             "#{payableAmount}," +
             "#{invoiceTitle}," +
             "#{taxpayerId}," +
             "#{orderComment}," +
-            "#{isPublishComment}," +
+            "#{publishComment}," +
             "#{confirmReceiptTime}," +
             "#{gmtCreate}," +
             "#{gmtModified}" +

@@ -19,8 +19,7 @@ public interface OrderItemMapper {
      *
      * @param orderItem 订单条目
      */
-    @Insert("INSERT INTO " +
-            "order_item(" +
+    @Insert("INSERT INTO order_item(" +
             "order_info_id, " +
             "goods_id, " +
             "goods_sku_id, " +
@@ -46,7 +45,7 @@ public interface OrderItemMapper {
             "#{goodsGrossWeight}," +
             "#{purchaseQuantity}," +
             "#{purchasePrice}," +
-            "#{promtionActivityId}," +
+            "#{promotionActivityId}," +
             "#{goodsLength}," +
             "#{goodsWidth}," +
             "#{goodsHeight}," +

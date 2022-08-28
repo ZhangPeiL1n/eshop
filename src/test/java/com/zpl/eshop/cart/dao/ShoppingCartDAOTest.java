@@ -24,7 +24,7 @@ import java.util.Date;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-@Rollback(true)
+@Rollback
 public class ShoppingCartDAOTest {
 
     /**

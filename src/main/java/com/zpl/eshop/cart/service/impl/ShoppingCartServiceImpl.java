@@ -8,11 +8,11 @@ import com.zpl.eshop.cart.domain.ShoppingCartItemDO;
 import com.zpl.eshop.cart.domain.ShoppingCartItemDTO;
 import com.zpl.eshop.cart.service.ShoppingCartService;
 import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
-import com.zpl.eshop.commodity.service.CommodityFacadeService;
+import com.zpl.eshop.commodity.service.CommodityService;
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.inventory.service.InventoryFacadeService;
+import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
-import com.zpl.eshop.promotion.service.PromotionFacadeService;
+import com.zpl.eshop.promotion.service.PromotionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,7 @@ import java.util.List;
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
+    private final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
     /**
      * 购物车管理模块DAO组件
      */
@@ -41,27 +42,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Autowired
     private ShoppingCartItemDAO shoppingCartItemDAO;
-
     /**
      * 商品中心对外接口Service组件
      */
     @Autowired
-    private CommodityFacadeService commodityFacadeService;
-
+    private CommodityService commodityService;
     /**
      * 库存中心对外接口Service组件
      */
     @Autowired
-    private InventoryFacadeService inventoryFacadeService;
-
+    private InventoryService inventoryService;
     /**
      * 促销中心对外接口Service组件
      */
     @Autowired
-    private PromotionFacadeService promotionFacadeService;
-
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
-
+    private PromotionService promotionService;
     /**
      * 日期辅助组件
      */
@@ -163,7 +158,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * @throws Exception
      */
     private void setGoodsRelatedData(ShoppingCartItemDTO item) throws Exception {
-        GoodsSkuDTO goodsSkuDTO = commodityFacadeService.getGoodsSkuById(item.getGoodsSkuId());
+        GoodsSkuDTO goodsSkuDTO = commodityService.getGoodsSkuById(item.getGoodsSkuId());
         item.setGoodsId(goodsSkuDTO.getGoodsId());
         item.setGoodsName(goodsSkuDTO.getGoodsName());
         item.setGoodsSkuCode(goodsSkuDTO.getGoodsSkuCode());
@@ -182,7 +177,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * @throws Exception
      */
     private void setStockRelatedData(ShoppingCartItemDTO item) throws Exception {
-        Long saleStockQuantity = inventoryFacadeService.getSaleStockQuantity(item.getGoodsSkuId());
+        Long saleStockQuantity = inventoryService.getSaleStockQuantity(item.getGoodsSkuId());
         item.setSaleStockQuantity(saleStockQuantity);
     }
 
@@ -193,7 +188,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * @throws Exception
      */
     private void setPromotionRelatedData(ShoppingCartItemDTO item) throws Exception {
-        List<PromotionActivityDTO> promotionActivityDTOList = promotionFacadeService.listPromotionActivityByGoodsId(item.getGoodsId());
+        List<PromotionActivityDTO> promotionActivityDTOList = promotionService.listByGoodsId(item.getGoodsId());
         item.setPromotionActivityDTOList(promotionActivityDTOList);
     }
 

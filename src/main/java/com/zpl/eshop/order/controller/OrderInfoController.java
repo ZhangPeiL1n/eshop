@@ -39,7 +39,7 @@ public class OrderInfoController {
      * @return 计算金额后的订单
      */
     @GetMapping("/price")
-    public OrderInfoVO calculateOrderPrice(OrderInfoVO order, DeliveryAddressVO deliveryAddress) throws Exception {
+    public OrderInfoVO calculateOrderPrice(@RequestBody OrderInfoVO order, @RequestBody DeliveryAddressVO deliveryAddress) throws Exception {
         try {
             return orderInfoService.calculateOrderPrice(order.clone(OrderInfoDTO.class, CloneDirection.FORWARD), deliveryAddress.clone(DeliveryAddressDTO.class)).clone(OrderInfoVO.class, CloneDirection.OPPOSITE);
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class OrderInfoController {
      * @return 计算金额后的订单
      */
     @GetMapping("/coupon")
-    public OrderInfoVO calculateCouponDiscountPrice(OrderInfoVO order, CouponVO coupon) {
+    public OrderInfoVO calculateCouponDiscountPrice(@RequestBody OrderInfoVO order, @RequestBody CouponVO coupon) {
         try {
             return orderInfoService.calculateCouponDiscountPrice(order.clone(OrderInfoDTO.class, CloneDirection.FORWARD), coupon.clone(CouponDTO.class)).clone(OrderInfoVO.class, CloneDirection.OPPOSITE);
         } catch (Exception e) {
