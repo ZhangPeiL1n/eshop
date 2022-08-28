@@ -133,7 +133,7 @@ public class WmsServiceImpl implements WmsService {
             GoodsAllocationStockDetailDTO stockDetail3 = new GoodsAllocationStockDetailDTO();
             stockDetail3.setId(3L);
             stockDetail3.setGoodsSkuId(goodsSkuId);
-            stockDetail2.setGoodsAllocationId(2L);
+            stockDetail3.setGoodsAllocationId(2L);
             stockDetail3.setPutOnTime(dateProvider.parse2Datetime("2022-08-28 22:33:00"));
             stockDetail3.setPutOnQuantity(150L);
             stockDetail3.setCurrentStockQuantity(150L);
