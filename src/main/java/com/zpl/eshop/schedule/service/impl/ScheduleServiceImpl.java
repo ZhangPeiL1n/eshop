@@ -138,7 +138,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         try {
             SaleDeliveryOrderBuilder saleDeliveryOrderBuilder = saleDeliveryOrderBuilderFactory.get();
             SaleDeliveryOrderDTO saleDeliveryOrder = saleDeliveryOrderBuilder
+                    // 创建销售出库单相关数据
                     .setOrderRelatedData(order)
+                    // 创建销售出库单条目数据，这个是重点
                     .createSaleDeliveryOrderItems(order.getOrderItems())
                     .createSendOutOrder(order)
                     .createLogisticOrder(order)

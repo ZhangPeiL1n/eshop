@@ -59,6 +59,7 @@ public class DefaultSaleDeliveryOrderBuilder implements SaleDeliveryOrderBuilder
 
     /**
      * 创建销售出库单条目
+     * 针对每一个订单条目去调度销售出库：调度销售出库主要就是创建 销售出库单条目 中的 拣货单明细 和 出库单明细
      *
      * @param orderItems 订单条目
      * @return builder
@@ -66,9 +67,11 @@ public class DefaultSaleDeliveryOrderBuilder implements SaleDeliveryOrderBuilder
     @Override
     public SaleDeliveryOrderBuilder createSaleDeliveryOrderItems(List<OrderItemDTO> orderItems) throws Exception {
         List<SaleDeliveryOrderItemDTO> saleDeliveryOrderItems = new ArrayList<>();
+        // 针对每一个订单条目
         orderItems.forEach(orderItem -> {
-            SaleDeliveryOrderItemDTO saleDeliveryOrderItem = saleDeliveryScheduler.schedule(orderItem);
             try {
+                // 调度每个条目销售出库
+                SaleDeliveryOrderItemDTO saleDeliveryOrderItem = saleDeliveryScheduler.schedule(orderItem);
                 orderItem.clone(saleDeliveryOrderItem);
                 saleDeliveryOrderItem.setGmtCreate(dateProvider.getCurrentTime());
                 saleDeliveryOrderItem.setGmtModified(dateProvider.getCurrentTime());

@@ -21,7 +21,7 @@ import java.util.List;
  * @date 2022/1/3 17:52
  **/
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false, exclude = {"logisticOrder", "sendOutOrder"})
 public class SaleDeliveryOrderDTO extends AbstractObject {
 
     /**

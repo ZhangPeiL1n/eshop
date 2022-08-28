@@ -140,6 +140,8 @@ public class WmsServiceImpl implements WmsService {
             stockDetail3.setGmtCreate(dateProvider.getCurrentTime());
             stockDetail3.setGmtModified(dateProvider.getCurrentTime());
             stockDetails.add(stockDetail3);
+            System.out.println(stockDetails);
+            logger.info(stockDetails.toString());
         } catch (Exception e) {
             logger.error("error", e);
         }
