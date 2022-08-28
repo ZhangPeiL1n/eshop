@@ -78,15 +78,39 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Override
     public PromotionActivityDTO getById(Long id) throws Exception {
+        if (id.equals(1L)) {
+            return createDiscountPromotionActivity(id);
+        } else if (id.equals(2L)) {
+            return createGiftPromotionActivity(id);
+        }
+        return null;
+    }
+
+    private PromotionActivityDTO createDiscountPromotionActivity(Long id) throws Exception {
         PromotionActivityDTO promotionActivity = new PromotionActivityDTO();
-        promotionActivity.setId(1L);
-        promotionActivity.setName("测试促销活动1");
+        promotionActivity.setId(id);
+        promotionActivity.setName("测试满减促销活动");
         promotionActivity.setRemark("测试促销活动");
-        promotionActivity.setRule("测试促销活动规则");
+        promotionActivity.setRule("[{'thresholdAmount': 200,'reduceAmount':20},{'thresholdAmount': 100,'reduceAmount':10}]");
         promotionActivity.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
         promotionActivity.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
         promotionActivity.setStatus(PromotionActivityStatus.ENABLED);
         promotionActivity.setType(PromotionActivityType.REACH_DISCOUNT);
+        promotionActivity.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
+        promotionActivity.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
+        return promotionActivity;
+    }
+
+    private PromotionActivityDTO createGiftPromotionActivity(Long id) throws Exception {
+        PromotionActivityDTO promotionActivity = new PromotionActivityDTO();
+        promotionActivity.setId(id);
+        promotionActivity.setName("测试满赠促销活动");
+        promotionActivity.setRemark("测试促销活动");
+        promotionActivity.setRule("[{'thresholdAmount': 200,'giftGoodsSkuIds': [2]},{'thresholdAmount': 100,'giftGoodsSkuIds':[1]}]");
+        promotionActivity.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
+        promotionActivity.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
+        promotionActivity.setStatus(PromotionActivityStatus.ENABLED);
+        promotionActivity.setType(PromotionActivityType.REACH_GIFT);
         promotionActivity.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
         promotionActivity.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
         return promotionActivity;
