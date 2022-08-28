@@ -106,7 +106,7 @@ public class PromotionServiceImpl implements PromotionService {
         promotionActivity.setId(id);
         promotionActivity.setName("测试满赠促销活动");
         promotionActivity.setRemark("测试促销活动");
-        promotionActivity.setRule("[{'thresholdAmount': 200,'giftGoodsSkuIds': [2]},{'thresholdAmount': 100,'giftGoodsSkuIds':[1]}]");
+        promotionActivity.setRule("{'thresholdAmount': 200,'giftGoodsSkuIds': [2]}");
         promotionActivity.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
         promotionActivity.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
         promotionActivity.setStatus(PromotionActivityStatus.ENABLED);
