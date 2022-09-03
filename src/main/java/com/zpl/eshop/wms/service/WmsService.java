@@ -71,5 +71,5 @@ public interface WmsService {
      * @param goodsSkuId 商品sku
      * @return 货位库存明细
      */
-    List<GoodsAllocationStockDetailDTO> listStockDetailsByGoodsSkuId(Long goodsSkuId);
+    List<GoodsAllocationStockDetailDTO> listStockDetailsByGoodsSkuId(Long goodsSkuId) throws Exception;
 }
