@@ -2,6 +2,7 @@ package com.zpl.eshop.commodity.service.impl;
 
 import com.zpl.eshop.commodity.dao.GoodsPictureDAO;
 import com.zpl.eshop.commodity.domain.GoodsPictureDO;
+import com.zpl.eshop.commodity.domain.GoodsPictureDTO;
 import com.zpl.eshop.commodity.service.GoodsPictureService;
 import com.zpl.eshop.common.constant.PathType;
 import com.zpl.eshop.common.util.DateProvider;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * 商品图片管理Service组件
@@ -47,6 +50,28 @@ public class GoodsPictureServiceImpl implements GoodsPictureService {
     private DateProvider dateProvider;
 
     /**
+     * 根据商品id查询商品图片id
+     *
+     * @param goodsId 商品id
+     * @return 商品图片id
+     */
+    @Override
+    public List<Long> listIdsByGoodsId(Long goodsId) {
+        return goodsPictureDAO.listIdsByGoodsId(goodsId);
+    }
+
+    /**
+     * 根据id查询商品图片
+     *
+     * @param id 商品图片id
+     * @return 商品图片
+     */
+    @Override
+    public GoodsPictureDTO getById(Long id) throws Exception {
+        return goodsPictureDAO.getById(id).clone(GoodsPictureDTO.class);
+    }
+
+    /**
      * 批量上传图片
      *
      * @param goodsId  商品id
@@ -59,6 +84,20 @@ public class GoodsPictureServiceImpl implements GoodsPictureService {
             String picturePath = uploadPicture(picture);
             saveGoodsPicture(goodsId, picturePath);
         }
+    }
+
+    /**
+     * 根据商品id删除图片
+     *
+     * @param goodsId 商品id
+     */
+    @Override
+    public void batchRemoveByGoodsId(Long goodsId) {
+        List<GoodsPictureDO> pictures = goodsPictureDAO.listByGoodsId(goodsId);
+        pictures.forEach(picture -> {
+            FileUtils.deleteFile(picture.getPicturePath());
+        });
+        goodsPictureDAO.removeByGoodsId(goodsId);
     }
 
     /**

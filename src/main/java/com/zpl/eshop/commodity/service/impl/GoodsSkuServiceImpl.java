@@ -7,6 +7,7 @@ import com.zpl.eshop.commodity.dao.PropertyDAO;
 import com.zpl.eshop.commodity.domain.*;
 import com.zpl.eshop.commodity.service.GoodsSkuService;
 import com.zpl.eshop.common.util.DateProvider;
+import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.inventory.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,28 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
     private InventoryService inventoryService;
 
     /**
+     * 根据商品id查询商品sku
+     *
+     * @param goodsId 商品id
+     * @return 商品sku
+     */
+    @Override
+    public List<GoodsSkuDTO> listByGoodsId(Long goodsId) throws Exception {
+        List<GoodsSkuDTO> goodsSkus = ObjectUtils.convertList(goodsSkuDAO.listByGoodsId(goodsId), GoodsSkuDTO.class);
+        goodsSkus.forEach(goodsSku -> {
+            try {
+                Long saleStockQuantity = inventoryService.getSaleStockQuantity(goodsSku.getId());
+                List<GoodsSkuSalePropertyValueDTO> propertyValues = ObjectUtils.convertList(goodsSkuSalePropertyValueDAO.listByGoodsSkuId(goodsSku.getId()), GoodsSkuSalePropertyValueDTO.class);
+                goodsSku.setSaleStockQuantity(saleStockQuantity);
+                goodsSku.setPropertyValues(propertyValues);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return goodsSkus;
+    }
+
+    /**
      * 新增商品SKU
      *
      * @param goodsSkus 商品sku
@@ -76,6 +99,20 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    /**
+     * 根据商品id删除sku
+     *
+     * @param goodsId 商品id
+     */
+    @Override
+    public void removeByGoodsId(Long goodsId) {
+        List<GoodsSkuDO> goodsSkus = goodsSkuDAO.listByGoodsId(goodsId);
+        goodsSkus.forEach(goodsSku -> {
+            goodsSkuSalePropertyValueDAO.removeByGoodsSkuId(goodsSku.getId());
+        });
+        goodsSkuDAO.removeByGoodsId(goodsId);
     }
 
     /**

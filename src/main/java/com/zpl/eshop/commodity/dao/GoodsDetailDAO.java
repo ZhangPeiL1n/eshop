@@ -11,6 +11,14 @@ import com.zpl.eshop.commodity.domain.GoodsDetailDO;
 public interface GoodsDetailDAO {
 
     /**
+     * 根据商品id查询商品详情
+     *
+     * @param goodsId 商品id
+     * @return 商品详情
+     */
+    GoodsDetailDO getByGoodsId(Long goodsId);
+
+    /**
      * 新增商品详情
      *
      * @param detail 商品详情

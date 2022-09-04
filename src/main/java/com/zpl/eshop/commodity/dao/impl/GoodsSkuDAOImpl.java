@@ -6,6 +6,8 @@ import com.zpl.eshop.commodity.mapper.GoodsSkuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 商品sku管理DAO
  *
@@ -22,6 +24,17 @@ public class GoodsSkuDAOImpl implements GoodsSkuDAO {
     private GoodsSkuMapper goodsSkuMapper;
 
     /**
+     * 根据商品id查询商品sku
+     *
+     * @param goodsId 商品id
+     * @return 商品sku
+     */
+    @Override
+    public List<GoodsSkuDO> listByGoodsId(Long goodsId) {
+        return goodsSkuMapper.listByGoodsId(goodsId);
+    }
+
+    /**
      * 新增商品SKU
      *
      * @param goodsSku 商品sku
@@ -30,5 +43,15 @@ public class GoodsSkuDAOImpl implements GoodsSkuDAO {
     public Long save(GoodsSkuDO goodsSku) {
         goodsSkuMapper.save(goodsSku);
         return goodsSku.getId();
+    }
+
+    /**
+     * 根据商品id删除sku
+     *
+     * @param goodsId 商品id
+     */
+    @Override
+    public void removeByGoodsId(Long goodsId) {
+        goodsSkuMapper.removeByGoodsId(goodsId);
     }
 }

@@ -2,6 +2,7 @@ package com.zpl.eshop.commodity.service.impl;
 
 import com.zpl.eshop.commodity.dao.GoodsDetailPictureDAO;
 import com.zpl.eshop.commodity.domain.GoodsDetailPictureDO;
+import com.zpl.eshop.commodity.domain.GoodsDetailPictureDTO;
 import com.zpl.eshop.commodity.service.GoodsDetailPictureService;
 import com.zpl.eshop.common.constant.PathType;
 import com.zpl.eshop.common.util.DateProvider;
@@ -51,6 +52,17 @@ public class GoodsDetailPictureServiceImpl implements GoodsDetailPictureService 
     private String uploadPathType;
 
     /**
+     * 根据id查询商品图片
+     *
+     * @param id 商品图片id
+     * @return 商品图片
+     */
+    @Override
+    public GoodsDetailPictureDTO getById(Long id) throws Exception {
+        return goodsDetailPictureDAO.getById(id).clone(GoodsDetailPictureDTO.class);
+    }
+
+    /**
      * 批量上传图片
      *
      * @param goodsDetailId 商品详情id
@@ -69,6 +81,20 @@ public class GoodsDetailPictureServiceImpl implements GoodsDetailPictureService 
             }
         });
         return ids;
+    }
+
+    /**
+     * 根据商品详情id删除图片
+     *
+     * @param goodsDetailId 商品id
+     */
+    @Override
+    public void batchRemoveByGoodsDetailId(Long goodsDetailId) {
+        List<GoodsDetailPictureDO> pictures = goodsDetailPictureDAO.listByGoodsDetailId(goodsDetailId);
+        pictures.forEach(picture -> {
+            FileUtils.deleteFile(picture.getPicturePath());
+        });
+        goodsDetailPictureDAO.removeByGoodsDetailId(goodsDetailId);
     }
 
     /**

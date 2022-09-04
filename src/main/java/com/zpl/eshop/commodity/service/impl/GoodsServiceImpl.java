@@ -42,6 +42,17 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     /**
+     * 根据id查询商品
+     *
+     * @param id 商品id
+     * @return
+     */
+    @Override
+    public GoodsDTO getById(Long id) throws Exception {
+        return goodsDAO.getById(id).clone(GoodsDTO.class);
+    }
+
+    /**
      * 新增商品
      *
      * @param goods 商品
@@ -50,5 +61,15 @@ public class GoodsServiceImpl implements GoodsService {
     public Long save(GoodsDTO goods) throws Exception {
         goodsDAO.save(goods.clone(GoodsDO.class));
         return goods.getId();
+    }
+
+    /**
+     * 更新商品
+     *
+     * @param goods 商品
+     */
+    @Override
+    public void update(GoodsDTO goods) throws Exception {
+        goodsDAO.update(goods.clone(GoodsDO.class));
     }
 }

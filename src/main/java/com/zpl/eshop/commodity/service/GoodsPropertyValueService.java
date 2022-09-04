@@ -13,9 +13,24 @@ import java.util.List;
 public interface GoodsPropertyValueService {
 
     /**
+     * 根据商品id查询属性值
+     *
+     * @param goodsId 商品id
+     * @return 属性值
+     */
+    List<GoodsPropertyValueDTO> listByGoodsId(Long goodsId) throws Exception;
+
+    /**
      * 新增商品属性值
      *
      * @param propertyValues 商品属性值
      */
     void batchSave(List<GoodsPropertyValueDTO> propertyValues);
+
+    /**
+     * 根据商品id删除图片
+     *
+     * @param goodsId 商品id
+     */
+    void removeByGoodsId(Long goodsId);
 }

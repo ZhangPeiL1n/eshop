@@ -25,6 +25,17 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
     private GoodsDetailDAO goodsDetailDAO;
 
     /**
+     * 根据商品id查询商品详情
+     *
+     * @param goodsId 商品id
+     * @return 商品详情
+     */
+    @Override
+    public GoodsDetailDTO getByGoodsId(Long goodsId) throws Exception {
+        return goodsDetailDAO.getByGoodsId(goodsId).clone(GoodsDetailDTO.class);
+    }
+
+    /**
      * 新增商品详情
      *
      * @param goodsDetail 商品详情

@@ -48,18 +48,50 @@ public class GoodsController {
     }
 
     /**
+     * 根据id查询商品
+     *
+     * @param id 商品id
+     * @return 商品
+     */
+    @GetMapping("/{id}")
+    public GoodsVO getById(@PathVariable("id") Long id) {
+        try {
+            return goodsService.getById(id).clone(GoodsVO.class);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new GoodsVO();
+        }
+    }
+
+    /**
      * 新增商品
      *
      * @param goods 商品
      */
     @PostMapping("/")
-    public Long save(@RequestBody GoodsVO goods) throws Exception {
+    public Long save(@RequestBody GoodsVO goods) {
         try {
             Long id = goodsService.save(goods.clone(GoodsDTO.class));
             return id;
         } catch (Exception e) {
             logger.error("error", e);
             return null;
+        }
+    }
+
+    /**
+     * 更新商品
+     *
+     * @param goods 商品
+     * @return 更新结果
+     */
+    public Boolean update(@RequestBody GoodsVO goods) {
+        try {
+            goodsService.update(goods.clone(GoodsDTO.class));
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
         }
     }
 }

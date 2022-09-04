@@ -59,6 +59,17 @@ public class GoodsDAOImpl implements GoodsDAO {
     }
 
     /**
+     * 根据id查询商品
+     *
+     * @param id 商品id
+     * @return
+     */
+    @Override
+    public GoodsDO getById(Long id) {
+        return goodsMapper.getById(id);
+    }
+
+    /**
      * 新增商品
      *
      * @param goods 商品
@@ -67,5 +78,15 @@ public class GoodsDAOImpl implements GoodsDAO {
     public Long save(GoodsDO goods) {
         goodsMapper.save(goods);
         return goods.getId();
+    }
+
+    /**
+     * 更新商品
+     *
+     * @param goods 商品
+     */
+    @Override
+    public void update(GoodsDO goods) {
+        goodsMapper.update(goods);
     }
 }

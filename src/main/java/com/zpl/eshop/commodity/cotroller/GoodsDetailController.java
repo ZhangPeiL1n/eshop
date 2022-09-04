@@ -27,6 +27,22 @@ public class GoodsDetailController {
     private GoodsDetailService goodsDetailService;
 
     /**
+     * 根据商品id查询商品详情
+     *
+     * @param goodsId 商品id
+     * @return 商品详情
+     */
+    @GetMapping("/{goodsId}")
+    public GoodsDetailVO getByGoodsId(@PathVariable("goodsId") Long goodsId) {
+        try {
+            return goodsDetailService.getByGoodsId(goodsId).clone(GoodsDetailVO.class);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new GoodsDetailVO();
+        }
+    }
+
+    /**
      * 新增商品详情
      *
      * @param goodsDetail 商品详情

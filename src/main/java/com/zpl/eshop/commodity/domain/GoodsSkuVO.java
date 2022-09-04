@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ZhangPeiL1n
@@ -51,6 +52,11 @@ public class GoodsSkuVO extends AbstractObject {
      * 商品sku的销售库存
      */
     private Long saleStockQuantity;
+
+    /**
+     * 商品sku销售属性值
+     */
+    List<GoodsSkuSalePropertyValueVO> propertyValues;
 
     /**
      * 创建时间

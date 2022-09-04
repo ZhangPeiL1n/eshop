@@ -13,9 +13,24 @@ import java.util.List;
 public interface GoodsSkuService {
 
     /**
+     * 根据商品id查询商品sku
+     *
+     * @param goodsId 商品id
+     * @return 商品sku
+     */
+    List<GoodsSkuDTO> listByGoodsId(Long goodsId) throws Exception;
+
+    /**
      * 新增商品SKU
      *
      * @param goodsSkus 商品sku
      */
     void batchSave(List<GoodsSkuDTO> goodsSkus) throws Exception;
+
+    /**
+     * 根据商品id删除sku
+     *
+     * @param goodsId 商品id
+     */
+    void removeByGoodsId(Long goodsId);
 }
