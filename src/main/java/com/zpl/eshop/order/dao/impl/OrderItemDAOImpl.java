@@ -6,6 +6,8 @@ import com.zpl.eshop.order.mapper.OrderItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 订单条目模块 DAO 组件
  *
@@ -30,5 +32,16 @@ public class OrderItemDAOImpl implements OrderItemDAO {
     public Long save(OrderItemDO item) {
         orderItemMapper.save(item);
         return item.getId();
+    }
+
+    /**
+     * 查询订单条目
+     *
+     * @param orderInfoId 订单id
+     * @return 订单条目
+     */
+    @Override
+    public List<OrderItemDO> listByOrderInfoId(Long orderInfoId) {
+        return orderItemMapper.listByOrderInfoId(orderInfoId);
     }
 }

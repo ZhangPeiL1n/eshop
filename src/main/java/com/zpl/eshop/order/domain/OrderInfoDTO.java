@@ -126,4 +126,9 @@ public class OrderInfoDTO extends AbstractObject {
      */
     private List<OrderItemDTO> orderItems;
 
+    /**
+     * 订单操作日志
+     */
+    private List<OrderOperateLogDTO> logs;
+
 }

@@ -1,8 +1,10 @@
 package com.zpl.eshop.order.controller;
 
 import com.zpl.eshop.common.util.CloneDirection;
+import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.order.domain.CalculateCouponDiscountPriceVO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
+import com.zpl.eshop.order.domain.OrderInfoQuery;
 import com.zpl.eshop.order.domain.OrderInfoVO;
 import com.zpl.eshop.order.service.OrderInfoService;
 import com.zpl.eshop.promotion.domain.CouponDTO;
@@ -10,10 +12,10 @@ import com.zpl.eshop.promotion.domain.CouponVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 订单管理 controller 组件
@@ -79,6 +81,41 @@ public class OrderInfoController {
         try {
             OrderInfoDTO targetOrder = orderInfoService.save(order.clone(OrderInfoDTO.class, CloneDirection.FORWARD));
             return targetOrder.clone(OrderInfoVO.class, CloneDirection.OPPOSITE);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new OrderInfoVO();
+        }
+    }
+
+    /**
+     * 分页查询订单
+     *
+     * @param query 查询条件
+     * @return 订单
+     * @throws Exception
+     */
+    @GetMapping("/")
+    public List<OrderInfoVO> listByPage(OrderInfoQuery query) {
+        try {
+            List<OrderInfoDTO> orders = orderInfoService.listByPage(query);
+            return ObjectUtils.convertList(orders, OrderInfoVO.class, CloneDirection.OPPOSITE);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * 分页查询订单
+     *
+     * @param query 查询条件
+     * @return 订单
+     * @throws Exception
+     */
+    @GetMapping("/{id}")
+    public OrderInfoVO getById(@PathVariable("id") Long id) {
+        try {
+            return orderInfoService.getById(id).clone(OrderInfoVO.class, CloneDirection.OPPOSITE);
         } catch (Exception e) {
             logger.error("error", e);
             return new OrderInfoVO();

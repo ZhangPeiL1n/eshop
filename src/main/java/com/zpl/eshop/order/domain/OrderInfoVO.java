@@ -126,4 +126,9 @@ public class OrderInfoVO extends AbstractObject {
      */
     private List<OrderItemVO> orderItems;
 
+    /**
+     * 订单操作日志
+     */
+    private List<OrderOperateLogVO> logs;
+
 }

@@ -1,7 +1,10 @@
 package com.zpl.eshop.order.service;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
+import com.zpl.eshop.order.domain.OrderInfoQuery;
 import com.zpl.eshop.promotion.domain.CouponDTO;
+
+import java.util.List;
 
 /**
  * 订单管理Service
@@ -33,4 +36,21 @@ public interface OrderInfoService {
      * @param order 订单
      */
     OrderInfoDTO save(OrderInfoDTO order) throws Exception;
+
+    /**
+     * 分页查询订单
+     *
+     * @param query 分页查询条件
+     * @return 订单
+     */
+    List<OrderInfoDTO> listByPage(OrderInfoQuery query) throws Exception;
+
+    /**
+     * 获取订单详情
+     *
+     * @param id 订单id
+     * @return 订单
+     */
+    OrderInfoDTO getById(Long id) throws Exception;
+
 }
