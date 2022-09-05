@@ -40,17 +40,17 @@ public interface PromotionActivityMapper {
             "AND name like '${name}%' " +
             "</if>" +
             "<if test='startTime != null'>" +
-            "AND start_time >= #{startTimt} " +
-            "<if>" +
+            "AND start_time >= #{startTime} " +
+            "</if>" +
             "<if test='endTime != null'>" +
             "AND end_time &lt;= #{endTime} " +
-            "<if>" +
+            "</if>" +
             "<if test='status != null'>" +
             "AND status = #{status} " +
-            "<if>" +
+            "</if>" +
             "<if test='type != null'>" +
             "AND type = #{type} " +
-            "<if>" +
+            "</if>" +
             "LIMIT #{offset},#{size} " +
             ") b " +
             "WHERE a.id = b.id" +
@@ -209,7 +209,7 @@ public interface PromotionActivityMapper {
             "status=#{status}," +
             "gmt_modified=#{gmtModified} " +
             "WHERE id=#{id}")
-    void updateStatus(@Param("id") Long id, @Param("status") Integer status);
+    void updateStatus(PromotionActivityDO activity);
 
     /**
      * 删除促销活动

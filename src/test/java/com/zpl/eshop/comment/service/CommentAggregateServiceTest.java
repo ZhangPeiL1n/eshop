@@ -4,6 +4,7 @@ import com.zpl.eshop.comment.constant.CommentType;
 import com.zpl.eshop.comment.constant.ShowPictures;
 import com.zpl.eshop.comment.dao.CommentAggregateDAO;
 import com.zpl.eshop.comment.domain.CommentAggregateDO;
+import com.zpl.eshop.comment.domain.CommentAggregateDTO;
 import com.zpl.eshop.comment.domain.CommentInfoDTO;
 import com.zpl.eshop.common.util.DateProvider;
 import org.junit.Before;
@@ -65,16 +66,16 @@ public class CommentAggregateServiceTest {
         Long goodsId = 1L;
         when(commentAggregateDAO.getCommentAggregateByGoodsId(goodsId)).thenReturn(null);
         CommentInfoDTO commentInfoDTO = createCommentInfoDTO();
-        CommentAggregateDO commentAggregateDO = commentAggregateService.refreshCommentAggregate(commentInfoDTO);
+        CommentAggregateDTO commentAggregate = commentAggregateService.refreshCommentAggregate(commentInfoDTO);
         verify(commentAggregateDAO, times(1)).getCommentAggregateByGoodsId(goodsId);
-        assertNotNull(commentAggregateDO);
-        assertEquals(goodsId, commentAggregateDO.getGoodsId());
-        assertEquals(Long.valueOf(1L), commentAggregateDO.getGoodCommentCount());
-        assertEquals(Long.valueOf(1L), commentAggregateDO.getTotalCommentCount());
-        assertEquals(Double.valueOf(1.00), commentAggregateDO.getGoodCommentRate());
-        assertEquals(Long.valueOf(1L), commentAggregateDO.getShowPicturesCommentCount());
-        assertEquals(dateProvider.getCurrentTime(), commentAggregateDO.getGmtCreate());
-        assertEquals(dateProvider.getCurrentTime(), commentAggregateDO.getGmtModified());
+        assertNotNull(commentAggregate);
+        assertEquals(goodsId, commentAggregate.getGoodsId());
+        assertEquals(Long.valueOf(1L), commentAggregate.getGoodCommentCount());
+        assertEquals(Long.valueOf(1L), commentAggregate.getTotalCommentCount());
+        assertEquals(Double.valueOf(1.00), commentAggregate.getGoodCommentRate());
+        assertEquals(Long.valueOf(1L), commentAggregate.getShowPicturesCommentCount());
+        assertEquals(dateProvider.getCurrentTime(), commentAggregate.getGmtCreate());
+        assertEquals(dateProvider.getCurrentTime(), commentAggregate.getGmtModified());
     }
 
     /**
@@ -87,12 +88,12 @@ public class CommentAggregateServiceTest {
         CommentAggregateDO CommentAggregateDO = createCommentAggregateDO();
         when(commentAggregateDAO.getCommentAggregateByGoodsId(goodsId)).thenReturn(CommentAggregateDO);
         CommentInfoDTO commentInfoDTO = createCommentInfoDTO();
-        CommentAggregateDO resultCommentAggregateDO = commentAggregateService.refreshCommentAggregate(commentInfoDTO);
-        assertEquals(Long.valueOf(initialCommentAggregateDO.getTotalCommentCount() + 1L), resultCommentAggregateDO.getTotalCommentCount());
-        assertEquals(Long.valueOf(initialCommentAggregateDO.getGoodCommentCount() + 1L), resultCommentAggregateDO.getGoodCommentCount());
+        CommentAggregateDTO resultCommentAggregate = commentAggregateService.refreshCommentAggregate(commentInfoDTO);
+        assertEquals(Long.valueOf(initialCommentAggregateDO.getTotalCommentCount() + 1L), resultCommentAggregate.getTotalCommentCount());
+        assertEquals(Long.valueOf(initialCommentAggregateDO.getGoodCommentCount() + 1L), resultCommentAggregate.getGoodCommentCount());
         Double expectedGoodCommentRate = Double.valueOf(new DecimalFormat("#.00").format(initialCommentAggregateDO.getGoodCommentCount() / initialCommentAggregateDO.getTotalCommentCount()));
         assertEquals(expectedGoodCommentRate, initialCommentAggregateDO.getGoodCommentRate());
-        assertEquals(Long.valueOf(initialCommentAggregateDO.getShowPicturesCommentCount() + 1L), resultCommentAggregateDO.getShowPicturesCommentCount());
+        assertEquals(Long.valueOf(initialCommentAggregateDO.getShowPicturesCommentCount() + 1L), resultCommentAggregate.getShowPicturesCommentCount());
 
     }
 
@@ -100,9 +101,8 @@ public class CommentAggregateServiceTest {
      * 创建评论信息DTO对象
      *
      * @return 评论信息DTO对象
-     * @throws Exception
      */
-    public CommentInfoDTO createCommentInfoDTO() throws Exception {
+    public CommentInfoDTO createCommentInfoDTO() {
         CommentInfoDTO commentInfoDTO = new CommentInfoDTO();
         commentInfoDTO.setGoodsId(1L);
         commentInfoDTO.setCommentType(CommentType.GOOD_COMMENT);

@@ -1,5 +1,9 @@
 package com.zpl.eshop.promotion.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.zpl.eshop.common.json.DateJsonDeserializer;
+import com.zpl.eshop.common.json.DateJsonSerializer;
 import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,11 +33,15 @@ public class PromotionActivityVO extends AbstractObject {
     /**
      * 促销活动开始时间
      */
+    @JsonSerialize(using = DateJsonSerializer.class)
+    @JsonDeserialize(using = DateJsonDeserializer.class)
     private Date startTime;
 
     /**
      * 促销活动结束时间
      */
+    @JsonSerialize(using = DateJsonSerializer.class)
+    @JsonDeserialize(using = DateJsonDeserializer.class)
     private Date endTime;
 
     /**

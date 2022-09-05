@@ -37,7 +37,7 @@ public class PromotionActivityController {
      * @return 促销活动集合
      */
     @GetMapping("/")
-    public List<PromotionActivityVO> listByPage(PromotionActivityQuery query) {
+    public List<PromotionActivityVO> listByPage(@RequestBody PromotionActivityQuery query) {
         try {
             return ObjectUtils.convertList(promotionActivityService.listByPage(query), PromotionActivityVO.class);
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public class PromotionActivityController {
      * @param activity 促销活动
      */
     @PostMapping("/")
-    public Boolean save(PromotionActivityVO activity) {
+    public Boolean save(@RequestBody PromotionActivityVO activity) {
         try {
             promotionActivityService.save(activity.clone(PromotionActivityDTO.class, CloneDirection.FORWARD));
             return true;
@@ -83,8 +83,8 @@ public class PromotionActivityController {
      *
      * @param activity 促销活动
      */
-    @PutMapping("/")
-    public Boolean update(PromotionActivityVO activity) throws Exception {
+    @PutMapping("/{id}")
+    public Boolean update(@RequestBody PromotionActivityVO activity) throws Exception {
         try {
             promotionActivityService.update(activity.clone(PromotionActivityDTO.class, CloneDirection.FORWARD));
             return true;

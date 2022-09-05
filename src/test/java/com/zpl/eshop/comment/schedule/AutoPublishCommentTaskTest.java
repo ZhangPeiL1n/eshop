@@ -5,7 +5,7 @@ import com.zpl.eshop.comment.service.CommentAggregateService;
 import com.zpl.eshop.comment.service.CommentInfoService;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
-import com.zpl.eshop.order.service.OrderFacadeService;
+import com.zpl.eshop.order.service.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class AutoPublishCommentTaskTest {
      * 订单中心对外接口Service组件
      */
     @MockBean
-    private OrderFacadeService orderFacadeService;
+    private OrderService orderFacadeService;
 
     /**
      * 评论信息管理模块Service组件

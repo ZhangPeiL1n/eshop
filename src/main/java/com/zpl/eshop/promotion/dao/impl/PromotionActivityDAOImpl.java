@@ -52,7 +52,7 @@ public class PromotionActivityDAOImpl implements PromotionActivityDAO {
      */
     @Override
     public List<PromotionActivityDO> listAll() {
-        return listAll();
+        return promotionActivityMapper.listAll();
     }
 
     /**
@@ -94,8 +94,8 @@ public class PromotionActivityDAOImpl implements PromotionActivityDAO {
      * @param status 促销活动状态
      */
     @Override
-    public void updateStatus(Long id, Integer status) {
-        promotionActivityMapper.updateStatus(id, status);
+    public void updateStatus(PromotionActivityDO activity) {
+        promotionActivityMapper.updateStatus(activity);
     }
 
     /**

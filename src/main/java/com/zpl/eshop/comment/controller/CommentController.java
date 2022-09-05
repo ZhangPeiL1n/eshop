@@ -225,7 +225,7 @@ public class CommentController {
      * @param goodsId 商品id
      * @return
      */
-    @GetMapping("/show/#{goodsId}")
+    @GetMapping("/show/{goodsId}")
     public CommentShowVO show(@PathVariable("goodsId") Long goodsId, CommentInfoQuery commentInfoQuery) {
         try {
             // 构造评论展示的VO对象
