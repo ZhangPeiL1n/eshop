@@ -14,7 +14,7 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/9/5 21:20
  **/
-public class DataJsonSerializer extends JsonSerializer<Date> {
+public class DateJsonSerializer extends JsonSerializer<Date> {
 
     @Override
     public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
