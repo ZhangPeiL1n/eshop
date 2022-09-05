@@ -13,7 +13,7 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/9/5 21:22
  **/
-public class DataJsonDeserializer extends JsonDeserializer<Date> {
+public class DateJsonDeserializer extends JsonDeserializer<Date> {
     @Override
     public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         try {
