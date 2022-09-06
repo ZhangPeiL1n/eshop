@@ -13,17 +13,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpringApplicationContext {
 
+    @Autowired
     private ApplicationContext context;
 
-    /**
-     * 构造函数
-     *
-     * @param context spring容器
-     */
-    @Autowired
-    public SpringApplicationContext(ApplicationContext context) {
-        this.context = context;
-    }
+    // /**
+    //  * 构造函数
+    //  *
+    //  * @param context spring容器
+    //  */
+    //
+    // public SpringApplicationContext(ApplicationContext context) {
+    //     this.context = context;
+    // }
 
     /**
      * 获取bean

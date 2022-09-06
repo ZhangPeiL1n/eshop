@@ -5,6 +5,7 @@ import com.zpl.eshop.commodity.domain.PropertyDO;
 import com.zpl.eshop.commodity.domain.PropertyDTO;
 import com.zpl.eshop.commodity.domain.PropertyQuery;
 import com.zpl.eshop.commodity.service.PropertyService;
+import com.zpl.eshop.common.bean.SpringApplicationContext;
 import com.zpl.eshop.common.util.DateProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,12 @@ public class PropertyServiceImpl implements PropertyService {
      */
     @Autowired
     private DateProvider dateProvider;
+
+    /**
+     * spring上下文
+     */
+    @Autowired
+    private SpringApplicationContext context;
 
     /**
      * 分页查询商品属性
@@ -89,6 +96,18 @@ public class PropertyServiceImpl implements PropertyService {
             logger.error("error", e);
             return new PropertyDTO();
         }
+    }
+
+    /**
+     * 查询类目Id对应的所有属性
+     *
+     * @param categoryId 类目id
+     * @return
+     */
+    @Override
+    public Properties getPropertiesByCategoryId(Long categoryId) throws Exception {
+        CategoryOperation<Properties> queryOptions = context.getBean(QueryPropertyCategoryOperation.class);
+        return new Category(categoryId).execute(queryOptions);
     }
 
     /**

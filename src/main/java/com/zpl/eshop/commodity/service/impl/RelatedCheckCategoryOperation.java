@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 @Scope("prototype")
-public class CategoryRelatedCheckOperation extends AbstractCategoryOperation<Boolean> {
+public class RelatedCheckCategoryOperation extends AbstractCategoryOperation<Boolean> {
 
     /**
      * 商品DAO 组件
@@ -28,7 +28,7 @@ public class CategoryRelatedCheckOperation extends AbstractCategoryOperation<Boo
     private Boolean related = false;
 
     @Autowired
-    public CategoryRelatedCheckOperation(CategoryDAO categoryDAO, GoodsDAO goodsDAO) {
+    public RelatedCheckCategoryOperation(CategoryDAO categoryDAO, GoodsDAO goodsDAO) {
         super(categoryDAO);
         this.goodsDAO = goodsDAO;
     }

@@ -283,12 +283,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Boolean remove(Long id) throws Exception {
         Category category = new Category(id);
-        CategoryRelatedCheckOperation relatedCheckOperation = context.getBean(CategoryRelatedCheckOperation.class);
+        RelatedCheckCategoryOperation relatedCheckOperation = context.getBean(RelatedCheckCategoryOperation.class);
         Boolean result = category.execute(relatedCheckOperation);
         if (result) {
             return false;
         }
-        CategoryRemoveOperation removeOperation = context.getBean(CategoryRemoveOperation.class);
+        RemoveCategoryOperation removeOperation = context.getBean(RemoveCategoryOperation.class);
         return category.execute(removeOperation);
     }
 }

@@ -4,6 +4,7 @@ import com.zpl.eshop.commodity.domain.PropertyDTO;
 import com.zpl.eshop.commodity.domain.PropertyQuery;
 import com.zpl.eshop.commodity.domain.PropertyVO;
 import com.zpl.eshop.commodity.service.PropertyService;
+import com.zpl.eshop.commodity.service.impl.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,5 +98,21 @@ public class PropertyController {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 查询类目id对应的所有属性
+     *
+     * @param categoryId 类目id
+     * @return 所有属性
+     */
+    @GetMapping("/all/{categoryId}")
+    public Properties getPropertiesByCategoryId(@PathVariable("categoryId") Long categoryId) {
+        try {
+            return propertyService.getPropertiesByCategoryId(categoryId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new Properties();
+        }
     }
 }

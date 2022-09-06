@@ -2,6 +2,7 @@ package com.zpl.eshop.commodity.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * @date 2022/5/17 23:08
  **/
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class PropertyGroupDTO extends AbstractObject {
 
     /**

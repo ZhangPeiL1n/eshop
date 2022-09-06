@@ -19,7 +19,7 @@ import java.util.List;
  **/
 @Component
 @Scope("prototype")
-public class CategoryRemoveOperation extends AbstractCategoryOperation<Boolean> {
+public class RemoveCategoryOperation extends AbstractCategoryOperation<Boolean> {
 
     /**
      * 类目与属性关系管理DAO组件
@@ -47,7 +47,7 @@ public class CategoryRemoveOperation extends AbstractCategoryOperation<Boolean> 
      * @param categoryDAO                     类目管理DAO组件
      */
     @Autowired
-    public CategoryRemoveOperation(CategoryDAO categoryDAO, CategoryPropertyRelationshipDAO categoryPropertyRelationshipDAO, PropertyGroupDAO propertyGroupDAO, PropertyGroupRelationshipDAO propertyGroupRelationshipDAO) {
+    public RemoveCategoryOperation(CategoryDAO categoryDAO, CategoryPropertyRelationshipDAO categoryPropertyRelationshipDAO, PropertyGroupDAO propertyGroupDAO, PropertyGroupRelationshipDAO propertyGroupRelationshipDAO) {
         super(categoryDAO);
         this.categoryPropertyRelationshipDAO = categoryPropertyRelationshipDAO;
         this.propertyGroupDAO = propertyGroupDAO;

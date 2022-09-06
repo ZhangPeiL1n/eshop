@@ -2,6 +2,7 @@ package com.zpl.eshop.commodity.service;
 
 import com.zpl.eshop.commodity.domain.PropertyDTO;
 import com.zpl.eshop.commodity.domain.PropertyQuery;
+import com.zpl.eshop.commodity.service.impl.Properties;
 
 import java.util.List;
 
@@ -35,6 +36,14 @@ public interface PropertyService {
      * @return 商品属性DO
      */
     PropertyDTO getPropertyById(Long propertyId);
+
+    /**
+     * 查询类目Id对应的所有属性
+     *
+     * @param categoryId 类目id
+     * @return
+     */
+    Properties getPropertiesByCategoryId(Long categoryId) throws Exception;
 
     /**
      * 更新商品属性

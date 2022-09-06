@@ -2,6 +2,7 @@ package com.zpl.eshop.commodity.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  * @date 2022/5/24 21:51
  **/
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class PropertyGroupRelationshipVO extends AbstractObject {
     /**
      * id

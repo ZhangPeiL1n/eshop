@@ -1,9 +1,8 @@
 package com.zpl.eshop.commodity.domain;
 
-import com.zpl.eshop.common.util.BeanCopierUtils;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,10 +14,9 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/19 21:08
  **/
-@Getter
-@Setter
-@ToString
-public class PropertyVO {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class PropertyVO extends AbstractObject {
 
     private final Logger logger = LoggerFactory.getLogger(PropertyVO.class);
     /**
@@ -55,17 +53,4 @@ public class PropertyVO {
      * 修改时间
      */
     private Date gmtModified;
-
-    public <T> T clone(Class<T> clazz) {
-        T target = null;
-        try {
-            target = clazz.newInstance();
-            BeanCopierUtils.copyProperties(this, target);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
-        return target;
-    }
-
 }
