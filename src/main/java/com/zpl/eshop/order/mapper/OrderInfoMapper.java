@@ -58,7 +58,7 @@ public interface OrderInfoMapper {
             "#{invoiceTitle}," +
             "#{taxpayerId}," +
             "#{orderComment}," +
-            "#{publishComment}," +
+            "#{publishedComment}," +
             "#{confirmReceiptTime}," +
             "#{gmtCreate}," +
             "#{gmtModified}" +
@@ -74,7 +74,6 @@ public interface OrderInfoMapper {
      */
     @Select("SELECT "
             + "a.id,"
-            + "a.gmt_create,"
             + "a.order_no,"
             + "a.consignee,"
             + "a.total_amount,"
@@ -83,7 +82,10 @@ public interface OrderInfoMapper {
             + "a.freight,"
             + "a.payable_amount,"
             + "a.pay_type,"
-            + "a.order_status "
+            + "a.order_status,"
+            + "a.user_account_id,"
+            + "a.username,"
+            + "a.gmt_create "
             + "FROM order_info a,"
             + "("
             + "SELECT id "
@@ -95,7 +97,8 @@ public interface OrderInfoMapper {
     )
     @Results({
             @Result(column = "id", property = "id", id = true),
-            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "user_account_id", property = "userAccountId"),
+            @Result(column = "username", property = "username"),
             @Result(column = "order_no", property = "orderNo"),
             @Result(column = "consignee", property = "consignee"),
             @Result(column = "total_amount", property = "totalAmount"),
@@ -104,7 +107,8 @@ public interface OrderInfoMapper {
             @Result(column = "freight", property = "freight"),
             @Result(column = "payable_amount", property = "payableAmount"),
             @Result(column = "pay_type", property = "payType"),
-            @Result(column = "order_status", property = "orderStatus")
+            @Result(column = "order_status", property = "orderStatus"),
+            @Result(column = "gmt_create", property = "gmtCreate")
     })
     List<OrderInfoDO> listByPage(OrderInfoQuery query);
 
@@ -115,7 +119,6 @@ public interface OrderInfoMapper {
      */
     @Select("SELECT "
             + "id,"
-            + "gmt_create,"
             + "order_no,"
             + "consignee,"
             + "delivery_address,"
@@ -128,13 +131,18 @@ public interface OrderInfoMapper {
             + "pay_type,"
             + "invoice_title,"
             + "taxpayer_id,"
-            + "order_status "
+            + "order_status,"
+            + "user_account_id,"
+            + "username,"
+            + "order_comment,"
+            + "gmt_create "
             + "FROM order_info "
             + "WHERE id=#{id}"
     )
     @Results({
             @Result(column = "id", property = "id", id = true),
-            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "user_account_id", property = "userAccountId"),
+            @Result(column = "username", property = "username"),
             @Result(column = "order_no", property = "orderNo"),
             @Result(column = "consignee", property = "consignee"),
             @Result(column = "total_amount", property = "totalAmount"),
@@ -147,7 +155,9 @@ public interface OrderInfoMapper {
             @Result(column = "delivery_address", property = "deliveryAddress"),
             @Result(column = "consignee_cell_phone_number", property = "consigneeCellPhoneNumber"),
             @Result(column = "invoice_title", property = "invoiceTitle"),
-            @Result(column = "taxpayer_id", property = "taxpayerId")
+            @Result(column = "taxpayer_id", property = "taxpayerId"),
+            @Result(column = "order_comment", property = "orderComment"),
+            @Result(column = "gmt_create", property = "gmtCreate")
     })
     OrderInfoDO getById(@Param("id") Long id);
 }

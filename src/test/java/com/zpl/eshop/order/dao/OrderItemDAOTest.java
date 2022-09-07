@@ -12,7 +12,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 订单条目管理DAO单元测试类
@@ -49,6 +49,69 @@ public class OrderItemDAOTest {
         OrderItemDO orderItem = createOrderItem(orderInfoId);
         Assert.assertNotNull(orderItem);
         Assert.assertThat(orderItem.getId(), Matchers.greaterThan(0L));
+    }
+
+    /**
+     * 测试查询订单条目
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testListByOrderInfoId() throws Exception {
+        Integer count = 10;
+        Long orderInfoId = 1L;
+        Map<Long, OrderItemDO> expectedOrderItemMap = createOrderItemMap(count, orderInfoId);
+
+        List<OrderItemDO> actualOrderItems = orderItemDAO.listByOrderInfoId(orderInfoId);
+
+        compareOrderItems(count, expectedOrderItemMap, actualOrderItems);
+    }
+
+    /**
+     * 比较订单集合
+     *
+     * @param expectedOrderItemMap 期望的订单集合
+     * @param actualOrderItems     实际的订单集合
+     */
+    private void compareOrderItems(Integer expectedSize, Map<Long, OrderItemDO> expectedOrderItemMap, List<OrderItemDO> actualOrderItems) {
+        Assert.assertEquals((int) expectedSize, actualOrderItems.size());
+
+        for (OrderItemDO actualOrderItem : actualOrderItems) {
+            OrderItemDO expectedOrderItem = expectedOrderItemMap.get(actualOrderItem.getId());
+            Assert.assertEquals(expectedOrderItem, actualOrderItem);
+        }
+    }
+
+    /**
+     * 创建订单map
+     *
+     * @param count 订单数量
+     * @return 订单map
+     * @throws Exception
+     */
+    private Map<Long, OrderItemDO> createOrderItemMap(Integer count, Long orderInfoId) throws Exception {
+        Map<Long, OrderItemDO> orderItemMap = new HashMap<>();
+
+        List<OrderItemDO> orderItems = createOrderItems(count, orderInfoId);
+        for (OrderItemDO orderItem : orderItems) {
+            orderItemMap.put(orderItem.getId(), orderItem);
+        }
+        return orderItemMap;
+    }
+
+    /**
+     * 创建订单条目集合
+     *
+     * @param count 订单条目数量
+     * @return 订单条目集合
+     * @throws Exception
+     */
+    private List<OrderItemDO> createOrderItems(Integer count, Long orderInfoId) throws Exception {
+        List<OrderItemDO> orderItems = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            orderItems.add(createOrderItem(orderInfoId));
+        }
+        return orderItems;
     }
 
     private OrderItemDO createOrderItem(Long orderInfoId) throws Exception {
