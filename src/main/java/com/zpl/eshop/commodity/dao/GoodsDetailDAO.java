@@ -32,4 +32,11 @@ public interface GoodsDetailDAO {
      */
     void update(GoodsDetailDO detail);
 
+    /**
+     * 删除商品详情
+     *
+     * @param id 商品详情id
+     */
+    void remove(Long id);
+
 }

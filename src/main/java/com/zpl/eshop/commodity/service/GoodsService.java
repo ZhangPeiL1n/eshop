@@ -41,6 +41,39 @@ public interface GoodsService {
      * 更新商品
      *
      * @param goods 商品
+     * @return 更新结果
      */
-    void update(GoodsDTO goods) throws Exception;
+    Boolean update(GoodsDTO goods) throws Exception;
+
+    /**
+     * 审核商品
+     *
+     * @param goods 商品
+     * @return 处理结果
+     */
+    Boolean approve(GoodsDTO goods, Integer approveResult);
+
+    /**
+     * 上架商品
+     *
+     * @param goods 商品
+     * @return 上架结果
+     */
+    Boolean putOnShelves(GoodsDTO goods) throws Exception;
+
+    /**
+     * 下架商品
+     *
+     * @param goods 商品
+     * @return 下架结果
+     */
+    Boolean pullOffShelves(GoodsDTO goods) throws Exception;
+
+    /**
+     * 删除商品
+     *
+     * @param goodsId 商品id
+     * @return 删除结果
+     */
+    Boolean remove(Long goodsId) throws Exception;
 }

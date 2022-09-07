@@ -61,4 +61,12 @@ public interface GoodsDetailMapper {
             "detail_content = #{detailContent} " +
             "WHERE id = #{id}")
     void update(GoodsDetailDO detail);
+
+    /**
+     * 删除商品详情
+     *
+     * @param id 商品详情id
+     */
+    @Delete("DELETE FROM commodity_goods_detail where id = #{id}")
+    void remove(@Param("id") Long id);
 }

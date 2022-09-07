@@ -59,4 +59,11 @@ public interface GoodsDAO {
      * @param goods 商品
      */
     void update(GoodsDO goods);
+
+    /**
+     * 更新商品状态
+     *
+     * @param goods 商品
+     */
+    void updateStatus(GoodsDO goods);
 }

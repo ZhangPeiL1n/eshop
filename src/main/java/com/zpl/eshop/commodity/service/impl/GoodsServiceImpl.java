@@ -1,10 +1,9 @@
 package com.zpl.eshop.commodity.service.impl;
 
-import com.zpl.eshop.commodity.dao.GoodsDAO;
-import com.zpl.eshop.commodity.domain.GoodsDO;
-import com.zpl.eshop.commodity.domain.GoodsDTO;
-import com.zpl.eshop.commodity.domain.GoodsQuery;
+import com.zpl.eshop.commodity.dao.*;
+import com.zpl.eshop.commodity.domain.*;
 import com.zpl.eshop.commodity.service.GoodsService;
+import com.zpl.eshop.commodity.state.GoodsStateManager;
 import com.zpl.eshop.common.util.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +26,48 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Autowired
     private GoodsDAO goodsDAO;
+
+    /**
+     * 商品状态管理器
+     */
+    @Autowired
+    private GoodsStateManager goodsStateManager;
+
+    /**
+     * 商品图片管理模块DAO组件
+     */
+    @Autowired
+    private GoodsPictureDAO goodsPictureDAO;
+
+    /**
+     * 商品详情管理DAO组件
+     */
+    @Autowired
+    private GoodsDetailDAO goodsDetailDAO;
+
+    /**
+     * 商品详情图片管理DAO组件
+     */
+    @Autowired
+    private GoodsDetailPictureDAO goodsDetailPictureDAO;
+
+    /**
+     * 商品属性值管理DAO组件
+     */
+    @Autowired
+    private GoodsPropertyValueDAO goodsPropertyValueDAO;
+
+    /**
+     * 商品sku管理DAO
+     */
+    @Autowired
+    private GoodsSkuDAO goodsSkuDAO;
+
+    /**
+     * 商品sku销售属性管理DAO
+     */
+    @Autowired
+    private GoodsSkuSalePropertyValueDAO goodsSkuSalePropertyValueDAO;
 
     /**
      * 分页查询商品
@@ -59,8 +100,9 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public Long save(GoodsDTO goods) throws Exception {
-        goodsDAO.save(goods.clone(GoodsDO.class));
-        return goods.getId();
+        Long goodsId = goodsDAO.save(goods.clone(GoodsDO.class));
+        goodsStateManager.create(goods);
+        return goodsId;
     }
 
     /**
@@ -69,7 +111,84 @@ public class GoodsServiceImpl implements GoodsService {
      * @param goods 商品
      */
     @Override
-    public void update(GoodsDTO goods) throws Exception {
+    public Boolean update(GoodsDTO goods) throws Exception {
+        if (!goodsStateManager.canEdit(goods)) {
+            return false;
+        }
         goodsDAO.update(goods.clone(GoodsDO.class));
+        goodsStateManager.edit(goods);
+        return true;
+    }
+
+    /**
+     * 审核商品
+     *
+     * @param goods 商品
+     * @return 处理结果
+     */
+    @Override
+    public Boolean approve(GoodsDTO goods, Integer approveResult) {
+        if (!goodsStateManager.canApprove(goods)) {
+            return false;
+        }
+
+        return null;
+    }
+
+    /**
+     * 上架商品
+     *
+     * @param goods 商品
+     * @return 上架结果
+     */
+    @Override
+    public Boolean putOnShelves(GoodsDTO goods) throws Exception {
+        if (!goodsStateManager.canPutOnShelves(goods)) {
+            return false;
+        }
+        goodsStateManager.putOnShelves(goods);
+        return true;
+    }
+
+    /**
+     * 下架商品
+     *
+     * @param goods 商品
+     * @return 下架结果
+     */
+    @Override
+    public Boolean pullOffShelves(GoodsDTO goods) throws Exception {
+        if (!goodsStateManager.canPullOffShelves(goods)) {
+            return false;
+        }
+        goodsStateManager.pullOffShelves(goods);
+        return true;
+    }
+
+    /**
+     * 删除商品
+     *
+     * @param id 商品id
+     * @return 删除结果
+     */
+    @Override
+    public Boolean remove(Long id) throws Exception {
+        GoodsDTO goods = goodsDAO.getById(id).clone(GoodsDTO.class);
+        if (!goodsStateManager.canRemove(goods)) {
+            return false;
+        }
+        goodsPictureDAO.removeByGoodsId(id);
+        GoodsDetailDO goodsDetail = goodsDetailDAO.getByGoodsId(id);
+        goodsDetailPictureDAO.removeByGoodsDetailId(goodsDetail.getId());
+        goodsDetailDAO.remove(goodsDetail.getId());
+        goodsPropertyValueDAO.removeByGoodsId(id);
+
+        List<GoodsSkuDO> goodsSkuList = goodsSkuDAO.listByGoodsId(id);
+        goodsSkuList.forEach(goodsSku -> {
+            goodsSkuSalePropertyValueDAO.removeByGoodsSkuId(goodsSku.getId());
+        });
+        goodsSkuDAO.removeByGoodsId(id);
+
+        return true;
     }
 }

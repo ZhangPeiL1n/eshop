@@ -87,8 +87,7 @@ public class GoodsController {
      */
     public Boolean update(@RequestBody GoodsVO goods) {
         try {
-            goodsService.update(goods.clone(GoodsDTO.class));
-            return true;
+            return goodsService.update(goods.clone(GoodsDTO.class));
         } catch (Exception e) {
             logger.error("error", e);
             return false;
