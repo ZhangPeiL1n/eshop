@@ -1,14 +1,12 @@
 package com.zpl.eshop.schedule.service.impl;
 
+import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDTO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderItemDTO;
 import com.zpl.eshop.schedule.service.ScheduleService;
-import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
-import com.zpl.eshop.wms.domain.PurchaseInputOrderItemDTO;
-import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
-import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
+import com.zpl.eshop.wms.domain.*;
 import com.zpl.eshop.wms.service.WmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -159,12 +157,20 @@ public class ScheduleServiceImpl implements ScheduleService {
     /**
      * 调度退货入库
      *
-     * @param orderInfoDTO            订单DTO
-     * @param returnGoodsWorksheetDTO 退货入库单DTO
+     * @param order                订单DTO
+     * @param returnGoodsWorksheet 退货入库单DTO
      * @return 处理结果
      */
     @Override
-    public Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfoDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO) {
+    public Boolean scheduleReturnGoodsInput(OrderInfoDTO order, ReturnGoodsWorksheetDTO returnGoodsWorksheet) throws Exception {
+        ReturnGoodsInputOrderDTO returnGoodsInputOrder = order.clone(ReturnGoodsInputOrderDTO.class);
+        returnGoodsInputOrder.setOrderId(order.getId());
+        returnGoodsInputOrder.setReturnGoodsReason(returnGoodsWorksheet.getReturnGoodsReason());
+        returnGoodsInputOrder.setReturnGoodsComment(returnGoodsWorksheet.getReturnGoodsComment());
+
+        List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItems = ObjectUtils.convertList(order.getOrderItems(), ReturnGoodsInputOrderItemDTO.class);
+        returnGoodsInputOrder.setReturnGoodsInputOrderItems(returnGoodsInputOrderItems);
+
         return true;
     }
 

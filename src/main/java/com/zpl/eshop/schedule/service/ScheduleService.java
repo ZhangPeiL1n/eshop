@@ -76,5 +76,5 @@ public interface ScheduleService {
      * @param returnGoodsWorksheetDTO 退货入库单DTO
      * @return 处理结果
      */
-    Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfoDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO);
+    Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfoDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO) throws Exception;
 }

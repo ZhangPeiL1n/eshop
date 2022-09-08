@@ -129,11 +129,11 @@ public class ReturnGoodsInputOrderDTO {
     /**
      * 退货入库单条目DTO集合
      */
-    private List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOList;
+    private List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItems;
 
     /**
      * 退货入库单商品上架条目DTO集合
      */
-    private List<ReturnGoodsInputOrderPutOnItemDTO> returnGoodsInputOrderPutOnItemDTOList;
+    private List<ReturnGoodsInputOrderPutOnItemDTO> returnGoodsInputOrderPutOnItems;
 
 }

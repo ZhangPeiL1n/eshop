@@ -43,7 +43,7 @@ public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<
     @Override
     protected List<Long> getGoodsSkuIds(ReturnGoodsInputOrderDTO parameter) throws Exception {
         // 拿到退货入库单条目集合
-        List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOList = parameter.getReturnGoodsInputOrderItemDTOList();
+        List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOList = parameter.getReturnGoodsInputOrderItems();
         // 卫语句,没有就返回空集合
         if (returnGoodsInputOrderItemDTOList == null || returnGoodsInputOrderItemDTOList.size() == 0) {
             return new ArrayList<>();
@@ -66,7 +66,7 @@ public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<
      */
     @Override
     protected StockUpdater create(List<GoodsStockDO> goodsStockDOList, ReturnGoodsInputOrderDTO parameter) throws Exception {
-        List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOList = parameter.getReturnGoodsInputOrderItemDTOList();
+        List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOList = parameter.getReturnGoodsInputOrderItems();
 
         Map<Long, ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOMap = new HashMap<>();
 

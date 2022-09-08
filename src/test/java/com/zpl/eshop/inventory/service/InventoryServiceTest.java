@@ -414,13 +414,13 @@ public class InventoryServiceTest {
         for (int i = 0; i < goodsSkuIds.length; i++) {
             items.add(createReturnGoodsInputOrderItem(1L, goodsSkuIds[i], purchaseQuantity));
         }
-        returnGoodsInputOrder.setReturnGoodsInputOrderItemDTOList(items);
+        returnGoodsInputOrder.setReturnGoodsInputOrderItems(items);
 
         List<ReturnGoodsInputOrderPutOnItemDTO> putOnItems = new ArrayList<>();
         for (int i = 0; i < goodsSkuIds.length; i++) {
             putOnItems.add(createReturnGoodsInputOrderPutOnItemDTO((long) i, (long) i, goodsSkuIds[i]));
         }
-        returnGoodsInputOrder.setReturnGoodsInputOrderPutOnItemDTOList(putOnItems);
+        returnGoodsInputOrder.setReturnGoodsInputOrderPutOnItems(putOnItems);
 
 
         return returnGoodsInputOrder;
