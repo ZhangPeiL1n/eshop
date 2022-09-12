@@ -66,4 +66,11 @@ public interface GoodsDAO {
      * @param goods 商品
      */
     void updateStatus(GoodsDO goods);
+
+    /**
+     * 删除商品
+     *
+     * @param id 商品id
+     */
+    void remove(Long id);
 }

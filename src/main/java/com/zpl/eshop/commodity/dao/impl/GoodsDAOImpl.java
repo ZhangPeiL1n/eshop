@@ -99,4 +99,14 @@ public class GoodsDAOImpl implements GoodsDAO {
     public void updateStatus(GoodsDO goods) {
         goodsMapper.updateStatus(goods);
     }
+
+    /**
+     * 删除商品
+     *
+     * @param id 商品id
+     */
+    @Override
+    public void remove(Long id) {
+        goodsMapper.remove(id);
+    }
 }

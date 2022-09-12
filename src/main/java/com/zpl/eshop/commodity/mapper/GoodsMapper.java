@@ -73,7 +73,7 @@ public interface GoodsMapper {
             "AND name like '${name}%' " +
             "</if>" +
             "<if test='subName != null'>" +
-            "AND subName like '${subName}%' " +
+            "AND sub_name like '${subName}%' " +
             "</if>" +
             "<if test='status != null'>" +
             "AND status = '${status}%' " +
@@ -217,4 +217,12 @@ public interface GoodsMapper {
             + "gmt_modified=#{gmtModified} "
             + " WHERE id=#{id}")
     void updateStatus(GoodsDO goods);
+
+    /**
+     * 删除商品
+     *
+     * @param id 商品id
+     */
+    @Delete("DELETE FROM commodity_goods WHERE id=#{id}")
+    void remove(@Param("id") Long id);
 }

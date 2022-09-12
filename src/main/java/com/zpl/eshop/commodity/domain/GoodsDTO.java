@@ -37,6 +37,11 @@ public class GoodsDTO extends AbstractObject {
     private String code;
 
     /**
+     * 商品名称
+     */
+    private String name;
+
+    /**
      * 商品副名称
      */
     private String subName;

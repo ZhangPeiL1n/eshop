@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 属性分组与属性关系管理mapper组件
  *
- * @author zhonghuashishan
+ * @author ZhangPeiL1n
  */
 @Mapper
 public interface PropertyGroupRelationshipMapper {

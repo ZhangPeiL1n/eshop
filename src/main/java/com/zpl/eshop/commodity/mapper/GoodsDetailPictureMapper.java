@@ -76,6 +76,7 @@ public interface GoodsDetailPictureMapper {
             "#{gmtCreate}," +
             "#{gmtModified}" +
             ")")
+    @Options(keyProperty = "id", keyColumn = "id", useGeneratedKeys = true)
     void save(GoodsDetailPictureDO picture);
 
     /**

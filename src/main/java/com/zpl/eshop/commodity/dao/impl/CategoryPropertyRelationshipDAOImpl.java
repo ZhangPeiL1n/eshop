@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 类目属性管理DAO组件
  *
- * @author zhonghuashishan
+ * @author ZhangPeiL1n
  */
 @Repository
 public class CategoryPropertyRelationshipDAOImpl

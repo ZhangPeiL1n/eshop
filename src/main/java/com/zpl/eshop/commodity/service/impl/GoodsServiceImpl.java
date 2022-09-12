@@ -189,6 +189,8 @@ public class GoodsServiceImpl implements GoodsService {
         });
         goodsSkuDAO.removeByGoodsId(id);
 
+        goodsDAO.remove(id);
+
         return true;
     }
 }
