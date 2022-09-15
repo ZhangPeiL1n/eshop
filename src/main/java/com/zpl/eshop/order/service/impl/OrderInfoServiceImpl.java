@@ -12,6 +12,7 @@ import com.zpl.eshop.order.dao.OrderOperateLogDAO;
 import com.zpl.eshop.order.domain.*;
 import com.zpl.eshop.order.price.*;
 import com.zpl.eshop.order.service.OrderInfoService;
+import com.zpl.eshop.order.state.OrderStateManager;
 import com.zpl.eshop.promotion.constant.PromotionActivityType;
 import com.zpl.eshop.promotion.domain.CouponDTO;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
@@ -96,7 +97,13 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      * 订单操作内容工厂
      */
     @Autowired
-    private OrderOperateContentFactory orderOperateContentFactory;
+    private OrderOperateLogFactory orderOperateLogFactory;
+
+    /**
+     * 订单状态管理组件
+     */
+    @Autowired
+    private OrderStateManager orderStateManager;
 
     /**
      * 计算订单价格
@@ -190,8 +197,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             return order;
         }
         saveOrder(order);
+        orderStateManager.createOrder(order);
+        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.CREATE_ORDER));
         inventoryService.informSubmitOrderEvent(order);
-        saveOrderOperateLog(order, OrderOperateType.CREATE_ORDER);
         return order;
     }
 
@@ -236,19 +244,38 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     }
 
     /**
-     * 新增订单操作日志
+     * 取消订单
      *
-     * @param order       订单id
-     * @param operateType 操作类型
+     * @param id 订单id
+     * @return 处理结果
+     * @throws Exception
      */
-    private void saveOrderOperateLog(OrderInfoDTO order, Integer operateType) throws Exception {
-        OrderOperateLogDO log = new OrderOperateLogDO();
-        log.setOrderInfoId(order.getId());
-        log.setOperateType(operateType);
-        log.setOperateContent(orderOperateContentFactory.getOperateContent(order, operateType));
-        log.setGmtCreate(dateProvider.getCurrentTime());
-        log.setGmtModified(dateProvider.getCurrentTime());
-        orderOperateLogDAO.save(log);
+    @Override
+    public Boolean cancel(Long id) throws Exception {
+        OrderInfoDTO order = getOrderInfoDTO(id);
+        if (order == null) {
+            return false;
+        }
+        if (!orderStateManager.canCancel(order)) {
+            return false;
+        }
+        orderStateManager.cancelOrder(order);
+        inventoryService.informCancelOrderEvent(order);
+        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.MANUAL_CANCEL_ORDER));
+        return true;
+    }
+
+    /**
+     * 获取订单DTO
+     *
+     * @param id 订单id
+     * @return
+     */
+    private OrderInfoDTO getOrderInfoDTO(Long id) throws Exception {
+        OrderInfoDTO orderInfoDTO = orderInfoDAO.getById(id).clone(OrderInfoDTO.class);
+        List<OrderItemDTO> orderItemDTOList = ObjectUtils.convertList(orderItemDAO.listByOrderInfoId(orderInfoDTO.getId()), OrderItemDTO.class);
+        orderInfoDTO.setOrderItems(orderItemDTOList);
+        return orderInfoDTO;
     }
 
     /**
@@ -277,7 +304,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     private OrderInfoDTO saveOrder(OrderInfoDTO order) throws Exception {
         order.setOrderNo(UUID.randomUUID().toString().replaceAll("-", ""));
         order.setPublishComment(PublishedComment.NO);
-        order.setOrderStatus(OrderStatus.WAITING_FOR_PAY);
+        order.setOrderStatus(OrderStatus.UNKNOWN);
         order.setGmtCreate(dateProvider.getCurrentTime());
         order.setGmtModified(dateProvider.getCurrentTime());
         Long id = orderInfoDAO.save(order.clone(OrderInfoDO.class));

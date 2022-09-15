@@ -54,7 +54,7 @@ public class InventoryServiceImpl implements InventoryService {
      * @return 处理结果
      */
     @Override
-    public Boolean cancelOrderEvent(OrderInfoDTO orderDTO) {
+    public Boolean informCancelOrderEvent(OrderInfoDTO orderDTO) {
         return true;
     }
 

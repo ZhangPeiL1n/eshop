@@ -41,7 +41,7 @@ public interface InventoryService {
      * @param orderDTO 订单DTO
      * @return 处理结果
      */
-    Boolean cancelOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informCancelOrderEvent(OrderInfoDTO orderDTO);
 
     /**
      * 通知库存中心，“退货入库”事件发生了

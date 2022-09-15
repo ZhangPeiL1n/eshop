@@ -9,9 +9,14 @@ package com.zpl.eshop.order.constant;
 public class OrderStatus {
 
     /**
+     * 未知状态
+     */
+    public static final Integer UNKNOWN = -999;
+
+    /**
      * 待支付
      */
-    public static final Integer WAITING_FOR_PAY = 1;
+    public static final Integer WAIT_FOR_PAY = 1;
 
     /**
      * 已取消
@@ -21,12 +26,12 @@ public class OrderStatus {
     /**
      * 待发货
      */
-    public static final Integer WAITING_FOR_DELIVERY = 3;
+    public static final Integer WAIT_FOR_DELIVERY = 3;
 
     /**
      * 待收货
      */
-    public static final Integer WAITING_FOR_RECEIVED = 4;
+    public static final Integer WAIT_FOR_RECEIVED = 4;
 
     /**
      * 已完成
@@ -46,17 +51,17 @@ public class OrderStatus {
     /**
      * 退货商品待寄送
      */
-    public static final Integer WAITING_FOR_RETURN_GOODS = 8;
+    public static final Integer WAIT_FOR_RETURN_GOODS = 8;
 
     /**
      * 退货商品待收货
      */
-    public static final Integer WAITING_FOR_RECEIVE_RETURN_GOODS = 9;
+    public static final Integer WAIT_FOR_RECEIVE_RETURN_GOODS = 9;
 
     /**
      * 退货商品待入库
      */
-    public static final Integer WAITING_FOR_INPUT_RETURN_GOODS = 10;
+    public static final Integer WAIT_FOR_INPUT_RETURN_GOODS = 10;
 
     /**
      * 退货商品已入库

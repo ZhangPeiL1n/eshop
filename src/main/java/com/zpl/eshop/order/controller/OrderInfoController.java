@@ -91,7 +91,7 @@ public class OrderInfoController {
      * 分页查询订单
      *
      * @param query 查询条件
-     * @return 订单
+     * @return 订单集合
      * @throws Exception
      */
     @GetMapping("/")
@@ -106,9 +106,9 @@ public class OrderInfoController {
     }
 
     /**
-     * 分页查询订单
+     * 根据id查询订单
      *
-     * @param query 查询条件
+     * @param id 订单id
      * @return 订单
      * @throws Exception
      */
@@ -119,6 +119,22 @@ public class OrderInfoController {
         } catch (Exception e) {
             logger.error("error", e);
             return new OrderInfoVO();
+        }
+    }
+
+    /**
+     * 取消订单
+     *
+     * @param id 订单id
+     * @return
+     */
+    @PutMapping("/cancel/{id}")
+    public Boolean cancel(@PathVariable("id") Long id) {
+        try {
+            return orderInfoService.cancel(id);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
         }
     }
 }

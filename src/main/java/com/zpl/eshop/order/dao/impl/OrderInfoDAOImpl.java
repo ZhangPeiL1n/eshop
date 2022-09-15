@@ -55,4 +55,24 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     public OrderInfoDO getById(Long id) {
         return orderInfoMapper.getById(id);
     }
+
+    /**
+     * 更新订单状态
+     *
+     * @param order 订单
+     */
+    @Override
+    public void updateStatus(OrderInfoDO order) {
+        orderInfoMapper.updateStatus(order);
+    }
+
+    /**
+     * 查询所有未付款的订单
+     *
+     * @return 所有未付款的订单
+     */
+    @Override
+    public List<OrderInfoDO> listAllUnpaid() {
+        return orderInfoMapper.listAllUnpaid();
+    }
 }
