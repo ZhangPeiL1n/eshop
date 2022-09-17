@@ -2,10 +2,14 @@ package com.zpl.eshop.schedule.service.impl;
 
 import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDTO;
+import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderItemDTO;
 import com.zpl.eshop.schedule.service.ScheduleService;
+import com.zpl.eshop.schedule.stock.PurchaseInputStockUpdaterFactory;
+import com.zpl.eshop.schedule.stock.ReturnInputStockUpdaterFactory;
+import com.zpl.eshop.schedule.stock.StockUpdater;
 import com.zpl.eshop.wms.domain.*;
 import com.zpl.eshop.wms.service.WmsService;
 import org.slf4j.Logger;
@@ -40,14 +44,34 @@ public class ScheduleServiceImpl implements ScheduleService {
     private SaleDeliveryOrderBuilderFactory saleDeliveryOrderBuilderFactory;
 
     /**
+     * 采购入库单工厂
+     */
+    @Autowired
+    private PurchaseInputStockUpdaterFactory purchaseInputStockUpdaterFactory;
+
+    /**
+     * 退货入库单工厂
+     */
+    @Autowired
+    private ReturnInputStockUpdaterFactory returnInputStockUpdaterFactory;
+
+    /**
+     * 库存中心
+     */
+    @Autowired
+    private InventoryService inventoryService;
+
+    /**
      * 通知调度中心，“采购入库完成”事件发生了
      *
-     * @param purchaseInputOrderDTO 采购入库单DTO
+     * @param purchaseInputOrder 采购入库单DTO
      * @return 处理结果
      */
     @Override
-    public Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrderDTO) {
-
+    public Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrder) {
+        StockUpdater stockUpdater = purchaseInputStockUpdaterFactory.create(purchaseInputOrder);
+        stockUpdater.update();
+        inventoryService.informPurchaseInputFinished(purchaseInputOrder);
         return true;
     }
 
@@ -87,11 +111,14 @@ public class ScheduleServiceImpl implements ScheduleService {
     /**
      * 通知调度中心，“退货入库”事件发生了
      *
-     * @param returnGoodsInputOrderDTO 退货入库DTO
+     * @param returnGoodsInputOrder 退货入库DTO
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO) {
+    public Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrder) {
+        StockUpdater stockUpdater = returnInputStockUpdaterFactory.create(returnGoodsInputOrder);
+        stockUpdater.update();
+        inventoryService.informReturnGoodsInputFinished(returnGoodsInputOrder);
         return true;
     }
 
@@ -114,7 +141,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 purchaseInputOrderItems.add(purchaseInputOrderItem);
             }
 
-            purchaseInputOrder.setPurchaseInputOrderItemDTOs(purchaseInputOrderItems);
+            purchaseInputOrder.setItems(purchaseInputOrderItems);
 
             // 调用wms中心接口
             wmsService.createPurchaseInputOrder(purchaseInputOrder);
@@ -169,7 +196,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         returnGoodsInputOrder.setReturnGoodsComment(returnGoodsWorksheet.getReturnGoodsComment());
 
         List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItems = ObjectUtils.convertList(order.getOrderItems(), ReturnGoodsInputOrderItemDTO.class);
-        returnGoodsInputOrder.setReturnGoodsInputOrderItems(returnGoodsInputOrderItems);
+        returnGoodsInputOrder.setItems(returnGoodsInputOrderItems);
 
         return true;
     }
@@ -189,9 +216,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         purchaseInputOrder.setGmtModified(null);
 
         purchaseInputOrder.setPurchaseContactor(purchaseOrder.getContactor());
-        purchaseInputOrder.setPurchaseContactPhoneNumber(purchaseOrder.getContactorPhoneNumber());
-        purchaseInputOrder.setPurchaseContactEmail(purchaseOrder.getContactorEmail());
-        purchaseInputOrder.setPurchaseOrderComment(purchaseOrder.getRemark());
+        purchaseInputOrder.setPurchaseContactorPhoneNumber(purchaseOrder.getContactorPhoneNumber());
+        purchaseInputOrder.setPurchaseContactorEmail(purchaseOrder.getContactorEmail());
+        purchaseInputOrder.setPurchaseOrderRemark(purchaseOrder.getRemark());
 
         return purchaseInputOrder;
     }

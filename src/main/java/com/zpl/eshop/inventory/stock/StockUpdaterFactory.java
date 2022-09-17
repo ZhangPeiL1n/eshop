@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.updater;
+package com.zpl.eshop.inventory.stock;
 
 /**
  * 库存更新命令的创建工厂

@@ -315,13 +315,13 @@ public class InventoryServiceTest {
         order.setId(1L);
         order.setSupplierId(1L);
         order.setExpectArrivalTime(dateProvider.parse2Datetime("2022-05-19 22:08:00"));
-        order.setArrivalTime(dateProvider.parse2Datetime("2022-05-19 22:08:00"));
+        order.setActualArrivalTime(dateProvider.parse2Datetime("2022-05-19 22:08:00"));
         order.setPurchaseContactor("彦祖");
-        order.setPurchaseContactPhoneNumber("18623568899");
-        order.setPurchaseContactEmail("yanzu@163.com");
-        order.setPurchaseOrderComment("测试采购入库单");
+        order.setPurchaseContactorPhoneNumber("18623568899");
+        order.setPurchaseContactorEmail("yanzu@163.com");
+        order.setPurchaseOrderRemark("测试采购入库单");
         order.setPurchaser("A");
-        order.setPurchaseInputOrderStatus(5);
+        order.setStatus(5);
         order.setGmtCreate(dateProvider.parse2Datetime("2022-05-19 00:00:00"));
         order.setGmtModified(dateProvider.parse2Datetime("2022-05-19 00:00:00"));
 
@@ -329,13 +329,20 @@ public class InventoryServiceTest {
         for (int i = 0; i < goodsSkuIds.length; i++) {
             items.add(createPurchaseInputOrderItem((long) i, goodsSkuIds[i], 1L, count));
         }
-        order.setPurchaseInputOrderItemDTOs(items);
+        order.setItems(items);
 
-        List<PurchaseInputOrderPutOnItemDTO> putOnItems = new ArrayList<>();
-        for (int i = 0; i < goodsSkuIds.length; i++) {
-            putOnItems.add(createPurchaseInputOrderPutOnItemDTO((long) i, (long) i, goodsSkuIds[i]));
-        }
-        order.setPurchaseInputOrderPutOnItemDTOs(putOnItems);
+        items.forEach(item -> {
+            List<PurchaseInputOrderPutOnItemDTO> putOnItems = new ArrayList<>();
+            for (int i = 0; i < goodsSkuIds.length; i++) {
+                try {
+                    putOnItems.add(createPurchaseInputOrderPutOnItemDTO((long) i, (long) i, goodsSkuIds[i]));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            item.setPutOnItems(putOnItems);
+        });
+
 
         return order;
     }
@@ -353,7 +360,7 @@ public class InventoryServiceTest {
         item.setPurchaseInputOrderId(orderId);
         item.setGoodsSkuId(goodsSkuId);
         item.setPurchaseCount(count);
-        item.setPurchasePrice(88.0);
+        item.setPurchasePrice(88L);
         item.setQualifiedCount(count);
         item.setArrivalCount(count);
         item.setGmtCreate(dateProvider.parse2Datetime("2022-05-19 00:00:00"));
@@ -391,7 +398,7 @@ public class InventoryServiceTest {
         returnGoodsInputOrder.setUserAccountId("测试帐号id");
         returnGoodsInputOrder.setOrderId(1L);
         returnGoodsInputOrder.setOrderNo("test");
-        returnGoodsInputOrder.setReturnGoodsInputOrderStatus(3);
+        returnGoodsInputOrder.setStatus(3);
         returnGoodsInputOrder.setConsignee("张三");
         returnGoodsInputOrder.setDeliveryAddress("测试地址");
         returnGoodsInputOrder.setConsigneeCellPhoneNumber("18633256966");
@@ -414,13 +421,19 @@ public class InventoryServiceTest {
         for (int i = 0; i < goodsSkuIds.length; i++) {
             items.add(createReturnGoodsInputOrderItem(1L, goodsSkuIds[i], purchaseQuantity));
         }
-        returnGoodsInputOrder.setReturnGoodsInputOrderItems(items);
+        returnGoodsInputOrder.setItems(items);
 
-        List<ReturnGoodsInputOrderPutOnItemDTO> putOnItems = new ArrayList<>();
-        for (int i = 0; i < goodsSkuIds.length; i++) {
-            putOnItems.add(createReturnGoodsInputOrderPutOnItemDTO((long) i, (long) i, goodsSkuIds[i]));
-        }
-        returnGoodsInputOrder.setReturnGoodsInputOrderPutOnItems(putOnItems);
+        items.forEach(item -> {
+            List<ReturnGoodsInputOrderPutOnItemDTO> putOnItems = new ArrayList<>();
+            for (int i = 0; i < goodsSkuIds.length; i++) {
+                try {
+                    putOnItems.add(createReturnGoodsInputOrderPutOnItemDTO((long) i, (long) i, goodsSkuIds[i]));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            item.setPutOnItems(putOnItems);
+        });
 
 
         return returnGoodsInputOrder;

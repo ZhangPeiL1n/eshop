@@ -8,7 +8,7 @@ import com.zpl.eshop.inventory.constant.GoodsStockUpdateOperation;
 import com.zpl.eshop.inventory.dao.GoodsStockDAO;
 import com.zpl.eshop.inventory.domain.GoodsStockDO;
 import com.zpl.eshop.inventory.service.InventoryService;
-import com.zpl.eshop.inventory.updater.*;
+import com.zpl.eshop.inventory.stock.*;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;

@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.updater;
+package com.zpl.eshop.inventory.stock;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.dao.GoodsStockDAO;
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 提交订单库存更新组件
+ * 支付订单库存更新组件
  *
  * @author ZhangPeiL1n
  * @date 2022/2/9 22:31
  **/
-public class CancelOrderStockUpdater extends AbstractStockUpdater {
+public class PayOrderStockUpdater extends AbstractStockUpdater {
 
     /**
      * 订单条目DTO集合
@@ -29,7 +29,7 @@ public class CancelOrderStockUpdater extends AbstractStockUpdater {
      * @param dateProvider     日期辅助组件
      * @param orderItemDTOMap  订单条目DTO集合
      */
-    public CancelOrderStockUpdater(List<GoodsStockDO> goodsStockDOList, GoodsStockDAO goodsStockDAO, DateProvider dateProvider, Map<Long, OrderItemDTO> orderItemDTOMap) {
+    public PayOrderStockUpdater(List<GoodsStockDO> goodsStockDOList, GoodsStockDAO goodsStockDAO, DateProvider dateProvider, Map<Long, OrderItemDTO> orderItemDTOMap) {
         super(goodsStockDOList, goodsStockDAO, dateProvider);
         this.orderItemDTOMap = orderItemDTOMap;
     }
@@ -41,10 +41,6 @@ public class CancelOrderStockUpdater extends AbstractStockUpdater {
      */
     @Override
     protected void updateSaleStockQuantity() throws Exception {
-        for (GoodsStockDO goodsStockDO : goodsStockDOList) {
-            OrderItemDTO orderItemDTO = orderItemDTOMap.get(goodsStockDO.getGoodsSkuId());
-            goodsStockDO.setSaleStockQuantity(goodsStockDO.getSaleStockQuantity() + orderItemDTO.getPurchaseQuantity());
-        }
     }
 
     /**
@@ -67,5 +63,9 @@ public class CancelOrderStockUpdater extends AbstractStockUpdater {
      */
     @Override
     protected void updateSaledStockQuantity() throws Exception {
+        for (GoodsStockDO goodsStockDO : goodsStockDOList) {
+            OrderItemDTO orderItemDTO = orderItemDTOMap.get(goodsStockDO.getGoodsSkuId());
+            goodsStockDO.setSaledStockQuantity(goodsStockDO.getSaledStockQuantity() + orderItemDTO.getPurchaseQuantity());
+        }
     }
 }

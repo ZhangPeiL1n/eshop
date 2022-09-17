@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.updater;
+package com.zpl.eshop.inventory.stock;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.dao.GoodsStockDAO;
@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 提交订单更新库存命令工厂
+ * 支付订单更新库存命令工厂
  *
  * @author ZhangPeiL1n
  * @date 2022/2/9 22:45
  **/
 @Component
-public class SubmitOrderStockUpdaterFactory extends AbstractStockUpdaterFactory<OrderInfoDTO> {
+public class PayOrderStockUpdaterFactory extends AbstractStockUpdaterFactory<OrderInfoDTO> {
     /**
      * 构造函数
      *
@@ -28,7 +28,7 @@ public class SubmitOrderStockUpdaterFactory extends AbstractStockUpdaterFactory<
      * @param dateProvider  日期辅助组件
      */
     @Autowired
-    public SubmitOrderStockUpdaterFactory(GoodsStockDAO goodsStockDAO, DateProvider dateProvider) {
+    public PayOrderStockUpdaterFactory(GoodsStockDAO goodsStockDAO, DateProvider dateProvider) {
         super(goodsStockDAO, dateProvider);
     }
 
@@ -60,7 +60,7 @@ public class SubmitOrderStockUpdaterFactory extends AbstractStockUpdaterFactory<
         List<OrderItemDTO> orderItemDTOList = parameter.getOrderItems();
         Map<Long, OrderItemDTO> orderItemDTOMap = new HashMap<>(orderItemDTOList.size());
         orderItemDTOList.forEach(orderItemDTO -> orderItemDTOMap.put(orderItemDTO.getGoodsSkuId(), orderItemDTO));
-        return new SubmitOrderStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, orderItemDTOMap);
+        return new PayOrderStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, orderItemDTOMap);
     }
 
 }

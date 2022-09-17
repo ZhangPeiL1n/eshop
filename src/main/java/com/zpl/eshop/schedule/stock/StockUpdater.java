@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.updater;
+package com.zpl.eshop.schedule.stock;
 
 /**
  * 商品库存更新命令接口
@@ -12,5 +12,5 @@ public interface StockUpdater {
      *
      * @return 更新成功返回true
      */
-    Boolean updateGoodsStock();
+    Boolean update();
 }

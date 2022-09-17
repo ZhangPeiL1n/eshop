@@ -1,4 +1,4 @@
-package com.zpl.eshop.inventory.updater;
+package com.zpl.eshop.inventory.stock;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.constant.StockStatus;
