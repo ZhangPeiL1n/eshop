@@ -1,8 +1,8 @@
 package com.zpl.eshop.wms.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -12,10 +12,10 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/25 21:32
  **/
-@Getter
-@Setter
-@ToString
-public class ReturnGoodsInputOrderPutOnItemDTO {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class ReturnGoodsInputOrderPutOnItemDTO extends AbstractObject {
+
     /**
      * id
      */
