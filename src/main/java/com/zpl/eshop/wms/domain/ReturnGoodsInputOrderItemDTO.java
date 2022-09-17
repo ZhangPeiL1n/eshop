@@ -1,10 +1,11 @@
 package com.zpl.eshop.wms.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 退货入库条目DTO对象
@@ -12,10 +13,9 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/25 21:18
  **/
-@Getter
-@Setter
-@ToString
-public class ReturnGoodsInputOrderItemDTO {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class ReturnGoodsInputOrderItemDTO extends AbstractObject {
 
     /**
      * id
@@ -101,5 +101,11 @@ public class ReturnGoodsInputOrderItemDTO {
      * 更新日期
      */
     private Date gmtModified;
+
+    /**
+     * 退货入库单商品上架条目DTO集合
+     */
+    private List<ReturnGoodsInputOrderPutOnItemDTO> putOnItems;
+
 
 }
