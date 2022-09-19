@@ -119,4 +119,39 @@ public class CouponController {
             return false;
         }
     }
+
+    /**
+     * 领取优惠券
+     *
+     * @param couponId      优惠券id
+     * @param userAccountId 用户账号id
+     * @return 是否领取成功
+     * @throws Exception
+     */
+    @PutMapping("/achieve/{couponId}/{userAccountId}")
+    public Boolean achieve(@PathVariable("couponId") Long couponId, @PathVariable("userAccountId") Long userAccountId) {
+        try {
+            return couponService.achieve(couponId, userAccountId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 发放优惠券
+     *
+     * @param couponId 优惠券id
+     * @return 是否领取成功
+     * @throws Exception
+     */
+    @PutMapping("/giveOut/{couponId}")
+    public Boolean giveOut(@PathVariable("couponId") Long couponId) {
+        try {
+            return couponService.giveOut(couponId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
 }

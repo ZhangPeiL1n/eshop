@@ -22,6 +22,14 @@ public interface CouponDAO {
     List<CouponDO> listByPage(CouponQuery query);
 
     /**
+     * 查询所有优惠券
+     *
+     * @param query 查询条件
+     * @return 优惠券
+     */
+    List<CouponDO> listAll();
+
+    /**
      * 新增优惠券
      *
      * @param coupon 优惠券

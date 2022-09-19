@@ -49,4 +49,23 @@ public interface CouponService {
      * @param id 优惠券id
      */
     Boolean remove(Long id);
+
+    /**
+     * 领取优惠券
+     *
+     * @param couponId      优惠券id
+     * @param userAccountId 用户帐号id
+     * @return 是否领取成功
+     * @throws Exception
+     */
+    Boolean achieve(Long couponId, Long userAccountId) throws Exception;
+
+    /**
+     * 发放优惠券
+     *
+     * @param couponId 优惠券id
+     * @return 是否发放成功
+     * @throws Exception
+     */
+    Boolean giveOut(Long couponId) throws Exception;
 }

@@ -2,7 +2,13 @@ package com.zpl.eshop.promotion.service.impl;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
+import com.zpl.eshop.membership.domain.UserAccountDTO;
+import com.zpl.eshop.membership.service.MembershipService;
+import com.zpl.eshop.promotion.constant.CouponGiveOutType;
+import com.zpl.eshop.promotion.constant.CouponStatus;
+import com.zpl.eshop.promotion.dao.CouponAchieveDAO;
 import com.zpl.eshop.promotion.dao.CouponDAO;
+import com.zpl.eshop.promotion.domain.CouponAchieveDO;
 import com.zpl.eshop.promotion.domain.CouponDO;
 import com.zpl.eshop.promotion.domain.CouponDTO;
 import com.zpl.eshop.promotion.domain.CouponQuery;
@@ -30,10 +36,22 @@ public class CouponServiceImpl implements CouponService {
     private CouponDAO couponDAO;
 
     /**
+     * 优惠券领取DAO组件
+     */
+    @Autowired
+    private CouponAchieveDAO couponAchieveDAO;
+
+    /**
      * 日期辅助组件
      */
     @Autowired
     private DateProvider dateProvider;
+
+    /**
+     * 会员管理Service组件
+     */
+    @Autowired
+    private MembershipService membershipService;
 
     /**
      * 分页查询优惠券
@@ -53,6 +71,7 @@ public class CouponServiceImpl implements CouponService {
      */
     @Override
     public void save(CouponDTO coupon) throws Exception {
+        coupon.setStatus(CouponStatus.UNSTARTED);
         coupon.setGmtCreate(dateProvider.getCurrentTime());
         coupon.setGmtModified(dateProvider.getCurrentTime());
         couponDAO.save(coupon.clone(CouponDO.class));
@@ -79,6 +98,7 @@ public class CouponServiceImpl implements CouponService {
         if (coupon.getReceivedCount() > 0) {
             return false;
         }
+        coupon.setGmtModified(dateProvider.getCurrentTime());
         couponDAO.update(coupon.clone(CouponDO.class));
         return true;
     }
@@ -97,4 +117,136 @@ public class CouponServiceImpl implements CouponService {
         couponDAO.remove(id);
         return true;
     }
+
+    /**
+     * 领取优惠券
+     *
+     * @param couponId      优惠券id
+     * @param userAccountId 用户帐号id
+     * @return 是否领取成功
+     * @throws Exception
+     */
+    @Override
+    public Boolean achieve(Long couponId, Long userAccountId) throws Exception {
+        CouponDO coupon = couponDAO.getById(couponId);
+        if (!canAchieve(coupon)) {
+            return false;
+        }
+
+        if (hasAchieved(couponId, userAccountId)) {
+            return false;
+        }
+        createCouponAchieve(couponId, userAccountId);
+        updateCouponReceiveCount(coupon, 1L);
+        return null;
+    }
+
+    /**
+     * 更新优惠券领取数量
+     *
+     * @param coupon 优惠券
+     */
+    private void updateCouponReceiveCount(CouponDO coupon, Long updatedReceiveCount) throws Exception {
+        coupon.setReceivedCount(coupon.getReceivedCount() + updatedReceiveCount);
+        if (coupon.getReceivedCount() >= coupon.getGiveOutCount()) {
+            coupon.setStatus(CouponStatus.GIVEN_OUT);
+        }
+        coupon.setGmtModified(dateProvider.getCurrentTime());
+        couponDAO.update(coupon);
+    }
+
+    /**
+     * 创建优惠券领取记录
+     *
+     * @param couponId      优惠券id
+     * @param userAccountId 帐号id
+     */
+    private void createCouponAchieve(Long couponId, Long userAccountId) throws Exception {
+        CouponAchieveDO couponAchieve = new CouponAchieveDO();
+        couponAchieve.setCouponId(couponId);
+        couponAchieve.setUserAccountId(userAccountId);
+        couponAchieve.setUsed(0);
+        couponAchieve.setUsedTime(null);
+        couponAchieve.setGmtCreate(dateProvider.getCurrentTime());
+        couponAchieve.setGmtModified(dateProvider.getCurrentTime());
+
+        couponAchieveDAO.save(couponAchieve);
+    }
+
+    /**
+     * 用户是否领取过优惠券
+     *
+     * @param couponId      优惠券
+     * @param userAccountId 用户帐号id
+     * @return 是否领取过优惠券
+     */
+    private Boolean hasAchieved(Long couponId, Long userAccountId) {
+        CouponAchieveDO coupon = couponAchieveDAO.getByUserAccountId(couponId, userAccountId);
+        return coupon != null;
+    }
+
+    /**
+     * 判断优惠券能否领取
+     *
+     * @param coupon 优惠券
+     * @return 能否领取
+     */
+    private Boolean canAchieve(CouponDO coupon) {
+        if (CouponStatus.GIVING_OUT.equals(coupon.getStatus())) {
+            return CouponGiveOutType.ACHIEVABLE_AND_GIVE_OUT.equals(coupon.getGiveOutType())
+                    || CouponGiveOutType.ONLY_ACHIEVABLE.equals(coupon.getGiveOutType());
+        }
+        return false;
+    }
+
+    /**
+     * 发放优惠券
+     *
+     * @param couponId 优惠券id
+     * @return 是否发放成功
+     * @throws Exception
+     */
+    @Override
+    public Boolean giveOut(Long couponId) throws Exception {
+        CouponDO coupon = couponDAO.getById(couponId);
+        if (!canGiveOut(coupon)) {
+            return false;
+        }
+        giveOutForAllUserAccount(coupon);
+        updateCouponReceiveCount(coupon, coupon.getGiveOutCount());
+        return null;
+    }
+
+    /**
+     * 为所有用户发放优惠券
+     *
+     * @param couponDO 优惠券
+     * @throws Exception
+     */
+    private void giveOutForAllUserAccount(CouponDO couponDO) throws Exception {
+        List<UserAccountDTO> userAccounts = membershipService.listAllUserAccounts();
+        userAccounts.forEach(userAccount -> {
+            try {
+                createCouponAchieve(couponDO.getId(), userAccount.getId());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+    }
+
+    /**
+     * 判断优惠券能否领取
+     *
+     * @param coupon 优惠券
+     * @return 能否领取
+     */
+    private Boolean canGiveOut(CouponDO coupon) {
+        if (CouponStatus.GIVING_OUT.equals(coupon.getStatus())) {
+            return CouponGiveOutType.ACHIEVABLE_AND_GIVE_OUT.equals(coupon.getGiveOutType())
+                    || CouponGiveOutType.ONLY_GIVE_OUT.equals(coupon.getGiveOutType());
+        }
+        return false;
+    }
+
 }

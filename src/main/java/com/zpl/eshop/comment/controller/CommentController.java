@@ -105,7 +105,7 @@ public class CommentController {
             orderService.informPublishCommentEvent(commentInfoDTO.getOrderInfoId());
 
             // 通知用户中心，用户已经发表评论
-            membershipService.informPublishCommentEvent(commentInfoDTO.getUserAccountId(), ShowPicture.YES.equals(commentInfoDTO.getCommentType()));
+            membershipService.informPublishCommentEvent(commentInfoDTO.getUserAccountId(), ShowPictures.YES.equals(commentInfoDTO.getCommentType()));
         } catch (Exception e) {
             logger.error("error", e);
             return false;
@@ -205,7 +205,7 @@ public class CommentController {
     /**
      * 删除评论
      *
-     * @param id
+     * @param id 评论id
      * @return
      */
     @DeleteMapping("/{id}")

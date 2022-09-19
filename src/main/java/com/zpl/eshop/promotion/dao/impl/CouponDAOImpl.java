@@ -36,6 +36,16 @@ public class CouponDAOImpl implements CouponDAO {
     }
 
     /**
+     * 查询所有优惠券
+     *
+     * @return 优惠券
+     */
+    @Override
+    public List<CouponDO> listAll() {
+        return couponMapper.listAll();
+    }
+
+    /**
      * 新增优惠券
      *
      * @param coupon 优惠券

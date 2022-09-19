@@ -2,16 +2,19 @@ package com.zpl.eshop.promotion.service.impl;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
+import com.zpl.eshop.promotion.constant.CouponStatus;
+import com.zpl.eshop.promotion.dao.CouponAchieveDAO;
+import com.zpl.eshop.promotion.dao.CouponDAO;
 import com.zpl.eshop.promotion.dao.PromotionActivityDAO;
+import com.zpl.eshop.promotion.domain.CouponAchieveDO;
 import com.zpl.eshop.promotion.domain.CouponDTO;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
 import com.zpl.eshop.promotion.service.PromotionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +25,9 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class PromotionServiceImpl implements PromotionService {
 
-    private final Logger logger = LoggerFactory.getLogger(PromotionServiceImpl.class);
+    /**
+     * 日期辅助组件
+     */
     @Autowired
     private DateProvider dateProvider;
 
@@ -31,6 +36,18 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Autowired
     private PromotionActivityDAO promotionActivityDAO;
+
+    /**
+     * 优惠券领取记录DAO
+     */
+    @Autowired
+    private CouponAchieveDAO couponAchieveDAO;
+
+    /**
+     * 优惠券管理DAO
+     */
+    @Autowired
+    private CouponDAO couponDAO;
 
     /**
      * 根据商品 id 查询促销活动
@@ -62,6 +79,39 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Override
     public List<CouponDTO> listValidByUserAccount(Long userAccountId) {
-        return null;
+        List<CouponDTO> coupons = new ArrayList<>();
+        List<CouponAchieveDO> couponAchieves = couponAchieveDAO.listUnusedByUserAccountId(userAccountId);
+        couponAchieves.forEach(couponAchieve -> {
+            try {
+                CouponDTO coupon = couponDAO.getById(couponAchieve.getCouponId()).clone(CouponDTO.class);
+                if (CouponStatus.GIVING_OUT.equals(coupon.getStatus())
+                        || CouponStatus.GIVEN_OUT.equals(coupon.getStatus())) {
+                    coupons.add(coupon);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return coupons;
+    }
+
+    /**
+     * 使用优惠券
+     *
+     * @param couponId      优惠券id
+     * @param userAccountId 帐号id
+     * @return 处理结果
+     */
+    @Override
+    public Boolean useCoupon(Long couponId, Long userAccountId) throws Exception {
+        CouponAchieveDO couponAchieve = couponAchieveDAO.getByUserAccountId(couponId, userAccountId);
+        if (couponAchieve == null) {
+            return false;
+        }
+        couponAchieve.setUsed(1);
+        couponAchieve.setUsedTime(dateProvider.getCurrentTime());
+        couponAchieve.setGmtModified(dateProvider.getCurrentTime());
+        couponAchieveDAO.update(couponAchieve);
+        return true;
     }
 }
