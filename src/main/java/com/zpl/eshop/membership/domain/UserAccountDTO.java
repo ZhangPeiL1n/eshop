@@ -1,4 +1,4 @@
-package com.zpl.eshop.wms.domain;
+package com.zpl.eshop.membership.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Data;
@@ -7,14 +7,14 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 退货入库商品上架条目DTO类
+ * 用户账号
  *
  * @author ZhangPeiL1n
- * @date 2022/1/25 21:32
+ * @date 2022/8/30 21:51
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ReturnGoodsInputOrderPutOnItemDTO extends AbstractObject {
+public class UserAccountDTO extends AbstractObject {
 
     /**
      * id
@@ -22,24 +22,24 @@ public class ReturnGoodsInputOrderPutOnItemDTO extends AbstractObject {
     private Long id;
 
     /**
-     * 退货入库单条目Id
+     * 用户名
      */
-    private Long returnGoodsInputOrderItemId;
+    private String username;
 
     /**
-     * 商品skuId
+     * 密码
      */
-    private Long goodsSkuId;
+    private String password;
 
     /**
-     * 商品货位id
+     * 邮箱
      */
-    private Long goodsAllocationId;
+    private String email;
 
     /**
-     * 上架数量
+     * 手机号码
      */
-    private Long putOnShelvesCount;
+    private String cellPhoneNumber;
 
     /**
      * 创建时间
