@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class OrderInfoVO extends AbstractObject {
+
     /**
      * id
      */
@@ -110,6 +111,11 @@ public class OrderInfoVO extends AbstractObject {
      * 确认收货时间
      */
     private Date confirmReceiptTime;
+
+    /**
+     * 订单使用的优惠券id
+     */
+    private Long couponId;
 
     /**
      * 销售出库单创建时间

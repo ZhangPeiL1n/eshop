@@ -200,6 +200,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         orderStateManager.createOrder(order);
         orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.CREATE_ORDER));
         inventoryService.informSubmitOrderEvent(order);
+        promotionService.useCoupon(order.getCouponId(), order.getUserAccountId());
         return order;
     }
 

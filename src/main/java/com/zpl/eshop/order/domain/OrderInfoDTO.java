@@ -112,6 +112,11 @@ public class OrderInfoDTO extends AbstractObject {
     private Date confirmReceiptTime;
 
     /**
+     * 优惠券id
+     */
+    private Long couponId;
+
+    /**
      * 销售出库单创建时间
      */
     private Date gmtCreate;
