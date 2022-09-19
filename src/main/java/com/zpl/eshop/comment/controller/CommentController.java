@@ -8,7 +8,7 @@ import com.zpl.eshop.comment.service.CommentAggregateService;
 import com.zpl.eshop.comment.service.CommentInfoService;
 import com.zpl.eshop.comment.service.CommentPictureService;
 import com.zpl.eshop.common.util.ObjectUtils;
-import com.zpl.eshop.membership.service.MembershipFacadeService;
+import com.zpl.eshop.membership.service.MembershipService;
 import com.zpl.eshop.order.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +67,7 @@ public class CommentController {
      * 会员中心的Service组件
      */
     @Autowired
-    private MembershipFacadeService membershipFacadeService;
+    private MembershipService membershipService;
 
     /**
      * 手动发表评论
@@ -105,7 +105,7 @@ public class CommentController {
             orderService.informPublishCommentEvent(commentInfoDTO.getOrderInfoId());
 
             // 通知用户中心，用户已经发表评论
-            membershipFacadeService.informPublishCommentEvent(commentInfoDTO.getUserAccountId(), ShowPictures.YES.equals(commentInfoDTO.getCommentType()));
+            membershipService.informPublishCommentEvent(commentInfoDTO.getUserAccountId(), ShowPicture.YES.equals(commentInfoDTO.getCommentType()));
         } catch (Exception e) {
             logger.error("error", e);
             return false;
