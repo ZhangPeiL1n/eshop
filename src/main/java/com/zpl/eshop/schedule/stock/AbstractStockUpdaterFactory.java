@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 库存更新命令工厂
+ * 库存更新组件工厂
  *
  * @author ZhangPeiL1n
  * @date 2022/1/25 22:09
@@ -80,7 +80,6 @@ public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFact
      * @throws Exception
      */
     protected abstract List<Long> getGoodsSkuIds(T parameter) throws Exception;
-
 
     /**
      * 获取货位id

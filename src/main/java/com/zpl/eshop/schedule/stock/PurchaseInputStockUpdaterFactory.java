@@ -60,6 +60,13 @@ public class PurchaseInputStockUpdaterFactory extends AbstractStockUpdaterFactor
         return goodsSkuIds;
     }
 
+    /**
+     * 获取货位库存id
+     *
+     * @param parameter 库存来源单：采购入库单或者退货入库单
+     * @return 货位库存id
+     * @throws Exception
+     */
     @Override
     protected List<GoodsAllocationStockId> getGoodsAllocationIds(PurchaseInputOrderDTO parameter) throws Exception {
         List<PurchaseInputOrderItemDTO> items = parameter.getItems();
@@ -72,10 +79,8 @@ public class PurchaseInputStockUpdaterFactory extends AbstractStockUpdaterFactor
         List<GoodsAllocationStockId> goodsAllocationStockIds = new ArrayList<>(items.size());
         for (PurchaseInputOrderItemDTO item : items) {
             for (PurchaseInputOrderPutOnItemDTO putOnItem : item.getPutOnItems()) {
-                GoodsAllocationStockId goodsAllocationStockId = new GoodsAllocationStockId();
-                goodsAllocationStockId.setGoodsSkuId(item.getGoodsSkuId());
-                goodsAllocationStockId.setGoodsAllocationId(putOnItem.getGoodsAllocationId());
-                goodsAllocationStockIds.add(goodsAllocationStockId);
+                GoodsAllocationStockId id = new GoodsAllocationStockId(putOnItem.getGoodsAllocationId(), item.getGoodsSkuId());
+                goodsAllocationStockIds.add(id);
             }
         }
         return goodsAllocationStockIds;
@@ -100,13 +105,16 @@ public class PurchaseInputStockUpdaterFactory extends AbstractStockUpdaterFactor
             for (PurchaseInputOrderItemDTO item : items) {
                 itemMap.put(item.getGoodsSkuId(), item);
                 item.getPutOnItems().forEach(putOnItem -> {
-                    putOnItemMap.put(new GoodsAllocationStockId(putOnItem.getGoodsAllocationId(), item.getGoodsSkuId()), putOnItem);
+                    GoodsAllocationStockId id = new GoodsAllocationStockId(putOnItem.getGoodsAllocationId(), item.getGoodsSkuId());
+                    putOnItemMap.put(id, putOnItem);
                 });
             }
         }
+        PurchaseInputStockUpdater updater = new PurchaseInputStockUpdater(goodsStocks, goodsAllocationStocks, goodsStockDAO, goodsAllocationStockDAO, dateProvider);
+        updater.setItemMap(itemMap);
+        updater.setPutOnItemMap(putOnItemMap);
 
-
-        return new PurchaseInputStockUpdater(goodsStocks, goodsAllocationStocks, goodsStockDAO, goodsAllocationStockDAO, dateProvider, itemMap, putOnItemMap);
+        return updater;
     }
 
 }

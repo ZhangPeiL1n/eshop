@@ -8,14 +8,13 @@ import com.zpl.eshop.schedule.domain.GoodsAllocationStockId;
 import com.zpl.eshop.schedule.domain.GoodsStockDO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderItemDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderPutOnItemDTO;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * 采购入库更新销库存命令
- * <p>
- * 采购入库只需要关心采购入库单的中各个商品条目的采购数量就行
+ * 采购入库库存更新组件
  *
  * @author ZhangPeiL1n
  * @date 2022/1/24 23:03
@@ -23,14 +22,16 @@ import java.util.Map;
 public class PurchaseInputStockUpdater extends AbstractStockUpdater {
 
     /**
-     * 采购入库单条目DTO集合
+     * 采购入库单条目
      */
-    private final Map<Long, PurchaseInputOrderItemDTO> itemMap;
+    @Setter
+    private Map<Long, PurchaseInputOrderItemDTO> itemMap;
 
     /**
-     * 上架条目
+     * 采购入库单上架条目
      */
-    private final Map<GoodsAllocationStockId, PurchaseInputOrderPutOnItemDTO> putOnItemMap;
+    @Setter
+    private Map<GoodsAllocationStockId, PurchaseInputOrderPutOnItemDTO> putOnItemMap;
 
     /**
      * 构造函数
@@ -38,19 +39,14 @@ public class PurchaseInputStockUpdater extends AbstractStockUpdater {
      * @param goodsStocks   商品库存对象
      * @param goodsStockDAO 商品库存管理模块DAO组件
      * @param dateProvider  日期辅助组件
-     * @param itemMap       采购入库单条目DTO Map
      */
     public PurchaseInputStockUpdater(
             List<GoodsStockDO> goodsStocks,
             List<GoodsAllocationStockDO> goodsAllocationStocks,
             GoodsStockDAO goodsStockDAO,
             GoodsAllocationStockDAO goodsAllocationStockDAO,
-            DateProvider dateProvider,
-            Map<Long, PurchaseInputOrderItemDTO> itemMap,
-            Map<GoodsAllocationStockId, PurchaseInputOrderPutOnItemDTO> putOnItemMap) {
+            DateProvider dateProvider) {
         super(goodsStocks, goodsAllocationStocks, goodsStockDAO, goodsAllocationStockDAO, dateProvider);
-        this.itemMap = itemMap;
-        this.putOnItemMap = putOnItemMap;
     }
 
 
@@ -58,7 +54,8 @@ public class PurchaseInputStockUpdater extends AbstractStockUpdater {
     protected void updateGoodsAvailableStockQuantity() throws Exception {
         goodsStocks.forEach(goodsStock -> {
             PurchaseInputOrderItemDTO item = itemMap.get(goodsStock.getGoodsSkuId());
-            goodsStock.setAvailableStockQuantity(goodsStock.getAvailableStockQuantity() + item.getArrivalCount());
+            Long availableStockQuantity = goodsStock.getAvailableStockQuantity() + item.getArrivalCount();
+            goodsStock.setAvailableStockQuantity(availableStockQuantity);
         });
     }
 
@@ -75,8 +72,10 @@ public class PurchaseInputStockUpdater extends AbstractStockUpdater {
     @Override
     protected void updateGoodsAllocationAvailableStockQuantity() throws Exception {
         goodsAllocationStocks.forEach(goodsAllocationStock -> {
-            PurchaseInputOrderPutOnItemDTO putOnItem = putOnItemMap.get(new GoodsAllocationStockId(goodsAllocationStock.getGoodsAllocationId(), goodsAllocationStock.getGoodsSkuId()));
-            goodsAllocationStock.setAvailableStockQuantity(goodsAllocationStock.getAvailableStockQuantity() + putOnItem.getPutOnShelvesCount());
+            GoodsAllocationStockId id = new GoodsAllocationStockId(goodsAllocationStock.getGoodsAllocationId(), goodsAllocationStock.getGoodsSkuId());
+            PurchaseInputOrderPutOnItemDTO putOnItem = putOnItemMap.get(id);
+            Long availableStockQuantity = goodsAllocationStock.getAvailableStockQuantity() + putOnItem.getPutOnShelvesCount();
+            goodsAllocationStock.setAvailableStockQuantity(availableStockQuantity);
         });
     }
 

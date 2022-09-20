@@ -74,7 +74,7 @@ public abstract class AbstractStockUpdater implements StockUpdater {
             updateGoodsAllocationLockedStockQuantity();
             updateGoodsAllocationOutputStockQuantity();
             updateGmtModified();
-            executeUpdateGoodsStock();
+            executeUpdateStock();
         } catch (Exception e) {
             logger.error("error", e);
             return false;
@@ -127,7 +127,7 @@ public abstract class AbstractStockUpdater implements StockUpdater {
 
 
     /**
-     * 更新商品库存修改时间
+     * 设置库存修改时间
      *
      * @throws Exception 交由基类处理
      */
@@ -143,7 +143,7 @@ public abstract class AbstractStockUpdater implements StockUpdater {
     /**
      * 实际执行更新商品库存操作
      */
-    private void executeUpdateGoodsStock() {
+    private void executeUpdateStock() {
         for (GoodsStockDO goodsStock : goodsStocks) {
             goodsStockDAO.update(goodsStock);
         }

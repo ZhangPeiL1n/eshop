@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
+ * 货位库存id
+ *
  * @author ZhangPeiL1n
  * @date 2022/9/17 20:48
  **/

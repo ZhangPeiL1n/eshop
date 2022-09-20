@@ -8,6 +8,7 @@ import com.zpl.eshop.schedule.domain.GoodsAllocationStockId;
 import com.zpl.eshop.schedule.domain.GoodsStockDO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderItemDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderPutOnItemDTO;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
@@ -21,13 +22,16 @@ import java.util.Map;
 public class ReturnInputStockUpdater extends AbstractStockUpdater {
 
     /**
+     * 退货入库单
+     */
+    @Setter
+    private Map<Long, ReturnGoodsInputOrderItemDTO> itemMap;
+
+    /**
      * 退货入库单上架条目
      */
-    private final Map<GoodsAllocationStockId, ReturnGoodsInputOrderPutOnItemDTO> putOnItemMap;
-    /**
-     * 退货入库单条目DTO集合
-     */
-    private Map<Long, ReturnGoodsInputOrderItemDTO> itemMap;
+    @Setter
+    private Map<GoodsAllocationStockId, ReturnGoodsInputOrderPutOnItemDTO> putOnItemMap;
 
     /**
      * 构造函数
@@ -42,12 +46,9 @@ public class ReturnInputStockUpdater extends AbstractStockUpdater {
             List<GoodsAllocationStockDO> goodsAllocationStocks,
             GoodsStockDAO goodsStockDAO,
             GoodsAllocationStockDAO goodsAllocationStockDAO,
-            DateProvider dateProvider,
-            Map<Long, ReturnGoodsInputOrderItemDTO> itemMap,
-            Map<GoodsAllocationStockId, ReturnGoodsInputOrderPutOnItemDTO> putOnItemMap) {
+            DateProvider dateProvider) {
         super(goodsStocks, goodsAllocationStocks, goodsStockDAO, goodsAllocationStockDAO, dateProvider);
-        this.itemMap = itemMap;
-        this.putOnItemMap = putOnItemMap;
+
     }
 
 

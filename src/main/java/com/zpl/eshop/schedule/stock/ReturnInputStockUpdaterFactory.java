@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 退货入库库存更新命令工厂
+ * 退货入库库存更新组件工厂
  *
  * @author ZhangPeiL1n
  * @date 2022/1/25 22:20
@@ -73,10 +73,8 @@ public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<
         List<GoodsAllocationStockId> goodsAllocationStockIds = new ArrayList<>(items.size());
         for (ReturnGoodsInputOrderItemDTO item : items) {
             for (ReturnGoodsInputOrderPutOnItemDTO putOnItem : item.getPutOnItems()) {
-                GoodsAllocationStockId goodsAllocationStockId = new GoodsAllocationStockId();
-                goodsAllocationStockId.setGoodsSkuId(item.getGoodsSkuId());
-                goodsAllocationStockId.setGoodsAllocationId(putOnItem.getGoodsAllocationId());
-                goodsAllocationStockIds.add(goodsAllocationStockId);
+                GoodsAllocationStockId id = new GoodsAllocationStockId(putOnItem.getGoodsAllocationId(), item.getGoodsSkuId());
+                goodsAllocationStockIds.add(id);
             }
         }
         return goodsAllocationStockIds;
@@ -101,10 +99,14 @@ public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<
             for (ReturnGoodsInputOrderItemDTO item : items) {
                 itemMap.put(item.getGoodsSkuId(), item);
                 item.getPutOnItems().forEach(putOnItem -> {
-                    putOnItemMap.put(new GoodsAllocationStockId(putOnItem.getGoodsAllocationId(), item.getGoodsSkuId()), putOnItem);
+                    GoodsAllocationStockId id = new GoodsAllocationStockId(putOnItem.getGoodsAllocationId(), item.getGoodsSkuId());
+                    putOnItemMap.put(id, putOnItem);
                 });
             }
         }
-        return new ReturnInputStockUpdater(goodsStocks, goodsAllocationStocks, goodsStockDAO, goodsAllocationStockDAO, dateProvider, itemMap, putOnItemMap);
+        ReturnInputStockUpdater updater = new ReturnInputStockUpdater(goodsStocks, goodsAllocationStocks, goodsStockDAO, goodsAllocationStockDAO, dateProvider);
+        updater.setItemMap(itemMap);
+        updater.setPutOnItemMap(putOnItemMap);
+        return updater;
     }
 }
