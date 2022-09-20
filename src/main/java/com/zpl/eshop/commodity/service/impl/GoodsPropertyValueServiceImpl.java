@@ -1,9 +1,10 @@
-package com.zpl.eshop.commodity.dao.impl;
+package com.zpl.eshop.commodity.service.impl;
 
 import com.zpl.eshop.commodity.dao.GoodsPropertyValueDAO;
 import com.zpl.eshop.commodity.domain.GoodsPropertyValueDO;
 import com.zpl.eshop.commodity.domain.GoodsPropertyValueDTO;
 import com.zpl.eshop.commodity.service.GoodsPropertyValueService;
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,12 @@ public class GoodsPropertyValueServiceImpl implements GoodsPropertyValueService 
     private GoodsPropertyValueDAO goodsPropertyValueDAO;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 根据商品id查询属性值
      *
      * @param goodsId 商品id
@@ -47,6 +54,8 @@ public class GoodsPropertyValueServiceImpl implements GoodsPropertyValueService 
     public void batchSave(List<GoodsPropertyValueDTO> propertyValues) {
         propertyValues.forEach(propertyValue -> {
             try {
+                propertyValue.setGmtCreate(dateProvider.getCurrentTime());
+                propertyValue.setGmtModified(dateProvider.getCurrentTime());
                 goodsPropertyValueDAO.save(propertyValue.clone(GoodsPropertyValueDO.class));
             } catch (Exception e) {
                 throw new RuntimeException(e);

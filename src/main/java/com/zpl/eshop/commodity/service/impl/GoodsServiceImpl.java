@@ -1,9 +1,11 @@
 package com.zpl.eshop.commodity.service.impl;
 
+import com.zpl.eshop.commodity.constant.GoodsStatus;
 import com.zpl.eshop.commodity.dao.*;
 import com.zpl.eshop.commodity.domain.*;
 import com.zpl.eshop.commodity.service.GoodsService;
 import com.zpl.eshop.commodity.state.GoodsStateManager;
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +72,12 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsSkuSalePropertyValueDAO goodsSkuSalePropertyValueDAO;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 分页查询商品
      *
      * @param query 查询条件
@@ -100,7 +108,11 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public Long save(GoodsDTO goods) throws Exception {
+        goods.setStatus(GoodsStatus.UNKNOWN);
+        goods.setGmtCreate(dateProvider.getCurrentTime());
+        goods.setGmtModified(dateProvider.getCurrentTime());
         Long goodsId = goodsDAO.save(goods.clone(GoodsDO.class));
+        goods.setId(goodsId);
         goodsStateManager.create(goods);
         return goodsId;
     }
@@ -123,26 +135,28 @@ public class GoodsServiceImpl implements GoodsService {
     /**
      * 审核商品
      *
-     * @param goods 商品
+     * @param goodsId 商品id
      * @return 处理结果
      */
     @Override
-    public Boolean approve(GoodsDTO goods, Integer approveResult) {
+    public Boolean approve(Long goodsId, Integer approveResult) throws Exception {
+        GoodsDTO goods = goodsDAO.getById(goodsId).clone(GoodsDTO.class);
         if (!goodsStateManager.canApprove(goods)) {
             return false;
         }
-
+        goodsStateManager.approve(goods, approveResult);
         return null;
     }
 
     /**
      * 上架商品
      *
-     * @param goods 商品
+     * @param goodsId 商品id
      * @return 上架结果
      */
     @Override
-    public Boolean putOnShelves(GoodsDTO goods) throws Exception {
+    public Boolean putOnShelves(Long goodsId) throws Exception {
+        GoodsDTO goods = goodsDAO.getById(goodsId).clone(GoodsDTO.class);
         if (!goodsStateManager.canPutOnShelves(goods)) {
             return false;
         }
@@ -153,11 +167,12 @@ public class GoodsServiceImpl implements GoodsService {
     /**
      * 下架商品
      *
-     * @param goods 商品
+     * @param goodsId 商品
      * @return 下架结果
      */
     @Override
-    public Boolean pullOffShelves(GoodsDTO goods) throws Exception {
+    public Boolean pullOffShelves(Long goodsId) throws Exception {
+        GoodsDTO goods = goodsDAO.getById(goodsId).clone(GoodsDTO.class);
         if (!goodsStateManager.canPullOffShelves(goods)) {
             return false;
         }

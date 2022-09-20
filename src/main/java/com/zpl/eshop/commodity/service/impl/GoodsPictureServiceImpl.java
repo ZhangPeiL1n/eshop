@@ -137,7 +137,7 @@ public class GoodsPictureServiceImpl implements GoodsPictureService {
     private String getUploadDirPath() throws Exception {
         String realUploadDirPath = uploadPath;
         if (PathType.RELATIVE.equals(uploadPathType)) {
-            realUploadDirPath += FileUtils.getPathByRelative(uploadPath);
+            realUploadDirPath = FileUtils.getPathByRelative(uploadPath);
         }
         return realUploadDirPath;
     }

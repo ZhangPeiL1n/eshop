@@ -48,26 +48,26 @@ public interface GoodsService {
     /**
      * 审核商品
      *
-     * @param goods 商品
+     * @param goodsId 商品id
      * @return 处理结果
      */
-    Boolean approve(GoodsDTO goods, Integer approveResult);
+    Boolean approve(Long goodsId, Integer approveResult) throws Exception;
 
     /**
      * 上架商品
      *
-     * @param goods 商品
+     * @param goodsId 商品
      * @return 上架结果
      */
-    Boolean putOnShelves(GoodsDTO goods) throws Exception;
+    Boolean putOnShelves(Long goodsId) throws Exception;
 
     /**
      * 下架商品
      *
-     * @param goods 商品
+     * @param goodsId 商品
      * @return 下架结果
      */
-    Boolean pullOffShelves(GoodsDTO goods) throws Exception;
+    Boolean pullOffShelves(Long goodsId) throws Exception;
 
     /**
      * 删除商品

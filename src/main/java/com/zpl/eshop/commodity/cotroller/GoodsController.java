@@ -85,9 +85,74 @@ public class GoodsController {
      * @param goods 商品
      * @return 更新结果
      */
+    @PutMapping("/")
     public Boolean update(@RequestBody GoodsVO goods) {
         try {
             return goodsService.update(goods.clone(GoodsDTO.class));
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 审核商品
+     *
+     * @param goodsId 商品id
+     * @return 处理结果
+     */
+    @PutMapping("/approve/{goodsId}")
+    public Boolean approve(@PathVariable("goodsId") Long goodsId, Integer approveResult) {
+        try {
+            return goodsService.approve(goodsId, approveResult);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 上架商品
+     *
+     * @param goodsId 商品
+     * @return 上架结果
+     */
+    @PutMapping("/putOnShelves/{goodsId}")
+    public Boolean putOnShelves(@PathVariable("goodsId") Long goodsId) {
+        try {
+            return goodsService.putOnShelves(goodsId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 下架商品
+     *
+     * @param goodsId 商品
+     * @return 下架结果
+     */
+    @PutMapping("/pullOffShelves/{goodsId}")
+    Boolean pullOffShelves(@PathVariable("goodsId") Long goodsId) {
+        try {
+            return goodsService.putOnShelves(goodsId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
+    }
+
+    /**
+     * 删除商品
+     *
+     * @param goodsId 商品id
+     * @return 删除结果
+     */
+    @DeleteMapping("/{goodsId}")
+    Boolean remove(@PathVariable("goodsId") Long goodsId) {
+        try {
+            return goodsService.remove(goodsId);
         } catch (Exception e) {
             logger.error("error", e);
             return false;

@@ -4,6 +4,7 @@ import com.zpl.eshop.commodity.dao.GoodsDetailDAO;
 import com.zpl.eshop.commodity.domain.GoodsDetailDO;
 import com.zpl.eshop.commodity.domain.GoodsDetailDTO;
 import com.zpl.eshop.commodity.service.GoodsDetailService;
+import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,12 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
     private GoodsDetailDAO goodsDetailDAO;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 根据商品id查询商品详情
      *
      * @param goodsId 商品id
@@ -43,6 +50,8 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
      */
     @Override
     public Long save(GoodsDetailDTO goodsDetail) throws Exception {
+        goodsDetail.setGmtCreate(dateProvider.getCurrentTime());
+        goodsDetail.setGmtModified(dateProvider.getCurrentTime());
         return goodsDetailDAO.save(goodsDetail.clone(GoodsDetailDO.class));
     }
 
