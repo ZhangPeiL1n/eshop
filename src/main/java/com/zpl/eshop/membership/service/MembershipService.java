@@ -1,12 +1,16 @@
 package com.zpl.eshop.membership.service;
 
+import com.zpl.eshop.membership.domain.UserAccountDTO;
+
+import java.util.List;
+
 /**
  * 会员中心对外提供的接口
  *
  * @author ZhangPeiL1n
  * @date 2022/1/3 18:35
  **/
-public interface MembershipFacadeService {
+public interface MembershipService {
 
     /**
      * 通知会员中心，“用户今日第一次登陆”事件发生了
@@ -51,4 +55,11 @@ public interface MembershipFacadeService {
      * @return 处理结果
      */
     Boolean informRemoveCommentEvent(Long userAccountId, Boolean showPictures);
+
+    /**
+     * 查询所有的用户账户
+     *
+     * @return 用户账户
+     */
+    List<UserAccountDTO> listAllUserAccounts();
 }

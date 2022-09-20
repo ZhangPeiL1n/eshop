@@ -36,4 +36,13 @@ public interface PromotionService {
      * @return 有效优惠券
      */
     List<CouponDTO> listValidByUserAccount(Long userAccountId);
+
+    /**
+     * 使用优惠券
+     *
+     * @param couponId      优惠券id
+     * @param userAccountId 帐号id
+     * @return 处理结果
+     */
+    public Boolean useCoupon(Long couponId, Long userAccountId) throws Exception;
 }
