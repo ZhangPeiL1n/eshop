@@ -1,5 +1,7 @@
 package com.zpl.eshop.comment.domain;
 
+import com.zpl.eshop.common.util.AbstractObject;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +17,8 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class CommentInfoDO {
+@EqualsAndHashCode
+public class CommentInfoDO extends AbstractObject {
 
     /**
      * id
@@ -85,7 +88,7 @@ public class CommentInfoDO {
     /**
      * 是否晒图
      */
-    private Integer showPicture;
+    private Integer showPictures;
 
     /**
      * 是否系统自动给的默认评论

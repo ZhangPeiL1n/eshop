@@ -1,13 +1,15 @@
 package com.zpl.eshop.promotion.service.impl;
 
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.promotion.constant.PromotionActivityStatus;
-import com.zpl.eshop.promotion.constant.PromotionActivityType;
+import com.zpl.eshop.common.util.ObjectUtils;
+import com.zpl.eshop.promotion.constant.CouponStatus;
+import com.zpl.eshop.promotion.dao.CouponAchieveDAO;
+import com.zpl.eshop.promotion.dao.CouponDAO;
+import com.zpl.eshop.promotion.dao.PromotionActivityDAO;
+import com.zpl.eshop.promotion.domain.CouponAchieveDO;
 import com.zpl.eshop.promotion.domain.CouponDTO;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
 import com.zpl.eshop.promotion.service.PromotionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +25,29 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class PromotionServiceImpl implements PromotionService {
 
-    private final Logger logger = LoggerFactory.getLogger(PromotionServiceImpl.class);
+    /**
+     * 日期辅助组件
+     */
     @Autowired
     private DateProvider dateProvider;
+
+    /**
+     * 促销活动管理模块DAO组件
+     */
+    @Autowired
+    private PromotionActivityDAO promotionActivityDAO;
+
+    /**
+     * 优惠券领取记录DAO
+     */
+    @Autowired
+    private CouponAchieveDAO couponAchieveDAO;
+
+    /**
+     * 优惠券管理DAO
+     */
+    @Autowired
+    private CouponDAO couponDAO;
 
     /**
      * 根据商品 id 查询促销活动
@@ -34,40 +56,8 @@ public class PromotionServiceImpl implements PromotionService {
      * @return 促销活动
      */
     @Override
-    public List<PromotionActivityDTO> listByGoodsId(Long goodsId) {
-        List<PromotionActivityDTO> promotionActivityDTOs = new ArrayList<>();
-        try {
-
-            PromotionActivityDTO promotionActivityDTO1 = new PromotionActivityDTO();
-            promotionActivityDTO1.setId(1L);
-            promotionActivityDTO1.setName("测试促销活动1");
-            promotionActivityDTO1.setRemark("测试促销活动");
-            promotionActivityDTO1.setRule("测试促销活动规则");
-            promotionActivityDTO1.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
-            promotionActivityDTO1.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
-            promotionActivityDTO1.setStatus(PromotionActivityStatus.ENABLED);
-            promotionActivityDTO1.setType(PromotionActivityType.REACH_DISCOUNT);
-            promotionActivityDTO1.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-            promotionActivityDTO1.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-            promotionActivityDTOs.add(promotionActivityDTO1);
-
-            PromotionActivityDTO promotionActivityDTO2 = new PromotionActivityDTO();
-            promotionActivityDTO2.setId(2L);
-            promotionActivityDTO2.setName("测试促销活动2");
-            promotionActivityDTO2.setRemark("测试促销活动2");
-            promotionActivityDTO2.setRule("测试促销活动规则2");
-            promotionActivityDTO2.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
-            promotionActivityDTO2.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
-            promotionActivityDTO2.setStatus(PromotionActivityStatus.ENABLED);
-            promotionActivityDTO2.setType(PromotionActivityType.DIRECT_GIFT);
-            promotionActivityDTO2.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-            promotionActivityDTO2.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-            promotionActivityDTOs.add(promotionActivityDTO2);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return new ArrayList<>();
-        }
-        return promotionActivityDTOs;
+    public List<PromotionActivityDTO> listByGoodsId(Long goodsId) throws Exception {
+        return ObjectUtils.convertList(promotionActivityDAO.listEnabledByGoodsId(goodsId), PromotionActivityDTO.class);
     }
 
     /**
@@ -78,42 +68,7 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Override
     public PromotionActivityDTO getById(Long id) throws Exception {
-        if (id.equals(1L)) {
-            return createDiscountPromotionActivity(id);
-        } else if (id.equals(2L)) {
-            return createGiftPromotionActivity(id);
-        }
-        return null;
-    }
-
-    private PromotionActivityDTO createDiscountPromotionActivity(Long id) throws Exception {
-        PromotionActivityDTO promotionActivity = new PromotionActivityDTO();
-        promotionActivity.setId(id);
-        promotionActivity.setName("测试满减促销活动");
-        promotionActivity.setRemark("测试促销活动");
-        promotionActivity.setRule("[{'thresholdAmount': 200,'reduceAmount':20},{'thresholdAmount': 100,'reduceAmount':10}]");
-        promotionActivity.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
-        promotionActivity.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
-        promotionActivity.setStatus(PromotionActivityStatus.ENABLED);
-        promotionActivity.setType(PromotionActivityType.REACH_DISCOUNT);
-        promotionActivity.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-        promotionActivity.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-        return promotionActivity;
-    }
-
-    private PromotionActivityDTO createGiftPromotionActivity(Long id) throws Exception {
-        PromotionActivityDTO promotionActivity = new PromotionActivityDTO();
-        promotionActivity.setId(id);
-        promotionActivity.setName("测试满赠促销活动");
-        promotionActivity.setRemark("测试促销活动");
-        promotionActivity.setRule("{'thresholdAmount': 200,'giftGoodsSkuIds': [2]}");
-        promotionActivity.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
-        promotionActivity.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
-        promotionActivity.setStatus(PromotionActivityStatus.ENABLED);
-        promotionActivity.setType(PromotionActivityType.REACH_GIFT);
-        promotionActivity.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-        promotionActivity.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-        return promotionActivity;
+        return promotionActivityDAO.getById(id).clone(PromotionActivityDTO.class);
     }
 
     /**
@@ -124,7 +79,40 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Override
     public List<CouponDTO> listValidByUserAccount(Long userAccountId) {
-        return null;
+        List<CouponDTO> coupons = new ArrayList<>();
+        List<CouponAchieveDO> couponAchieves = couponAchieveDAO.listUnusedByUserAccountId(userAccountId);
+        couponAchieves.forEach(couponAchieve -> {
+            try {
+                CouponDTO coupon = couponDAO.getById(couponAchieve.getCouponId()).clone(CouponDTO.class);
+                if (CouponStatus.GIVING_OUT.equals(coupon.getStatus())
+                        || CouponStatus.GIVEN_OUT.equals(coupon.getStatus())) {
+                    coupons.add(coupon);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return coupons;
+    }
+
+    /**
+     * 使用优惠券
+     *
+     * @param couponId      优惠券id
+     * @param userAccountId 帐号id
+     * @return 处理结果
+     */
+    @Override
+    public Boolean useCoupon(Long couponId, Long userAccountId) throws Exception {
+        CouponAchieveDO couponAchieve = couponAchieveDAO.getByUserAccountId(couponId, userAccountId);
+        if (couponAchieve == null) {
+            return false;
+        }
+        couponAchieve.setUsed(1);
+        couponAchieve.setUsedTime(dateProvider.getCurrentTime());
+        couponAchieve.setGmtModified(dateProvider.getCurrentTime());
+        couponAchieveDAO.update(couponAchieve);
+        return true;
     }
 
     /**

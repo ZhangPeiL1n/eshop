@@ -1,8 +1,8 @@
 package com.zpl.eshop.comment.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -12,10 +12,9 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/11 22:29
  **/
-@Getter
-@Setter
-@ToString
-public class CommentAggregateDO {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class CommentAggregateDO extends AbstractObject {
 
     /**
      * id
@@ -45,7 +44,7 @@ public class CommentAggregateDO {
     /**
      * 晒图评论数量
      */
-    private Long showPictureCommentCount;
+    private Long showPicturesCommentCount;
 
     /**
      * 中评数量

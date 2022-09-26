@@ -1,8 +1,11 @@
 package com.zpl.eshop.comment.service;
 
 import com.zpl.eshop.comment.domain.CommentInfoDTO;
+import com.zpl.eshop.comment.domain.CommentInfoQuery;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
+
+import java.util.List;
 
 /**
  * 评论信息管理模块 Service 接口组件
@@ -27,4 +30,36 @@ public interface CommentInfoService {
      * @return 新增成功返回 true
      */
     CommentInfoDTO saveAutoPublishedCommentInfo(OrderInfoDTO orderInfoDTO, OrderItemDTO orderItemDTO);
+
+    /**
+     * 分页列表查询
+     *
+     * @param query 分页查询条件
+     * @return 评论信息
+     */
+    List<CommentInfoDTO> listByPage(CommentInfoQuery query);
+
+    /**
+     * 根据id获取评论详情
+     *
+     * @param id 评论id
+     * @return 评论详情
+     */
+    CommentInfoDTO getById(Long id);
+
+    /**
+     * 更新评论
+     *
+     * @param comment 评论信息
+     * @return 是否成功
+     */
+    Boolean update(CommentInfoDTO comment);
+
+    /**
+     * 删除评论
+     *
+     * @param id id
+     * @return 是否成功
+     */
+    Boolean delete(Long id);
 }

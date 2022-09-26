@@ -3,7 +3,9 @@ package com.zpl.eshop.comment.service.impl;
 import com.zpl.eshop.comment.constant.CommentPictureUploadDirType;
 import com.zpl.eshop.comment.dao.CommentPictureDAO;
 import com.zpl.eshop.comment.domain.CommentPictureDO;
+import com.zpl.eshop.comment.domain.CommentPictureDTO;
 import com.zpl.eshop.comment.service.CommentPictureService;
+import com.zpl.eshop.common.util.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 评论晒图管理模块Service组件
@@ -41,12 +44,13 @@ public class CommentPictureServiceImpl implements CommentPictureService {
 
     @Override
     public Boolean saveCommentPictures(String appBasePath, Long commentInfoId, MultipartFile[] files) {
+        String realUploadPath = uploadDirPath;
         if (CommentPictureUploadDirType.RELATIVE.equals(uploadDirType)) {
-            uploadDirPath = appBasePath + uploadDirPath;
+            realUploadPath = appBasePath + realUploadPath;
         }
 
         try {
-            File uploadDir = new File(uploadDirPath);
+            File uploadDir = new File(realUploadPath);
             // 如果上传目录不存在，则创建目录
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -56,7 +60,7 @@ public class CommentPictureServiceImpl implements CommentPictureService {
                     continue;
                 }
 
-                String targetFilePath = uploadDirPath + file.getOriginalFilename();
+                String targetFilePath = realUploadPath + file.getOriginalFilename();
                 File targetFile = new File(targetFilePath);
                 // 如果目标文件已存在，则删除
                 if (targetFile.exists()) {
@@ -80,5 +84,36 @@ public class CommentPictureServiceImpl implements CommentPictureService {
         }
 
         return true;
+    }
+
+    /**
+     * 根据评论id获取评论晒图
+     *
+     * @param commentId 评论id
+     * @return 评论晒图
+     */
+    public List<CommentPictureDTO> listByCommentId(Long commentId) {
+        try {
+            List<CommentPictureDO> commentPictures = commentPictureDAO.listByCommentId(commentId);
+            return ObjectUtils.convertList(commentPictures, CommentPictureDTO.class);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据图片id获取评论图片
+     *
+     * @param id id
+     * @return 评论图片
+     */
+    public CommentPictureDTO getById(Long id) {
+        try {
+            return commentPictureDAO.getById(id).clone(CommentPictureDTO.class);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
     }
 }

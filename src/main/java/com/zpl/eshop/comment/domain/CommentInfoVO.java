@@ -1,13 +1,9 @@
 package com.zpl.eshop.comment.domain;
 
-import com.zpl.eshop.common.util.BeanCopierUtils;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * 评论信息
@@ -15,12 +11,8 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/11 22:14
  **/
-@Getter
-@Setter
-@ToString
-public class CommentInfoVO {
-
-    private final Logger logger = LoggerFactory.getLogger(CommentInfoVO.class);
+@Data
+public class CommentInfoVO extends AbstractObject {
 
     /**
      * id
@@ -110,29 +102,15 @@ public class CommentInfoVO {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改时间
      */
-    private Date gmtModified;
+    private String gmtModified;
 
     /**
-     * 深拷贝方法
-     *
-     * @param clazz 目标类
-     * @param <T>   目标类型
-     * @return 拷贝结果
+     * 评论图片集合
      */
-    public <T> T clone(Class<T> clazz) {
-        T target = null;
-        try {
-            target = clazz.newInstance();
-            BeanCopierUtils.copyProperties(this, target);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
-        return target;
-    }
+    private List<CommentPictureVO> pictures;
 }

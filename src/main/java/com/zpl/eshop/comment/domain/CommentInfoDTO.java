@@ -1,9 +1,8 @@
 package com.zpl.eshop.comment.domain;
 
-import com.zpl.eshop.common.util.BeanCopierUtils;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,10 +14,9 @@ import java.util.Date;
  * @author ZhangPeiL1n
  * @date 2022/1/11 22:14
  **/
-@Getter
-@Setter
-@ToString
-public class CommentInfoDTO {
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class CommentInfoDTO extends AbstractObject {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentInfoDTO.class);
 
@@ -117,22 +115,5 @@ public class CommentInfoDTO {
      */
     private Date gmtModified;
 
-    /**
-     * 将自己的数据克隆到指定类型的对象中
-     *
-     * @param clazz 指定类型
-     * @param <T>   指定类型
-     * @return 指定类型的对象
-     */
-    public <T> T clone(Class<T> clazz) {
-        T target = null;
-        try {
-            target = clazz.newInstance();
-            BeanCopierUtils.copyProperties(this, target);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
-        return target;
-    }
+
 }
