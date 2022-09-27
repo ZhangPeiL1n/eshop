@@ -11,6 +11,7 @@ public class CommentApproved {
 	 * 审核通过
 	 */
 	public static final Integer YES = 1;
+
 	/**
 	 * 审核未太通过
 	 */

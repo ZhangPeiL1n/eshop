@@ -48,30 +48,29 @@ public class AutoPublishCommentTask {
     public void execute() {
         try {
             // 先从订单中心查询确认时间超过7天，而且还没有发表评论的订单
-            List<OrderInfoDTO> orderInfoDTOs = orderService.listNotPublishCommentOrders();
-            List<Long> orderInfoIds = new ArrayList<Long>(orderInfoDTOs.size());
+            List<OrderInfoDTO> orders = orderService.listNotPublishCommentOrders();
+            List<Long> orderInfoIds = new ArrayList<>();
 
-            if (orderInfoDTOs != null && orderInfoDTOs.size() > 0) {
+            if (orders != null && orders.size() > 0) {
                 // 遍历所有的订单
-                for (OrderInfoDTO orderInfoDTO : orderInfoDTOs) {
-                    if (orderInfoDTO.getOrderItems() == null ||
-                            orderInfoDTO.getOrderItems().size() == 0) {
+                for (OrderInfoDTO order : orders) {
+                    if (order.getOrderItems() == null ||
+                            order.getOrderItems().size() == 0) {
                         continue;
                     }
 
-                    orderInfoIds.add(orderInfoDTO.getId());
+                    orderInfoIds.add(order.getId());
 
                     // 遍历订单中的订单项
-                    for (OrderItemDTO orderItemDTO : orderInfoDTO.getOrderItems()) {
+                    for (OrderItemDTO orderItemDTO : order.getOrderItems()) {
                         // 先保存自动发表的评论信息
-                        CommentInfoDTO commentInfoDTO = commentInfoService
-                                .saveAutoPublishedCommentInfo(orderInfoDTO, orderItemDTO);
+                        CommentInfoDTO commentInfoDTO =
+                                commentInfoService.saveAutoPublishedCommentInfo(order, orderItemDTO);
                         // 更新评论统计信息
                         commentAggregateService.refreshCommentAggregate(commentInfoDTO);
                     }
                 }
             }
-
             // 通知订单中心，批量发表了评论
             orderService.informBatchPublishCommentEvent(orderInfoIds);
         } catch (Exception e) {

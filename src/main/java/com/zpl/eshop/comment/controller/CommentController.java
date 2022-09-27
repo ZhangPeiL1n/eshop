@@ -41,21 +41,25 @@ public class CommentController {
 	 */
 	@Autowired
 	private CommentInfoService commentInfoService;
+
 	/**
 	 * 评论晒图管理模块的service组件
 	 */
 	@Autowired
 	private CommentPictureService commentPictureService;
+
 	/**
 	 * 评论统计信息管理模块的service组件
 	 */
 	@Autowired
 	private CommentAggregateService commentAggregateService;
+
 	/**
 	 * 订单中心的service组件
 	 */
 	@Autowired
 	private OrderService orderService;
+
 	/**
 	 * 会员中心的service组件
 	 */
@@ -118,12 +122,10 @@ public class CommentController {
 	public List<CommentInfoVO> listByPage(CommentInfoQuery query) {
 		try {
 			List<CommentInfoDTO> comments = commentInfoService.listByPage(query);
-			List<CommentInfoVO> resultComments = ObjectUtils.convertList(
-					comments, CommentInfoVO.class);
-			return resultComments;
+			return ObjectUtils.convertList(comments, CommentInfoVO.class);
 		} catch (Exception e) {
-			logger.error("error", e); 
-			return new ArrayList<CommentInfoVO>();
+			logger.error("error", e);
+			return new ArrayList<>();
 		}
 	}
 	
@@ -137,27 +139,26 @@ public class CommentController {
 		try {
 			CommentInfoDTO comment = commentInfoService.getById(id);
 			CommentInfoVO resultComment = comment.clone(CommentInfoVO.class);
-			
+
 			List<CommentPictureDTO> pictures = commentPictureService.listByCommentId(id);
-			List<CommentPictureVO> resultPictures = ObjectUtils.convertList(
-					pictures, CommentPictureVO.class);
-			
-			resultComment.setPictures(resultPictures); 
-			
+			List<CommentPictureVO> resultPictures =
+					ObjectUtils.convertList(pictures, CommentPictureVO.class);
+
+			resultComment.setPictures(resultPictures);
+
 			return resultComment;
 		} catch (Exception e) {
 			logger.error("error", e);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 显示图片
-	 * @param jobIconUrl
-	 * @param request
-	 * @param httpResponse
+	 *
+	 * @param id 图片id
 	 */
-    @GetMapping("/picture/{id}")   
+	@GetMapping("/picture/{id}")
     public void viewPicture(@PathVariable("id") Long id, 
     		HttpServletRequest request, HttpServletResponse response) { 
     	FileInputStream fis = null;
@@ -240,22 +241,22 @@ public class CommentController {
     		commentShow.setAggregate(aggregate.clone(CommentAggregateVO.class));  
     		
     		// 查询评论列表
-    		query.setCommentStatus(CommentStatus.APPROVED); 
-    		
-    		List<CommentInfoVO> targetComments = new ArrayList<CommentInfoVO>();
+    		query.setCommentStatus(CommentStatus.APPROVED);
+
+			List<CommentInfoVO> targetComments = new ArrayList<>();
     		
     		List<CommentInfoDTO> comments = commentInfoService.listByPage(query);
     		for(CommentInfoDTO comment : comments) {
-    			CommentInfoVO targetComment = comment.clone(CommentInfoVO.class);
-    			targetComment.setUsername(getEncryptedUsername(targetComment.getUsername()));  
-    			
-    			List<CommentPictureDTO> pictures = commentPictureService
-    					.listByCommentId(comment.getId());
-    			targetComment.setPictures(ObjectUtils.convertList(
-    					pictures, CommentPictureVO.class));  
-    			
-    			targetComments.add(targetComment);
-    		}
+				CommentInfoVO targetComment = comment.clone(CommentInfoVO.class);
+				targetComment.setUsername(getEncryptedUsername(targetComment.getUsername()));
+
+				List<CommentPictureDTO> pictures =
+						commentPictureService.listByCommentId(comment.getId());
+				targetComment.setPictures(
+						ObjectUtils.convertList(pictures, CommentPictureVO.class));
+
+				targetComments.add(targetComment);
+			}
     		
     		commentShow.setComments(targetComments); 
     		

@@ -11,10 +11,12 @@ public class CommentStatus {
 	 * 待审核
 	 */
 	public static final Integer APPROVING = 1;
+
 	/**
 	 * 审核通过
 	 */
 	public static final Integer APPROVED = 2;
+
 	/**
 	 * 审核未通过
 	 */
