@@ -114,16 +114,4 @@ public class PromotionServiceImpl implements PromotionService {
         couponAchieveDAO.update(couponAchieve);
         return true;
     }
-
-    /**
-     * 使用优惠券
-     *
-     * @param couponId      优惠券id
-     * @param userAccountId 帐号id
-     * @return 处理结果
-     */
-    @Override
-    public Boolean useCoupon(Long couponId, Long userAccountId) throws Exception {
-        return true;
-    }
 }
