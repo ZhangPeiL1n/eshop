@@ -1,0 +1,2 @@
+DELETE
+FROM promotion_activity_goods_relation

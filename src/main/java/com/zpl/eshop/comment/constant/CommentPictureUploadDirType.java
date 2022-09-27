@@ -1,12 +1,13 @@
 package com.zpl.eshop.comment.constant;
 
 /**
+ * 评论晒图上传目录类型的常量类
  * @author ZhangPeiL1n
- * @date 2022/1/17 21:52
- **/
+ *
+ */
 public class CommentPictureUploadDirType {
 
-    public static final String RELATIVE = "relative";
-    public static final String ABSOLUTE = "absolute";
-
+	public static final String RELATIVE = "relative";
+	public static final String ABSOLUTE = "absolute";
+	
 }
