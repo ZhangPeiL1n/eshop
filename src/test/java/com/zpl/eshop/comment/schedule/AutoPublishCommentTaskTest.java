@@ -31,7 +31,7 @@ public class AutoPublishCommentTaskTest {
 	 * 自动发表评论调度任务
 	 */
 	@Autowired
-	private AutoPublishCommentTask autoPubliashCommentTask;
+	private AutoPublishCommentTask autoPublishCommentTask;
 	/**
 	 * 订单中心对外接口service组件
 	 */
@@ -55,13 +55,13 @@ public class AutoPublishCommentTaskTest {
 	@Test
 	public void testExecute() throws Exception {
 		List<OrderInfoDTO> orderInfoDTOs = createOrderInfoDTOs();
-		
-		List<Long> orderInfoIds = new ArrayList<Long>();
+
+		List<Long> orderInfoIds = new ArrayList<>();
 		for(OrderInfoDTO orderInfoDTO : orderInfoDTOs) {
 			orderInfoIds.add(orderInfoDTO.getId());
 		}
-		
-		when(orderService.listNotPublishedCommentOrders()).thenReturn(orderInfoDTOs);
+
+		when(orderService.listNotPublishCommentOrders()).thenReturn(orderInfoDTOs);
 		
 		CommentInfoDTO commentInfoDTO1 = new CommentInfoDTO();
 		when(commentInfoService.saveAutoPublishedCommentInfo(orderInfoDTOs.get(0), 
@@ -78,8 +78,8 @@ public class AutoPublishCommentTaskTest {
 		CommentInfoDTO commentInfoDTO4 = new CommentInfoDTO();
 		when(commentInfoService.saveAutoPublishedCommentInfo(orderInfoDTOs.get(1), 
 				orderInfoDTOs.get(1).getOrderItems().get(1))).thenReturn(commentInfoDTO4);
-		
-		autoPubliashCommentTask.execute();
+
+		autoPublishCommentTask.execute();
 		
 		verify(commentInfoService, times(1)).saveAutoPublishedCommentInfo(orderInfoDTOs.get(0), 
 				orderInfoDTOs.get(0).getOrderItems().get(0));
@@ -107,9 +107,9 @@ public class AutoPublishCommentTaskTest {
 		orderItemDTO1.setId(1L); 
 		
 		OrderItemDTO orderItemDTO2 = new OrderItemDTO();
-		orderItemDTO2.setId(2L); 
-		
-		List<OrderItemDTO> orderItemDTOs1 = new ArrayList<OrderItemDTO>();
+		orderItemDTO2.setId(2L);
+
+		List<OrderItemDTO> orderItemDTOs1 = new ArrayList<>();
 		orderItemDTOs1.add(orderItemDTO1);
 		orderItemDTOs1.add(orderItemDTO2);
 		
@@ -123,16 +123,16 @@ public class AutoPublishCommentTaskTest {
 		orderItemDTO3.setId(3L); 
 		
 		OrderItemDTO orderItemDTO4 = new OrderItemDTO();
-		orderItemDTO4.setId(4L); 
-		
-		List<OrderItemDTO> orderItemDTOs2 = new ArrayList<OrderItemDTO>();
+		orderItemDTO4.setId(4L);
+
+		List<OrderItemDTO> orderItemDTOs2 = new ArrayList<>();
 		orderItemDTOs2.add(orderItemDTO3);
 		orderItemDTOs2.add(orderItemDTO4);
 		
 		orderInfoDTO2.setOrderItems(orderItemDTOs2);
 		
 		// 构造订单DTO集合
-		List<OrderInfoDTO> orderInfoDTOs = new ArrayList<OrderInfoDTO>();
+		List<OrderInfoDTO> orderInfoDTOs = new ArrayList<>();
 		orderInfoDTOs.add(orderInfoDTO1);
 		orderInfoDTOs.add(orderInfoDTO2); 
 		

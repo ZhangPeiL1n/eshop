@@ -21,8 +21,8 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(SpringRunner.class) 
 @SpringBootTest
-@Transactional 
-@Rollback(true)
+@Transactional
+@Rollback()
 public class CommentPictureDAOTest {
 	
 	/**
@@ -51,7 +51,6 @@ public class CommentPictureDAOTest {
 	/**
 	 * 创建评论图片DO对象
 	 * @return 评论图片DO对象
-	 * @throws Exceptionn
 	 */
 	private CommentPictureDO createCommentPictureDO() throws Exception {
 		CommentPictureDO commentPictureDO = new CommentPictureDO();

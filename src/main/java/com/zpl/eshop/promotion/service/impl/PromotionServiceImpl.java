@@ -20,14 +20,14 @@ import java.util.List;
 
 /**
  * 促销中心service组件
- * @author ZhangPeiL1n
  *
+ * @author ZhangPeiL1n
  */
 @Service
 public class PromotionServiceImpl implements PromotionService {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(PromotionServiceImpl.class);
-	
+
 	/**
 	 * 促销活动管理DAO组件
 	 */
@@ -48,82 +48,86 @@ public class PromotionServiceImpl implements PromotionService {
 	 */
 	@Autowired
 	private DateProvider dateProvider;
-	
+
 	/**
 	 * 根据商品id查询促销活动
+	 *
 	 * @param goodsId 商品id
 	 * @return 促销活动
 	 */
 	public List<PromotionActivityDTO> listByGoodsId(Long goodsId) {
 		try {
-			return ObjectUtils.convertList(promotionActivityDAO.listEnabledByGoodsId(goodsId), 
+			return ObjectUtils.convertList(promotionActivityDAO.listEnabledByGoodsId(goodsId),
 					PromotionActivityDTO.class);
 		} catch (Exception e) {
-			logger.error("error", e); 
+			logger.error("error", e);
 			return new ArrayList<PromotionActivityDTO>();
 		}
 	}
-	
+
 	/**
 	 * 根据id查询促销活动
+	 *
 	 * @param id 促销活动id
 	 * @return 促销活动
 	 */
 	public PromotionActivityDTO getById(Long id) {
 		try {
-			return promotionActivityDAO.getById(id).clone(PromotionActivityDTO.class); 
-		} catch(Exception e) {
-			logger.error("Error", e); 
+			return promotionActivityDAO.getById(id).clone(PromotionActivityDTO.class);
+		} catch (Exception e) {
+			logger.error("Error", e);
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 查询用户当前可以使用的有效优惠券
+	 *
 	 * @param userAccountId 用户账号id
 	 * @return 有效优惠券
 	 */
 	public List<CouponDTO> listValidByUserAccountId(Long userAccountId) {
-		List<CouponDTO> coupons = new ArrayList<CouponDTO>();
-		
+		List<CouponDTO> coupons = new ArrayList<>();
+
 		try {
-			List<CouponAchieveDO> couponAchieves = couponAchieveDAO
-					.listUnsedByUserAccountId(userAccountId);
-			for(CouponAchieveDO couponAchieve : couponAchieves) {
-				CouponDTO coupon = couponDAO.getById(couponAchieve.getCouponId())
-						.clone(CouponDTO.class);
-				if(CouponStatus.GIVING_OUT.equals(coupon.getStatus()) ||
+			List<CouponAchieveDO> couponAchieves =
+					couponAchieveDAO.listUnusedByUserAccountId(userAccountId);
+			for (CouponAchieveDO couponAchieve : couponAchieves) {
+				CouponDTO coupon =
+						couponDAO.getById(couponAchieve.getCouponId()).clone(CouponDTO.class);
+				if (CouponStatus.GIVING_OUT.equals(coupon.getStatus()) ||
 						CouponStatus.GIVEN_OUT.equals(coupon.getStatus())) {
 					coupons.add(coupon);
 				}
 			}
 		} catch (Exception e) {
-			logger.error("error", e); 
+			logger.error("error", e);
 		}
-		
+
 		return coupons;
 	}
-	
+
 	/**
 	 * 使用优惠券
-	 * @param couponId 优惠券id
+	 *
+	 * @param couponId      优惠券id
 	 * @param userAccountId 用户账号id
 	 * @return 处理结果
 	 */
 	public Boolean useCoupon(Long couponId, Long userAccountId) {
 		try {
 			CouponAchieveDO couponAchieve = new CouponAchieveDO();
-			couponAchieve.setCouponId(couponId); 
-			couponAchieve.setUserAccountId(userAccountId); 
-			couponAchieve.setUsed(1); 
-			couponAchieve.setUsedTime(dateProvider.getCurrentTime()); 
-			couponAchieve.setGmtModified(dateProvider.getCurrentTime()); 
-			
-			couponAchieveDAO.update(couponAchieve); 
-			
+			couponAchieve.setCouponId(couponId);
+			couponAchieve.setUserAccountId(userAccountId);
+			couponAchieve.setUsed(1);
+			couponAchieve.setUsedTime(dateProvider.getCurrentTime());
+			couponAchieve.setGmtModified(dateProvider.getCurrentTime());
+
+			couponAchieveDAO.update(couponAchieve);
+
 			return true;
 		} catch (Exception e) {
-			logger.error("error", e); 
+			logger.error("error", e);
 			return false;
 		}
 	}

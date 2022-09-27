@@ -42,10 +42,12 @@ public class CouponAchieveDAOImpl implements CouponAchieveDAO {
 	
 	/**
 	 * 查询用户还没有使用过的优惠券领取记录
+	 *
 	 * @param userAccountId 用户账号id
 	 * @return 优惠券领取记录
 	 */
-	public List<CouponAchieveDO> listUnsedByUserAccountId(Long userAccountId) {
+	@Override
+	public List<CouponAchieveDO> listUnusedByUserAccountId(Long userAccountId) {
 		return couponAchieveMapper.listUnsedByUserAccountId(userAccountId);
 	}
 	

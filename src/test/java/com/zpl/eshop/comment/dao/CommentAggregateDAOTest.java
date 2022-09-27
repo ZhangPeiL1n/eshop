@@ -100,7 +100,7 @@ public class CommentAggregateDAOTest {
         commentAggregate.setGoodCommentRate(1.0);
         commentAggregate.setGoodsId(goodsId);
         commentAggregate.setMediumCommentCount(1L);
-        commentAggregate.setShowPictureCommentCount(1L);
+        commentAggregate.setShowPicturesCommentCount(1L);
         commentAggregate.setTotalCommentCount(5L);
 
         commentAggregateDAO.saveCommentAggregate(commentAggregate);

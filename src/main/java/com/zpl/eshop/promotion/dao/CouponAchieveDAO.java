@@ -27,10 +27,11 @@ public interface CouponAchieveDAO {
 	
 	/**
 	 * 查询用户还没有使用过的优惠券领取记录
+	 *
 	 * @param userAccountId 用户账号id
 	 * @return 优惠券领取记录
 	 */
-	List<CouponAchieveDO> listUnsedByUserAccountId(Long userAccountId);
+	List<CouponAchieveDO> listUnusedByUserAccountId(Long userAccountId);
 	
 	/**
 	 * 更新优惠券领取记录
