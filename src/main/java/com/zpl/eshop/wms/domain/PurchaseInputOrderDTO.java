@@ -1,9 +1,8 @@
 package com.zpl.eshop.wms.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 import java.util.List;
@@ -14,9 +13,8 @@ import java.util.List;
  * @author ZhangPeiL1n
  * @date 2022/1/3 17:43
  **/
-@Getter
-@Setter
-@ToString
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class PurchaseInputOrderDTO extends AbstractObject {
     /**
      * id
@@ -35,7 +33,7 @@ public class PurchaseInputOrderDTO extends AbstractObject {
     /**
      * 实际到达时间
      */
-    private Date arrivalTime;
+    private Date actualArrivalTime;
 
     /**
      * 采购联系人
@@ -45,17 +43,17 @@ public class PurchaseInputOrderDTO extends AbstractObject {
     /**
      * 采购联系人电话号码
      */
-    private String purchaseContactPhoneNumber;
+    private String purchaseContactorPhoneNumber;
 
     /**
      * 采购联系人邮箱地址
      */
-    private String purchaseContactEmail;
+    private String purchaseContactorEmail;
 
     /**
      * 采购单备注
      */
-    private String purchaseOrderComment;
+    private String purchaseOrderRemark;
 
     /**
      * 采购员
@@ -65,7 +63,7 @@ public class PurchaseInputOrderDTO extends AbstractObject {
     /**
      * 采购入库单的状态
      */
-    private Integer purchaseInputOrderStatus;
+    private Integer status;
 
     /**
      * 创建时间
@@ -73,17 +71,12 @@ public class PurchaseInputOrderDTO extends AbstractObject {
     private Date gmtCreate;
 
     /**
-     * 采购入库单条目集合
-     */
-    private List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList;
-
-    /**
-     * 采购入库单商品上角条目集合
-     */
-    private List<PurchaseInputOrderPutOnItemDTO> purchaseInputOrderPutOnItemDTOList;
-
-    /**
      * 修改时间
      */
     private Date gmtModified;
+
+    /**
+     * 采购入库单条目集合
+     */
+    private List<PurchaseInputOrderItemDTO> items;
 }
