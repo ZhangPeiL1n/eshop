@@ -1,6 +1,7 @@
 package com.zpl.eshop.commodity.service;
 
 import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
+import com.zpl.eshop.commodity.domain.GoodsSkuQuery;
 
 import java.util.List;
 
@@ -33,4 +34,20 @@ public interface GoodsSkuService {
      * @param goodsId 商品id
      */
     void removeByGoodsId(Long goodsId);
+
+    /**
+     * 根据id查询商品sku
+     *
+     * @param id 商品skuId
+     * @return 商品sku
+     */
+    GoodsSkuDTO getById(Long id) throws Exception;
+
+    /**
+     * 分页查询商品sku
+     *
+     * @param query 查询条件
+     * @return 商品sku
+     */
+    List<GoodsSkuDTO> listByPage(GoodsSkuQuery query) throws Exception;
 }

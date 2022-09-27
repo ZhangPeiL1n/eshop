@@ -1,9 +1,6 @@
 package com.zpl.eshop.commodity.service.impl;
 
-import com.zpl.eshop.commodity.dao.CategoryPropertyRelationshipDAO;
-import com.zpl.eshop.commodity.dao.GoodsSkuDAO;
-import com.zpl.eshop.commodity.dao.GoodsSkuSalePropertyValueDAO;
-import com.zpl.eshop.commodity.dao.PropertyDAO;
+import com.zpl.eshop.commodity.dao.*;
 import com.zpl.eshop.commodity.domain.*;
 import com.zpl.eshop.commodity.service.GoodsSkuService;
 import com.zpl.eshop.common.util.DateProvider;
@@ -60,6 +57,12 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
      */
     @Autowired
     private InventoryService inventoryService;
+
+    /**
+     * 商品管理DAO组件
+     */
+    @Autowired
+    private GoodsDAO goodsDAO;
 
     /**
      * 根据商品id查询商品sku
@@ -164,5 +167,47 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
             }
         }
         return builder.toString();
+    }
+
+    /**
+     * 根据id查询商品sku
+     *
+     * @param id 商品skuId
+     * @return 商品sku
+     */
+    @Override
+    public GoodsSkuDTO getById(Long id) throws Exception {
+        GoodsSkuDTO goodsSku = goodsSkuDAO.getById(id).clone(GoodsSkuDTO.class);
+        setGoodsRelatedFields(goodsSku);
+        return goodsSku;
+    }
+
+    /**
+     * 分页查询商品sku
+     *
+     * @param query 查询条件
+     * @return 商品sku
+     */
+    @Override
+    public List<GoodsSkuDTO> listByPage(GoodsSkuQuery query) throws Exception {
+        List<GoodsSkuDTO> goodsSkus = ObjectUtils.convertList(
+                goodsSkuDAO.listByPage(query), GoodsSkuDTO.class);
+        for (GoodsSkuDTO goodsSku : goodsSkus) {
+            setGoodsRelatedFields(goodsSku);
+        }
+        return goodsSkus;
+    }
+
+    private void setGoodsRelatedFields(GoodsSkuDTO goodsSku) throws Exception {
+        GoodsDO goods = goodsDAO.getById(goodsSku.getGoodsId());
+
+        goodsSku.setGoodsName(goods.getName());
+        goodsSku.setGrossWeight(goods.getGrossWeight());
+        goodsSku.setGoodsLength(goods.getLength());
+        goodsSku.setGoodsWidth(goods.getWidth());
+        goodsSku.setGoodsHeight(goods.getHeight());
+        goodsSku.setGoodsSkuCode(goodsSku.getSkuCode());
+        goodsSku.setSaleStockQuantity(inventoryService
+                .getSaleStockQuantity(goodsSku.getId()));
     }
 }

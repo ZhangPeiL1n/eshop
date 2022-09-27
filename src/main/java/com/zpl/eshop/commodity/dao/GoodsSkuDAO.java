@@ -1,6 +1,7 @@
 package com.zpl.eshop.commodity.dao;
 
 import com.zpl.eshop.commodity.domain.GoodsSkuDO;
+import com.zpl.eshop.commodity.domain.GoodsSkuQuery;
 
 import java.util.List;
 
@@ -19,6 +20,22 @@ public interface GoodsSkuDAO {
      * @return 商品sku
      */
     List<GoodsSkuDO> listByGoodsId(Long goodsId);
+
+    /**
+     * 根据id查询商品sku
+     *
+     * @param id 商品sku id
+     * @return 商品sku
+     */
+    GoodsSkuDO getById(Long id);
+
+    /**
+     * 分页查询商品sku
+     *
+     * @param query 查询条件
+     * @return 商品sku
+     */
+    List<GoodsSkuDO> listByPage(GoodsSkuQuery query);
 
     /**
      * 新增商品SKU
