@@ -1,6 +1,12 @@
 package com.zpl.eshop.customer.service.impl;
 
+import com.zpl.eshop.customer.constant.ReturnGoodsWorksheetStatus;
+import com.zpl.eshop.customer.dao.ReturnGoodsWorksheetDAO;
+import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDO;
 import com.zpl.eshop.customer.service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +17,14 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class CustomerServiceImpl implements CustomerService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+
+    /**
+     * 客服中心退货工单管理DAO组件
+     */
+    @Autowired
+    private ReturnGoodsWorksheetDAO returnGoodsWorksheetDAO;
 
     /**
      * 创建退货工单
@@ -25,7 +39,21 @@ public class CustomerServiceImpl implements CustomerService {
     public Boolean createReturnGoodsWorkSheet(
             Long orderId, String orderNo,
             Integer returnGoodsReason, String returnGoodsRemark) {
-        return true;
+        try {
+            ReturnGoodsWorksheetDO worksheet = new ReturnGoodsWorksheetDO();
+            worksheet.setOrderId(orderId);
+            worksheet.setOrderNo(orderNo);
+            worksheet.setReturnGoodsReason(returnGoodsReason);
+            worksheet.setReturnGoodsRemark(returnGoodsRemark);
+            worksheet.setStatus(ReturnGoodsWorksheetStatus.WAIT_FOR_APPROVE);
+
+            returnGoodsWorksheetDAO.save(worksheet);
+
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**
