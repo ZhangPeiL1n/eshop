@@ -1,11 +1,11 @@
 package com.zpl.eshop.schedule.stock;
 
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.schedule.dao.GoodsAllocationStockDAO;
-import com.zpl.eshop.schedule.dao.GoodsStockDAO;
-import com.zpl.eshop.schedule.domain.GoodsAllocationStockDO;
+import com.zpl.eshop.schedule.dao.ScheduleGoodsAllocationStockDAO;
+import com.zpl.eshop.schedule.dao.ScheduleGoodsStockDAO;
 import com.zpl.eshop.schedule.domain.GoodsAllocationStockId;
-import com.zpl.eshop.schedule.domain.GoodsStockDO;
+import com.zpl.eshop.schedule.domain.SchecduleGoodsStockDO;
+import com.zpl.eshop.schedule.domain.ScheduleGoodsAllocationStockDO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderItemDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderPutOnItemDTO;
@@ -24,18 +24,18 @@ import java.util.Map;
  * @date 2022/1/25 22:20
  **/
 @Component
-public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<ReturnGoodsInputOrderDTO> {
+public class ReturnInputScheduleStockUpdaterFactory extends AbstractScheduleStockUpdaterFactory<ReturnGoodsInputOrderDTO> {
 
 
     /**
      * 构造函数
      *
-     * @param goodsStockDAO 商品库存管理模块的DAO组件
-     * @param dateProvider  日期辅助组件
+     * @param scheduleGoodsStockDAO 商品库存管理模块的DAO组件
+     * @param dateProvider          日期辅助组件
      */
     @Autowired
-    public ReturnInputStockUpdaterFactory(GoodsStockDAO goodsStockDAO, GoodsAllocationStockDAO goodsAllocationStockDAO, DateProvider dateProvider) {
-        super(goodsStockDAO, goodsAllocationStockDAO, dateProvider);
+    public ReturnInputScheduleStockUpdaterFactory(ScheduleGoodsStockDAO scheduleGoodsStockDAO, ScheduleGoodsAllocationStockDAO scheduleGoodsAllocationStockDAO, DateProvider dateProvider) {
+        super(scheduleGoodsStockDAO, scheduleGoodsAllocationStockDAO, dateProvider);
     }
 
     /**
@@ -88,7 +88,7 @@ public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<
      * @throws Exception
      */
     @Override
-    protected StockUpdater create(List<GoodsStockDO> goodsStocks, List<GoodsAllocationStockDO> goodsAllocationStocks, ReturnGoodsInputOrderDTO parameter) throws Exception {
+    protected ScheduleStockUpdater create(List<SchecduleGoodsStockDO> goodsStocks, List<ScheduleGoodsAllocationStockDO> goodsAllocationStocks, ReturnGoodsInputOrderDTO parameter) throws Exception {
         List<ReturnGoodsInputOrderItemDTO> items = parameter.getItems();
 
         Map<Long, ReturnGoodsInputOrderItemDTO> itemMap = new HashMap<>();
@@ -104,7 +104,7 @@ public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<
                 });
             }
         }
-        ReturnInputStockUpdater updater = new ReturnInputStockUpdater(goodsStocks, goodsAllocationStocks, goodsStockDAO, goodsAllocationStockDAO, dateProvider);
+        ReturnInputScheduleStockUpdater updater = new ReturnInputScheduleStockUpdater(goodsStocks, goodsAllocationStocks, scheduleGoodsStockDAO, scheduleGoodsAllocationStockDAO, dateProvider);
         updater.setItemMap(itemMap);
         updater.setPutOnItemMap(putOnItemMap);
         return updater;

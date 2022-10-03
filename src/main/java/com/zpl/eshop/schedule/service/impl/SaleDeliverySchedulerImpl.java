@@ -68,13 +68,13 @@ public class SaleDeliverySchedulerImpl implements SaleDeliveryScheduler {
         for (GoodsAllocationStockDetailDTO stockDetail : stockDetails) {
             // 当前货位库存明细满足购买数量
             if (stockDetail.getCurrentStockQuantity() >= purchaseQuantity) {
-                updatePickingItem(pickingItemMap, stockDetail, purchaseQuantity);
+                updatePickingItem(orderItem.getGoodsSkuId(), pickingItemMap, stockDetail, purchaseQuantity);
                 updateSendOutDetail(sendOutDetails, createSendOutDetail(stockDetail.getId(), purchaseQuantity));
                 break;
                 //  还要从其他货位上取货
             } else {
                 // 处理拣货条目
-                updatePickingItem(pickingItemMap, stockDetail, stockDetail.getCurrentStockQuantity());
+                updatePickingItem(orderItem.getGoodsSkuId(), pickingItemMap, stockDetail, stockDetail.getCurrentStockQuantity());
                 updateSendOutDetail(sendOutDetails, createSendOutDetail(stockDetail.getId(), stockDetail.getCurrentStockQuantity()));
                 purchaseQuantity = purchaseQuantity - stockDetail.getPutOnQuantity();
             }
@@ -92,10 +92,12 @@ public class SaleDeliverySchedulerImpl implements SaleDeliveryScheduler {
      * @param pickingItemMap 拣货条目map
      * @param stockDetail    库存明细
      */
-    private void updatePickingItem(Map<Long, SaleDeliveryOrderPickingItemDTO> pickingItemMap, GoodsAllocationStockDetailDTO stockDetail, Long pickingCount) throws Exception {
+    private void updatePickingItem(Long goodsSkuId,
+                                   Map<Long, SaleDeliveryOrderPickingItemDTO> pickingItemMap,
+                                   GoodsAllocationStockDetailDTO stockDetail, Long pickingCount) throws Exception {
         SaleDeliveryOrderPickingItemDTO pickingItem = pickingItemMap.get(stockDetail.getGoodsAllocationId());
         if (pickingItem == null) {
-            pickingItem = createPickingItem(stockDetail.getGoodsAllocationId(), 0L);
+            pickingItem = createPickingItem(goodsSkuId, stockDetail.getGoodsAllocationId(), 0L);
             pickingItemMap.put(stockDetail.getGoodsAllocationId(), pickingItem);
         }
         // 合并同一个货位的拣货条目
@@ -119,8 +121,10 @@ public class SaleDeliverySchedulerImpl implements SaleDeliveryScheduler {
      * @param pickingCount      拣货数量
      * @return
      */
-    private SaleDeliveryOrderPickingItemDTO createPickingItem(Long goodsAllocationId, Long pickingCount) throws Exception {
+    private SaleDeliveryOrderPickingItemDTO createPickingItem(
+            Long goodsSkuId, Long goodsAllocationId, Long pickingCount) throws Exception {
         SaleDeliveryOrderPickingItemDTO pickingItem = new SaleDeliveryOrderPickingItemDTO();
+        pickingItem.setGoodsSkuId(goodsSkuId);
         pickingItem.setGoodsAllocationId(goodsAllocationId);
         pickingItem.setPickingCount(pickingCount);
         pickingItem.setGmtCreate(dateProvider.getCurrentTime());

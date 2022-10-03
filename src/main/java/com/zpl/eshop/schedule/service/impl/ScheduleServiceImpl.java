@@ -4,12 +4,15 @@ import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDTO;
 import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
+import com.zpl.eshop.order.domain.OrderItemDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderDTO;
 import com.zpl.eshop.purchase.domain.PurchaseOrderItemDTO;
+import com.zpl.eshop.schedule.dao.ScheduleOrderPickingItemDAO;
+import com.zpl.eshop.schedule.dao.ScheduleOrderSendOutDetailDAO;
 import com.zpl.eshop.schedule.service.ScheduleService;
-import com.zpl.eshop.schedule.stock.PurchaseInputStockUpdaterFactory;
-import com.zpl.eshop.schedule.stock.ReturnInputStockUpdaterFactory;
-import com.zpl.eshop.schedule.stock.StockUpdater;
+import com.zpl.eshop.schedule.stock.PurchaseInputScheduleStockUpdaterFactory;
+import com.zpl.eshop.schedule.stock.ReturnInputScheduleStockUpdaterFactory;
+import com.zpl.eshop.schedule.stock.ScheduleStockUpdater;
 import com.zpl.eshop.wms.domain.*;
 import com.zpl.eshop.wms.service.WmsService;
 import org.slf4j.Logger;
@@ -47,19 +50,37 @@ public class ScheduleServiceImpl implements ScheduleService {
      * 采购入库单工厂
      */
     @Autowired
-    private PurchaseInputStockUpdaterFactory purchaseInputStockUpdaterFactory;
+    private PurchaseInputScheduleStockUpdaterFactory purchaseInputStockUpdaterFactory;
 
     /**
      * 退货入库单工厂
      */
     @Autowired
-    private ReturnInputStockUpdaterFactory returnInputStockUpdaterFactory;
+    private ReturnInputScheduleStockUpdaterFactory returnInputStockUpdaterFactory;
 
     /**
      * 库存中心
      */
     @Autowired
     private InventoryService inventoryService;
+
+    /**
+     * 销售出库调度器
+     */
+    @Autowired
+    private SaleDeliveryScheduler saleDeliveryScheduler;
+
+    /**
+     * 拣货条目管理DAO组件
+     */
+    @Autowired
+    private ScheduleOrderPickingItemDAO pickingItemDAO;
+
+    /**
+     * 发货明细管理DAO组件
+     */
+    @Autowired
+    private ScheduleOrderSendOutDetailDAO sendOutDetailDAO;
 
     /**
      * 通知调度中心，“采购入库完成”事件发生了
@@ -69,7 +90,7 @@ public class ScheduleServiceImpl implements ScheduleService {
      */
     @Override
     public Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrder) {
-        StockUpdater stockUpdater = purchaseInputStockUpdaterFactory.create(purchaseInputOrder);
+        ScheduleStockUpdater stockUpdater = purchaseInputStockUpdaterFactory.create(purchaseInputOrder);
         stockUpdater.update();
         inventoryService.informPurchaseInputFinished(purchaseInputOrder);
         return true;
@@ -78,12 +99,24 @@ public class ScheduleServiceImpl implements ScheduleService {
     /**
      * 通知调度中心，“提交订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param order 订单
      * @return 处理结果
      */
     @Override
-    public Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO) {
-        return true;
+    public Boolean informSubmitOrderEvent(OrderInfoDTO order) {
+        try {
+            for (OrderItemDTO orderItem : order.getOrderItems()) {
+                SaleDeliveryOrderItemDTO saleDeliveryOrderItem = saleDeliveryScheduler.schedule(orderItem);
+
+                pickingItemDAO.batchSave(saleDeliveryOrderItem.getPickingItems(), orderItem);
+                sendOutDetailDAO.batchSave(saleDeliveryOrderItem.getSendOutItems(), orderItem);
+            }
+
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**
@@ -104,7 +137,7 @@ public class ScheduleServiceImpl implements ScheduleService {
      * @return 处理结果
      */
     @Override
-    public Boolean cancelOrderEvent(OrderInfoDTO orderDTO) {
+    public Boolean informCancelOrderEvent(OrderInfoDTO orderDTO) {
         return true;
     }
 
@@ -116,7 +149,7 @@ public class ScheduleServiceImpl implements ScheduleService {
      */
     @Override
     public Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrder) {
-        StockUpdater stockUpdater = returnInputStockUpdaterFactory.create(returnGoodsInputOrder);
+        ScheduleStockUpdater stockUpdater = returnInputStockUpdaterFactory.create(returnGoodsInputOrder);
         stockUpdater.update();
         inventoryService.informReturnGoodsInputFinished(returnGoodsInputOrder);
         return true;

@@ -7,24 +7,19 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 商品货位库存
+ * 商品库存
  *
  * @author ZhangPeiL1n
- * @date 2022/9/15 22:24
+ * @date 2022/9/15 22:23
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class GoodsAllocationStockDO extends AbstractObject {
+public class SchecduleGoodsStockDO extends AbstractObject {
 
     /**
      * id
      */
     private Long id;
-
-    /**
-     * 货位id
-     */
-    private Long goodsAllocationId;
 
     /**
      * 商品sku id
@@ -55,4 +50,5 @@ public class GoodsAllocationStockDO extends AbstractObject {
      * 修改时间
      */
     private Date gmtModified;
+
 }

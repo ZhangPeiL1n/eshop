@@ -6,7 +6,7 @@ package com.zpl.eshop.schedule.stock;
  * @author ZhangPeiL1n
  * @date 2022/1/25 22:05
  **/
-public interface StockUpdaterFactory<T> {
+public interface ScheduleStockUpdaterFactory<T> {
 
     /**
      * 创建库存更新命令
@@ -14,5 +14,5 @@ public interface StockUpdaterFactory<T> {
      * @param parameter 参数
      * @return 库存更新密令
      */
-    StockUpdater create(T parameter);
+    ScheduleStockUpdater create(T parameter);
 }

@@ -1,11 +1,11 @@
 package com.zpl.eshop.schedule.stock;
 
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.schedule.dao.GoodsAllocationStockDAO;
-import com.zpl.eshop.schedule.dao.GoodsStockDAO;
-import com.zpl.eshop.schedule.domain.GoodsAllocationStockDO;
+import com.zpl.eshop.schedule.dao.ScheduleGoodsAllocationStockDAO;
+import com.zpl.eshop.schedule.dao.ScheduleGoodsStockDAO;
 import com.zpl.eshop.schedule.domain.GoodsAllocationStockId;
-import com.zpl.eshop.schedule.domain.GoodsStockDO;
+import com.zpl.eshop.schedule.domain.SchecduleGoodsStockDO;
+import com.zpl.eshop.schedule.domain.ScheduleGoodsAllocationStockDO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderItemDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderPutOnItemDTO;
 import lombok.Setter;
@@ -19,7 +19,7 @@ import java.util.Map;
  * @author ZhangPeiL1n
  * @date 2022/1/25 21:16
  **/
-public class ReturnInputStockUpdater extends AbstractStockUpdater {
+public class ReturnInputScheduleStockUpdater extends AbstractScheduleStockUpdater {
 
     /**
      * 退货入库单
@@ -36,18 +36,18 @@ public class ReturnInputStockUpdater extends AbstractStockUpdater {
     /**
      * 构造函数
      *
-     * @param goodsStocks   商品库存对象
-     * @param goodsStockDAO 商品库存管理模块DAO组件
-     * @param dateProvider  日期辅助组件
-     * @param itemMap       采购入库单条目DTO Map
+     * @param goodsStocks           商品库存对象
+     * @param scheduleGoodsStockDAO 商品库存管理模块DAO组件
+     * @param dateProvider          日期辅助组件
+     * @param itemMap               采购入库单条目DTO Map
      */
-    public ReturnInputStockUpdater(
-            List<GoodsStockDO> goodsStocks,
-            List<GoodsAllocationStockDO> goodsAllocationStocks,
-            GoodsStockDAO goodsStockDAO,
-            GoodsAllocationStockDAO goodsAllocationStockDAO,
+    public ReturnInputScheduleStockUpdater(
+            List<SchecduleGoodsStockDO> goodsStocks,
+            List<ScheduleGoodsAllocationStockDO> goodsAllocationStocks,
+            ScheduleGoodsStockDAO scheduleGoodsStockDAO,
+            ScheduleGoodsAllocationStockDAO scheduleGoodsAllocationStockDAO,
             DateProvider dateProvider) {
-        super(goodsStocks, goodsAllocationStocks, goodsStockDAO, goodsAllocationStockDAO, dateProvider);
+        super(goodsStocks, goodsAllocationStocks, scheduleGoodsStockDAO, scheduleGoodsAllocationStockDAO, dateProvider);
 
     }
 
@@ -92,5 +92,15 @@ public class ReturnInputStockUpdater extends AbstractStockUpdater {
             ReturnGoodsInputOrderPutOnItemDTO putOnItem = putOnItemMap.get(new GoodsAllocationStockId(goodsAllocationStock.getGoodsAllocationId(), goodsAllocationStock.getGoodsSkuId()));
             goodsAllocationStock.setOutputStockQuantity(goodsAllocationStock.getOutputStockQuantity() - putOnItem.getPutOnShelvesCount());
         });
+    }
+
+    @Override
+    protected void updateGoodsAllocationDetailLockedStockQuantity() throws Exception {
+
+    }
+
+    @Override
+    protected void updateGoodsAllocationDetailCurrentStockQuantity() throws Exception {
+
     }
 }

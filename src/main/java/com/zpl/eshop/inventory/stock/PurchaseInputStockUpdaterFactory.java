@@ -42,7 +42,7 @@ public class PurchaseInputStockUpdaterFactory extends AbstractStockUpdaterFactor
      */
     @Override
     protected List<Long> getGoodsSkuIds(PurchaseInputOrderDTO parameter) throws Exception {
-        List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList = parameter.getPurchaseInputOrderItemDTOs();
+        List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList = parameter.getItems();
         // 卫语句,没有就返回空集合
         if (purchaseInputOrderItemDTOList == null || purchaseInputOrderItemDTOList.size() == 0) {
             return new ArrayList<>();
@@ -65,7 +65,7 @@ public class PurchaseInputStockUpdaterFactory extends AbstractStockUpdaterFactor
      */
     @Override
     protected StockUpdater create(List<GoodsStockDO> goodsStockDOList, PurchaseInputOrderDTO parameter) throws Exception {
-        List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList = parameter.getPurchaseInputOrderItemDTOs();
+        List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList = parameter.getItems();
 
         Map<Long, PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOMap = new HashMap<>();
 

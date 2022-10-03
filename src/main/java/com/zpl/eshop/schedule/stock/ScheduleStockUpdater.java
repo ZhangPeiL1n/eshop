@@ -6,7 +6,7 @@ package com.zpl.eshop.schedule.stock;
  * @author ZhangPeiL1n
  * @date 2022/1/24 22:29
  **/
-public interface StockUpdater {
+public interface ScheduleStockUpdater {
     /**
      * 更新商品库存
      *

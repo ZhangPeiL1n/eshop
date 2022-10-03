@@ -1,6 +1,7 @@
 package com.zpl.eshop.common.listener;
 
 import com.zpl.eshop.common.bean.SpringApplicationContext;
+import com.zpl.eshop.schedule.stock.StockUpdateMessageConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletContextEvent;
@@ -25,7 +26,8 @@ public class SystemInitContextListener implements ServletContextListener {
         System.out.println("系统启动了。。。。。。。。");
         // ScheduleStockUpdateMessageConsumer stockUpdateMessageConsumer =
         //         context.getBean(ScheduleStockUpdateMessageConsumer.class);
-        // stockUpdateMessageConsumer.start();
+        StockUpdateMessageConsumer stockUpdateMessageConsumer = context.getBean(StockUpdateMessageConsumer.class);
+        stockUpdateMessageConsumer.start();
     }
 
     @Override

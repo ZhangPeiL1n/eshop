@@ -1,10 +1,10 @@
 package com.zpl.eshop.schedule.stock;
 
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.schedule.dao.GoodsAllocationStockDAO;
-import com.zpl.eshop.schedule.dao.GoodsStockDAO;
-import com.zpl.eshop.schedule.domain.GoodsAllocationStockDO;
-import com.zpl.eshop.schedule.domain.GoodsStockDO;
+import com.zpl.eshop.schedule.dao.ScheduleGoodsAllocationStockDAO;
+import com.zpl.eshop.schedule.dao.ScheduleGoodsStockDAO;
+import com.zpl.eshop.schedule.domain.SchecduleGoodsStockDO;
+import com.zpl.eshop.schedule.domain.ScheduleGoodsAllocationStockDO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,29 +16,29 @@ import java.util.List;
  * @author ZhangPeiL1n
  * @date 2022/1/24 22:31
  **/
-public abstract class AbstractStockUpdater implements StockUpdater {
+public abstract class AbstractScheduleStockUpdater implements ScheduleStockUpdater {
 
-    private final Logger logger = LoggerFactory.getLogger(AbstractStockUpdater.class);
+    private final Logger logger = LoggerFactory.getLogger(AbstractScheduleStockUpdater.class);
 
     /**
      * 商品库存对象
      */
-    protected List<GoodsStockDO> goodsStocks;
+    protected List<SchecduleGoodsStockDO> goodsStocks;
 
     /**
      * 商品货位库存对象
      */
-    protected List<GoodsAllocationStockDO> goodsAllocationStocks;
+    protected List<ScheduleGoodsAllocationStockDO> goodsAllocationStocks;
 
     /**
      * 商品库存管理模块DAO组件
      */
-    protected GoodsStockDAO goodsStockDAO;
+    protected ScheduleGoodsStockDAO scheduleGoodsStockDAO;
 
     /**
      * 商品货位库尊管理模块DAO组件
      */
-    protected GoodsAllocationStockDAO goodsAllocationStockDAO;
+    protected ScheduleGoodsAllocationStockDAO scheduleGoodsAllocationStockDAO;
 
     /**
      * 日期辅助组件
@@ -48,19 +48,19 @@ public abstract class AbstractStockUpdater implements StockUpdater {
     /**
      * 构造函数
      *
-     * @param goodsStocks   商品库存对象集合
-     * @param goodsStockDAO 商品库存管理模块DAO组件
-     * @param dateProvider  日期辅助组件
+     * @param goodsStocks           商品库存对象集合
+     * @param scheduleGoodsStockDAO 商品库存管理模块DAO组件
+     * @param dateProvider          日期辅助组件
      */
-    public AbstractStockUpdater(List<GoodsStockDO> goodsStocks,
-                                List<GoodsAllocationStockDO> goodsAllocationStocks,
-                                GoodsStockDAO goodsStockDAO,
-                                GoodsAllocationStockDAO goodsAllocationStockDAO,
-                                DateProvider dateProvider) {
+    public AbstractScheduleStockUpdater(List<SchecduleGoodsStockDO> goodsStocks,
+                                        List<ScheduleGoodsAllocationStockDO> goodsAllocationStocks,
+                                        ScheduleGoodsStockDAO scheduleGoodsStockDAO,
+                                        ScheduleGoodsAllocationStockDAO scheduleGoodsAllocationStockDAO,
+                                        DateProvider dateProvider) {
         this.goodsStocks = goodsStocks;
         this.goodsAllocationStocks = goodsAllocationStocks;
-        this.goodsStockDAO = goodsStockDAO;
-        this.goodsAllocationStockDAO = goodsAllocationStockDAO;
+        this.scheduleGoodsStockDAO = scheduleGoodsStockDAO;
+        this.scheduleGoodsAllocationStockDAO = scheduleGoodsAllocationStockDAO;
         this.dateProvider = dateProvider;
     }
 
@@ -73,6 +73,8 @@ public abstract class AbstractStockUpdater implements StockUpdater {
             updateGoodsAllocationAvailableStockQuantity();
             updateGoodsAllocationLockedStockQuantity();
             updateGoodsAllocationOutputStockQuantity();
+            updateGoodsAllocationDetailCurrentStockQuantity();
+            updateGoodsAllocationDetailLockedStockQuantity();
             updateGmtModified();
             executeUpdateStock();
         } catch (Exception e) {
@@ -125,6 +127,20 @@ public abstract class AbstractStockUpdater implements StockUpdater {
      */
     protected abstract void updateGoodsAllocationOutputStockQuantity() throws Exception;
 
+    /**
+     * 更新商品货位锁定库存
+     *
+     * @throws Exception 交由基类处理
+     */
+    protected abstract void updateGoodsAllocationDetailLockedStockQuantity() throws Exception;
+
+    /**
+     * 更新商品货位已销售库存
+     *
+     * @throws Exception 交由基类处理
+     */
+    protected abstract void updateGoodsAllocationDetailCurrentStockQuantity() throws Exception;
+
 
     /**
      * 设置库存修改时间
@@ -132,10 +148,10 @@ public abstract class AbstractStockUpdater implements StockUpdater {
      * @throws Exception 交由基类处理
      */
     private void updateGmtModified() throws Exception {
-        for (GoodsStockDO goodsStockDO : goodsStocks) {
-            goodsStockDO.setGmtModified(dateProvider.getCurrentTime());
+        for (SchecduleGoodsStockDO schecduleGoodsStockDO : goodsStocks) {
+            schecduleGoodsStockDO.setGmtModified(dateProvider.getCurrentTime());
         }
-        for (GoodsAllocationStockDO goodsAllocationStock : goodsAllocationStocks) {
+        for (ScheduleGoodsAllocationStockDO goodsAllocationStock : goodsAllocationStocks) {
             goodsAllocationStock.setGmtModified(dateProvider.getCurrentTime());
         }
     }
@@ -144,12 +160,12 @@ public abstract class AbstractStockUpdater implements StockUpdater {
      * 实际执行更新商品库存操作
      */
     private void executeUpdateStock() {
-        for (GoodsStockDO goodsStock : goodsStocks) {
-            goodsStockDAO.update(goodsStock);
+        for (SchecduleGoodsStockDO goodsStock : goodsStocks) {
+            scheduleGoodsStockDAO.update(goodsStock);
         }
 
-        for (GoodsAllocationStockDO goodsAllocationStock : goodsAllocationStocks) {
-            goodsAllocationStockDAO.update(goodsAllocationStock);
+        for (ScheduleGoodsAllocationStockDO goodsAllocationStock : goodsAllocationStocks) {
+            scheduleGoodsAllocationStockDAO.update(goodsAllocationStock);
         }
     }
 }

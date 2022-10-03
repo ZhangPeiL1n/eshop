@@ -1,11 +1,11 @@
 package com.zpl.eshop.schedule.stock;
 
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.schedule.dao.GoodsAllocationStockDAO;
-import com.zpl.eshop.schedule.dao.GoodsStockDAO;
-import com.zpl.eshop.schedule.domain.GoodsAllocationStockDO;
+import com.zpl.eshop.schedule.dao.ScheduleGoodsAllocationStockDAO;
+import com.zpl.eshop.schedule.dao.ScheduleGoodsStockDAO;
 import com.zpl.eshop.schedule.domain.GoodsAllocationStockId;
-import com.zpl.eshop.schedule.domain.GoodsStockDO;
+import com.zpl.eshop.schedule.domain.SchecduleGoodsStockDO;
+import com.zpl.eshop.schedule.domain.ScheduleGoodsAllocationStockDO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,19 +18,19 @@ import java.util.List;
  * @author ZhangPeiL1n
  * @date 2022/1/25 22:09
  **/
-public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFactory<T> {
+public abstract class AbstractScheduleStockUpdaterFactory<T> implements ScheduleStockUpdaterFactory<T> {
 
-    private final Logger logger = LoggerFactory.getLogger(AbstractStockUpdaterFactory.class);
+    private final Logger logger = LoggerFactory.getLogger(AbstractScheduleStockUpdaterFactory.class);
 
     /**
      * 商品库存管理模块DAO组件
      */
-    protected GoodsStockDAO goodsStockDAO;
+    protected ScheduleGoodsStockDAO scheduleGoodsStockDAO;
 
     /**
      * 商品货位库存管理DAO组件
      */
-    protected GoodsAllocationStockDAO goodsAllocationStockDAO;
+    protected ScheduleGoodsAllocationStockDAO scheduleGoodsAllocationStockDAO;
 
     /**
      * 日期辅助组件
@@ -40,15 +40,15 @@ public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFact
     /**
      * 构造函数
      *
-     * @param goodsStockDAO 商品库存管理模块的DAO组件
-     * @param dateProvider  日期辅助组件
+     * @param scheduleGoodsStockDAO 商品库存管理模块的DAO组件
+     * @param dateProvider          日期辅助组件
      */
-    public AbstractStockUpdaterFactory(
-            GoodsStockDAO goodsStockDAO,
-            GoodsAllocationStockDAO goodsAllocationStockDAO,
+    public AbstractScheduleStockUpdaterFactory(
+            ScheduleGoodsStockDAO scheduleGoodsStockDAO,
+            ScheduleGoodsAllocationStockDAO scheduleGoodsAllocationStockDAO,
             DateProvider dateProvider) {
-        this.goodsStockDAO = goodsStockDAO;
-        this.goodsAllocationStockDAO = goodsAllocationStockDAO;
+        this.scheduleGoodsStockDAO = scheduleGoodsStockDAO;
+        this.scheduleGoodsAllocationStockDAO = scheduleGoodsAllocationStockDAO;
         this.dateProvider = dateProvider;
     }
 
@@ -59,12 +59,12 @@ public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFact
      * @return 库存更新命令
      */
     @Override
-    public StockUpdater create(T parameter) {
+    public ScheduleStockUpdater create(T parameter) {
         try {
             List<Long> goodsSkuIds = getGoodsSkuIds(parameter);
-            List<GoodsStockDO> goodsStocks = getGoodsStocks(goodsSkuIds);
+            List<SchecduleGoodsStockDO> goodsStocks = getGoodsStocks(goodsSkuIds);
             List<GoodsAllocationStockId> goodsAllocationStockIds = getGoodsAllocationIds(parameter);
-            List<GoodsAllocationStockDO> goodsAllocationStocks = getGoodsAllocationStocks(goodsAllocationStockIds);
+            List<ScheduleGoodsAllocationStockDO> goodsAllocationStocks = getGoodsAllocationStocks(goodsAllocationStockIds);
             return create(goodsStocks, goodsAllocationStocks, parameter);
         } catch (Exception e) {
             logger.error("error", e);
@@ -98,9 +98,9 @@ public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFact
      * @return 商品更新命令
      * @throws Exception
      */
-    protected abstract StockUpdater create(List<GoodsStockDO> goodsStocks,
-                                           List<GoodsAllocationStockDO> goodsAllocationStocks,
-                                           T parameter) throws Exception;
+    protected abstract ScheduleStockUpdater create(List<SchecduleGoodsStockDO> goodsStocks,
+                                                   List<ScheduleGoodsAllocationStockDO> goodsAllocationStocks,
+                                                   T parameter) throws Exception;
 
     /**
      * 获取商品库存DO对象集合
@@ -108,10 +108,10 @@ public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFact
      * @param goodsSkuIds 商品skuId集合
      * @return 商品库存DO对象集合
      */
-    private List<GoodsStockDO> getGoodsStocks(List<Long> goodsSkuIds) throws Exception {
-        List<GoodsStockDO> goodsStocks = new ArrayList<>(goodsSkuIds.size());
+    private List<SchecduleGoodsStockDO> getGoodsStocks(List<Long> goodsSkuIds) throws Exception {
+        List<SchecduleGoodsStockDO> goodsStocks = new ArrayList<>(goodsSkuIds.size());
         for (Long goodsSkuId : goodsSkuIds) {
-            GoodsStockDO goodsStock = goodsStockDAO.getBySkuId(goodsSkuId);
+            SchecduleGoodsStockDO goodsStock = scheduleGoodsStockDAO.getBySkuId(goodsSkuId);
             // 如果没有库存对象就新建一个
             if (goodsStock == null) {
                 goodsStock = createGoodsStockDO(goodsSkuId);
@@ -127,10 +127,10 @@ public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFact
      * @param goodsAllocationStockIds 货位id集合
      * @return 货位对象
      */
-    private List<GoodsAllocationStockDO> getGoodsAllocationStocks(List<GoodsAllocationStockId> goodsAllocationStockIds) throws Exception {
-        List<GoodsAllocationStockDO> goodsAllocationStocks = new ArrayList<>(goodsAllocationStockIds.size());
+    private List<ScheduleGoodsAllocationStockDO> getGoodsAllocationStocks(List<GoodsAllocationStockId> goodsAllocationStockIds) throws Exception {
+        List<ScheduleGoodsAllocationStockDO> goodsAllocationStocks = new ArrayList<>(goodsAllocationStockIds.size());
         for (GoodsAllocationStockId goodsAllocationStockId : goodsAllocationStockIds) {
-            GoodsAllocationStockDO goodsAllocationStock = goodsAllocationStockDAO.getBySkuId(goodsAllocationStockId.getGoodsAllocationId(), goodsAllocationStockId.getGoodsSkuId());
+            ScheduleGoodsAllocationStockDO goodsAllocationStock = scheduleGoodsAllocationStockDAO.getBySkuId(goodsAllocationStockId.getGoodsAllocationId(), goodsAllocationStockId.getGoodsSkuId());
             // 如果没有库存对象就新建一个
             if (goodsAllocationStock == null) {
                 goodsAllocationStock = createGoodsAllocationStockDO(goodsAllocationStockId.getGoodsAllocationId(), goodsAllocationStockId.getGoodsSkuId());
@@ -147,21 +147,21 @@ public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFact
      * @return 商品库存DO对象
      * @throws Exception
      */
-    private GoodsStockDO createGoodsStockDO(Long goodsSkuId) throws Exception {
-        GoodsStockDO goodsStock = new GoodsStockDO();
+    private SchecduleGoodsStockDO createGoodsStockDO(Long goodsSkuId) throws Exception {
+        SchecduleGoodsStockDO goodsStock = new SchecduleGoodsStockDO();
         goodsStock.setGoodsSkuId(goodsSkuId);
         goodsStock.setAvailableStockQuantity(0L);
         goodsStock.setLockedStockQuantity(0L);
         goodsStock.setOutputStockQuantity(0L);
         goodsStock.setGmtCreate(dateProvider.getCurrentTime());
         goodsStock.setGmtModified(dateProvider.getCurrentTime());
-        goodsStockDAO.save(goodsStock);
+        scheduleGoodsStockDAO.save(goodsStock);
 
         return goodsStock;
     }
 
-    private GoodsAllocationStockDO createGoodsAllocationStockDO(Long goodsAllocationId, Long goodsSkuId) throws Exception {
-        GoodsAllocationStockDO goodsAllocationStock = new GoodsAllocationStockDO();
+    private ScheduleGoodsAllocationStockDO createGoodsAllocationStockDO(Long goodsAllocationId, Long goodsSkuId) throws Exception {
+        ScheduleGoodsAllocationStockDO goodsAllocationStock = new ScheduleGoodsAllocationStockDO();
         goodsAllocationStock.setGoodsAllocationId(goodsAllocationId);
         goodsAllocationStock.setGoodsSkuId(goodsSkuId);
         goodsAllocationStock.setAvailableStockQuantity(0L);
@@ -169,7 +169,7 @@ public abstract class AbstractStockUpdaterFactory<T> implements StockUpdaterFact
         goodsAllocationStock.setOutputStockQuantity(0L);
         goodsAllocationStock.setGmtCreate(dateProvider.getCurrentTime());
         goodsAllocationStock.setGmtModified(dateProvider.getCurrentTime());
-        goodsAllocationStockDAO.save(goodsAllocationStock);
+        scheduleGoodsAllocationStockDAO.save(goodsAllocationStock);
 
         return goodsAllocationStock;
     }

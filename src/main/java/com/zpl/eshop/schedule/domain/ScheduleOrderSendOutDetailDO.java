@@ -7,39 +7,38 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 商品库存
+ * 发货明细
  *
  * @author ZhangPeiL1n
- * @date 2022/9/15 22:23
+ * @date 2022/10/3 18:18
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class GoodsStockDO extends AbstractObject {
-
+public class ScheduleOrderSendOutDetailDO extends AbstractObject {
     /**
      * id
      */
     private Long id;
 
     /**
-     * 商品sku id
+     * 订单id
      */
-    private Long goodsSkuId;
+    private Long orderInfoId;
 
     /**
-     * 可用库存
+     * 订单条目id
      */
-    private Long availableStockQuantity;
+    private Long orderItemId;
 
     /**
-     * 锁定库存
+     * 货位库存明细id
      */
-    private Long lockedStockQuantity;
+    private Long goodsAllocationStockDetailId;
 
     /**
-     * 已出库库存
+     * 发货数量
      */
-    private Long outputStockQuantity;
+    private Long sendOutQuantity;
 
     /**
      * 创建时间
@@ -50,5 +49,4 @@ public class GoodsStockDO extends AbstractObject {
      * 修改时间
      */
     private Date gmtModified;
-
 }
