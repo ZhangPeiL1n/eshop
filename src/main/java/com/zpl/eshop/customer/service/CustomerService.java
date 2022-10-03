@@ -19,7 +19,7 @@ public interface CustomerService {
      */
     Boolean createReturnGoodsWorkSheet(
             Long orderId, String orderNo,
-            String returnGoodsReason, String returnGoodsRemark);
+            Integer returnGoodsReason, String returnGoodsRemark);
 
     /**
      * 同步物流单号
