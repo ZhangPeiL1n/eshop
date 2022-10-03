@@ -6,30 +6,33 @@ package com.zpl.eshop.customer.service;
  * @author ZhangPeiL1n
  * @date 2022/1/3 21:32
  **/
-public interface CustomerFacadeService {
+public interface CustomerService {
 
     /**
      * 创建退货工单
      *
-     * @param orderId            订单 id
-     * @param orderNo            订单编号
-     * @param returnGoodsReason  退货原因
-     * @param returnGoodsComment 退货备注
+     * @param orderId           订单 id
+     * @param orderNo           订单编号
+     * @param returnGoodsReason 退货原因
+     * @param returnGoodsRemark 退货备注
      * @return 处理结果
      */
-    Boolean createReturnGoodsWorkSheet(Long orderId, String orderNo, String returnGoodsReason, String returnGoodsComment);
+    Boolean createReturnGoodsWorkSheet(
+            Long orderId, String orderNo,
+            String returnGoodsReason, String returnGoodsRemark);
 
     /**
      * 同步物流单号
      *
      * @param orderId                  订单id
-     * @param returnGoodsCourierNumber 退货物流单号
+     * @param returnGoodsLogisticsCode 退货物流单号
      * @return 处理结果
      */
-    Boolean syncReturnGoodsCourierNumber(Long orderId, String returnGoodsCourierNumber);
+    Boolean syncReturnGoodsCourierNumber(Long orderId, String returnGoodsLogisticsCode);
 
     /**
      * 通知客服中心，“完成退货入库”事件发生了
+     *
      * @param returnGoodsWorksheetId 退货工单id
      * @return 处理结果
      */
@@ -37,6 +40,7 @@ public interface CustomerFacadeService {
 
     /**
      * 通知客服中心，“完成退款”事件发生了
+     *
      * @param returnGoodsWorksheetId 退货工单id
      * @return 处理结果
      */
