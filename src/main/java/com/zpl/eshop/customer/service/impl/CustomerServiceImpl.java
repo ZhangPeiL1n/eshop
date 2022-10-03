@@ -24,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Boolean createReturnGoodsWorkSheet(
             Long orderId, String orderNo,
-            String returnGoodsReason, String returnGoodsRemark) {
+            Integer returnGoodsReason, String returnGoodsRemark) {
         return true;
     }
 
