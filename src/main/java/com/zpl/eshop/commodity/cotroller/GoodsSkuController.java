@@ -1,6 +1,7 @@
 package com.zpl.eshop.commodity.cotroller;
 
 import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
+import com.zpl.eshop.commodity.domain.GoodsSkuQuery;
 import com.zpl.eshop.commodity.domain.GoodsSkuVO;
 import com.zpl.eshop.commodity.service.GoodsSkuService;
 import com.zpl.eshop.common.util.CloneDirection;
@@ -78,6 +79,23 @@ public class GoodsSkuController {
         } catch (Exception e) {
             logger.error("error", e);
             return false;
+        }
+    }
+
+    /**
+     * 分页查询商品sku
+     *
+     * @param query 查询条件
+     * @return 商品sku集合
+     */
+    @GetMapping("/")
+    public List<GoodsSkuVO> listGoodsSkusByPage(GoodsSkuQuery query) {
+        try {
+            return ObjectUtils.convertList(goodsSkuService.listByPage(query),
+                    GoodsSkuVO.class);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return new ArrayList<>();
         }
     }
 }
