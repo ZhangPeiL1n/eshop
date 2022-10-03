@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 销售出库单件货条目DTO
+ * 销售出库单拣货条目DTO
  *
  * @author ZhangPeiL1n
  * @date 2022/8/16 18:39
@@ -22,9 +22,9 @@ public class SaleDeliveryOrderPickingItemDTO extends AbstractObject {
     private Long id;
 
     /**
-     * 销售出库单id
+     * 销售出库单条目id
      */
-    private Long saleDeliveryOrderId;
+    private Long saleDeliveryOrderItemId;
 
     /**
      * 商品skuId
