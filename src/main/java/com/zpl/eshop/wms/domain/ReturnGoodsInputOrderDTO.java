@@ -109,7 +109,7 @@ public class ReturnGoodsInputOrderDTO extends AbstractObject {
     /**
      * 退货备注
      */
-    private String returnGoodsComment;
+    private String returnGoodsRemark;
 
     /**
      * 退货的实际到货时间
