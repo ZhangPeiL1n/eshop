@@ -13,6 +13,7 @@ import com.zpl.eshop.order.domain.*;
 import com.zpl.eshop.order.price.*;
 import com.zpl.eshop.order.service.OrderInfoService;
 import com.zpl.eshop.order.state.OrderStateManager;
+import com.zpl.eshop.pay.service.PayService;
 import com.zpl.eshop.promotion.constant.PromotionActivityType;
 import com.zpl.eshop.promotion.domain.CouponDTO;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
@@ -104,6 +105,12 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      */
     @Autowired
     private OrderStateManager orderStateManager;
+
+    /**
+     * 支付中心
+     */
+    @Autowired
+    private PayService payService;
 
     /**
      * 计算订单价格
@@ -253,7 +260,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      */
     @Override
     public Boolean cancel(Long id) throws Exception {
-        OrderInfoDTO order = getOrderInfoDTO(id);
+        OrderInfoDTO order = getById(id);
         if (order == null) {
             return false;
         }
@@ -267,16 +274,19 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     }
 
     /**
-     * 获取订单DTO
+     * 支付订单
      *
      * @param id 订单id
-     * @return
+     * @return 处理结果
+     * @throws Exception
      */
-    private OrderInfoDTO getOrderInfoDTO(Long id) throws Exception {
-        OrderInfoDTO orderInfoDTO = orderInfoDAO.getById(id).clone(OrderInfoDTO.class);
-        List<OrderItemDTO> orderItemDTOList = ObjectUtils.convertList(orderItemDAO.listByOrderInfoId(orderInfoDTO.getId()), OrderItemDTO.class);
-        orderInfoDTO.setOrderItems(orderItemDTOList);
-        return orderInfoDTO;
+    @Override
+    public String pay(Long id) throws Exception {
+        OrderInfoDTO order = getById(id);
+        if (!orderStateManager.canPay(order)) {
+            return null;
+        }
+        return payService.getQrCode(order);
     }
 
     /**

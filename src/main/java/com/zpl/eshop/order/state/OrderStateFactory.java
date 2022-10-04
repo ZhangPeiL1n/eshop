@@ -26,6 +26,11 @@ public class OrderStateFactory {
     @Autowired
     private CanceledOrderState canceledOrderState;
 
+    /**
+     * 待发货状态组件
+     */
+    @Autowired
+    private WaitForDeliveryState waitForDeliveryState;
 
     /**
      * 默认状态组件
@@ -54,6 +59,8 @@ public class OrderStateFactory {
             return waitForPayOrderState;
         } else if (OrderStatus.CANCELED.equals(orderStatus)) {
             return canceledOrderState;
+        } else if ((OrderStatus.WAIT_FOR_DELIVERY.equals(orderStatus))) {
+            return waitForDeliveryState;
         }
         return defaultOrderState;
     }

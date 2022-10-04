@@ -24,4 +24,12 @@ public interface OrderState {
      * @return 能否取消
      */
     Boolean canCancel(OrderInfoDTO order);
+
+    /**
+     * 判断当前状态能否执行支付操作
+     *
+     * @param order 订单
+     * @return 能否支付
+     */
+    Boolean canPay(OrderInfoDTO order);
 }

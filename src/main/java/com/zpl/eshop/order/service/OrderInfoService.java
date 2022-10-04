@@ -62,4 +62,13 @@ public interface OrderInfoService {
      */
     Boolean cancel(Long id) throws Exception;
 
+    /**
+     * 支付订单
+     *
+     * @param id 订单id
+     * @return 处理结果
+     * @throws Exception
+     */
+    String pay(Long id) throws Exception;
+
 }

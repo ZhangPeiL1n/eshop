@@ -54,4 +54,27 @@ public class OrderStateManagerImpl implements OrderStateManager {
         OrderState canceledState = orderStateFactory.getByOrderStatus(OrderStatus.CANCELED);
         canceledState.doTransition(order);
     }
+
+    /**
+     * 能否支付订单
+     *
+     * @param order 订单
+     * @return
+     */
+    @Override
+    public Boolean canPay(OrderInfoDTO order) {
+        OrderState orderState = orderStateFactory.get(order);
+        return orderState.canPay(order);
+    }
+
+    /**
+     * 支付订单
+     *
+     * @param order
+     */
+    @Override
+    public void payOrder(OrderInfoDTO order) throws Exception {
+        OrderState waitForDeliveryState = orderStateFactory.getByOrderStatus(OrderStatus.WAIT_FOR_DELIVERY);
+        waitForDeliveryState.doTransition(order);
+    }
 }

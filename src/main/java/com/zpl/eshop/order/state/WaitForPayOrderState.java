@@ -51,4 +51,15 @@ public class WaitForPayOrderState implements OrderState {
     public Boolean canCancel(OrderInfoDTO order) {
         return true;
     }
+
+    /**
+     * 判断当前状态能否执行支付操作
+     *
+     * @param order 订单
+     * @return 能否支付
+     */
+    @Override
+    public Boolean canPay(OrderInfoDTO order) {
+        return true;
+    }
 }

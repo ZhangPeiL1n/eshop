@@ -137,4 +137,20 @@ public class OrderInfoController {
             return false;
         }
     }
+
+    /**
+     * 支付订单
+     *
+     * @param id 订单id
+     * @return 支付二维码
+     */
+    @PutMapping("/pay/{id}")
+    public String pay(@PathVariable("id") Long id) {
+        try {
+            return orderInfoService.pay(id);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
+    }
 }

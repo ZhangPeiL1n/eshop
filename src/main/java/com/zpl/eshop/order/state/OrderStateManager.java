@@ -31,4 +31,19 @@ public interface OrderStateManager {
      * @param order 订单
      */
     void cancelOrder(OrderInfoDTO order) throws Exception;
+
+    /**
+     * 能否支付订单
+     *
+     * @param order 订单
+     * @return
+     */
+    Boolean canPay(OrderInfoDTO order);
+
+    /**
+     * 支付订单
+     *
+     * @param order 订单
+     */
+    void payOrder(OrderInfoDTO order) throws Exception;
 }
