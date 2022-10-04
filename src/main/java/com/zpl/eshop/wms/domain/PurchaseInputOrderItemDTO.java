@@ -40,7 +40,7 @@ public class PurchaseInputOrderItemDTO extends AbstractObject {
     /**
      * 采购价格
      */
-    private Long purchasePrice;
+    private Double purchasePrice;
 
     /**
      * 合格数量
