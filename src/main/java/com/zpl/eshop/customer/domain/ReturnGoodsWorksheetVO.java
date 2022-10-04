@@ -14,7 +14,7 @@ import java.util.Date;
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ReturnGoodsWorksheetDTO extends AbstractObject {
+public class ReturnGoodsWorksheetVO extends AbstractObject {
     /**
      * id
      */
