@@ -4,8 +4,8 @@ import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.order.domain.OrderItemDTO;
 import com.zpl.eshop.schedule.dao.ScheduleOrderPickingItemDAO;
 import com.zpl.eshop.schedule.domain.ScheduleOrderPickingItemDO;
+import com.zpl.eshop.schedule.domain.ScheduleOrderPickingItemDTO;
 import com.zpl.eshop.schedule.mapper.ScheduleOrderPickingItemMapper;
-import com.zpl.eshop.wms.domain.SaleDeliveryOrderPickingItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,25 +31,45 @@ public class ScheduleOrderPickingItemDAOImpl implements ScheduleOrderPickingItem
     private DateProvider dateProvider;
 
     /**
-     * 新增拣货条目
+     * 批量插入拣货条目
      *
-     * @param saleDeliveryOrderPickingItems 拣货条目
-     * @param orderItem                     订单条目
+     * @param orderItem    订单条目
+     * @param pickingItems 拣货条目
      */
     @Override
-    public void batchSave(List<SaleDeliveryOrderPickingItemDTO> saleDeliveryOrderPickingItems,
-                          OrderItemDTO orderItem) throws Exception {
-        for (SaleDeliveryOrderPickingItemDTO saleDeliveryOrderPickingItem : saleDeliveryOrderPickingItems) {
-            ScheduleOrderPickingItemDO pickingItem = saleDeliveryOrderPickingItem.clone(
-                    ScheduleOrderPickingItemDO.class);
-
+    public void batchSave(OrderItemDTO orderItem,
+                          List<ScheduleOrderPickingItemDTO> pickingItems) throws Exception {
+        for (ScheduleOrderPickingItemDTO pickingItem : pickingItems) {
             pickingItem.setId(null);
             pickingItem.setOrderInfoId(orderItem.getOrderInfoId());
             pickingItem.setOrderItemId(orderItem.getId());
             pickingItem.setGmtCreate(dateProvider.getCurrentTime());
             pickingItem.setGmtModified(dateProvider.getCurrentTime());
 
-            pickingItemMapper.save(pickingItem);
+            pickingItemMapper.save(pickingItem.clone(ScheduleOrderPickingItemDO.class));
         }
+    }
+
+    /**
+     * 根据订单id和订单条目id查询拣货条目
+     *
+     * @param orderInfoId 订单id
+     * @param orderItemId 订单条目id
+     * @return
+     */
+    @Override
+    public List<ScheduleOrderPickingItemDO> listByOrderItemId(Long orderInfoId, Long orderItemId) {
+        return pickingItemMapper.listByOrderItemId(orderInfoId, orderItemId);
+    }
+
+    /**
+     * 根据订单条目id删除拣货条目
+     *
+     * @param orderInfoId 订单id
+     * @param orderItemId 订单条目id
+     */
+    @Override
+    public void removeByOrderItemId(Long orderInfoId, Long orderItemId) {
+        pickingItemMapper.removeByOrderItemId(orderInfoId, orderItemId);
     }
 }

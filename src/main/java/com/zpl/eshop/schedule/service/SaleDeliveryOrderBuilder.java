@@ -1,4 +1,4 @@
-package com.zpl.eshop.schedule.service.impl;
+package com.zpl.eshop.schedule.service;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;

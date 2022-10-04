@@ -7,14 +7,14 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 商品库存
+ * 调度中心货位库存明细DO
  *
  * @author ZhangPeiL1n
- * @date 2022/9/15 22:23
+ * @date 2022/10/4 17:24
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SchecduleGoodsStockDO extends AbstractObject {
+public class ScheduleGoodsAllocationStockDetailDTO extends AbstractObject {
 
     /**
      * id
@@ -27,19 +27,29 @@ public class SchecduleGoodsStockDO extends AbstractObject {
     private Long goodsSkuId;
 
     /**
-     * 可用库存
+     * 货位id
      */
-    private Long availableStockQuantity;
+    private Long goodsAllocationId;
 
     /**
-     * 锁定库存
+     * 上架时间
+     */
+    private Date putOnTime;
+
+    /**
+     * 上架数量
+     */
+    private Long putOnQuantity;
+
+    /**
+     * 当前剩余库存数量
+     */
+    private Long currentStockQuantity;
+
+    /**
+     * 当前锁定的库存数量
      */
     private Long lockedStockQuantity;
-
-    /**
-     * 已出库库存
-     */
-    private Long outputStockQuantity;
 
     /**
      * 创建时间
@@ -50,5 +60,4 @@ public class SchecduleGoodsStockDO extends AbstractObject {
      * 修改时间
      */
     private Date gmtModified;
-
 }

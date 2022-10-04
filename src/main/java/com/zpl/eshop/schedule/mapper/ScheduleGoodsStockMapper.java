@@ -1,7 +1,7 @@
 package com.zpl.eshop.schedule.mapper;
 
 
-import com.zpl.eshop.schedule.domain.SchecduleGoodsStockDO;
+import com.zpl.eshop.schedule.domain.ScheduleGoodsStockDO;
 import org.apache.ibatis.annotations.*;
 
 /**
@@ -39,12 +39,12 @@ public interface ScheduleGoodsStockMapper {
             @Result(column = "gmt_create", property = "gmtCreate"),
             @Result(column = "gmt_modified", property = "gmtModified")
     })
-    SchecduleGoodsStockDO getBySkuId(@Param("goodsSkuId") Long goodsSkuId);
+    ScheduleGoodsStockDO getBySkuId(@Param("goodsSkuId") Long goodsSkuId);
 
     /**
      * 新增商品库存
      *
-     * @param schecduleGoodsStockDO 商品库存DO对象
+     * @param scheduleGoodsStockDO 商品库存DO对象
      */
     @Insert("INSERT INTO schedule_goods_stock(" +
             "goods_sku_id," +
@@ -62,12 +62,12 @@ public interface ScheduleGoodsStockMapper {
             "#{gmtModified}" +
             ")")
     @Options(keyColumn = "id", keyProperty = "id", useGeneratedKeys = true)
-    void save(SchecduleGoodsStockDO schecduleGoodsStockDO);
+    void save(ScheduleGoodsStockDO scheduleGoodsStockDO);
 
     /**
      * 更新商品库存
      *
-     * @param schecduleGoodsStockDO 商品库存
+     * @param scheduleGoodsStockDO 商品库存
      */
     @Update("UPDATE schedule_goods_stock SET" +
             " goods_sku_id = #{goodsSkuId}," +
@@ -77,5 +77,5 @@ public interface ScheduleGoodsStockMapper {
             " gmt_create = #{gmtCreate}," +
             " gmt_modified = #{gmtModified}" +
             " WHERE id = #{id}")
-    void update(SchecduleGoodsStockDO schecduleGoodsStockDO);
+    void update(ScheduleGoodsStockDO scheduleGoodsStockDO);
 }

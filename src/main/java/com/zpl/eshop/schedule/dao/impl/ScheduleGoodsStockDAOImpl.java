@@ -1,8 +1,9 @@
 package com.zpl.eshop.schedule.dao.impl;
 
 
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.schedule.dao.ScheduleGoodsStockDAO;
-import com.zpl.eshop.schedule.domain.SchecduleGoodsStockDO;
+import com.zpl.eshop.schedule.domain.ScheduleGoodsStockDO;
 import com.zpl.eshop.schedule.mapper.ScheduleGoodsStockMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,10 +18,16 @@ import org.springframework.stereotype.Repository;
 public class ScheduleGoodsStockDAOImpl implements ScheduleGoodsStockDAO {
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 商品库存管理模块mapper组件
      */
     @Autowired
-    private ScheduleGoodsStockMapper scheduleGoodsStockMapper;
+    private ScheduleGoodsStockMapper stockMapper;
 
 
     /**
@@ -30,27 +37,39 @@ public class ScheduleGoodsStockDAOImpl implements ScheduleGoodsStockDAO {
      * @return 商品库存DO
      */
     @Override
-    public SchecduleGoodsStockDO getBySkuId(Long goodsSkuId) {
-        return scheduleGoodsStockMapper.getBySkuId(goodsSkuId);
+    public ScheduleGoodsStockDO getBySkuId(Long goodsSkuId) throws Exception {
+        ScheduleGoodsStockDO goodsStock = stockMapper.getBySkuId(goodsSkuId);
+        if (goodsStock == null) {
+            goodsStock = new ScheduleGoodsStockDO();
+            goodsStock.setGoodsSkuId(goodsSkuId);
+            goodsStock.setAvailableStockQuantity(0L);
+            goodsStock.setLockedStockQuantity(0L);
+            goodsStock.setOutputStockQuantity(0L);
+            save(goodsStock);
+        }
+        return goodsStock;
     }
 
     /**
      * 新增商品库存
      *
-     * @param schecduleGoodsStockDO 商品库存DO对象
+     * @param goodsStock 商品库存DO对象
      */
     @Override
-    public void save(SchecduleGoodsStockDO schecduleGoodsStockDO) {
-        scheduleGoodsStockMapper.save(schecduleGoodsStockDO);
+    public void save(ScheduleGoodsStockDO goodsStock) throws Exception {
+        goodsStock.setGmtCreate(dateProvider.getCurrentTime());
+        goodsStock.setGmtModified(dateProvider.getCurrentTime());
+        stockMapper.save(goodsStock);
     }
 
     /**
      * 更新商品库存
      *
-     * @param schecduleGoodsStockDO 商品库存
+     * @param goodsStock 商品库存
      */
     @Override
-    public void update(SchecduleGoodsStockDO schecduleGoodsStockDO) {
-        scheduleGoodsStockMapper.update(schecduleGoodsStockDO);
+    public void update(ScheduleGoodsStockDO goodsStock) throws Exception {
+        goodsStock.setGmtModified(dateProvider.getCurrentTime());
+        stockMapper.update(goodsStock);
     }
 }

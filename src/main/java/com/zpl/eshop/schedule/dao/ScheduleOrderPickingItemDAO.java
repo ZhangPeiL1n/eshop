@@ -1,7 +1,8 @@
 package com.zpl.eshop.schedule.dao;
 
 import com.zpl.eshop.order.domain.OrderItemDTO;
-import com.zpl.eshop.wms.domain.SaleDeliveryOrderPickingItemDTO;
+import com.zpl.eshop.schedule.domain.ScheduleOrderPickingItemDO;
+import com.zpl.eshop.schedule.domain.ScheduleOrderPickingItemDTO;
 
 import java.util.List;
 
@@ -14,11 +15,28 @@ import java.util.List;
 public interface ScheduleOrderPickingItemDAO {
 
     /**
-     * 新增拣货条目
+     * 批量插入拣货条目
      *
-     * @param saleDeliveryOrderPickingItems 销售出库单拣货条目
-     * @param orderItem                     订单条目
+     * @param orderItem    订单条目
+     * @param pickingItems 拣货条目
      */
-    void batchSave(List<SaleDeliveryOrderPickingItemDTO> saleDeliveryOrderPickingItems,
-                   OrderItemDTO orderItem) throws Exception;
+    void batchSave(OrderItemDTO orderItem,
+                   List<ScheduleOrderPickingItemDTO> pickingItems) throws Exception;
+
+    /**
+     * 根据订单id和订单条目id查询拣货条目
+     *
+     * @param orderInfoId 订单id
+     * @param orderItemId 订单条目id
+     * @return
+     */
+    List<ScheduleOrderPickingItemDO> listByOrderItemId(Long orderInfoId, Long orderItemId);
+
+    /**
+     * 根据订单条目id删除拣货条目
+     *
+     * @param orderInfoId 订单id
+     * @param orderItemId 订单条目id
+     */
+    void removeByOrderItemId(Long orderInfoId, Long orderItemId);
 }

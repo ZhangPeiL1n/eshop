@@ -1,17 +1,20 @@
 package com.zpl.eshop.schedule.stock;
 
-import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.schedule.dao.ScheduleGoodsAllocationStockDAO;
+import com.zpl.eshop.schedule.dao.ScheduleGoodsAllocationStockDetailDAO;
 import com.zpl.eshop.schedule.dao.ScheduleGoodsStockDAO;
-import com.zpl.eshop.schedule.domain.GoodsAllocationStockId;
-import com.zpl.eshop.schedule.domain.SchecduleGoodsStockDO;
 import com.zpl.eshop.schedule.domain.ScheduleGoodsAllocationStockDO;
+import com.zpl.eshop.schedule.domain.ScheduleGoodsAllocationStockDetailDO;
+import com.zpl.eshop.schedule.domain.ScheduleGoodsStockDO;
+import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDTO;
+import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderItemDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderPutOnItemDTO;
-import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 采购入库库存更新组件
@@ -19,83 +22,79 @@ import java.util.Map;
  * @author ZhangPeiL1n
  * @date 2022/1/24 23:03
  **/
+@Component
+@Scope("prototype")
 public class PurchaseInputScheduleStockUpdater extends AbstractScheduleStockUpdater {
 
     /**
-     * 采购入库单条目
+     * 采购入库单
      */
-    @Setter
-    private Map<Long, PurchaseInputOrderItemDTO> itemMap;
+    private PurchaseInputOrderDTO purchaseInputOrder;
 
     /**
-     * 采购入库单上架条目
+     * 商品库存管理的DAO组件
      */
-    @Setter
-    private Map<GoodsAllocationStockId, PurchaseInputOrderPutOnItemDTO> putOnItemMap;
+    @Autowired
+    private ScheduleGoodsStockDAO goodsStockDAO;
 
     /**
-     * 构造函数
+     * 货位库存管理的DAO组件
+     */
+    @Autowired
+    private ScheduleGoodsAllocationStockDAO goodsAllocationStockDAO;
+
+    /**
+     * 货位库存明细管理的DAO组件
+     */
+    @Autowired
+    private ScheduleGoodsAllocationStockDetailDAO stockDetailDAO;
+
+    /**
+     * 更新商品库存
      *
-     * @param goodsStocks           商品库存对象
-     * @param scheduleGoodsStockDAO 商品库存管理模块DAO组件
-     * @param dateProvider          日期辅助组件
+     * @throws Exception
      */
-    public PurchaseInputScheduleStockUpdater(
-            List<SchecduleGoodsStockDO> goodsStocks,
-            List<ScheduleGoodsAllocationStockDO> goodsAllocationStocks,
-            ScheduleGoodsStockDAO scheduleGoodsStockDAO,
-            ScheduleGoodsAllocationStockDAO scheduleGoodsAllocationStockDAO,
-            DateProvider dateProvider) {
-        super(goodsStocks, goodsAllocationStocks, scheduleGoodsStockDAO, scheduleGoodsAllocationStockDAO, dateProvider);
+    @Override
+    protected void updateGoodsStock() throws Exception {
+        List<PurchaseInputOrderItemDTO> purchaseInputOrderItems = purchaseInputOrder.getItems();
+        for (PurchaseInputOrderItemDTO purchaseInputOrderItem : purchaseInputOrderItems) {
+            ScheduleGoodsStockDO goodsStock = goodsStockDAO.getBySkuId(purchaseInputOrderItem.getGoodsSkuId());
+            goodsStock.setAvailableStockQuantity(
+                    goodsStock.getAvailableStockQuantity() + purchaseInputOrderItem.getArrivalCount());
+            goodsStockDAO.update(goodsStock);
+        }
     }
 
-
+    /**
+     * 更新货位库存
+     *
+     * @throws Exception
+     */
     @Override
-    protected void updateGoodsAvailableStockQuantity() throws Exception {
-        goodsStocks.forEach(goodsStock -> {
-            PurchaseInputOrderItemDTO item = itemMap.get(goodsStock.getGoodsSkuId());
-            Long availableStockQuantity = goodsStock.getAvailableStockQuantity() + item.getArrivalCount();
-            goodsStock.setAvailableStockQuantity(availableStockQuantity);
-        });
+    protected void updateGoodsAllocationStock() throws Exception {
+        List<PurchaseInputOrderPutOnItemDTO> putOnItems = purchaseInputOrder.getPutOnItems();
+        for (PurchaseInputOrderPutOnItemDTO putOnItem : putOnItems) {
+            ScheduleGoodsAllocationStockDO goodsAllocationStock = goodsAllocationStockDAO.getBySkuId(
+                    putOnItem.getGoodsAllocationId(), putOnItem.getGoodsSkuId());
+            goodsAllocationStock.setAvailableStockQuantity(
+                    goodsAllocationStock.getAvailableStockQuantity() + putOnItem.getPutOnShelvesCount());
+            goodsAllocationStockDAO.update(goodsAllocationStock);
+        }
     }
 
+    /**
+     * 更新货位库存明细
+     */
     @Override
-    protected void updateGoodsLockedStockQuantity() throws Exception {
-
-    }
-
-    @Override
-    protected void updateGoodsOutputStockQuantity() throws Exception {
-
-    }
-
-    @Override
-    protected void updateGoodsAllocationAvailableStockQuantity() throws Exception {
-        goodsAllocationStocks.forEach(goodsAllocationStock -> {
-            GoodsAllocationStockId id = new GoodsAllocationStockId(goodsAllocationStock.getGoodsAllocationId(), goodsAllocationStock.getGoodsSkuId());
-            PurchaseInputOrderPutOnItemDTO putOnItem = putOnItemMap.get(id);
-            Long availableStockQuantity = goodsAllocationStock.getAvailableStockQuantity() + putOnItem.getPutOnShelvesCount();
-            goodsAllocationStock.setAvailableStockQuantity(availableStockQuantity);
-        });
-    }
-
-    @Override
-    protected void updateGoodsAllocationLockedStockQuantity() throws Exception {
-
+    protected void updateGoodsAllocationStockDetail() throws Exception {
+        List<GoodsAllocationStockDetailDTO> stockDetails = purchaseInputOrder.getStockDetails();
+        for (GoodsAllocationStockDetailDTO stockDetail : stockDetails) {
+            stockDetailDAO.save(stockDetail.clone(ScheduleGoodsAllocationStockDetailDO.class));
+        }
     }
 
     @Override
-    protected void updateGoodsAllocationOutputStockQuantity() throws Exception {
-
-    }
-
-    @Override
-    protected void updateGoodsAllocationDetailLockedStockQuantity() throws Exception {
-
-    }
-
-    @Override
-    protected void updateGoodsAllocationDetailCurrentStockQuantity() throws Exception {
-
+    public void setParameter(Object parameter) {
+        this.purchaseInputOrder = (PurchaseInputOrderDTO) parameter;
     }
 }

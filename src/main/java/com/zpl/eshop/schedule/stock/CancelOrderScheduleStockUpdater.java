@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * 提交订单更新组件
+ * 取消订单更新组件
  *
  * @author ZhangPeiL1n
  * @date 2022/1/24 23:03
@@ -21,7 +21,7 @@ import java.util.List;
 @Component
 @Scope("prototype")
 @Transactional(rollbackFor = Exception.class)
-public class SubmitOrderScheduleStockUpdater extends AbstractScheduleStockUpdater {
+public class CancelOrderScheduleStockUpdater extends AbstractScheduleStockUpdater {
 
     /**
      * 商品库存管理的DAO组件
@@ -54,8 +54,8 @@ public class SubmitOrderScheduleStockUpdater extends AbstractScheduleStockUpdate
         OrderItemDTO orderItem = scheduleResult.getOrderItem();
         ScheduleGoodsStockDO goodsStock = goodsStockDAO.getBySkuId(orderItem.getGoodsSkuId());
         goodsStock.setAvailableStockQuantity(goodsStock.getAvailableStockQuantity()
-                - orderItem.getPurchaseQuantity());
-        goodsStock.setLockedStockQuantity(goodsStock.getLockedStockQuantity() +
+                + orderItem.getPurchaseQuantity());
+        goodsStock.setLockedStockQuantity(goodsStock.getLockedStockQuantity() -
                 orderItem.getPurchaseQuantity());
         goodsStockDAO.update(goodsStock);
     }
@@ -70,9 +70,9 @@ public class SubmitOrderScheduleStockUpdater extends AbstractScheduleStockUpdate
             ScheduleGoodsAllocationStockDO goodsAllocationStock = goodsAllocationStockDAO.getBySkuId(
                     pickingItem.getGoodsAllocationId(), pickingItem.getGoodsSkuId());
             goodsAllocationStock.setAvailableStockQuantity(goodsAllocationStock.getAvailableStockQuantity()
-                    - pickingItem.getPickingCount());
-            goodsAllocationStock.setLockedStockQuantity(goodsAllocationStock.getLockedStockQuantity()
                     + pickingItem.getPickingCount());
+            goodsAllocationStock.setLockedStockQuantity(goodsAllocationStock.getLockedStockQuantity()
+                    - pickingItem.getPickingCount());
             goodsAllocationStockDAO.update(goodsAllocationStock);
         }
     }
@@ -87,9 +87,9 @@ public class SubmitOrderScheduleStockUpdater extends AbstractScheduleStockUpdate
             ScheduleGoodsAllocationStockDetailDO stockDetail = stockDetailDAO.getById(
                     sendOutDetail.getGoodsAllocationStockDetailId());
             stockDetail.setCurrentStockQuantity(stockDetail.getCurrentStockQuantity()
-                    - sendOutDetail.getSendOutCount());
-            stockDetail.setLockedStockQuantity(stockDetail.getLockedStockQuantity()
                     + sendOutDetail.getSendOutCount());
+            stockDetail.setLockedStockQuantity(stockDetail.getLockedStockQuantity()
+                    - sendOutDetail.getSendOutCount());
             stockDetailDAO.update(stockDetail);
         }
     }

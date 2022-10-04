@@ -4,8 +4,8 @@ import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.order.domain.OrderItemDTO;
 import com.zpl.eshop.schedule.dao.ScheduleOrderSendOutDetailDAO;
 import com.zpl.eshop.schedule.domain.ScheduleOrderSendOutDetailDO;
+import com.zpl.eshop.schedule.domain.ScheduleOrderSendOutDetailDTO;
 import com.zpl.eshop.schedule.mapper.ScheduleOrderSendOutDetailMapper;
-import com.zpl.eshop.wms.domain.SaleDeliveryOrderSendOutDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,25 +33,45 @@ public class ScheduleOrderSendOutDetailDAOImpl implements ScheduleOrderSendOutDe
     private DateProvider dateProvider;
 
     /**
-     * 新增发货明细
+     * 批量新增发货明细
      *
-     * @param saleDeliveryOrderSendOutDetails 销售出库单发货明细
-     * @param orderItem                       订单条目
+     * @param orderItem      订单条目
+     * @param sendOutDetails 销售出库单发货明细
      */
     @Override
-    public void batchSave(List<SaleDeliveryOrderSendOutDetailDTO> saleDeliveryOrderSendOutDetails,
-                          OrderItemDTO orderItem) throws Exception {
-        for (SaleDeliveryOrderSendOutDetailDTO saleDeliveryOrderSendOutDetail : saleDeliveryOrderSendOutDetails) {
-            ScheduleOrderSendOutDetailDO sendOutDetail =
-                    saleDeliveryOrderSendOutDetail.clone(ScheduleOrderSendOutDetailDO.class);
-
+    public void batchSave(OrderItemDTO orderItem,
+                          List<ScheduleOrderSendOutDetailDTO> sendOutDetails) throws Exception {
+        for (ScheduleOrderSendOutDetailDTO sendOutDetail : sendOutDetails) {
             sendOutDetail.setId(null);
             sendOutDetail.setOrderInfoId(orderItem.getOrderInfoId());
             sendOutDetail.setOrderItemId(orderItem.getId());
             sendOutDetail.setGmtCreate(dateProvider.getCurrentTime());
             sendOutDetail.setGmtModified(dateProvider.getCurrentTime());
 
-            sendOutDetailMapper.save(sendOutDetail);
+            sendOutDetailMapper.save(sendOutDetail.clone(ScheduleOrderSendOutDetailDO.class));
         }
+    }
+
+    /**
+     * 根据订单id和订单条目id查询发货明细
+     *
+     * @param orderInfoId 订单id
+     * @param orderItemId 订单条目id
+     * @return
+     */
+    @Override
+    public List<ScheduleOrderSendOutDetailDO> listByOrderItemId(Long orderInfoId, Long orderItemId) {
+        return sendOutDetailMapper.listByOrderItemId(orderInfoId, orderItemId);
+    }
+
+    /**
+     * 根据订单条目id删除发货明细
+     *
+     * @param orderInfoId 订单id
+     * @param orderItemId 订单条目id
+     */
+    @Override
+    public void removeByOrderItemId(Long orderInfoId, Long orderItemId) {
+        sendOutDetailMapper.removeByOrderItemId(orderInfoId, orderItemId);
     }
 }

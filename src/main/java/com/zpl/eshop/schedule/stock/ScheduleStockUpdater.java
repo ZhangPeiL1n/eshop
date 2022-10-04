@@ -12,5 +12,12 @@ public interface ScheduleStockUpdater {
      *
      * @return 更新成功返回true
      */
-    Boolean update();
+    Boolean update() throws Exception;
+
+    /**
+     * 设置这个更新组件的参数
+     *
+     * @param parameter 参数
+     */
+    void setParameter(Object parameter);
 }

@@ -1,9 +1,13 @@
 package com.zpl.eshop.schedule.service.impl;
 
 import com.zpl.eshop.common.util.DateProvider;
+import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.logistics.service.LogisticsService;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
+import com.zpl.eshop.schedule.domain.SaleDeliveryScheduleResult;
+import com.zpl.eshop.schedule.service.SaleDeliveryOrderBuilder;
+import com.zpl.eshop.schedule.service.SaleDeliveryScheduler;
 import com.zpl.eshop.wms.constant.SaleDeliveryOrderStatus;
 import com.zpl.eshop.wms.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,9 +74,13 @@ public class DefaultSaleDeliveryOrderBuilder implements SaleDeliveryOrderBuilder
         // 针对每一个订单条目
         orderItems.forEach(orderItem -> {
             try {
+                SaleDeliveryScheduleResult scheduleResult = saleDeliveryScheduler.getScheduleResult(orderItem);
                 // 调度每个条目销售出库
-                SaleDeliveryOrderItemDTO saleDeliveryOrderItem = saleDeliveryScheduler.schedule(orderItem);
-                orderItem.clone(saleDeliveryOrderItem);
+                SaleDeliveryOrderItemDTO saleDeliveryOrderItem = orderItem.clone(SaleDeliveryOrderItemDTO.class);
+                saleDeliveryOrderItem.setPickingItems(
+                        ObjectUtils.convertList(scheduleResult.getPickingItems(), SaleDeliveryOrderPickingItemDTO.class));
+                saleDeliveryOrderItem.setSendOutItems(
+                        ObjectUtils.convertList(scheduleResult.getSendOutDetails(), SaleDeliveryOrderSendOutDetailDTO.class));
                 saleDeliveryOrderItem.setGmtCreate(dateProvider.getCurrentTime());
                 saleDeliveryOrderItem.setGmtModified(dateProvider.getCurrentTime());
                 saleDeliveryOrderItems.add(saleDeliveryOrderItem);

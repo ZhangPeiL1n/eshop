@@ -1,7 +1,7 @@
 package com.zpl.eshop.schedule.dao;
 
 
-import com.zpl.eshop.schedule.domain.SchecduleGoodsStockDO;
+import com.zpl.eshop.schedule.domain.ScheduleGoodsStockDO;
 
 /**
  * 调度中心商品库存管理组件接口
@@ -16,20 +16,20 @@ public interface ScheduleGoodsStockDAO {
      * @param goodsSkuId 商品skuId
      * @return 商品库存DO
      */
-    SchecduleGoodsStockDO getBySkuId(Long goodsSkuId);
+    ScheduleGoodsStockDO getBySkuId(Long goodsSkuId) throws Exception;
 
     /**
      * 新增商品库存
      *
-     * @param schecduleGoodsStockDO 商品库存DO对象
+     * @param goodsStock 商品库存DO对象
      */
-    void save(SchecduleGoodsStockDO schecduleGoodsStockDO);
+    void save(ScheduleGoodsStockDO goodsStock) throws Exception;
 
     /**
      * 更新商品库存
      *
-     * @param schecduleGoodsStockDO 商品库存
+     * @param goodsStock 商品库存
      */
-    void update(SchecduleGoodsStockDO schecduleGoodsStockDO);
+    void update(ScheduleGoodsStockDO goodsStock) throws Exception;
 
 }
