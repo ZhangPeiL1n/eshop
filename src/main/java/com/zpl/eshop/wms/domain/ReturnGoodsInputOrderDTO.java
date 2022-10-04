@@ -127,8 +127,13 @@ public class ReturnGoodsInputOrderDTO extends AbstractObject {
     private Date gmtModified;
 
     /**
-     * 退货入库单条目DTO集合
+     * 退货入库单条目集合
      */
     private List<ReturnGoodsInputOrderItemDTO> items;
+
+    /**
+     * 退货入库单上架条目集合
+     */
+    private List<ReturnGoodsInputOrderPutOnItemDTO> putOnItems;
 
 }
