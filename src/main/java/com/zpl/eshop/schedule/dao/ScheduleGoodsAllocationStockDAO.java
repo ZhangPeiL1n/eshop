@@ -2,7 +2,6 @@ package com.zpl.eshop.schedule.dao;
 
 
 import com.zpl.eshop.schedule.domain.ScheduleGoodsAllocationStockDO;
-import org.springframework.stereotype.Repository;
 
 /**
  * 调度中心货位库存管理组件接口
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
  * @author ZhangPeiL1n
  * @date 2022/9/17 18:50
  **/
-@Repository
 public interface ScheduleGoodsAllocationStockDAO {
     /**
      * 根据货位 skuId 获取库存

@@ -328,9 +328,9 @@ public class ScheduleServiceTest {
         inputOrder.setSupplierId(1L);
         inputOrder.setExpectArrivalTime(dateProvider.parse2Datetime("2022-08-05 10:00:00"));
         inputOrder.setPurchaseContactor("彦祖");
-        inputOrder.setPurchaseContactPhoneNumber("133221333123111");
-        inputOrder.setPurchaseContactEmail("337845818@163.com");
-        inputOrder.setPurchaseOrderComment("测试采购单");
+        inputOrder.setPurchaseContactorPhoneNumber("133221333123111");
+        inputOrder.setPurchaseContactorEmail("337845818@163.com");
+        inputOrder.setPurchaseOrderRemark("测试采购单");
         // inputOrder.setPurchaser("李四");
 
 
@@ -340,7 +340,7 @@ public class ScheduleServiceTest {
         for (int i = 0; i < itemCount; i++) {
             items.add(createPurchaseInputOrderItem((long) i));
         }
-        inputOrder.setPurchaseInputOrderItemDTOs(items);
+        inputOrder.setItems(items);
         return inputOrder;
     }
 

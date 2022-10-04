@@ -360,7 +360,7 @@ public class InventoryServiceTest {
         item.setPurchaseInputOrderId(orderId);
         item.setGoodsSkuId(goodsSkuId);
         item.setPurchaseCount(count);
-        item.setPurchasePrice(88L);
+        item.setPurchasePrice(88.0);
         item.setQualifiedCount(count);
         item.setArrivalCount(count);
         item.setGmtCreate(dateProvider.parse2Datetime("2022-05-19 00:00:00"));
@@ -412,7 +412,7 @@ public class InventoryServiceTest {
         returnGoodsInputOrder.setTaxpayerId("测试纳税人识别号");
         returnGoodsInputOrder.setOrderComment("测试订单");
         returnGoodsInputOrder.setReturnGoodsReason(1);
-        returnGoodsInputOrder.setReturnGoodsComment("测试退货备注");
+        returnGoodsInputOrder.setReturnGoodsRemark("测试退货备注");
         returnGoodsInputOrder.setArrivalTime(dateProvider.parse2Datetime("2022-05-01 14:20:00"));
         returnGoodsInputOrder.setGmtCreate(dateProvider.parse2Datetime("2022-05-01 14:20:00"));
         returnGoodsInputOrder.setGmtModified(dateProvider.parse2Datetime("2022-05-01 14:20:00"));

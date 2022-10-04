@@ -5,6 +5,7 @@ import com.zpl.eshop.schedule.dao.ScheduleGoodsAllocationStockDAO;
 import com.zpl.eshop.schedule.domain.ScheduleGoodsAllocationStockDO;
 import com.zpl.eshop.schedule.mapper.ScheduleGoodsAllocationStockMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * 调度中心货位库存管理组件接口
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author ZhangPeiL1n
  * @date 2022/9/17 18:50
  **/
+@Repository
 public class ScheduleGoodsAllocationStockDAOImpl implements ScheduleGoodsAllocationStockDAO {
 
     /**

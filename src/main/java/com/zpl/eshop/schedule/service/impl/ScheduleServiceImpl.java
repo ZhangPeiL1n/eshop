@@ -226,7 +226,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         ReturnGoodsInputOrderDTO returnGoodsInputOrder = order.clone(ReturnGoodsInputOrderDTO.class);
         returnGoodsInputOrder.setOrderId(order.getId());
         returnGoodsInputOrder.setReturnGoodsReason(returnGoodsWorksheet.getReturnGoodsReason());
-        returnGoodsInputOrder.setReturnGoodsComment(returnGoodsWorksheet.getReturnGoodsComment());
+        returnGoodsInputOrder.setReturnGoodsRemark(returnGoodsWorksheet.getReturnGoodsRemark());
 
         List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItems = ObjectUtils.convertList(order.getOrderItems(), ReturnGoodsInputOrderItemDTO.class);
         returnGoodsInputOrder.setItems(returnGoodsInputOrderItems);
