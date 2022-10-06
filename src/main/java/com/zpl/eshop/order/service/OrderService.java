@@ -49,7 +49,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informReturnGoodsInputOrderApproveEvent(Long orderId);
+    Boolean informReturnGoodsInputOrderApprovedEvent(Long orderId);
 
     /**
      * 通知订单中心，“完成退款”事件发生了
@@ -57,7 +57,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informRefundFinishEvent(Long orderId);
+    Boolean informRefundFinishedEvent(Long orderId);
 
     /**
      * 通知订单中心，“发表评论”事件发生了

@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsInputOrderApproveEvent(Long orderId) {
+    public Boolean informReturnGoodsInputOrderApprovedEvent(Long orderId) {
         return true;
     }
 
@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informRefundFinishEvent(Long orderId) {
+    public Boolean informRefundFinishedEvent(Long orderId) {
         return true;
     }
 
