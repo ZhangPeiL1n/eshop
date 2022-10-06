@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsWorksheetRejectEvent(Long orderId) {
+    public Boolean informReturnGoodsWorksheetRejectedEvent(Long orderId) {
         return true;
     }
 
@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsWorksheetApproveEvent(Long orderId) {
+    public Boolean informReturnGoodsWorksheetApprovedEvent(Long orderId) {
         return true;
     }
 
