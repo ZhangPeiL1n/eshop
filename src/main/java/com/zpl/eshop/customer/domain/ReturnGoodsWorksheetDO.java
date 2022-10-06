@@ -15,6 +15,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ReturnGoodsWorksheetDO extends AbstractObject {
+
     /**
      * id
      */
@@ -23,7 +24,7 @@ public class ReturnGoodsWorksheetDO extends AbstractObject {
     /**
      * 订单id
      */
-    private Long orderId;
+    private Long orderInfoId;
 
     /**
      * 订单编号

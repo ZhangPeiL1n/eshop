@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsReceiveEvent(Long orderId) {
+    public Boolean informReturnGoodsReceivedEvent(Long orderId) {
         return true;
     }
 
