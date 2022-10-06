@@ -4,6 +4,7 @@ import com.zpl.eshop.wms.domain.GoodsAllocationDTO;
 import com.zpl.eshop.wms.domain.GoodsAllocationQuery;
 import com.zpl.eshop.wms.service.GoodsAllocationService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @date 2022/10/6 14:07
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class GoodsAllocationServiceImpl implements GoodsAllocationService {
 
     /**
