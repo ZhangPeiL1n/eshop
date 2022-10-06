@@ -64,4 +64,36 @@ public class ReturnGoodsWorksheetDAOImpl implements ReturnGoodsWorksheetDAO {
     public ReturnGoodsWorksheetDO getById(Long id) {
         return returnGoodsWorksheetMapper.getById(id);
     }
+
+    /**
+     * 根据订单id查询退货工单
+     *
+     * @param orderInfoId 订单id
+     * @return 退货工单
+     */
+    @Override
+    public ReturnGoodsWorksheetDO getByOrderInfoId(Long orderInfoId) {
+        return returnGoodsWorksheetMapper.getByOrderInfoId(orderInfoId);
+    }
+
+    /**
+     * 更新退货工单的状态
+     *
+     * @param worksheet 退货工单
+     */
+    @Override
+    public void updateStatus(ReturnGoodsWorksheetDO worksheet) {
+        returnGoodsWorksheetMapper.updateStatus(worksheet);
+    }
+
+    /**
+     * 更新退货工单的退货物流单号
+     *
+     * @param worksheet 退货工单
+     */
+    @Override
+    public void updateReturnGoodsLogisticsCode(ReturnGoodsWorksheetDO worksheet) {
+        returnGoodsWorksheetMapper.updateReturnGoodsLogisticsCode(worksheet);
+    }
+
 }

@@ -35,4 +35,26 @@ public interface ReturnGoodsWorksheetDAO {
      * @return 退货工单
      */
     ReturnGoodsWorksheetDO getById(Long id);
+
+    /**
+     * 根据订单id查询退货工单
+     *
+     * @param orderInfoId 订单id
+     * @return 退货工单
+     */
+    ReturnGoodsWorksheetDO getByOrderInfoId(Long orderInfoId);
+
+    /**
+     * 更新退货工单的状态
+     *
+     * @param worksheet 退货工单
+     */
+    void updateStatus(ReturnGoodsWorksheetDO worksheet);
+
+    /**
+     * 更新退货工单的退货物流单号
+     *
+     * @param worksheet 退货工单
+     */
+    void updateReturnGoodsLogisticsCode(ReturnGoodsWorksheetDO worksheet);
 }
