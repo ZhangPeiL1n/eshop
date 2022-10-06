@@ -55,7 +55,8 @@ public interface ReturnGoodsWorksheetMapper {
             + "a.order_info_id,"
             + "a.order_no,"
             + "a.status,"
-            + "a.return_goods_reason,"
+            + "a.return_goods_reason," +
+            "a.return_goods_remark,"
             + "a.return_goods_logistics_code,"
             + "a.gmt_create,"
             + "a.gmt_modified "

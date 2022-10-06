@@ -1,0 +1,2 @@
+delete
+from customer_return_goods_worksheet
