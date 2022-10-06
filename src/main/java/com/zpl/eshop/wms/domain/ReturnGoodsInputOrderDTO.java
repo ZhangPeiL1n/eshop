@@ -109,7 +109,7 @@ public class ReturnGoodsInputOrderDTO extends AbstractObject {
     /**
      * 退货备注
      */
-    private String returnGoodsComment;
+    private String returnGoodsRemark;
 
     /**
      * 退货的实际到货时间
@@ -127,8 +127,18 @@ public class ReturnGoodsInputOrderDTO extends AbstractObject {
     private Date gmtModified;
 
     /**
-     * 退货入库单条目DTO集合
+     * 退货入库单条目集合
      */
     private List<ReturnGoodsInputOrderItemDTO> items;
+
+    /**
+     * 退货入库单上架条目集合
+     */
+    private List<ReturnGoodsInputOrderPutOnItemDTO> putOnItems;
+
+    /**
+     * 货位库存明细
+     */
+    private List<GoodsAllocationStockDetailDTO> stockDetails;
 
 }

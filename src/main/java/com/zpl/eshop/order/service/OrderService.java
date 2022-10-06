@@ -68,6 +68,14 @@ public interface OrderService {
     Boolean informPublishCommentEvent(Long orderId);
 
     /**
+     * 通知订单中心，“支付成功”事件发生了
+     *
+     * @param orderId 订单id
+     * @return 处理结果
+     */
+    Boolean informPaySucceed(Long orderId);
+
+    /**
      * 从订单中心获取，确认收货时间超过了 7天而且没有发表评论的订单
      *
      * @return 订单信息 DTO集合
