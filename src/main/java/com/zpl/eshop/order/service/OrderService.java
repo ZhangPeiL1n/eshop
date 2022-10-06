@@ -41,7 +41,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informReturnGoodsReceiveEvent(Long orderId);
+    Boolean informReturnGoodsReceivedEvent(Long orderId);
 
     /**
      * 通知订单中心，“退货入库单审核通过”事件发生了
