@@ -25,7 +25,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informReturnGoodsWorksheetRejectEvent(Long orderId);
+    Boolean informReturnGoodsWorksheetRejectedEvent(Long orderId);
 
     /**
      * 通知订单中心，“退货工单审核通过”事件发生了
@@ -33,7 +33,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informReturnGoodsWorksheetApproveEvent(Long orderId);
+    Boolean informReturnGoodsWorksheetApprovedEvent(Long orderId);
 
     /**
      * 通知订单中心，“确认收到退货商品”事件发生了
