@@ -25,7 +25,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informReturnGoodsWorksheetRejectEvent(Long orderId);
+    Boolean informReturnGoodsWorksheetRejectedEvent(Long orderId);
 
     /**
      * 通知订单中心，“退货工单审核通过”事件发生了
@@ -33,7 +33,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informReturnGoodsWorksheetApproveEvent(Long orderId);
+    Boolean informReturnGoodsWorksheetApprovedEvent(Long orderId);
 
     /**
      * 通知订单中心，“确认收到退货商品”事件发生了
@@ -41,7 +41,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informReturnGoodsReceiveEvent(Long orderId);
+    Boolean informReturnGoodsReceivedEvent(Long orderId);
 
     /**
      * 通知订单中心，“退货入库单审核通过”事件发生了
@@ -49,7 +49,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informReturnGoodsInputOrderApproveEvent(Long orderId);
+    Boolean informReturnGoodsInputOrderApprovedEvent(Long orderId);
 
     /**
      * 通知订单中心，“完成退款”事件发生了
@@ -57,7 +57,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informRefundFinishEvent(Long orderId);
+    Boolean informRefundFinishedEvent(Long orderId);
 
     /**
      * 通知订单中心，“发表评论”事件发生了
@@ -89,4 +89,12 @@ public interface OrderService {
      * @return 处理结果
      */
     Boolean informBatchPublishCommentEvent(List<Long> orderId);
+
+    /**
+     * 根据id查询订单
+     *
+     * @param orderInfoId 订单id
+     * @return 订单
+     */
+    OrderInfoDTO getOrderById(Long orderInfoId);
 }
