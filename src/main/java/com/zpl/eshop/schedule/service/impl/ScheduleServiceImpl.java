@@ -1,5 +1,6 @@
 package com.zpl.eshop.schedule.service.impl;
 
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.customer.domain.ReturnGoodsWorksheetDTO;
 import com.zpl.eshop.inventory.service.InventoryService;
@@ -16,6 +17,7 @@ import com.zpl.eshop.schedule.service.SaleDeliveryScheduler;
 import com.zpl.eshop.schedule.service.ScheduleService;
 import com.zpl.eshop.schedule.stock.ScheduleStockUpdater;
 import com.zpl.eshop.schedule.stock.ScheduleStockUpdaterFactory;
+import com.zpl.eshop.wms.constant.PurchaseInputOrderStatus;
 import com.zpl.eshop.wms.domain.*;
 import com.zpl.eshop.wms.service.WmsService;
 import org.slf4j.Logger;
@@ -80,6 +82,12 @@ public class ScheduleServiceImpl implements ScheduleService {
      */
     @Autowired
     private ScheduleStockUpdaterFactory stockUpdaterFactory;
+
+    /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
 
     /**
      * 通知调度中心，“采购入库完成”事件发生了
@@ -289,9 +297,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         PurchaseInputOrderDTO purchaseInputOrder = purchaseOrder.clone(PurchaseInputOrderDTO.class);
         purchaseInputOrder.setId(null);
-        purchaseInputOrder.setGmtCreate(null);
-        purchaseInputOrder.setGmtModified(null);
-
+        purchaseInputOrder.setGmtCreate(dateProvider.getCurrentTime());
+        purchaseInputOrder.setGmtModified(dateProvider.getCurrentTime());
+        purchaseInputOrder.setStatus(PurchaseInputOrderStatus.EDITING);
         purchaseInputOrder.setPurchaseContactor(purchaseOrder.getContactor());
         purchaseInputOrder.setPurchaseContactorPhoneNumber(purchaseOrder.getContactorPhoneNumber());
         purchaseInputOrder.setPurchaseContactorEmail(purchaseOrder.getContactorEmail());
@@ -310,8 +318,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     private PurchaseInputOrderItemDTO createPurchaseInputOrderItem(PurchaseOrderItemDTO purchaseOrderItem) throws Exception {
         PurchaseInputOrderItemDTO purchaseInputOrderItem = purchaseOrderItem.clone(PurchaseInputOrderItemDTO.class);
         purchaseInputOrderItem.setId(null);
-        purchaseInputOrderItem.setGmtCreate(null);
-        purchaseInputOrderItem.setGmtModified(null);
+        purchaseInputOrderItem.setGmtCreate(dateProvider.getCurrentTime());
+        purchaseInputOrderItem.setGmtModified(dateProvider.getCurrentTime());
         return purchaseInputOrderItem;
     }
 }
