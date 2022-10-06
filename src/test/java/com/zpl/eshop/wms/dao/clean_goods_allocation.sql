@@ -1,0 +1,2 @@
+delete
+from wms_goods_allocation

@@ -19,14 +19,14 @@ public interface GoodsAllocationService {
      * @param query 查询条件
      * @return 货位
      */
-    List<GoodsAllocationDTO> listByPage(GoodsAllocationQuery query);
+    List<GoodsAllocationDTO> listByPage(GoodsAllocationQuery query) throws Exception;
 
     /**
      * 新增货位
      *
      * @param goodsAllocation 货位
      */
-    void save(GoodsAllocationDTO goodsAllocation);
+    void save(GoodsAllocationDTO goodsAllocation) throws Exception;
 
     /**
      * 根据id查询货位
@@ -34,12 +34,12 @@ public interface GoodsAllocationService {
      * @param id 货位id
      * @return 货位
      */
-    GoodsAllocationDTO getById(Long id);
+    GoodsAllocationDTO getById(Long id) throws Exception;
 
     /**
      * 更新货位
      *
      * @param goodsAllocation 货位
      */
-    void update(GoodsAllocationDTO goodsAllocation);
+    void update(GoodsAllocationDTO goodsAllocation) throws Exception;
 }

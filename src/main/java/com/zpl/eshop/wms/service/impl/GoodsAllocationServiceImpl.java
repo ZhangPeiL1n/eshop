@@ -1,8 +1,12 @@
 package com.zpl.eshop.wms.service.impl;
 
+import com.zpl.eshop.common.util.ObjectUtils;
+import com.zpl.eshop.wms.dao.GoodsAllocationDAO;
+import com.zpl.eshop.wms.domain.GoodsAllocationDO;
 import com.zpl.eshop.wms.domain.GoodsAllocationDTO;
 import com.zpl.eshop.wms.domain.GoodsAllocationQuery;
 import com.zpl.eshop.wms.service.GoodsAllocationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,14 +23,22 @@ import java.util.List;
 public class GoodsAllocationServiceImpl implements GoodsAllocationService {
 
     /**
+     * 货位管理DAO组件
+     */
+    @Autowired
+    private GoodsAllocationDAO goodsAllocationDAO;
+
+    /**
      * 分页查询货位
      *
      * @param query 查询条件
      * @return 货位
      */
     @Override
-    public List<GoodsAllocationDTO> listByPage(GoodsAllocationQuery query) {
-        return null;
+    public List<GoodsAllocationDTO> listByPage(GoodsAllocationQuery query) throws Exception {
+        return ObjectUtils.convertList(
+                goodsAllocationDAO.listByPage(query),
+                GoodsAllocationDTO.class);
     }
 
     /**
@@ -35,8 +47,8 @@ public class GoodsAllocationServiceImpl implements GoodsAllocationService {
      * @param goodsAllocation 货位
      */
     @Override
-    public void save(GoodsAllocationDTO goodsAllocation) {
-
+    public void save(GoodsAllocationDTO goodsAllocation) throws Exception {
+        goodsAllocationDAO.save(goodsAllocation.clone(GoodsAllocationDO.class));
     }
 
     /**
@@ -46,8 +58,8 @@ public class GoodsAllocationServiceImpl implements GoodsAllocationService {
      * @return 货位
      */
     @Override
-    public GoodsAllocationDTO getById(Long id) {
-        return null;
+    public GoodsAllocationDTO getById(Long id) throws Exception {
+        return goodsAllocationDAO.getById(id).clone(GoodsAllocationDTO.class);
     }
 
     /**
@@ -56,7 +68,7 @@ public class GoodsAllocationServiceImpl implements GoodsAllocationService {
      * @param goodsAllocation 货位
      */
     @Override
-    public void update(GoodsAllocationDTO goodsAllocation) {
-
+    public void update(GoodsAllocationDTO goodsAllocation) throws Exception {
+        goodsAllocationDAO.update(goodsAllocation.clone(GoodsAllocationDO.class));
     }
 }
