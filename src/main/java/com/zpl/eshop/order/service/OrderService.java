@@ -89,4 +89,12 @@ public interface OrderService {
      * @return 处理结果
      */
     Boolean informBatchPublishCommentEvent(List<Long> orderId);
+
+    /**
+     * 根据id查询订单
+     *
+     * @param orderInfoId 订单id
+     * @return 订单
+     */
+    OrderInfoDTO getOrderById(Long orderInfoId);
 }

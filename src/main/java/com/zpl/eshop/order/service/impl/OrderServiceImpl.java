@@ -123,4 +123,15 @@ public class OrderServiceImpl implements OrderService {
     public Boolean informBatchPublishCommentEvent(List<Long> orderId) {
         return true;
     }
+
+    /**
+     * 根据id查询订单
+     *
+     * @param orderInfoId 订单id
+     * @return 订单
+     */
+    @Override
+    public OrderInfoDTO getOrderById(Long orderInfoId) {
+        return null;
+    }
 }
