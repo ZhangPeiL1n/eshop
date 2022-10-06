@@ -24,11 +24,11 @@ public interface CustomerService {
     /**
      * 同步物流单号
      *
-     * @param orderId                  订单id
+     * @param orderInfoId              订单id
      * @param returnGoodsLogisticsCode 退货物流单号
      * @return 处理结果
      */
-    Boolean syncReturnGoodsCourierNumber(Long orderId, String returnGoodsLogisticsCode);
+    Boolean syncReturnGoodsLogisticsCode(Long orderInfoId, String returnGoodsLogisticsCode);
 
     /**
      * 通知客服中心，“完成退货入库”事件发生了
