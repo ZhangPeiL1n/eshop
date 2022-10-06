@@ -1,10 +1,8 @@
 package com.zpl.eshop.schedule.dao.impl;
 
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.order.domain.OrderItemDTO;
 import com.zpl.eshop.schedule.dao.ScheduleOrderSendOutDetailDAO;
 import com.zpl.eshop.schedule.domain.ScheduleOrderSendOutDetailDO;
-import com.zpl.eshop.schedule.domain.ScheduleOrderSendOutDetailDTO;
 import com.zpl.eshop.schedule.mapper.ScheduleOrderSendOutDetailMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,16 +37,16 @@ public class ScheduleOrderSendOutDetailDAOImpl implements ScheduleOrderSendOutDe
      * @param sendOutDetails 销售出库单发货明细
      */
     @Override
-    public void batchSave(OrderItemDTO orderItem,
-                          List<ScheduleOrderSendOutDetailDTO> sendOutDetails) throws Exception {
-        for (ScheduleOrderSendOutDetailDTO sendOutDetail : sendOutDetails) {
+    public void batchSave(Long orderInfoId, Long orderItemId,
+                          List<ScheduleOrderSendOutDetailDO> sendOutDetails) throws Exception {
+        for (ScheduleOrderSendOutDetailDO sendOutDetail : sendOutDetails) {
             sendOutDetail.setId(null);
-            sendOutDetail.setOrderInfoId(orderItem.getOrderInfoId());
-            sendOutDetail.setOrderItemId(orderItem.getId());
+            sendOutDetail.setOrderInfoId(orderInfoId);
+            sendOutDetail.setOrderItemId(orderItemId);
             sendOutDetail.setGmtCreate(dateProvider.getCurrentTime());
             sendOutDetail.setGmtModified(dateProvider.getCurrentTime());
 
-            sendOutDetailMapper.save(sendOutDetail.clone(ScheduleOrderSendOutDetailDO.class));
+            sendOutDetailMapper.save(sendOutDetail);
         }
     }
 

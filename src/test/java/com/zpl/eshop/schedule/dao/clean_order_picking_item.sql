@@ -1,0 +1,2 @@
+DELETE
+FROM schedule_order_picking_item

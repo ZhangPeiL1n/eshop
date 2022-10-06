@@ -1,8 +1,6 @@
 package com.zpl.eshop.schedule.dao;
 
-import com.zpl.eshop.order.domain.OrderItemDTO;
 import com.zpl.eshop.schedule.domain.ScheduleOrderSendOutDetailDO;
-import com.zpl.eshop.schedule.domain.ScheduleOrderSendOutDetailDTO;
 
 import java.util.List;
 
@@ -20,8 +18,8 @@ public interface ScheduleOrderSendOutDetailDAO {
      * @param orderItem      订单条目
      * @param sendOutDetails 销售出库单发货明细
      */
-    void batchSave(OrderItemDTO orderItem,
-                   List<ScheduleOrderSendOutDetailDTO> sendOutDetails) throws Exception;
+    void batchSave(Long orderInfoId, Long orderItemId,
+                   List<ScheduleOrderSendOutDetailDO> sendOutDetails) throws Exception;
 
     /**
      * 根据订单id和订单条目id查询发货明细

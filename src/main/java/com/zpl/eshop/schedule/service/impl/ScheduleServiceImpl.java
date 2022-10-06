@@ -12,6 +12,8 @@ import com.zpl.eshop.schedule.constant.StockUpdateEvent;
 import com.zpl.eshop.schedule.dao.ScheduleOrderPickingItemDAO;
 import com.zpl.eshop.schedule.dao.ScheduleOrderSendOutDetailDAO;
 import com.zpl.eshop.schedule.domain.SaleDeliveryScheduleResult;
+import com.zpl.eshop.schedule.domain.ScheduleOrderPickingItemDO;
+import com.zpl.eshop.schedule.domain.ScheduleOrderSendOutDetailDO;
 import com.zpl.eshop.schedule.service.SaleDeliveryOrderBuilder;
 import com.zpl.eshop.schedule.service.SaleDeliveryScheduler;
 import com.zpl.eshop.schedule.service.ScheduleService;
@@ -120,8 +122,8 @@ public class ScheduleServiceImpl implements ScheduleService {
             for (OrderItemDTO orderItem : order.getOrderItems()) {
                 SaleDeliveryScheduleResult scheduleResult = saleDeliveryScheduler.schedule(orderItem);
 
-                pickingItemDAO.batchSave(orderItem, scheduleResult.getPickingItems());
-                sendOutDetailDAO.batchSave(orderItem, scheduleResult.getSendOutDetails());
+                pickingItemDAO.batchSave(orderItem.getOrderInfoId(), orderItem.getId(), ObjectUtils.convertList(scheduleResult.getPickingItems(), ScheduleOrderPickingItemDO.class));
+                sendOutDetailDAO.batchSave(orderItem.getOrderInfoId(), orderItem.getId(), ObjectUtils.convertList(scheduleResult.getSendOutDetails(), ScheduleOrderSendOutDetailDO.class));
 
                 ScheduleStockUpdater stockUpdater = stockUpdaterFactory.create(StockUpdateEvent.SUBMIT_ORDER, scheduleResult);
                 stockUpdater.update();

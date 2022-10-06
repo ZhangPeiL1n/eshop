@@ -38,7 +38,7 @@ public interface ScheduleGoodsAllocationStockMapper {
             @Result(column = "goods_sku_id", property = "goodsSkuId"),
             @Result(column = "available_stock_quantity", property = "availableStockQuantity"),
             @Result(column = "locked_stock_quantity", property = "lockedStockQuantity"),
-            @Result(column = "deliveried_stock_quantity", property = "outPutStockQuantity"),
+            @Result(column = "deliveried_stock_quantity", property = "outputStockQuantity"),
             @Result(column = "gmt_create", property = "gmtCreate"),
             @Result(column = "gmt_modified", property = "gmtModified")
     })
@@ -58,11 +58,11 @@ public interface ScheduleGoodsAllocationStockMapper {
             "gmt_create," +
             "gmt_modified" +
             ")VALUES(" +
-            "#{goodsAllcationId}," +
+            "#{goodsAllocationId}," +
             "#{goodsSkuId}," +
             "#{availableStockQuantity}," +
             "#{lockedStockQuantity}," +
-            "#{outPutStockQuantity}," +
+            "#{outputStockQuantity}," +
             "#{gmtCreate}," +
             "#{gmtModified}" +
             ")")
@@ -78,7 +78,7 @@ public interface ScheduleGoodsAllocationStockMapper {
             " goods_sku_id = #{goodsSkuId}," +
             " available_stock_quantity = #{availableStockQuantity}," +
             " locked_stock_quantity = #{lockedStockQuantity}," +
-            " deliveried_stock_quantity = #{outPutStockQuantity}," +
+            " deliveried_stock_quantity = #{outputStockQuantity}," +
             " gmt_create = #{gmtCreate}," +
             " gmt_modified = #{gmtModified}" +
             " WHERE id = #{id}")

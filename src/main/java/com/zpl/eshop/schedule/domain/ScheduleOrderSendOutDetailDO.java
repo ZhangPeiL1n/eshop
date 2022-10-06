@@ -38,7 +38,7 @@ public class ScheduleOrderSendOutDetailDO extends AbstractObject {
     /**
      * 发货数量
      */
-    private Long sendOutQuantity;
+    private Long sendOutCount;
 
     /**
      * 创建时间

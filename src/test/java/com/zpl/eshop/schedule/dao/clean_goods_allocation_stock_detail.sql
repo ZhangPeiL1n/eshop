@@ -1,0 +1,2 @@
+DELETE
+FROM schedule_goods_allocation_stock_detail

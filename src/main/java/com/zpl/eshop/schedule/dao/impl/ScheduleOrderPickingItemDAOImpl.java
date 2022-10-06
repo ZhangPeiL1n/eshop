@@ -1,10 +1,8 @@
 package com.zpl.eshop.schedule.dao.impl;
 
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.order.domain.OrderItemDTO;
 import com.zpl.eshop.schedule.dao.ScheduleOrderPickingItemDAO;
 import com.zpl.eshop.schedule.domain.ScheduleOrderPickingItemDO;
-import com.zpl.eshop.schedule.domain.ScheduleOrderPickingItemDTO;
 import com.zpl.eshop.schedule.mapper.ScheduleOrderPickingItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,16 +35,16 @@ public class ScheduleOrderPickingItemDAOImpl implements ScheduleOrderPickingItem
      * @param pickingItems 拣货条目
      */
     @Override
-    public void batchSave(OrderItemDTO orderItem,
-                          List<ScheduleOrderPickingItemDTO> pickingItems) throws Exception {
-        for (ScheduleOrderPickingItemDTO pickingItem : pickingItems) {
+    public void batchSave(Long orderInfoId, Long orderItemId,
+                          List<ScheduleOrderPickingItemDO> pickingItems) throws Exception {
+        for (ScheduleOrderPickingItemDO pickingItem : pickingItems) {
             pickingItem.setId(null);
-            pickingItem.setOrderInfoId(orderItem.getOrderInfoId());
-            pickingItem.setOrderItemId(orderItem.getId());
+            pickingItem.setOrderInfoId(orderInfoId);
+            pickingItem.setOrderItemId(orderItemId);
             pickingItem.setGmtCreate(dateProvider.getCurrentTime());
             pickingItem.setGmtModified(dateProvider.getCurrentTime());
 
-            pickingItemMapper.save(pickingItem.clone(ScheduleOrderPickingItemDO.class));
+            pickingItemMapper.save(pickingItem);
         }
     }
 
