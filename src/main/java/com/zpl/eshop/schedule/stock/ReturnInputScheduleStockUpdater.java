@@ -74,16 +74,19 @@ public class ReturnInputScheduleStockUpdater extends AbstractScheduleStockUpdate
      */
     @Override
     protected void updateGoodsAllocationStock() throws Exception {
-        List<ReturnGoodsInputOrderPutOnItemDTO> putOnItems = returnGoodsInputOrderDTO.getPutOnItems();
-        for (ReturnGoodsInputOrderPutOnItemDTO putOnItem : putOnItems) {
-            ScheduleGoodsAllocationStockDO goodsAllocationStock = goodsAllocationStockDAO.getBySkuId(
-                    putOnItem.getGoodsAllocationId(), putOnItem.getGoodsSkuId());
-            goodsAllocationStock.setAvailableStockQuantity(
-                    goodsAllocationStock.getAvailableStockQuantity() + putOnItem.getPutOnShelvesCount());
-            goodsAllocationStock.setOutputStockQuantity(
-                    goodsAllocationStock.getOutputStockQuantity() - putOnItem.getPutOnShelvesCount());
-            goodsAllocationStockDAO.update(goodsAllocationStock);
+        List<ReturnGoodsInputOrderItemDTO> items = returnGoodsInputOrderDTO.getItems();
+        for (ReturnGoodsInputOrderItemDTO item : items) {
+            for (ReturnGoodsInputOrderPutOnItemDTO putOnItem : item.getPutOnItems()) {
+                ScheduleGoodsAllocationStockDO goodsAllocationStock = goodsAllocationStockDAO.getBySkuId(
+                        putOnItem.getGoodsAllocationId(), putOnItem.getGoodsSkuId());
+                goodsAllocationStock.setAvailableStockQuantity(
+                        goodsAllocationStock.getAvailableStockQuantity() + putOnItem.getPutOnShelvesCount());
+                goodsAllocationStock.setOutputStockQuantity(
+                        goodsAllocationStock.getOutputStockQuantity() - putOnItem.getPutOnShelvesCount());
+                goodsAllocationStockDAO.update(goodsAllocationStock);
+            }
         }
+
     }
 
     /**
@@ -91,9 +94,12 @@ public class ReturnInputScheduleStockUpdater extends AbstractScheduleStockUpdate
      */
     @Override
     protected void updateGoodsAllocationStockDetail() throws Exception {
-        List<GoodsAllocationStockDetailDTO> stockDetails = returnGoodsInputOrderDTO.getStockDetails();
-        for (GoodsAllocationStockDetailDTO stockDetail : stockDetails) {
-            stockDetailDAO.save(stockDetail.clone(ScheduleGoodsAllocationStockDetailDO.class));
+        List<ReturnGoodsInputOrderItemDTO> items = returnGoodsInputOrderDTO.getItems();
+        for (ReturnGoodsInputOrderItemDTO item : items) {
+            for (GoodsAllocationStockDetailDTO stockDetail : item.getStockDetails()) {
+                stockDetailDAO.save(stockDetail.clone(ScheduleGoodsAllocationStockDetailDO.class));
+            }
+
         }
     }
 
