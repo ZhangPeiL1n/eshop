@@ -24,7 +24,7 @@ public class PurchaseInputOrderDTO extends AbstractObject {
     /**
      * 采购单id
      */
-    private Long purchaseInputOrderId;
+    private Long purchaseOrderId;
 
     /**
      * 供应商 id
