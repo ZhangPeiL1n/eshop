@@ -6,7 +6,7 @@ package com.zpl.eshop.purchase.service;
  * @author ZhangPeiL1n
  * @date 2022/1/3 17:25
  **/
-public interface PurchaseFacadeService {
+public interface PurchaseService {
 
     /**
      * 判断是否有关联商品 sku 的采购单
@@ -30,13 +30,21 @@ public interface PurchaseFacadeService {
      * @param purchaseOrderId 采购单 id
      * @return 处理结果
      */
-    Boolean informFinishPurchaseInputOrderEvent(Long purchaseOrderId);
+    Boolean informFinishedPurchaseInputOrderEvent(Long purchaseOrderId);
 
     /**
-     * 通知采购中心，“完成采购结算单”事件发生了
+     * 通知采购中心，“创建采购结算单”事件发生了
      *
      * @param purchaseOrderId 采购单 id
      * @return 处理结果
      */
     Boolean informCreatePurchaseSettlementOrderEvent(Long purchaseOrderId);
+
+    /**
+     * 通知采购中心，“创建采购结算单”事件发生了
+     *
+     * @param purchaseOrderId 采购单 id
+     * @return 处理结果
+     */
+    Boolean informFinishedPurchaseSettlementOrderEvent(Long purchaseOrderId);
 }
