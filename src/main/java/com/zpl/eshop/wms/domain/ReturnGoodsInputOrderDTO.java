@@ -131,14 +131,4 @@ public class ReturnGoodsInputOrderDTO extends AbstractObject {
      */
     private List<ReturnGoodsInputOrderItemDTO> items;
 
-    /**
-     * 退货入库单上架条目集合
-     */
-    private List<ReturnGoodsInputOrderPutOnItemDTO> putOnItems;
-
-    /**
-     * 货位库存明细
-     */
-    private List<GoodsAllocationStockDetailDTO> stockDetails;
-
 }
