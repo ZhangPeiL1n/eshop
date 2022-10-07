@@ -20,6 +20,12 @@ public class PurchaseInputOrderDTO extends AbstractObject {
      * id
      */
     private Long id;
+
+    /**
+     * 采购单id
+     */
+    private Long purchaseInputOrderId;
+
     /**
      * 供应商 id
      */
@@ -80,13 +86,4 @@ public class PurchaseInputOrderDTO extends AbstractObject {
      */
     private List<PurchaseInputOrderItemDTO> items;
 
-    /**
-     * 采购入库单上架条目集合
-     */
-    private List<PurchaseInputOrderPutOnItemDTO> putOnItems;
-
-    /**
-     * 货位库存明细
-     */
-    private List<GoodsAllocationStockDetailDTO> stockDetails;
 }

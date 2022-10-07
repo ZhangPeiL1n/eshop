@@ -67,4 +67,9 @@ public class PurchaseInputOrderItemDTO extends AbstractObject {
      */
     private List<PurchaseInputOrderPutOnItemDTO> putOnItems;
 
+    /**
+     * 货位库存明细
+     */
+    private List<GoodsAllocationStockDetailDTO> stockDetails;
+
 }
