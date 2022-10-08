@@ -2,6 +2,7 @@ package com.zpl.eshop.purchase.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  * @date 2022/5/28 12:04
  **/
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class PurchaseOrderItemDTO extends AbstractObject {
 
     /**

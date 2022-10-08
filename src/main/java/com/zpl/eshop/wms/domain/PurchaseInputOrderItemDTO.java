@@ -40,7 +40,7 @@ public class PurchaseInputOrderItemDTO extends AbstractObject {
     /**
      * 采购价格
      */
-    private Long purchasePrice;
+    private Double purchasePrice;
 
     /**
      * 合格数量
@@ -66,5 +66,10 @@ public class PurchaseInputOrderItemDTO extends AbstractObject {
      * 采购入库单商品上架条目集合
      */
     private List<PurchaseInputOrderPutOnItemDTO> putOnItems;
+
+    /**
+     * 货位库存明细
+     */
+    private List<GoodsAllocationStockDetailDTO> stockDetails;
 
 }

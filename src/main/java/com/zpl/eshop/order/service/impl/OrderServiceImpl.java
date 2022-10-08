@@ -90,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsWorksheetRejectEvent(Long orderId) {
+    public Boolean informReturnGoodsWorksheetRejectedEvent(Long orderId) {
         return true;
     }
 
@@ -101,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsWorksheetApproveEvent(Long orderId) {
+    public Boolean informReturnGoodsWorksheetApprovedEvent(Long orderId) {
         return true;
     }
 
@@ -112,7 +112,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsReceiveEvent(Long orderId) {
+    public Boolean informReturnGoodsReceivedEvent(Long orderId) {
         return true;
     }
 
@@ -123,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsInputOrderApproveEvent(Long orderId) {
+    public Boolean informReturnGoodsInputOrderApprovedEvent(Long orderId) {
         return true;
     }
 
@@ -134,7 +134,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informRefundFinishEvent(Long orderId) {
+    public Boolean informRefundFinishedEvent(Long orderId) {
         return true;
     }
 
@@ -190,5 +190,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Boolean informBatchPublishCommentEvent(List<Long> orderId) {
         return true;
+    }
+
+    /**
+     * 根据id查询订单
+     *
+     * @param orderInfoId 订单id
+     * @return 订单
+     */
+    @Override
+    public OrderInfoDTO getOrderById(Long orderInfoId) {
+        return null;
     }
 }

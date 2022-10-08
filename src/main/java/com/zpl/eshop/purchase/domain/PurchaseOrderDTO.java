@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2022/1/3 22:02
  **/
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class PurchaseOrderDTO extends AbstractObject {
     /**
      * id

@@ -107,5 +107,9 @@ public class ReturnGoodsInputOrderItemDTO extends AbstractObject {
      */
     private List<ReturnGoodsInputOrderPutOnItemDTO> putOnItems;
 
+    /**
+     * 货位库存明细
+     */
+    private List<GoodsAllocationStockDetailDTO> stockDetails;
 
 }

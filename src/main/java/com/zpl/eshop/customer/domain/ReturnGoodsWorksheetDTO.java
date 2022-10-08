@@ -23,7 +23,7 @@ public class ReturnGoodsWorksheetDTO extends AbstractObject {
     /**
      * 订单id
      */
-    private Long orderId;
+    private Long orderInfoId;
 
     /**
      * 订单编号
