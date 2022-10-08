@@ -1,6 +1,8 @@
 package com.zpl.eshop.wms.service.impl;
 
 import com.zpl.eshop.common.util.ObjectUtils;
+import com.zpl.eshop.wms.constant.PurchaseInputOrderApproveResult;
+import com.zpl.eshop.wms.constant.PurchaseInputOrderStatus;
 import com.zpl.eshop.wms.dao.PurchaseInputOrderDAO;
 import com.zpl.eshop.wms.dao.PurchaseInputOrderItemDAO;
 import com.zpl.eshop.wms.dao.PurchaseInputOrderPutOnItemDAO;
@@ -35,6 +37,12 @@ public class PurchaseInputOrderServiceImpl implements PurchaseInputOrderService 
      */
     @Autowired
     private PurchaseInputOrderPutOnItemDAO purchaseInputOrderPutOnItemDAO;
+
+    /**
+     * handler 工厂
+     */
+    @Autowired
+    private PurchaseInputOrderHandlerFactory handlerFactory;
 
     /**
      * 新增采购入库单
@@ -117,5 +125,38 @@ public class PurchaseInputOrderServiceImpl implements PurchaseInputOrderService 
     public void batchSavePutOnItems(List<PurchaseInputOrderPutOnItemDTO> putOnItems) throws Exception {
         purchaseInputOrderPutOnItemDAO.batchSave(ObjectUtils.convertList(
                 putOnItems, PurchaseInputOrderPutOnItemDO.class));
+    }
+
+
+    /**
+     * 对采购入库单提交审核
+     *
+     * @param id 采购入库单id
+     * @throws Exception
+     */
+    @Override
+    public void submitApprove(Long id) throws Exception {
+        purchaseInputOrderDAO.updateStatus(id, PurchaseInputOrderStatus.WAIT_FOR_APPROVE);
+    }
+
+    /**
+     * 审核采购入库单
+     *
+     * @param id            采购入库单id
+     * @param approveResult 审核结果
+     * @throws Exception
+     */
+    @Override
+    public void approve(Long id, Integer approveResult) throws Exception {
+        if (PurchaseInputOrderApproveResult.REJECTED.equals(approveResult)) {
+            purchaseInputOrderDAO.updateStatus(id, PurchaseInputOrderStatus.EDITING);
+            return;
+        }
+
+        if (PurchaseInputOrderApproveResult.PASSED.equals(approveResult)) {
+            PurchaseInputOrderDTO purchaseInputOrder = getById(id);
+            PurchaseInputOrderHandler handlerChain = handlerFactory.getHandlerChain();
+            handlerChain.execute(purchaseInputOrder);
+        }
     }
 }

@@ -18,7 +18,7 @@ public interface PurchaseInputOrderDAO {
      *
      * @param purchaseInputOrder 采购入库单
      */
-    Long save(PurchaseInputOrderDO purchaseInputOrder);
+    Long save(PurchaseInputOrderDO purchaseInputOrder) throws Exception;
 
     /**
      * 分页查询采购入库单
@@ -41,12 +41,21 @@ public interface PurchaseInputOrderDAO {
      *
      * @param purchaseInputOrder 采购入库单
      */
-    void update(PurchaseInputOrderDO purchaseInputOrder);
+    void update(PurchaseInputOrderDO purchaseInputOrder) throws Exception;
 
     /**
      * 更新采购入库单状态
      *
      * @param purchaseInputOrder 采购入库单
      */
-    void updateStatus(PurchaseInputOrderDO purchaseInputOrder);
+    void updateStatus(PurchaseInputOrderDO purchaseInputOrder) throws Exception;
+
+    /**
+     * 更新采购入库单状态
+     *
+     * @param id     采购入库单id
+     * @param status 采购入库单状态
+     * @throws Exception
+     */
+    void updateStatus(Long id, Integer status) throws Exception;
 }

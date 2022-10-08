@@ -7,14 +7,14 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * 采购入库单条目DTO类
+ * wms中心商品库存
  *
  * @author ZhangPeiL1n
- * @date 2022/1/24 23:08
+ * @date 2022/10/7 16:59
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PurchaseInputOrderItemDO extends AbstractObject {
+public class WmsGoodsStockDO extends AbstractObject {
 
     /**
      * id
@@ -22,34 +22,24 @@ public class PurchaseInputOrderItemDO extends AbstractObject {
     private Long id;
 
     /**
-     * 采购入库单id
-     */
-    private Long purchaseInputOrderId;
-
-    /**
-     * 商品skuId
+     * 商品sku id
      */
     private Long goodsSkuId;
 
     /**
-     * 采购数量
+     * 可用库存
      */
-    private Long purchaseCount;
+    private Long availableStockQuantity;
 
     /**
-     * 采购价格
+     * 锁定库存
      */
-    private Double purchasePrice;
+    private Long lockedStockQuantity;
 
     /**
-     * 合格数量
+     * 已出库库存
      */
-    private Long qualifiedCount;
-
-    /**
-     * 到货数量
-     */
-    private Long arrivalCount;
+    private Long outputStockQuantity;
 
     /**
      * 创建时间

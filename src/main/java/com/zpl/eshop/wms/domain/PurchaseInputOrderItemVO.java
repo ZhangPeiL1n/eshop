@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 采购入库单条目DTO类
@@ -14,7 +15,7 @@ import java.util.Date;
  **/
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PurchaseInputOrderItemDO extends AbstractObject {
+public class PurchaseInputOrderItemVO extends AbstractObject {
 
     /**
      * id
@@ -60,5 +61,15 @@ public class PurchaseInputOrderItemDO extends AbstractObject {
      * 修改时间
      */
     private Date gmtModified;
+
+    /**
+     * 采购入库单商品上架条目集合
+     */
+    private List<PurchaseInputOrderPutOnItemVO> putOnItems;
+
+    /**
+     * 货位库存明细
+     */
+    private List<GoodsAllocationStockDetailVO> stockDetails;
 
 }
