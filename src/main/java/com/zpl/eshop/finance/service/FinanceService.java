@@ -10,29 +10,29 @@ import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
  * @author ZhangPeiL1n
  * @date 2022/1/3 21:41
  **/
-public interface FinanceFacadeService {
+public interface FinanceService {
 
     /**
      * 创建采购结算单
      *
-     * @param purchaseInputOrderDTO 采购入库单DTO
+     * @param purchaseInputOrder 采购入库单DTO
      * @return 处理结果
      */
-    Boolean createPurchaseSettlementOrder(PurchaseInputOrderDTO purchaseInputOrderDTO);
+    Boolean createPurchaseSettlementOrder(PurchaseInputOrderDTO purchaseInputOrder);
 
     /**
      * 给物流公司打款
      *
-     * @param saleDeliveryOrderDTO 销售出库单DTO
+     * @param saleDeliveryOrder 销售出库单DTO
      * @return 处理结果
      */
-    Boolean payForLogisticsCompany(SaleDeliveryOrderDTO saleDeliveryOrderDTO);
+    Boolean payForLogisticsCompany(SaleDeliveryOrderDTO saleDeliveryOrder);
 
     /**
      * 退货打款
      *
-     * @param returnGoodsInputOrderDTO 退货入库单DTO
+     * @param returnGoodsInputOrder 退货入库单DTO
      * @return 处理结果
      */
-    Boolean executeReturnGoodsRefund(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO);
+    Boolean executeReturnGoodsRefund(ReturnGoodsInputOrderDTO returnGoodsInputOrder);
 }
