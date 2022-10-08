@@ -72,4 +72,12 @@ public interface WmsService {
      * @return 货位库存明细
      */
     List<GoodsAllocationStockDetailDTO> listStockDetailsByGoodsSkuId(Long goodsSkuId) throws Exception;
+
+    /**
+     * 获取订单对应的物流单号
+     *
+     * @param orderId 订单id
+     * @return 物流单号
+     */
+    String getLogisticCode(Long orderId);
 }
