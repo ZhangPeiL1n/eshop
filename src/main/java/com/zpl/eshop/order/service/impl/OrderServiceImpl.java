@@ -79,8 +79,17 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informGoodsDeliveryFinishEvent(Long orderId) {
-        return true;
+    public Boolean informGoodsDeliveryFinishEvent(Long orderId) throws Exception {
+        try {
+            OrderInfoDTO order = orderInfoService.getById(orderId);
+            orderStateManager.finishDelivery(order);
+
+            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.GOODS_DELIVERY));
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**

@@ -33,6 +33,12 @@ public class OrderStateFactory {
     private WaitForDeliveryState waitForDeliveryState;
 
     /**
+     * 待收货状态
+     */
+    @Autowired
+    private WaitForReceiveState waitForReceiveState;
+
+    /**
      * 默认状态组件
      */
     @Autowired
@@ -61,6 +67,8 @@ public class OrderStateFactory {
             return canceledOrderState;
         } else if ((OrderStatus.WAIT_FOR_DELIVERY.equals(orderStatus))) {
             return waitForDeliveryState;
+        } else if ((OrderStatus.WAIT_FOR_RECEIVE.equals(orderStatus))) {
+            return waitForReceiveState;
         }
         return defaultOrderState;
     }

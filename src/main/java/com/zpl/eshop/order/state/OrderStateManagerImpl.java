@@ -39,7 +39,7 @@ public class OrderStateManagerImpl implements OrderStateManager {
      * @return
      */
     @Override
-    public Boolean canCancel(OrderInfoDTO order) {
+    public Boolean canCancel(OrderInfoDTO order) throws Exception {
         OrderState orderState = orderStateFactory.get(order);
         return orderState.canCancel(order);
     }
@@ -62,7 +62,7 @@ public class OrderStateManagerImpl implements OrderStateManager {
      * @return
      */
     @Override
-    public Boolean canPay(OrderInfoDTO order) {
+    public Boolean canPay(OrderInfoDTO order) throws Exception {
         OrderState orderState = orderStateFactory.get(order);
         return orderState.canPay(order);
     }
@@ -76,5 +76,17 @@ public class OrderStateManagerImpl implements OrderStateManager {
     public void payOrder(OrderInfoDTO order) throws Exception {
         OrderState waitForDeliveryState = orderStateFactory.getByOrderStatus(OrderStatus.WAIT_FOR_DELIVERY);
         waitForDeliveryState.doTransition(order);
+    }
+
+    /**
+     * 完成商品发货
+     *
+     * @param order 订单
+     * @throws Exception
+     */
+    @Override
+    public void finishDelivery(OrderInfoDTO order) throws Exception {
+        OrderState waitForReceiveOrderState = orderStateFactory.getByOrderStatus(OrderStatus.WAIT_FOR_RECEIVE);
+        waitForReceiveOrderState.doTransition(order);
     }
 }

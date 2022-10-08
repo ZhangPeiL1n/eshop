@@ -23,7 +23,7 @@ public interface OrderStateManager {
      * @param order 订单
      * @return
      */
-    Boolean canCancel(OrderInfoDTO order);
+    Boolean canCancel(OrderInfoDTO order) throws Exception;
 
     /**
      * 取消订单
@@ -38,7 +38,7 @@ public interface OrderStateManager {
      * @param order 订单
      * @return
      */
-    Boolean canPay(OrderInfoDTO order);
+    Boolean canPay(OrderInfoDTO order) throws Exception;
 
     /**
      * 支付订单
@@ -46,4 +46,12 @@ public interface OrderStateManager {
      * @param order 订单
      */
     void payOrder(OrderInfoDTO order) throws Exception;
+
+    /**
+     * 完成商品发货
+     *
+     * @param order 订单
+     * @throws Exception
+     */
+    void finishDelivery(OrderInfoDTO order) throws Exception;
 }

@@ -31,7 +31,7 @@ public class OrderStatus {
     /**
      * 待收货
      */
-    public static final Integer WAIT_FOR_RECEIVED = 4;
+    public static final Integer WAIT_FOR_RECEIVE = 4;
 
     /**
      * 已完成
