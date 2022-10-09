@@ -19,6 +19,12 @@ public class PurchaseInputOrderDO extends AbstractObject {
      * id
      */
     private Long id;
+
+    /**
+     * 采购单id
+     */
+    private Long purchaseOrderId;
+
     /**
      * 供应商 id
      */

@@ -22,6 +22,7 @@ public class PurchaseInputOrderDAOImpl implements PurchaseInputOrderDAO {
     /**
      * 采购入库单管理Mapper组件
      */
+    @Autowired
     private PurchaseInputOrderMapper purchaseInputOrderMapper;
 
     /**

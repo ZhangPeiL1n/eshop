@@ -1,0 +1,2 @@
+delete
+from wms_purchase_input_order_item

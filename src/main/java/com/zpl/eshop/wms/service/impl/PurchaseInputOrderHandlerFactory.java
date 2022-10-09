@@ -3,6 +3,8 @@ package com.zpl.eshop.wms.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 /**
  * 责任链工厂
  *
@@ -42,10 +44,8 @@ public class PurchaseInputOrderHandlerFactory {
     @Autowired
     private InformFinanceCenterHandler informFinanceCenterHandler;
 
-    /**
-     * 构造函数：组装责任链条
-     */
-    public PurchaseInputOrderHandlerFactory() {
+    @PostConstruct
+    public void init() {
         updatePurchaseInputOrderStatusHandler.setSuccessor(informPurchaseCenterHandler);
         informPurchaseCenterHandler.setSuccessor(updateStockHandler);
         updateStockHandler.setSuccessor(informScheduleCenterHandler);
