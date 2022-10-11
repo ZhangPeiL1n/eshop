@@ -1,5 +1,7 @@
 package com.zpl.eshop.order.dao.impl;
 
+import com.zpl.eshop.common.util.DateProvider;
+import com.zpl.eshop.order.constant.OrderStatus;
 import com.zpl.eshop.order.dao.OrderInfoDAO;
 import com.zpl.eshop.order.domain.OrderInfoDO;
 import com.zpl.eshop.order.domain.OrderInfoQuery;
@@ -7,6 +9,7 @@ import com.zpl.eshop.order.mapper.OrderInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,12 +28,20 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     private OrderInfoMapper orderInfoMapper;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 新建订单
      *
      * @param order 订单
      */
     @Override
-    public Long save(OrderInfoDO order) {
+    public Long save(OrderInfoDO order) throws Exception {
+        order.setGmtCreate(dateProvider.getCurrentTime());
+        order.setGmtModified(dateProvider.getCurrentTime());
         orderInfoMapper.save(order);
         return order.getId();
     }
@@ -62,7 +73,8 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      * @param order 订单
      */
     @Override
-    public void updateStatus(OrderInfoDO order) {
+    public void updateStatus(OrderInfoDO order) throws Exception {
+        order.setGmtModified(dateProvider.getCurrentTime());
         orderInfoMapper.updateStatus(order);
     }
 
@@ -74,5 +86,30 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     @Override
     public List<OrderInfoDO> listAllUnpaid() {
         return orderInfoMapper.listAllUnpaid();
+    }
+
+    /**
+     * 更新订单的确认收货时间
+     *
+     * @param id                 订单id
+     * @param confirmReceiptDate 确认收货时间
+     */
+    @Override
+    public void updateConfirmReceiptTime(Long id, Date confirmReceiptDate) throws Exception {
+        OrderInfoDO order = getById(id);
+        order.setConfirmReceiptTime(confirmReceiptDate);
+        order.setGmtModified(dateProvider.getCurrentTime());
+        orderInfoMapper.updateConfirmReceiptTime(order);
+    }
+
+    /**
+     * 查询待收货的订单
+     *
+     * @return 订单
+     * @throws Exception
+     */
+    @Override
+    public List<OrderInfoDO> listUnreceived() throws Exception {
+        return orderInfoMapper.listByStatus(OrderStatus.WAIT_FOR_RECEIVE);
     }
 }

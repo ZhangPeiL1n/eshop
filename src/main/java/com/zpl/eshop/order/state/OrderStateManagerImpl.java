@@ -89,4 +89,27 @@ public class OrderStateManagerImpl implements OrderStateManager {
         OrderState waitForReceiveOrderState = orderStateFactory.getByOrderStatus(OrderStatus.WAIT_FOR_RECEIVE);
         waitForReceiveOrderState.doTransition(order);
     }
+
+    /**
+     * 判断能否手动确认收货
+     *
+     * @param order 订单
+     * @return 能否手动确认收货
+     */
+    @Override
+    public Boolean canConfirmReceipt(OrderInfoDTO order) {
+        OrderState orderState = orderStateFactory.get(order);
+        return orderState.canConfirmReceipt(order);
+    }
+
+    /**
+     * 手动确认收货
+     *
+     * @param order 订单
+     */
+    @Override
+    public void confirmReceipt(OrderInfoDTO order) throws Exception {
+        OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.FINISHED);
+        orderState.doTransition(order);
+    }
 }

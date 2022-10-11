@@ -71,4 +71,11 @@ public interface OrderInfoService {
      */
     String pay(Long id) throws Exception;
 
+    /**
+     * 手动确认收货
+     *
+     * @param id 订单id
+     */
+    Boolean manualConfirmReceipt(Long id) throws Exception;
+
 }

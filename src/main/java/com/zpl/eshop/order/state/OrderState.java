@@ -32,4 +32,12 @@ public interface OrderState {
      * @return 能否支付
      */
     Boolean canPay(OrderInfoDTO order) throws Exception;
+
+    /**
+     * 判断当前订单能否执行确认收货操作
+     *
+     * @param order 订单
+     * @return 能否确认收货
+     */
+    Boolean canConfirmReceipt(OrderInfoDTO order);
 }

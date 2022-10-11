@@ -43,4 +43,15 @@ public class DefaultOrderState implements OrderState {
         return false;
     }
 
+    /**
+     * 判断当前订单能否执行确认收货操作
+     *
+     * @param order 订单
+     * @return 能否确认收货
+     */
+    @Override
+    public Boolean canConfirmReceipt(OrderInfoDTO order) {
+        return false;
+    }
+
 }

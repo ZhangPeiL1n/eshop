@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -287,6 +288,23 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             return null;
         }
         return payService.getQrCode(order);
+    }
+
+    /**
+     * 手动确认收货
+     *
+     * @param id 订单id
+     */
+    @Override
+    public Boolean manualConfirmReceipt(Long id) throws Exception {
+        OrderInfoDTO order = getById(id);
+        if (!orderStateManager.canConfirmReceipt(order)) {
+            return false;
+        }
+        orderStateManager.confirmReceipt(order);
+        orderInfoDAO.updateConfirmReceiptTime(id, new Date());
+        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.MANUAL_CONFIRM_RECEIPT));
+        return true;
     }
 
     /**

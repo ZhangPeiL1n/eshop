@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 待发货状态
+ * 已完成状态
  *
  * @author ZhangPeiL1n
- * @date 2022/10/4 14:40
+ * @date 2022/10/11 20:52
  **/
 @Component
-public class WaitForDeliveryState implements OrderState {
+public class FinishOrderState implements OrderState {
 
     /**
      * 商品管理DAO组件
@@ -29,20 +29,38 @@ public class WaitForDeliveryState implements OrderState {
     @Autowired
     private DateProvider dateProvider;
 
+
+    /**
+     * 状态流转
+     *
+     * @param order 订单
+     */
     @Override
     public void doTransition(OrderInfoDTO order) throws Exception {
-        order.setOrderStatus(OrderStatus.WAIT_FOR_DELIVERY);
+        order.setOrderStatus(OrderStatus.FINISHED);
         order.setGmtModified(dateProvider.getCurrentTime());
         orderInfoDAO.updateStatus(order.clone(OrderInfoDO.class));
     }
 
+    /**
+     * 判断当前状态能否执行取消订单操作
+     *
+     * @param order 订单
+     * @return 能否取消
+     */
     @Override
-    public Boolean canCancel(OrderInfoDTO order) {
+    public Boolean canCancel(OrderInfoDTO order) throws Exception {
         return false;
     }
 
+    /**
+     * 判断当前状态能否执行支付操作
+     *
+     * @param order 订单
+     * @return 能否支付
+     */
     @Override
-    public Boolean canPay(OrderInfoDTO order) {
+    public Boolean canPay(OrderInfoDTO order) throws Exception {
         return false;
     }
 

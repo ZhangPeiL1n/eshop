@@ -39,6 +39,12 @@ public class OrderStateFactory {
     private WaitForReceiveState waitForReceiveState;
 
     /**
+     * 已完成
+     */
+    @Autowired
+    private FinishOrderState finishOrderState;
+
+    /**
      * 默认状态组件
      */
     @Autowired
@@ -69,6 +75,8 @@ public class OrderStateFactory {
             return waitForDeliveryState;
         } else if ((OrderStatus.WAIT_FOR_RECEIVE.equals(orderStatus))) {
             return waitForReceiveState;
+        } else if ((OrderStatus.FINISHED.equals(orderStatus))) {
+            return finishOrderState;
         }
         return defaultOrderState;
     }
