@@ -4,6 +4,8 @@ import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
 import com.zpl.eshop.wms.domain.LogisticOrderDTO;
 
+import java.util.Date;
+
 /**
  * 物流中心对外提供的接口
  *
@@ -28,4 +30,13 @@ public interface LogisticsService {
      * @return 物流单
      */
     LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order);
+
+    /**
+     * 获取订单签收时间
+     *
+     * @param orderId 订单id
+     * @param orderNo 订单编号
+     * @return 签收时间
+     */
+    Date getSignedTime(Long orderId, String orderNo) throws Exception;
 }
