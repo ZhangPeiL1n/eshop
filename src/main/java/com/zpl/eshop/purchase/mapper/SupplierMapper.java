@@ -83,8 +83,8 @@ public interface SupplierMapper {
             + "AND name like '${name}%' "
             + "</if>"
 
-            + "<if test='setlementPeriod != null'>"
-            + "AND setlement_period=#{setlementPeriod} "
+            + "<if test='settlementPeriod != null'>"
+            + "AND settlement_period=#{settlementPeriod} "
             + "</if>"
 
             + "LIMIT #{offset},#{size} "
@@ -124,6 +124,7 @@ public interface SupplierMapper {
             + "invoice_title,"
             + "taxpayer_id,"
             + "business_scope,"
+            + "remark,"
             + "gmt_create,"
             + "gmt_modified "
             + "FROM purchase_supplier "
@@ -142,6 +143,7 @@ public interface SupplierMapper {
             @Result(column = "invoice_title", property = "invoiceTitle"),
             @Result(column = "taxpayer_id", property = "taxpayerId"),
             @Result(column = "business_scope", property = "businessScope"),
+            @Result(column = "remark", property = "remark"),
             @Result(column = "gmt_create", property = "gmtCreate"),
             @Result(column = "gmt_modified", property = "gmtModified")
     })
