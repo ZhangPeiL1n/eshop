@@ -59,7 +59,7 @@ public class LogisticsServiceImpl implements LogisticsService {
      * @return 签收时间
      */
     @Override
-    public Date getSignTime(Long orderId, Long orderNo) throws Exception {
+    public Date getSignedTime(Long orderId, String orderNo) throws Exception {
         return dateProvider.getCurrentTime();
     }
 }

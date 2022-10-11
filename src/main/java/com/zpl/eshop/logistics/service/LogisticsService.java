@@ -38,5 +38,5 @@ public interface LogisticsService {
      * @param orderNo 订单编号
      * @return 签收时间
      */
-    Date getSignTime(Long orderId, Long orderNo) throws Exception;
+    Date getSignedTime(Long orderId, String orderNo) throws Exception;
 }
