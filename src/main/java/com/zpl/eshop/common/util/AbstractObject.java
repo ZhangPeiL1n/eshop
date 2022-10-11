@@ -70,7 +70,7 @@ public abstract class AbstractObject {
             }
             // 获取实际的 list 集合
             List<?> list = (List<?>) field.get(this);
-            if (list == null || list.size() == 0){
+            if (list == null || list.size() == 0) {
                 continue;
             }
 

@@ -1,5 +1,6 @@
 package com.zpl.eshop.auth.domain;
 
+import com.zpl.eshop.common.util.AbstractObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PriorityDTO {
+public class PriorityDTO extends AbstractObject {
 
     /**
      * id

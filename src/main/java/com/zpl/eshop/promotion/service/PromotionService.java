@@ -44,5 +44,5 @@ public interface PromotionService {
      * @param userAccountId 帐号id
      * @return 处理结果
      */
-    public Boolean useCoupon(Long couponId, Long userAccountId) throws Exception;
+    Boolean useCoupon(Long couponId, Long userAccountId) throws Exception;
 }

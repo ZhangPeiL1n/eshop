@@ -18,13 +18,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommentInfoDAOImpl implements CommentInfoDAO {
 
+    private final Logger logger = LoggerFactory.getLogger(CommentInfoDAOImpl.class);
     /**
      * 评论信息管理模块的mapper组件
      */
     @Autowired
     private CommentInfoMapper commentInfoMapper;
-
-    private final Logger logger = LoggerFactory.getLogger(CommentInfoDAOImpl.class);
 
     @Override
     public Boolean saveCommentInfo(CommentInfoDO commentInfoDO) {

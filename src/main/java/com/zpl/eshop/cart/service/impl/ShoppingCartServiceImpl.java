@@ -21,6 +21,7 @@ import java.util.Date;
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
+    private final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
     /**
      * 购物车管理模块DAO组件
      */
@@ -31,9 +32,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Autowired
     private ShoppingCartItemDAO shoppingCartItemDAO;
-
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
-
 
     /**
      * 添加购物车条目

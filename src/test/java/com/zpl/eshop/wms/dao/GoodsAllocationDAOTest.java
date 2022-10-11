@@ -25,7 +25,7 @@ import java.util.Map;
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @Rollback()
 public class GoodsAllocationDAOTest {
 

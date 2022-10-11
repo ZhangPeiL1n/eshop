@@ -17,13 +17,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommentPictureDAOImpl implements CommentPictureDAO {
 
+    private final Logger logger = LoggerFactory.getLogger(CommentPictureDAOImpl.class);
     /**
      * 评论晒图管理模块的mapper组件
      */
     @Autowired
     private CommentPictureMapper mapper;
-
-    private final Logger logger = LoggerFactory.getLogger(CommentPictureDAOImpl.class);
 
     @Override
     public Boolean saveCommentPicture(CommentPictureDO commentPictureDO) {

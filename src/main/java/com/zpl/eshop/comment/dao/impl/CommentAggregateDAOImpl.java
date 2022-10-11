@@ -16,13 +16,12 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public class CommentAggregateDAOImpl implements CommentAggregateDAO {
+    private final Logger logger = LoggerFactory.getLogger(CommentAggregateDAOImpl.class);
     /**
      * 评论统计信息管理模块Mapper
      */
     @Autowired
     private CommentAggregateMapper commentAggregateMapper;
-
-    private final Logger logger = LoggerFactory.getLogger(CommentAggregateDAOImpl.class);
 
     /**
      * 根据商品 id 查询评论统计信息
@@ -58,8 +57,6 @@ public class CommentAggregateDAOImpl implements CommentAggregateDAO {
         return true;
     }
 
-    ;
-
     /**
      * 更新评论统计信息
      *
@@ -77,5 +74,4 @@ public class CommentAggregateDAOImpl implements CommentAggregateDAO {
         return true;
     }
 
-    ;
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpringApplicationContext {
 
-    private ApplicationContext context;
+    private final ApplicationContext context;
 
     /**
      * 构造函数

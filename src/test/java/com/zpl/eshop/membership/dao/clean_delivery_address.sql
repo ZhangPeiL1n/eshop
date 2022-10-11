@@ -1,0 +1,2 @@
+DELETE
+FROM membership_delivery_address

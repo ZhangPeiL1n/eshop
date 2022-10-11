@@ -45,6 +45,7 @@ public interface InventoryService {
 
     /**
      * 通知库存中心，“退货入库”事件发生了
+     *
      * @param returnGoodsInputOrderDTO 退货入库DTO
      * @return 处理结果
      */

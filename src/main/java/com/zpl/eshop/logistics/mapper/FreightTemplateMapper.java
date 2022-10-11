@@ -30,6 +30,7 @@ public interface FreightTemplateMapper {
             + ") VALUES("
             + "#{name},"
             + "#{type},"
+            + "#{rule},"
             + "#{remark},"
             + "#{gmtCreate},"
             + "#{gmtModified}"
@@ -66,7 +67,7 @@ public interface FreightTemplateMapper {
             + "AND type=#{type} "
             + "</if>"
 
-            + "LIMTT #{offset},#{size} "
+            + "LIMIT #{offset},#{size} "
             + ") b "
             + "WHERE a.id=b.id"
 

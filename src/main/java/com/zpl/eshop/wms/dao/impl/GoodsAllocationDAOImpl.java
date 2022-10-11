@@ -55,6 +55,7 @@ public class GoodsAllocationDAOImpl implements GoodsAllocationDAO {
 
     /**
      * 根据id查询货位
+     *
      * @param id 货位id
      * @return 货位
      */
