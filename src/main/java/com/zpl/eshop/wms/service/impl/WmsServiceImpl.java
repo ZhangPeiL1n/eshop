@@ -157,4 +157,26 @@ public class WmsServiceImpl implements WmsService {
         return null;
     }
 
+    /**
+     * 通知wms中心，“创建采购结算单”事件发生了
+     *
+     * @param purchaseInputOrderId 采购入库单id
+     * @return 处理结果
+     */
+    @Override
+    public Boolean informCreatePurchaseSettlementOrderEvent(Long purchaseInputOrderId) {
+        return true;
+    }
+
+    /**
+     * 通知wms中心，“完成采购结算单”事件发生了
+     *
+     * @param purchaseInputOrderId 采购入库单id
+     * @return 处理结果
+     */
+    @Override
+    public Boolean informFinishedPurchaseSettlementOrderEvent(Long purchaseInputOrderId) {
+        return true;
+    }
+
 }
