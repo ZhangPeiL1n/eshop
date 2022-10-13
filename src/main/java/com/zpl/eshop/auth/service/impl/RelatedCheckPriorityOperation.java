@@ -23,16 +23,19 @@ public class RelatedCheckPriorityOperation implements PriorityOperation<Boolean>
      * 关联检查结果
      */
     private Boolean relateCheckResult = false;
+
     /**
      * 权限管理模块的DAO组件
      */
     @Autowired
     private PriorityDAO priorityDAO;
+
     /**
      * 角色和权限关系管理模块的DAO组件
      */
     @Autowired
     private RolePriorityRelationshipDAO rolePriorityRelationshipDAO;
+
     /**
      * 账号和权限关系管理模块的DAO组件
      */

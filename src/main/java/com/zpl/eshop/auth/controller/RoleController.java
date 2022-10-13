@@ -102,8 +102,8 @@ public class RoleController {
     public Boolean update(@RequestBody RoleVO role) {
         try {
             RoleDTO targetRole = role.clone(RoleDTO.class);
-            List<RolePriorityRelationshipDTO> targetRelations = ObjectUtils.convertList(
-                    role.getRolePriorityRelations(), RolePriorityRelationshipDTO.class);
+            List<RolePriorityRelationshipDTO> targetRelations =
+                    ObjectUtils.convertList(role.getRolePriorityRelations(), RolePriorityRelationshipDTO.class);
             targetRole.setRolePriorityRelations(targetRelations);
 
             return roleService.update(targetRole);

@@ -45,7 +45,7 @@ public class MemberLevelController {
                     MemberLevelDetailVO.class);
         } catch (Exception e) {
             logger.error("error", e);
-            return new ArrayList<MemberLevelDetailVO>();
+            return new ArrayList<>();
         }
     }
 

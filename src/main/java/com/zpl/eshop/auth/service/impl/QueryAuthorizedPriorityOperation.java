@@ -2,6 +2,7 @@ package com.zpl.eshop.auth.service.impl;
 
 import com.zpl.eshop.auth.dao.PriorityDAO;
 import com.zpl.eshop.auth.domain.PriorityDO;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ import java.util.Map;
  */
 @Component
 @Scope("prototype")
+@Data
 public class QueryAuthorizedPriorityOperation implements PriorityOperation<Boolean> {
 
     /**
@@ -35,9 +37,9 @@ public class QueryAuthorizedPriorityOperation implements PriorityOperation<Boole
      * 执行这个操作
      */
     public Boolean doExecute(Priority priority) throws Exception {
-        List<Priority> targetChildren = new ArrayList<Priority>();
+        List<Priority> targetChildren = new ArrayList<>();
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("accountId", accountId);
         parameters.put("parentId", priority.getId());
 
@@ -52,13 +54,4 @@ public class QueryAuthorizedPriorityOperation implements PriorityOperation<Boole
 
         return true;
     }
-
-    public Long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
-
 }

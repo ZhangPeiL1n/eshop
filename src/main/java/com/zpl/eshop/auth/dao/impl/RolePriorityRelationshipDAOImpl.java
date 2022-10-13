@@ -29,7 +29,7 @@ public class RolePriorityRelationshipDAOImpl implements RolePriorityRelationship
     /**
      * 新增账号和权限的关联关系
      *
-     * @param accountPriorityRelationshipDO
+     * @param rolePriorityRelationshipDO
      */
     @Override
     public Boolean save(RolePriorityRelationshipDO rolePriorityRelationshipDO) {

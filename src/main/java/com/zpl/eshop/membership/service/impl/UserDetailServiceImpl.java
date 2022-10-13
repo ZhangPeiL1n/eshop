@@ -24,6 +24,7 @@ public class UserDetailServiceImpl implements UserDetailService {
      */
     @Autowired
     private UserDetailDAO userDetailDAO;
+
     /**
      * 日期辅助组件
      */
@@ -36,6 +37,7 @@ public class UserDetailServiceImpl implements UserDetailService {
      * @param userAccountId 用户账号id
      * @return 用户详细信息
      */
+    @Override
     public UserDetailDTO getByUserAccountId(Long userAccountId) throws Exception {
         return userDetailDAO.getByUserAccountId(userAccountId).clone(UserDetailDTO.class);
     }
@@ -45,6 +47,7 @@ public class UserDetailServiceImpl implements UserDetailService {
      *
      * @param userDetail 用户详细信息
      */
+    @Override
     public void updateByUserAccountId(UserDetailDTO userDetail) throws Exception {
         userDetail.setGmtModified(dateProvider.getCurrentTime());
         userDetailDAO.updateByUserAccountId(userDetail.clone(UserDetailDO.class));

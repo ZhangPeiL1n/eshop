@@ -38,6 +38,7 @@ public interface RolePriorityRelationshipDAO {
      * 根据角色id删除角色权限关联关系
      *
      * @param roleId 角色id
+     * @return 操作结果
      */
     Boolean removeByRoleId(Long roleId);
 

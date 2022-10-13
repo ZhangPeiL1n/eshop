@@ -27,10 +27,12 @@ public class FirstLoginMembershipUpdater extends AbstractMembershipUpdater<Objec
      * 每天第一次登录对成长值的累加值
      */
     private static final Long FIRST_LOGIN_GROWTH_VALUE_UPDATE = 5L;
+
     /**
      * 每天第一次登录对会员积分的累加值
      */
-    private static final Long FIRST_LOGIN_MEMBER_PONIT_UPDATE = 5L;
+    private static final Long FIRST_LOGIN_MEMBER_POINT_UPDATE = 5L;
+
 
     /**
      * 会员等级管理DAO组件
@@ -56,7 +58,7 @@ public class FirstLoginMembershipUpdater extends AbstractMembershipUpdater<Objec
     @Override
     protected Map<String, Object> updateMemberLevel(Long userAccountId,
                                                     Object parameter) throws Exception {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         MemberLevelDO memberLevel = memberLevelDAO.getByUserAccountId(userAccountId);
 
@@ -82,17 +84,17 @@ public class FirstLoginMembershipUpdater extends AbstractMembershipUpdater<Objec
     @Override
     protected Map<String, Object> updateMemberPoint(Long userAccountId,
                                                     Object parameter) throws Exception {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         MemberPointDO memberPoint = memberPointDAO.getByUserAccountId(userAccountId);
 
         result.put(UpdateMemberPointResult.OLD_MEMBER_POINT, memberPoint.getPoint());
 
-        memberPoint.setPoint(memberPoint.getPoint() + FIRST_LOGIN_MEMBER_PONIT_UPDATE);
+        memberPoint.setPoint(memberPoint.getPoint() + FIRST_LOGIN_MEMBER_POINT_UPDATE);
         memberPointDAO.update(memberPoint);
 
         result.put(UpdateMemberPointResult.UPDATED_MEMBER_POINT,
-                FIRST_LOGIN_MEMBER_PONIT_UPDATE);
+                FIRST_LOGIN_MEMBER_POINT_UPDATE);
         result.put(UpdateMemberPointResult.NEW_MEMBER_POINT, memberPoint.getPoint());
 
         return result;

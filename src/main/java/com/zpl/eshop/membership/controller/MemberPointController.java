@@ -45,7 +45,7 @@ public class MemberPointController {
                     MemberPointDetailVO.class);
         } catch (Exception e) {
             logger.error("error", e);
-            return new ArrayList<MemberPointDetailVO>();
+            return new ArrayList<>();
         }
     }
 

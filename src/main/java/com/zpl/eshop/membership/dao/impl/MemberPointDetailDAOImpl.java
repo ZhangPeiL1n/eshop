@@ -23,6 +23,7 @@ public class MemberPointDetailDAOImpl implements MemberPointDetailDAO {
      */
     @Autowired
     private MemberPointDetailMapper memberPointDetailMapper;
+
     /**
      * 日期辅助组件
      */
@@ -35,6 +36,7 @@ public class MemberPointDetailDAOImpl implements MemberPointDetailDAO {
      * @param query 查询调价你
      * @return 会员积分变更明细
      */
+    @Override
     public List<MemberPointDetailDO> listByPage(MemberPointDetailQuery query) throws Exception {
         return memberPointDetailMapper.listByPage(query);
     }
@@ -44,6 +46,7 @@ public class MemberPointDetailDAOImpl implements MemberPointDetailDAO {
      *
      * @param memberPointDetail 会员积分明细
      */
+    @Override
     public void save(MemberPointDetailDO memberPointDetail) throws Exception {
         memberPointDetail.setGmtCreate(dateProvider.getCurrentTime());
         memberPointDetail.setGmtModified(dateProvider.getCurrentTime());

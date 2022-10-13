@@ -27,6 +27,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
      *
      * @param userAccount 用户账号
      */
+    @Override
     public UserAccountDO save(UserAccountDO userAccount) {
         userAccountMapper.save(userAccount);
         return userAccount;
@@ -38,6 +39,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
      * @param userAccount 用户账号
      * @return
      */
+    @Override
     public UserAccountDO getForLogin(UserAccountDO userAccount) {
         return userAccountMapper.getForLogin(userAccount);
     }
@@ -48,6 +50,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
      * @param id 用户账号id
      * @return 用户账号
      */
+    @Override
     public UserAccountDO getById(Long id) {
         return userAccountMapper.getById(id);
     }
@@ -57,6 +60,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
      *
      * @param userAccount 用户账号
      */
+    @Override
     public void updatePassword(UserAccountDO userAccount) {
         userAccountMapper.updatePassword(userAccount);
     }
@@ -66,6 +70,7 @@ public class UserAccountDAOImpl implements UserAccountDAO {
      *
      * @return
      */
+    @Override
     public List<UserAccountDO> listAll() {
         return userAccountMapper.listAll();
     }

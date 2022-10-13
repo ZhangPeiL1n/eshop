@@ -32,6 +32,7 @@ public interface RoleDAO {
      * 新增角色
      *
      * @param role 角色DO对象
+     * @return id
      */
     Long save(RoleDO role);
 
@@ -39,6 +40,7 @@ public interface RoleDAO {
      * 更新角色
      *
      * @param role 角色DO对象
+     * @return 操作结果
      */
     Boolean update(RoleDO role);
 
@@ -46,6 +48,7 @@ public interface RoleDAO {
      * 删除角色
      *
      * @param id 角色id
+     * @return 操作结果
      */
     Boolean remove(Long id);
 

@@ -9,101 +9,43 @@ import com.zpl.eshop.common.util.AbstractObject;
  */
 public class PriorityVO extends AbstractObject {
 
-	/**
-	 * id
-	 */
-	private Long id;
-	/**
-	 * 权限编号
-	 */
-	private String code;
-	/**
+    /**
+     * id
+     */
+    private Long id;
+
+    /**
+     * 权限编号
+     */
+    private String code;
+
+    /**
      * 权限URL
      */
     private String url;
+
     /**
      * 权限备注
      */
     private String priorityComment;
+
     /**
      * 权限类型
      */
     private Integer priorityType;
-	/**
-	 * 父权限id
-	 */
-	private Long parentId;
-	/**
-	 * 权限的创建时间
-	 */
-	private String gmtCreate;
-	/**
-	 * 权限的修改时间
-	 */
-	private String gmtModified;
 
-	public Long getId() {
-		return id;
-	}
+    /**
+     * 父权限id
+     */
+    private Long parentId;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * 权限的创建时间
+     */
+    private String gmtCreate;
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getPriorityComment() {
-		return priorityComment;
-	}
-
-	public void setPriorityComment(String priorityComment) {
-		this.priorityComment = priorityComment;
-	}
-
-	public Integer getPriorityType() {
-		return priorityType;
-	}
-
-	public void setPriorityType(Integer priorityType) {
-		this.priorityType = priorityType;
-	}
-
-	public Long getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
-
-	public String getGmtCreate() {
-		return gmtCreate;
-	}
-
-	public void setGmtCreate(String gmtCreate) {
-		this.gmtCreate = gmtCreate;
-	}
-
-	public String getGmtModified() {
-		return gmtModified;
-	}
-
-	public void setGmtModified(String gmtModified) {
-		this.gmtModified = gmtModified;
-	}
-
+    /**
+     * 权限的修改时间
+     */
+    private String gmtModified;
 }

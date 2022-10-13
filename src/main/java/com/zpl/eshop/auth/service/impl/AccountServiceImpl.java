@@ -92,7 +92,6 @@ public class AccountServiceImpl implements AccountService {
      * 新增账号
      *
      * @param account 账号
-     * @return 处理结果
      */
     @Override
     public void save(AccountDTO account) throws Exception {
@@ -109,7 +108,6 @@ public class AccountServiceImpl implements AccountService {
      * 更新账号
      *
      * @param account 账号
-     * @return 处理结果
      */
     @Override
     public void update(AccountDTO account) throws Exception {
@@ -161,7 +159,6 @@ public class AccountServiceImpl implements AccountService {
      * 删除账号
      *
      * @param id 账号id
-     * @return 处理结果
      */
     @Override
     public void remove(Long id) throws Exception {

@@ -13,7 +13,7 @@ interface PriorityCacheManager {
      * 获取账号的授权菜单树
      *
      * @param accountId 账号id
-     * @return
+     * @return 授权菜单树
      */
     List<Priority> getAuthorizedPriorityTree(Long accountId);
 

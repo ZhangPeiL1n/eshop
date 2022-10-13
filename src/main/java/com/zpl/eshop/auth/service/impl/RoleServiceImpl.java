@@ -27,21 +27,25 @@ public class RoleServiceImpl implements RoleService {
      */
     @Autowired
     private RoleDAO roleDAO;
+
     /**
      * 角色权限关系管理模块DAO组件
      */
     @Autowired
     private RolePriorityRelationshipDAO rolePriorityRelationDAO;
+
     /**
      * 账号角色关系管理模块DAO组件
      */
     @Autowired
     private AccountRoleRelationshipDAO accountRoleRelationDAO;
+
     /**
      * 日期辅助组件
      */
     @Autowired
     private DateProvider dateProvider;
+
     /**
      * 权限缓存管理组件
      */
@@ -144,5 +148,4 @@ public class RoleServiceImpl implements RoleService {
 
         return true;
     }
-
 }

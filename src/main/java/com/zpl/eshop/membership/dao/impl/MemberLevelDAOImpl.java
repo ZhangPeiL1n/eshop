@@ -21,6 +21,7 @@ public class MemberLevelDAOImpl implements MemberLevelDAO {
      */
     @Autowired
     private MemberLevelMapper memberLevelMapper;
+
     /**
      * 日期辅助组件
      */
@@ -33,6 +34,7 @@ public class MemberLevelDAOImpl implements MemberLevelDAO {
      * @param userAccountId 用户账号id
      * @return 会员等级
      */
+    @Override
     public MemberLevelDO getByUserAccountId(Long userAccountId) throws Exception {
         MemberLevelDO memberLevel = memberLevelMapper.getByUserAccountId(userAccountId);
 
@@ -52,6 +54,7 @@ public class MemberLevelDAOImpl implements MemberLevelDAO {
      *
      * @param memberLevel 会员等级
      */
+    @Override
     public void save(MemberLevelDO memberLevel) throws Exception {
         memberLevel.setGmtCreate(dateProvider.getCurrentTime());
         memberLevel.setGmtModified(dateProvider.getCurrentTime());
@@ -63,6 +66,7 @@ public class MemberLevelDAOImpl implements MemberLevelDAO {
      *
      * @param memberLevel 会员等级
      */
+    @Override
     public void update(MemberLevelDO memberLevel) throws Exception {
         memberLevel.setGmtModified(dateProvider.getCurrentTime());
         memberLevelMapper.update(memberLevel);

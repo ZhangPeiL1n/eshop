@@ -41,12 +41,10 @@ public class AccountController {
     public List<AccountVO> listByPage(AccountQuery query) {
         try {
             List<AccountDTO> accounts = accountService.listByPage(query);
-            List<AccountVO> resultAccounts = ObjectUtils.convertList(accounts,
-                    AccountVO.class, CloneDirection.OPPOSITE);
-            return resultAccounts;
+            return ObjectUtils.convertList(accounts, AccountVO.class, CloneDirection.OPPOSITE);
         } catch (Exception e) {
             logger.error("error", e);
-            return new ArrayList<AccountVO>();
+            return new ArrayList<>();
         }
     }
 
@@ -60,9 +58,7 @@ public class AccountController {
     public AccountVO getById(@PathVariable("id") Long id) {
         try {
             AccountDTO account = accountService.getById(id);
-            AccountVO resultAccount = account.clone(AccountVO.class,
-                    CloneDirection.OPPOSITE);
-            return resultAccount;
+            return account.clone(AccountVO.class, CloneDirection.OPPOSITE);
         } catch (Exception e) {
             logger.error("error", e);
             return new AccountVO();
@@ -78,8 +74,7 @@ public class AccountController {
     @PostMapping("/")
     public Boolean save(@RequestBody AccountVO account) {
         try {
-            AccountDTO targetAccount = account.clone(AccountDTO.class,
-                    CloneDirection.FORWARD);
+            AccountDTO targetAccount = account.clone(AccountDTO.class, CloneDirection.FORWARD);
             accountService.save(targetAccount);
             return true;
         } catch (Exception e) {
@@ -97,8 +92,7 @@ public class AccountController {
     @PutMapping("/{id}")
     public Boolean update(@RequestBody AccountVO account) {
         try {
-            AccountDTO targetAccount = account.clone(AccountDTO.class,
-                    CloneDirection.FORWARD);
+            AccountDTO targetAccount = account.clone(AccountDTO.class, CloneDirection.FORWARD);
             accountService.update(targetAccount);
             return true;
         } catch (Exception e) {

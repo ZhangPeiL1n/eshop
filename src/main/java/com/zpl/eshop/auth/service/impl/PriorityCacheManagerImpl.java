@@ -19,10 +19,12 @@ public class PriorityCacheManagerImpl implements PriorityCacheManager {
      * 用户授权的菜单树的缓存
      */
     private final Map<Long, List<Priority>> authorizedPriorityTreeCache = new ConcurrentHashMap<>();
+
     /**
      * 用户对某个编号的权限是否被授权的缓存
      */
     private final Map<String, Boolean> authorizedByCodeCache = new ConcurrentHashMap<>();
+
     /**
      * 用户对某个url的权限是否被授权的缓存
      */

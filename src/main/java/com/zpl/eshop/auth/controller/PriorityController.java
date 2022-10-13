@@ -29,6 +29,7 @@ public class PriorityController {
      */
     @Autowired
     private PriorityService priorityService;
+
     /**
      * 日期辅助组件
      */
@@ -45,19 +46,18 @@ public class PriorityController {
         try {
             List<PriorityDTO> priorityDTOs = priorityService.listRootPriorities();
             if (priorityDTOs == null) {
-                priorityDTOs = new ArrayList<PriorityDTO>();
+                priorityDTOs = new ArrayList<>();
             }
 
-            List<PriorityVO> priorityVOs = new ArrayList<PriorityVO>(priorityDTOs.size());
+            List<PriorityVO> priorityVOs = new ArrayList<>(priorityDTOs.size());
             for (PriorityDTO priorityDTO : priorityDTOs) {
                 priorityVOs.add(convertPriorityDTO2VO(priorityDTO));
             }
-
             return priorityVOs;
         } catch (Exception e) {
             logger.error("error", e);
         }
-        return new ArrayList<PriorityVO>();
+        return new ArrayList<>();
     }
 
     /**
@@ -72,10 +72,10 @@ public class PriorityController {
         try {
             List<PriorityDTO> priorityDTOs = priorityService.listChildPriorities(parentId);
             if (priorityDTOs == null) {
-                priorityDTOs = new ArrayList<PriorityDTO>();
+                priorityDTOs = new ArrayList<>();
             }
 
-            List<PriorityVO> priorityVOs = new ArrayList<PriorityVO>(priorityDTOs.size());
+            List<PriorityVO> priorityVOs = new ArrayList<>(priorityDTOs.size());
             for (PriorityDTO priorityDTO : priorityDTOs) {
                 priorityVOs.add(convertPriorityDTO2VO(priorityDTO));
             }
@@ -84,7 +84,7 @@ public class PriorityController {
         } catch (Exception e) {
             logger.error("error", e);
         }
-        return new ArrayList<PriorityVO>();
+        return new ArrayList<>();
     }
 
     /**
@@ -121,7 +121,7 @@ public class PriorityController {
             return priorityService.listAuthorizedByAccountId(accountId);
         } catch (Exception e) {
             logger.error("error", e);
-            return new ArrayList<Priority>();
+            return new ArrayList<>();
         }
     }
 
@@ -131,9 +131,7 @@ public class PriorityController {
      * @param accountId 账号id
      */
     @GetMapping("/authorized/code/{accountId}")
-    public Boolean existAuthorizedByCode(
-            @PathVariable("accountId") Long accountId,
-            String code) {
+    public Boolean existAuthorizedByCode(@PathVariable("accountId") Long accountId, String code) {
         try {
             return priorityService.existAuthorizedByCode(accountId, code);
         } catch (Exception e) {
@@ -148,9 +146,7 @@ public class PriorityController {
      * @param accountId 账号id
      */
     @GetMapping("/authorized/url/{accountId}")
-    public Boolean existAuthorizedByUrl(
-            @PathVariable("accountId") Long accountId,
-            String url) {
+    public Boolean existAuthorizedByUrl(@PathVariable("accountId") Long accountId, String url) {
         try {
             return priorityService.existAuthorizedByUrl(accountId, url);
         } catch (Exception e) {

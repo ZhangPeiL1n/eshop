@@ -27,14 +27,17 @@ public class PublishCommentMembershipUpdater extends AbstractMembershipUpdater<O
      * 发表评论成长值
      */
     private static final Long PUBLISH_COMMENT_GROWTH_VALUE_UPDATE = 10L;
+
     /**
      * 晒单的成长值
      */
     private static final Long SHOW_PICTURES_GROWTH_VALUE_UPDATE = 10L;
+
     /**
      * 发表评论会员积分
      */
     private static final Long PUBLISH_COMMENT_MEMBER_POINT_UPDATE = 10L;
+
     /**
      * 晒单的会员积分
      */
@@ -66,7 +69,7 @@ public class PublishCommentMembershipUpdater extends AbstractMembershipUpdater<O
                                                     Object parameter) throws Exception {
         Boolean showPictures = (Boolean) parameter;
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         MemberLevelDO memberLevel = memberLevelDAO.getByUserAccountId(userAccountId);
 
@@ -94,7 +97,7 @@ public class PublishCommentMembershipUpdater extends AbstractMembershipUpdater<O
                                                     Object parameter) throws Exception {
         Boolean showPictures = (Boolean) parameter;
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         MemberPointDO memberPoint = memberPointDAO.getByUserAccountId(userAccountId);
 
@@ -145,7 +148,7 @@ public class PublishCommentMembershipUpdater extends AbstractMembershipUpdater<O
                                                          Object parameter) throws Exception {
         Boolean showPictures = (Boolean) parameter;
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         MemberLevelDO memberLevel = memberLevelDAO.getByUserAccountId(userAccountId);
 
@@ -173,7 +176,7 @@ public class PublishCommentMembershipUpdater extends AbstractMembershipUpdater<O
                                                          Object parameter) throws Exception {
         Boolean showPictures = (Boolean) parameter;
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         MemberPointDO memberPoint = memberPointDAO.getByUserAccountId(userAccountId);
 

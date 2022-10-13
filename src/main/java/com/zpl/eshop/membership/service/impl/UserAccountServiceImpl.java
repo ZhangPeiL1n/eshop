@@ -30,6 +30,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Autowired
     private UserDetailDAO userDetailDAO;
+
     /**
      * 日期辅助组件
      */
@@ -41,6 +42,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      *
      * @param userAccount 用户账号
      */
+    @Override
     public UserAccountDTO save(UserAccountDTO userAccount) throws Exception {
         userAccount.setGmtCreate(dateProvider.getCurrentTime());
         userAccount.setGmtModified(dateProvider.getCurrentTime());
@@ -62,6 +64,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @param userAccount 用户账号
      * @return
      */
+    @Override
     public UserAccountDTO getForLogin(UserAccountDTO userAccount) throws Exception {
         UserAccountDO resultUserAccount = userAccountDAO.getForLogin(
                 userAccount.clone(UserAccountDO.class));
@@ -74,6 +77,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @param id 用户账号id
      * @return 用户账号
      */
+    @Override
     public UserAccountDTO getById(Long id) throws Exception {
         return userAccountDAO.getById(id).clone(UserAccountDTO.class);
     }
@@ -83,6 +87,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      *
      * @param userAccount 用户账号
      */
+    @Override
     public void updatePassword(UserAccountDO userAccount) throws Exception {
         userAccount.setGmtModified(dateProvider.getCurrentTime());
         userAccountDAO.updatePassword(userAccount);

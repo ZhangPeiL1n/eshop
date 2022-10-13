@@ -20,6 +20,7 @@ public class MemberPointDAOImpl implements MemberPointDAO {
      */
     @Autowired
     private MemberPointMapper memberPointMapper;
+
     /**
      * 日期辅助组件
      */
@@ -32,6 +33,7 @@ public class MemberPointDAOImpl implements MemberPointDAO {
      * @param userAccountId 用户账号id
      * @return 会员积分
      */
+    @Override
     public MemberPointDO getByUserAccountId(Long userAccountId) throws Exception {
         MemberPointDO memberPoint = memberPointMapper.getByUserAccountId(userAccountId);
 
@@ -50,6 +52,7 @@ public class MemberPointDAOImpl implements MemberPointDAO {
      *
      * @param memberPoint 会员积分
      */
+    @Override
     public void save(MemberPointDO memberPoint) throws Exception {
         memberPoint.setGmtCreate(dateProvider.getCurrentTime());
         memberPoint.setGmtModified(dateProvider.getCurrentTime());
@@ -61,6 +64,7 @@ public class MemberPointDAOImpl implements MemberPointDAO {
      *
      * @param memberPoint 会员积分
      */
+    @Override
     public void update(MemberPointDO memberPoint) throws Exception {
         memberPoint.setGmtModified(dateProvider.getCurrentTime());
         memberPointMapper.update(memberPoint);

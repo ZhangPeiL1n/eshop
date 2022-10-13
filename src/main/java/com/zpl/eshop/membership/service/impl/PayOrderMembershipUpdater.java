@@ -27,6 +27,7 @@ public class PayOrderMembershipUpdater extends AbstractMembershipUpdater<Object,
      * 支付订单的会员成长值累加值比例
      */
     private static final Double PAY_ORDER_GROWTH_VALUE_UPDATE_RATE = 0.1;
+
     /**
      * 支付订单的会员积分累加值比例
      */
@@ -37,6 +38,7 @@ public class PayOrderMembershipUpdater extends AbstractMembershipUpdater<Object,
      */
     @Autowired
     private MemberLevelDAO memberLevelDAO;
+
     /**
      * 会员积分管理DAO组件
      */
@@ -58,7 +60,7 @@ public class PayOrderMembershipUpdater extends AbstractMembershipUpdater<Object,
                                                     Object parameter) throws Exception {
         Long totalOrderAmount = (Long) parameter;
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         MemberLevelDO memberLevel = memberLevelDAO.getByUserAccountId(userAccountId);
 
@@ -137,7 +139,7 @@ public class PayOrderMembershipUpdater extends AbstractMembershipUpdater<Object,
                                                          Object parameter) throws Exception {
         Long totalOrderAmount = (Long) parameter;
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         MemberLevelDO memberLevel = memberLevelDAO.getByUserAccountId(userAccountId);
 
@@ -165,7 +167,7 @@ public class PayOrderMembershipUpdater extends AbstractMembershipUpdater<Object,
                                                          Object parameter) throws Exception {
         Long totalOrderAmount = (Long) parameter;
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         MemberPointDO memberPoint = memberPointDAO.getByUserAccountId(userAccountId);
 

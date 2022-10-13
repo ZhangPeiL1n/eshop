@@ -35,6 +35,7 @@ public class UserDetailDAOImpl implements UserDetailDAO {
      * @param userAccountId 用户账号id
      * @return 用户详细信息
      */
+    @Override
     public UserDetailDO getByUserAccountId(Long userAccountId) {
         return userDetailMapper.getByUserAccountId(userAccountId);
     }
@@ -44,6 +45,7 @@ public class UserDetailDAOImpl implements UserDetailDAO {
      *
      * @param userDetail 用户详细信息
      */
+    @Override
     public void updateByUserAccountId(UserDetailDO userDetail) {
         userDetailMapper.updateByUserAccountId(userDetail);
     }

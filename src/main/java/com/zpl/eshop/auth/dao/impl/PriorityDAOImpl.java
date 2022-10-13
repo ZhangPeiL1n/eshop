@@ -62,8 +62,7 @@ public class PriorityDAOImpl implements PriorityDAO {
      * @return
      */
     @Override
-    public List<PriorityDO> listAuthorizedByAccountId(
-            Map<String, Object> parameters) {
+    public List<PriorityDO> listAuthorizedByAccountId(Map<String, Object> parameters) {
         return priorityMapper.listAuthroziedByAccountId(parameters);
     }
 

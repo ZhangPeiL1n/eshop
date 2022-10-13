@@ -33,8 +33,8 @@ public class DeliveryAddressController {
     /**
      * 查询指定用户的收货地址
      *
-     * @param userAccountId
-     * @return
+     * @param userAccountId 用户帐号id
+     * @return 收货地址
      */
     @GetMapping("/{userAccountId}")
     public List<DeliveryAddressVO> listByUserAccountId(
@@ -45,7 +45,7 @@ public class DeliveryAddressController {
                     DeliveryAddressVO.class);
         } catch (Exception e) {
             logger.error("error", e);
-            return new ArrayList<DeliveryAddressVO>();
+            return new ArrayList<>();
         }
     }
 

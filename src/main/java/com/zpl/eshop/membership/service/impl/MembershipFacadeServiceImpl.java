@@ -17,6 +17,7 @@ public class MembershipFacadeServiceImpl implements MembershipFacadeService {
      * @param userAccountId 用户账号ID
      * @return 处理结果
      */
+    @Override
     public Boolean informFirstLoginDailyEvent(Long userAccountId) {
         return true;
     }
@@ -28,6 +29,7 @@ public class MembershipFacadeServiceImpl implements MembershipFacadeService {
      * @param totalOrderAmount 订单总金额
      * @return 处理结果
      */
+    @Override
     public Boolean informPayOrderEvent(Long userAccountId, Long totalOrderAmount) {
         return true;
     }
@@ -39,6 +41,7 @@ public class MembershipFacadeServiceImpl implements MembershipFacadeService {
      * @param totalOrderAmount 订单总金额
      * @return 处理结果
      */
+    @Override
     public Boolean informFinishReturnGoodsEvent(Long userAccountId, Long totalOrderAmount) {
         return true;
     }
@@ -50,6 +53,7 @@ public class MembershipFacadeServiceImpl implements MembershipFacadeService {
      * @param showPictures  是否晒图
      * @return 处理结果
      */
+    @Override
     public Boolean informPublishCommentEvent(Long userAccountId, Boolean showPictures) {
         return true;
     }
@@ -61,6 +65,7 @@ public class MembershipFacadeServiceImpl implements MembershipFacadeService {
      * @param showPictures  是否晒图
      * @return 处理结果
      */
+    @Override
     public Boolean informRemoveCommentEvent(Long userAccountId, Boolean showPictures) {
         return true;
     }
