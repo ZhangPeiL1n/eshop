@@ -7,6 +7,7 @@ import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
 import com.zpl.eshop.wms.service.PurchaseInputOrderService;
+import com.zpl.eshop.wms.service.SaleDeliveryOrderService;
 import com.zpl.eshop.wms.service.WmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,12 @@ public class WmsServiceImpl implements WmsService {
     private PurchaseInputOrderService purchaseInputOrderService;
 
     /**
+     * 销售出库单管理Service组件
+     */
+    @Autowired
+    private SaleDeliveryOrderService saleDeliveryOrderService;
+
+    /**
      * 创建采购入库单
      *
      * @param purchaseInputOrder 采购入库单 DTO
@@ -64,6 +71,11 @@ public class WmsServiceImpl implements WmsService {
      */
     @Override
     public Boolean createSaleDeliveryOrder(SaleDeliveryOrderDTO saleDeliveryOrder) {
+        try {
+            saleDeliveryOrderService.save(saleDeliveryOrder);
+        } catch (Exception e) {
+            logger.error("error", e);
+        }
         return true;
     }
 
