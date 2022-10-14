@@ -1,10 +1,7 @@
 package com.zpl.eshop.wms.service;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
-import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDTO;
-import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
-import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
-import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
+import com.zpl.eshop.wms.domain.*;
 
 import java.util.List;
 
@@ -20,50 +17,52 @@ public interface WmsService {
     /**
      * 创建采购入库单
      *
-     * @param purchaseInputOrderDTO 采购入库单 DTO
+     * @param purchaseInputOrder 采购入库单 DTO
      * @return 处理结果
      */
-    Boolean createPurchaseInputOrder(PurchaseInputOrderDTO purchaseInputOrderDTO);
+    Boolean createPurchaseInputOrder(PurchaseInputOrderDTO purchaseInputOrder);
 
     /**
      * 创建销售出库单
      *
-     * @param saleDeliveryOrderDTO 销售出库单 DTO
+     * @param saleDeliveryOrder 销售出库单 DTO
+     * @param sendOutOrder      发货单
+     * @param logisticOrder     物流单
      * @return 处理结果
      */
-    Boolean createSaleDeliveryOrder(SaleDeliveryOrderDTO saleDeliveryOrderDTO);
+    Boolean createSaleDeliveryOrder(SaleDeliveryOrderDTO saleDeliveryOrder, SendOutOrderDTO sendOutOrder, LogisticOrderDTO logisticOrder);
 
     /**
      * 创建退货入库单
      *
-     * @param returnGoodsInputOrderDTO 退货入库单 DTO
+     * @param returnGoodsInputOrder 退货入库单 DTO
      * @return 处理结果
      */
-    Boolean createReturnGoodsInputOrder(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO);
+    Boolean createReturnGoodsInputOrder(ReturnGoodsInputOrderDTO returnGoodsInputOrder);
 
     /**
      * 通知 wms中心，“提交订单“事件发生了
      *
-     * @param orderDTO 订单 DTO
+     * @param order 订单 DTO
      * @return 处理结果
      */
-    Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informSubmitOrderEvent(OrderInfoDTO order);
 
     /**
      * 通知 wms中心，“支付订单”事件发生了
      *
-     * @param orderDTO 订单 DTO
+     * @param order 订单 DTO
      * @return 处理结果
      */
-    Boolean informPayOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informPayOrderEvent(OrderInfoDTO order);
 
     /**
      * 通知 wms中心，“取消订单”事件发生了
      *
-     * @param orderDTO 订单 DTO
+     * @param order 订单 DTO
      * @return 处理结果
      */
-    Boolean informCancelOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informCancelOrderEvent(OrderInfoDTO order);
 
     /**
      * 根据商品 skuId 查询货位库存明细
@@ -80,4 +79,21 @@ public interface WmsService {
      * @return 物流单号
      */
     String getLogisticCode(Long orderId);
+
+    /**
+     * 通知wms中心，“创建采购结算单”事件发生了
+     *
+     * @param purchaseInputOrderId 采购入库单id
+     * @return 处理结果
+     */
+    Boolean informCreatePurchaseSettlementOrderEvent(Long purchaseInputOrderId);
+
+    /**
+     * 通知wms中心，“完成采购结算单”事件发生了
+     *
+     * @param purchaseInputOrderId 采购入库单id
+     * @return 处理结果
+     */
+    Boolean informFinishedPurchaseSettlementOrderEvent(Long purchaseInputOrderId);
+
 }
