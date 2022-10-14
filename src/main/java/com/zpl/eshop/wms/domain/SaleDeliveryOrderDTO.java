@@ -121,4 +121,14 @@ public class SaleDeliveryOrderDTO extends AbstractObject {
      * 销售出库单条目
      */
     private List<SaleDeliveryOrderItemDTO> saleDeliveryOrderItems;
+
+    /**
+     * 发货单
+     */
+    private SendOutOrderDTO sendOutOrder;
+
+    /**
+     * 物流单
+     */
+    private LogisticOrderDTO logisticOrder;
 }

@@ -2,7 +2,10 @@ package com.zpl.eshop.wms.service.impl;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
-import com.zpl.eshop.wms.domain.*;
+import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDTO;
+import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
+import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
+import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
 import com.zpl.eshop.wms.service.WmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +50,7 @@ public class WmsServiceImpl implements WmsService {
      * @return 处理结果
      */
     @Override
-    public Boolean createSaleDeliveryOrder(SaleDeliveryOrderDTO saleDeliveryOrder, SendOutOrderDTO sendOutOrder, LogisticOrderDTO logisticOrder) {
+    public Boolean createSaleDeliveryOrder(SaleDeliveryOrderDTO saleDeliveryOrder) {
         return true;
     }
 

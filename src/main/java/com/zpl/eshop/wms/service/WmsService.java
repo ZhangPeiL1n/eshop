@@ -1,7 +1,10 @@
 package com.zpl.eshop.wms.service;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
-import com.zpl.eshop.wms.domain.*;
+import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDTO;
+import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
+import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
+import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
 
 import java.util.List;
 
@@ -26,11 +29,9 @@ public interface WmsService {
      * 创建销售出库单
      *
      * @param saleDeliveryOrder 销售出库单 DTO
-     * @param sendOutOrder      发货单
-     * @param logisticOrder     物流单
      * @return 处理结果
      */
-    Boolean createSaleDeliveryOrder(SaleDeliveryOrderDTO saleDeliveryOrder, SendOutOrderDTO sendOutOrder, LogisticOrderDTO logisticOrder);
+    Boolean createSaleDeliveryOrder(SaleDeliveryOrderDTO saleDeliveryOrder);
 
     /**
      * 创建退货入库单
