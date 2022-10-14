@@ -59,55 +59,55 @@ public class WmsServiceImpl implements WmsService {
     /**
      * 创建销售出库单
      *
-     * @param saleDeliveryOrderDTO 销售出库单 DTO
+     * @param saleDeliveryOrder 销售出库单 DTO
      * @return 处理结果
      */
     @Override
-    public Boolean createSaleDeliveryOrder(SaleDeliveryOrderDTO saleDeliveryOrderDTO) {
+    public Boolean createSaleDeliveryOrder(SaleDeliveryOrderDTO saleDeliveryOrder) {
         return true;
     }
 
     /**
      * 创建退货入库单
      *
-     * @param returnGoodsInputOrderDTO 退货入库单 DTO
+     * @param returnGoodsInputOrder 退货入库单 DTO
      * @return 处理结果
      */
     @Override
-    public Boolean createReturnGoodsInputOrder(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO) {
+    public Boolean createReturnGoodsInputOrder(ReturnGoodsInputOrderDTO returnGoodsInputOrder) {
         return true;
     }
 
     /**
      * 通知 wms中心，“提交订单“事件发生了
      *
-     * @param orderDTO 订单 DTO
+     * @param order 订单 DTO
      * @return 处理结果
      */
     @Override
-    public Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO) {
+    public Boolean informSubmitOrderEvent(OrderInfoDTO order) {
         return true;
     }
 
     /**
      * 通知 wms中心，“支付订单”事件发生了
      *
-     * @param orderDTO 订单 DTO
+     * @param order 订单 DTO
      * @return 处理结果
      */
     @Override
-    public Boolean informPayOrderEvent(OrderInfoDTO orderDTO) {
+    public Boolean informPayOrderEvent(OrderInfoDTO order) {
         return true;
     }
 
     /**
      * 通知 wms中心，“取消订单”事件发生了
      *
-     * @param orderDTO 订单 DTO
+     * @param order 订单 DTO
      * @return 处理结果
      */
     @Override
-    public Boolean informCancelOrderEvent(OrderInfoDTO orderDTO) {
+    public Boolean informCancelOrderEvent(OrderInfoDTO order) {
         return true;
     }
 
@@ -159,5 +159,37 @@ public class WmsServiceImpl implements WmsService {
         return stockDetails;
     }
 
+    /**
+     * 获取订单对应的物流单号
+     *
+     * @param orderId 订单id
+     * @return 物流单号
+     */
+    @Override
+    public String getLogisticCode(Long orderId) {
+        return null;
+    }
+
+    /**
+     * 通知wms中心，“创建采购结算单”事件发生了
+     *
+     * @param purchaseInputOrderId 采购入库单id
+     * @return 处理结果
+     */
+    @Override
+    public Boolean informCreatePurchaseSettlementOrderEvent(Long purchaseInputOrderId) {
+        return true;
+    }
+
+    /**
+     * 通知wms中心，“完成采购结算单”事件发生了
+     *
+     * @param purchaseInputOrderId 采购入库单id
+     * @return 处理结果
+     */
+    @Override
+    public Boolean informFinishedPurchaseSettlementOrderEvent(Long purchaseInputOrderId) {
+        return true;
+    }
 
 }
