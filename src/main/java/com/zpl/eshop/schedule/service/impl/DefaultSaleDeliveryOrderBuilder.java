@@ -142,7 +142,7 @@ public class DefaultSaleDeliveryOrderBuilder implements SaleDeliveryOrderBuilder
      */
     @Override
     public SaleDeliveryOrderBuilder initStatus() throws Exception {
-        saleDeliveryOrder.setSaleDeliveryOrderStatus(SaleDeliveryOrderStatus.EDITING);
+        saleDeliveryOrder.setStatus(SaleDeliveryOrderStatus.EDITING);
         return this;
     }
 
