@@ -100,7 +100,7 @@ public class SaleDeliveryOrderDTO extends AbstractObject {
     /**
      * 销售出库单状态
      */
-    private Integer saleDeliveryOrderStatus;
+    private Integer status;
 
     /**
      * 实际发货时间
@@ -121,15 +121,4 @@ public class SaleDeliveryOrderDTO extends AbstractObject {
      * 销售出库单条目
      */
     private List<SaleDeliveryOrderItemDTO> saleDeliveryOrderItems;
-
-    /**
-     * 发货单
-     */
-    private SendOutOrderDTO sendOutOrder;
-
-    /**
-     * 物流单
-     */
-    private LogisticOrderDTO logisticOrder;
-
 }
