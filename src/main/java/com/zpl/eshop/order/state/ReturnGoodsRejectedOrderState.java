@@ -9,19 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 已完成状态
+ * 退货审核不通过
  *
  * @author ZhangPeiL1n
- * @date 2022/10/11 20:52
+ * @date 2022/10/15 21:50
  **/
 @Component
-public class FinishOrderState implements OrderState {
+public class ReturnGoodsRejectedOrderState implements OrderState {
 
-    /**
-     * 商品管理DAO组件
-     */
-    @Autowired
-    private OrderInfoDAO orderInfoDAO;
 
     /**
      * 日期辅助组件
@@ -29,24 +24,29 @@ public class FinishOrderState implements OrderState {
     @Autowired
     private DateProvider dateProvider;
 
+    /**
+     * 订单管理DAO组件
+     */
+    @Autowired
+    private OrderInfoDAO orderInfoDAO;
 
     /**
-     * 状态流转
+     * 订单流转到当前这个状态
      *
      * @param order 订单
      */
     @Override
     public void doTransition(OrderInfoDTO order) throws Exception {
-        order.setOrderStatus(OrderStatus.FINISHED);
+        order.setOrderStatus(OrderStatus.RETURN_GOODS_REJECTED);
         order.setGmtModified(dateProvider.getCurrentTime());
         orderInfoDAO.updateStatus(order.clone(OrderInfoDO.class));
     }
 
     /**
-     * 判断当前状态能否执行取消订单操作
+     * 判断当前状态下能否执行取消订单操作
      *
      * @param order 订单
-     * @return 能否取消
+     * @return 能否执行取消订单操作
      */
     @Override
     public Boolean canCancel(OrderInfoDTO order) throws Exception {
@@ -54,10 +54,11 @@ public class FinishOrderState implements OrderState {
     }
 
     /**
-     * 判断当前状态能否执行支付操作
+     * 判断订单能否执行支付操作
      *
      * @param order 订单
-     * @return 能否支付
+     * @return 能否执行支付操作
+     * @throws Exception
      */
     @Override
     public Boolean canPay(OrderInfoDTO order) throws Exception {
@@ -83,6 +84,6 @@ public class FinishOrderState implements OrderState {
      */
     @Override
     public Boolean canApplyReturnGoods(OrderInfoDTO order) {
-        return true;
+        return false;
     }
 }

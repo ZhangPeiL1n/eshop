@@ -2,6 +2,7 @@ package com.zpl.eshop.order.service;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderInfoQuery;
+import com.zpl.eshop.order.domain.ReturnGoodsApplyDTO;
 import com.zpl.eshop.promotion.domain.CouponDTO;
 
 import java.util.List;
@@ -77,5 +78,13 @@ public interface OrderInfoService {
      * @param id 订单id
      */
     Boolean manualConfirmReceipt(Long id) throws Exception;
+
+    /**
+     * 申请退货
+     *
+     * @param apply 退货申请
+     * @return 处理结果
+     */
+    Boolean applyReturnGoods(ReturnGoodsApplyDTO apply) throws Exception;
 
 }

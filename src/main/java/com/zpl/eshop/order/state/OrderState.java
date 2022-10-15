@@ -40,4 +40,12 @@ public interface OrderState {
      * @return 能否确认收货
      */
     Boolean canConfirmReceipt(OrderInfoDTO order);
+
+    /**
+     * 能否申请退货
+     *
+     * @param order 订单
+     * @return 能否退货
+     */
+    Boolean canApplyReturnGoods(OrderInfoDTO order);
 }

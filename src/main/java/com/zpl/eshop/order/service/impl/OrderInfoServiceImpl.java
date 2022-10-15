@@ -2,6 +2,7 @@ package com.zpl.eshop.order.service.impl;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
+import com.zpl.eshop.customer.service.CustomerService;
 import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.order.constant.OrderOperateType;
 import com.zpl.eshop.order.constant.OrderStatus;
@@ -9,6 +10,7 @@ import com.zpl.eshop.order.constant.PublishedComment;
 import com.zpl.eshop.order.dao.OrderInfoDAO;
 import com.zpl.eshop.order.dao.OrderItemDAO;
 import com.zpl.eshop.order.dao.OrderOperateLogDAO;
+import com.zpl.eshop.order.dao.ReturnGoodsApplyDAO;
 import com.zpl.eshop.order.domain.*;
 import com.zpl.eshop.order.price.*;
 import com.zpl.eshop.order.service.OrderInfoService;
@@ -112,6 +114,18 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      */
     @Autowired
     private PayService payService;
+
+    /**
+     * 退货申请DAO组件
+     */
+    @Autowired
+    private ReturnGoodsApplyDAO returnGoodsApplyDAO;
+
+    /**
+     * 客服中心
+     */
+    @Autowired
+    private CustomerService customerService;
 
     /**
      * 计算订单价格
@@ -351,5 +365,24 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             }
         });
         return order;
+    }
+
+    /**
+     * 申请退货
+     *
+     * @param apply 退货申请
+     * @return 处理结果
+     */
+    @Override
+    public Boolean applyReturnGoods(ReturnGoodsApplyDTO apply) throws Exception {
+        OrderInfoDTO order = getById(apply.getOrderInfoId());
+        if (!orderStateManager.canApplyReturnGoods(order)) {
+            return false;
+        }
+        returnGoodsApplyDAO.save(apply.clone(ReturnGoodsApplyDO.class));
+        orderStateManager.applyReturnGoods(order);
+        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.APPLY_RETURN_GOODS));
+        customerService.createReturnGoodsWorkSheet(order.getId(), order.getOrderNo(), apply.getReturnGoodsReason(), apply.getReturnGoodsComment());
+        return true;
     }
 }

@@ -45,6 +45,24 @@ public class OrderStateFactory {
     private FinishOrderState finishOrderState;
 
     /**
+     * 退货申请待审核状态组件
+     */
+    @Autowired
+    private WaitForReturnGoodsApproveOrderState waitForReturnGoodsApproveOrderState;
+
+    /**
+     * 退货审核不通过
+     */
+    @Autowired
+    private ReturnGoodsRejectedOrderState returnGoodsRejectedOrderState;
+
+    /**
+     * 退货商品待寄送状态
+     */
+    @Autowired
+    private WaitForSendOutReturnGoodsOrderState waitForSendOutReturnGoodsOrderState;
+
+    /**
      * 默认状态组件
      */
     @Autowired
@@ -77,6 +95,12 @@ public class OrderStateFactory {
             return waitForReceiveState;
         } else if ((OrderStatus.FINISHED.equals(orderStatus))) {
             return finishOrderState;
+        } else if ((OrderStatus.WAIT_FOR_RETURN_GOODS_APPROVE.equals(orderStatus))) {
+            return waitForReturnGoodsApproveOrderState;
+        } else if ((OrderStatus.RETURN_GOODS_REJECTED.equals(orderStatus))) {
+            return returnGoodsRejectedOrderState;
+        } else if ((OrderStatus.WAIT_FOR_SEND_OUT_RETURN_GOODS.equals(orderStatus))) {
+            return waitForSendOutReturnGoodsOrderState;
         }
         return defaultOrderState;
     }

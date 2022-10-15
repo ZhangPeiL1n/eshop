@@ -3,7 +3,9 @@ package com.zpl.eshop.order.service.impl;
 import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.membership.service.MembershipService;
 import com.zpl.eshop.order.constant.OrderOperateType;
+import com.zpl.eshop.order.constant.ReturnGoodsApplyStatus;
 import com.zpl.eshop.order.dao.OrderOperateLogDAO;
+import com.zpl.eshop.order.dao.ReturnGoodsApplyDAO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.service.OrderInfoService;
 import com.zpl.eshop.order.service.OrderService;
@@ -73,6 +75,12 @@ public class OrderServiceImpl implements OrderService {
     private OrderOperateLogFactory orderOperateLogFactory;
 
     /**
+     * 退货申请DAO组件
+     */
+    @Autowired
+    private ReturnGoodsApplyDAO returnGoodsApplyDAO;
+
+    /**
      * 通知订单中心，“商品完成发货”事件发生了
      *
      * @param orderId 订单 id
@@ -100,7 +108,16 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Boolean informReturnGoodsWorksheetRejectedEvent(Long orderId) {
-        return true;
+        try {
+            OrderInfoDTO order = orderInfoService.getById(orderId);
+            orderStateManager.rejectReturnGoodsApply(order);
+            returnGoodsApplyDAO.updateStatus(orderId, ReturnGoodsApplyStatus.REJECTED);
+            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.RETURN_GOODS_REJECTED));
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**
@@ -111,7 +128,16 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Boolean informReturnGoodsWorksheetApprovedEvent(Long orderId) {
-        return true;
+        try {
+            OrderInfoDTO order = orderInfoService.getById(orderId);
+            orderStateManager.passedReturnGoodsApply(order);
+            returnGoodsApplyDAO.updateStatus(orderId, ReturnGoodsApplyStatus.PASSED);
+            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.RETURN_GOODS_APPROVED));
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**

@@ -54,4 +54,15 @@ public class DefaultOrderState implements OrderState {
         return false;
     }
 
+    /**
+     * 能否申请退货
+     *
+     * @param order 订单
+     * @return 能否退货
+     */
+    @Override
+    public Boolean canApplyReturnGoods(OrderInfoDTO order) {
+        return false;
+    }
+
 }

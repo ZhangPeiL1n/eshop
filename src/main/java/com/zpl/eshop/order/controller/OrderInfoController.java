@@ -2,10 +2,7 @@ package com.zpl.eshop.order.controller;
 
 import com.zpl.eshop.common.util.CloneDirection;
 import com.zpl.eshop.common.util.ObjectUtils;
-import com.zpl.eshop.order.domain.CalculateCouponDiscountPriceVO;
-import com.zpl.eshop.order.domain.OrderInfoDTO;
-import com.zpl.eshop.order.domain.OrderInfoQuery;
-import com.zpl.eshop.order.domain.OrderInfoVO;
+import com.zpl.eshop.order.domain.*;
 import com.zpl.eshop.order.service.OrderInfoService;
 import com.zpl.eshop.promotion.domain.CouponDTO;
 import com.zpl.eshop.promotion.domain.CouponVO;
@@ -151,6 +148,23 @@ public class OrderInfoController {
         } catch (Exception e) {
             logger.error("error", e);
             return null;
+        }
+    }
+
+    /**
+     * 申请退货
+     *
+     * @param apply 退货申请
+     * @return 处理结果
+     * @throws Exception
+     */
+    @PutMapping("/applyReturnGoods/{id}")
+    public Boolean applyReturnGoods(@RequestBody ReturnGoodsApplyDTO apply) {
+        try {
+            return orderInfoService.applyReturnGoods(apply);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
         }
     }
 }

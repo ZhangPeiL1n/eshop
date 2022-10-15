@@ -112,4 +112,50 @@ public class OrderStateManagerImpl implements OrderStateManager {
         OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.FINISHED);
         orderState.doTransition(order);
     }
+
+    /**
+     * 能否申请退货
+     *
+     * @param order 订单
+     * @return 能否申请退货
+     */
+    @Override
+    public Boolean canApplyReturnGoods(OrderInfoDTO order) {
+        OrderState orderState = orderStateFactory.get(order);
+        return orderState.canApplyReturnGoods(order);
+    }
+
+    /**
+     * 申请退货
+     *
+     * @param order 订单
+     */
+    @Override
+    public void applyReturnGoods(OrderInfoDTO order) throws Exception {
+        OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.WAIT_FOR_RETURN_GOODS_APPROVE);
+        orderState.doTransition(order);
+    }
+
+    /**
+     * 拒绝退货申请
+     *
+     * @param order 订单
+     */
+    @Override
+    public void rejectReturnGoodsApply(OrderInfoDTO order) throws Exception {
+        OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.RETURN_GOODS_REJECTED);
+        orderState.doTransition(order);
+    }
+
+    /**
+     * 通过退货申请
+     *
+     * @param order 订单
+     * @throws Exception
+     */
+    @Override
+    public void passedReturnGoodsApply(OrderInfoDTO order) throws Exception {
+        OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.WAIT_FOR_SEND_OUT_RETURN_GOODS);
+        orderState.doTransition(order);
+    }
 }
