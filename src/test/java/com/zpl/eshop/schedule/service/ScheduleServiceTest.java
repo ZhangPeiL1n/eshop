@@ -288,7 +288,7 @@ public class ScheduleServiceTest {
         order.setContactorEmail("337845818@163.com");
         order.setRemark("测试采购单");
         order.setStatus(3);
-        order.setGmtCreateTime(dateProvider.getCurrentTime());
+        order.setGmtCreate(dateProvider.getCurrentTime());
         order.setGmtModified(dateProvider.getCurrentTime());
 
         int itemCount = 5;
