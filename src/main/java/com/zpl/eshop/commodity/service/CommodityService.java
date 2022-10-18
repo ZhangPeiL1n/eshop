@@ -1,5 +1,6 @@
 package com.zpl.eshop.commodity.service;
 
+import com.zpl.eshop.commodity.domain.GoodsDTO;
 import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
 
 /**
@@ -18,5 +19,11 @@ public interface CommodityService {
      */
     GoodsSkuDTO getGoodsSkuById(Long goodsSkuId);
 
-
+    /**
+     * 根据id查商品
+     *
+     * @param goodsId 商品id
+     * @return 商品
+     */
+    GoodsDTO getGoodsById(Long goodsId);
 }
