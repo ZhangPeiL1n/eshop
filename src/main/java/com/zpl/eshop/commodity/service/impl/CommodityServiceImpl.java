@@ -3,6 +3,7 @@ package com.zpl.eshop.commodity.service.impl;
 import com.zpl.eshop.commodity.domain.GoodsDTO;
 import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
 import com.zpl.eshop.commodity.service.CommodityService;
+import com.zpl.eshop.commodity.service.GoodsService;
 import com.zpl.eshop.commodity.service.GoodsSkuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,12 @@ public class CommodityServiceImpl implements CommodityService {
     private GoodsSkuService goodsSkuService;
 
     /**
+     * 商品管理Service组件
+     */
+    @Autowired
+    private GoodsService goodsService;
+
+    /**
      * 根据 id 查询商品 sku
      *
      * @param goodsSkuId 商品 sku id
@@ -52,6 +59,11 @@ public class CommodityServiceImpl implements CommodityService {
      */
     @Override
     public GoodsDTO getGoodsById(Long goodsId) {
-        return null;
+        try {
+            return goodsService.getById(goodsId);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
     }
 }
