@@ -58,5 +58,5 @@ public interface PurchaseService {
      * @param settlementPeriod 结算周期
      * @return 供应商
      */
-    List<SupplierDTO> listSupplierBySettlementPeriod(Integer settlementPeriod);
+    List<SupplierDTO> listSuppliersBySettlementPeriod(Integer settlementPeriod);
 }

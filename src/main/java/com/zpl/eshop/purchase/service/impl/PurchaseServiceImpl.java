@@ -79,7 +79,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      * @return 供应商
      */
     @Override
-    public List<SupplierDTO> listSupplierBySettlementPeriod(Integer settlementPeriod) {
+    public List<SupplierDTO> listSuppliersBySettlementPeriod(Integer settlementPeriod) {
         return null;
     }
 }
