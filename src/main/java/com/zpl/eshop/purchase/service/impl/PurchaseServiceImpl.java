@@ -1,8 +1,11 @@
 package com.zpl.eshop.purchase.service.impl;
 
+import com.zpl.eshop.purchase.domain.SupplierDTO;
 import com.zpl.eshop.purchase.service.PurchaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 采购中心接口
@@ -67,5 +70,16 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Boolean informFinishedPurchaseSettlementOrderEvent(Long purchaseOrderId) {
         return true;
+    }
+
+    /**
+     * 根据结算周期查询供应商
+     *
+     * @param settlementPeriod 结算周期
+     * @return 供应商
+     */
+    @Override
+    public List<SupplierDTO> listSupplierBySettlementPeriod(Integer settlementPeriod) {
+        return null;
     }
 }

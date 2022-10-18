@@ -1,5 +1,9 @@
 package com.zpl.eshop.purchase.service;
 
+import com.zpl.eshop.purchase.domain.SupplierDTO;
+
+import java.util.List;
+
 /**
  * 采购中心对外提供的接口
  *
@@ -47,4 +51,12 @@ public interface PurchaseService {
      * @return 处理结果
      */
     Boolean informFinishedPurchaseSettlementOrderEvent(Long purchaseOrderId);
+
+    /**
+     * 根据结算周期查询供应商
+     *
+     * @param settlementPeriod 结算周期
+     * @return 供应商
+     */
+    List<SupplierDTO> listSupplierBySettlementPeriod(Integer settlementPeriod);
 }
