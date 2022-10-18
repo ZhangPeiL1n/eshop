@@ -1,4 +1,4 @@
-package com.zpl.eshop.logistics;
+package com.zpl.eshop.logistics.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
