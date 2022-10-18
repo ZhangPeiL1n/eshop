@@ -59,4 +59,15 @@ public class SupplierServiceImpl implements SupplierService {
     public SupplierDTO getById(Long id) throws Exception {
         return supplierDAO.getById(id).clone(SupplierDTO.class);
     }
+
+    /**
+     * 根据id查询供应商
+     *
+     * @param settlementPeriod 结算周期
+     * @return 供应商
+     */
+    @Override
+    public List<SupplierDTO> listBySettlementPeriod(Integer settlementPeriod) throws Exception {
+        return ObjectUtils.convertList(supplierDAO.listBySettlementPeriod(settlementPeriod), SupplierDTO.class);
+    }
 }

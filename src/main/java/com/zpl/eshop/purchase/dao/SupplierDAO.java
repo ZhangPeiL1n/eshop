@@ -35,4 +35,12 @@ public interface SupplierDAO {
      * @return 供应商
      */
     SupplierDO getById(Long id);
+
+    /**
+     * 根据id查询供应商
+     *
+     * @param settlementPeriod 结算周期
+     * @return 供应商
+     */
+    List<SupplierDO> listBySettlementPeriod(Integer settlementPeriod);
 }

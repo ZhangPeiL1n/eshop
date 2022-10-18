@@ -35,4 +35,12 @@ public interface SupplierService {
      * @return 供应商
      */
     SupplierDTO getById(Long id) throws Exception;
+
+    /**
+     * 根据id查询供应商
+     *
+     * @param settlementPeriod 结算周期
+     * @return 供应商
+     */
+    List<SupplierDTO> listBySettlementPeriod(Integer settlementPeriod) throws Exception;
 }

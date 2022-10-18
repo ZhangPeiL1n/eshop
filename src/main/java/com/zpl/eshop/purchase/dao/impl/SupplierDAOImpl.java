@@ -64,4 +64,15 @@ public class SupplierDAOImpl implements SupplierDAO {
     public SupplierDO getById(Long id) {
         return supplierMapper.getById(id);
     }
+
+    /**
+     * 根据id查询供应商
+     *
+     * @param settlementPeriod 结算周期
+     * @return 供应商
+     */
+    @Override
+    public List<SupplierDO> listBySettlementPeriod(Integer settlementPeriod) {
+        return supplierMapper.listBySettlementPeriod(settlementPeriod);
+    }
 }

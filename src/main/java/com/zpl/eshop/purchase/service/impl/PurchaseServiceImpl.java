@@ -2,6 +2,10 @@ package com.zpl.eshop.purchase.service.impl;
 
 import com.zpl.eshop.purchase.domain.SupplierDTO;
 import com.zpl.eshop.purchase.service.PurchaseService;
+import com.zpl.eshop.purchase.service.SupplierService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +20,14 @@ import java.util.List;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class PurchaseServiceImpl implements PurchaseService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PurchaseServiceImpl.class);
+
+    /**
+     * 供应商管理Service组件
+     */
+    @Autowired
+    private SupplierService supplierService;
 
     /**
      * 判断是否有关联商品 sku 的采购单
@@ -80,6 +92,11 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     public List<SupplierDTO> listSupplierBySettlementPeriod(Integer settlementPeriod) {
-        return null;
+        try {
+            return supplierService.listBySettlementPeriod(settlementPeriod);
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
     }
 }
