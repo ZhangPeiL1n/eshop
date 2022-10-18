@@ -1,5 +1,6 @@
 package com.zpl.eshop.commodity.service.impl;
 
+import com.zpl.eshop.commodity.domain.GoodsDTO;
 import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
 import com.zpl.eshop.commodity.service.CommodityService;
 import com.zpl.eshop.commodity.service.GoodsSkuService;
@@ -41,5 +42,16 @@ public class CommodityServiceImpl implements CommodityService {
             logger.error("error", e);
             return null;
         }
+    }
+
+    /**
+     * 根据id查商品
+     *
+     * @param goodsId 商品id
+     * @return 商品
+     */
+    @Override
+    public GoodsDTO getGoodsById(Long goodsId) {
+        return null;
     }
 }
