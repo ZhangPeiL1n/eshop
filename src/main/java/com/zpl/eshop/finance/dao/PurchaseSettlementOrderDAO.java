@@ -3,6 +3,7 @@ package com.zpl.eshop.finance.dao;
 import com.zpl.eshop.finance.domain.PurchaseSettlementOrderDO;
 import com.zpl.eshop.finance.domain.PurchaseSettlementOrderQuery;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +43,16 @@ public interface PurchaseSettlementOrderDAO {
      * @param purchaseSettlementOrder 采购结算单
      */
     void update(PurchaseSettlementOrderDO purchaseSettlementOrder) throws Exception;
+
+    /**
+     * 查询指定供应商在指定时间范围内的已完成的采购结算单
+     *
+     * @param supplierId 供应商id
+     * @param startTime  起始时间
+     * @param endTime    结束时间
+     * @return 采购结算单
+     */
+    List<PurchaseSettlementOrderDO> listFinishedBySettlementPeriod(Long supplierId, Date startTime, Date endTime);
 
     /**
      * 更新采购结算单状态

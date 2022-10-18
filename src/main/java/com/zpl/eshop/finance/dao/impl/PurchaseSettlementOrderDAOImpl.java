@@ -8,6 +8,7 @@ import com.zpl.eshop.finance.mapper.PurchaseSettlementOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,6 +76,19 @@ public class PurchaseSettlementOrderDAOImpl implements PurchaseSettlementOrderDA
     public void update(PurchaseSettlementOrderDO purchaseSettlementOrder) throws Exception {
         purchaseSettlementOrder.setGmtModified(dateProvider.getCurrentTime());
         purchaseSettlementOrderMapper.update(purchaseSettlementOrder);
+    }
+
+    /**
+     * 查询指定供应商在指定时间范围内的已完成的采购结算单
+     *
+     * @param supplierId 供应商id
+     * @param startTime  起始时间
+     * @param endTime    结束时间
+     * @return 采购结算单
+     */
+    @Override
+    public List<PurchaseSettlementOrderDO> listFinishedBySettlementPeriod(Long supplierId, Date startTime, Date endTime) {
+        return purchaseSettlementOrderMapper.listFinishedBySettlementPeriod(supplierId, startTime, endTime);
     }
 
     /**
