@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informGoodsDeliveryFinishEvent(Long orderId) {
+    public Boolean informGoodsDeliveryFinishedEvent(Long orderId) {
         return true;
     }
 
