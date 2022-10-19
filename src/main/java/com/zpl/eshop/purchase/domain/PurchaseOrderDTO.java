@@ -64,7 +64,7 @@ public class PurchaseOrderDTO extends AbstractObject {
     /**
      * 采购单创建时间
      */
-    private Date gmtCreateTime;
+    private Date gmtCreate;
 
     /**
      * 采购单修改时间

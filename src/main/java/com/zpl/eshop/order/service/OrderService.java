@@ -17,7 +17,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informGoodsDeliveryFinishEvent(Long orderId) throws Exception;
+    Boolean informGoodsDeliveryFinishedEvent(Long orderId);
 
     /**
      * 通知订单中心，“退货工单审核不通过”事件发生了
