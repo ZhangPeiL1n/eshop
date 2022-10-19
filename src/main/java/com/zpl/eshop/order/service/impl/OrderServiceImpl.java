@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informGoodsDeliveryFinishedEvent(Long orderId) throws Exception {
+    public Boolean informGoodsDeliveryFinishedEvent(Long orderId) {
         try {
             OrderInfoDTO order = orderInfoService.getById(orderId);
             orderStateManager.finishDelivery(order);
