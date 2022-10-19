@@ -26,11 +26,11 @@ public interface ReturnGoodsApplyDAO {
     ReturnGoodsApplyDO getByOrderInfoId(Long orderInfoId);
 
     /**
-     * 更新退货申请的状态
+     * 更新退货申请
      *
      * @param apply 退货申请
      */
-    void updateStatus(ReturnGoodsApplyDO apply) throws Exception;
+    void update(ReturnGoodsApplyDO apply) throws Exception;
 
     /**
      * 更新退货申请的状态

@@ -385,4 +385,38 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         customerService.createReturnGoodsWorkSheet(order.getId(), order.getOrderNo(), apply.getReturnGoodsReason(), apply.getReturnGoodsComment());
         return true;
     }
+
+    /**
+     * 根据订单id查询退货申请
+     *
+     * @param orderInfoId 订单id
+     * @return 退货申请
+     * @throws Exception
+     */
+    @Override
+    public ReturnGoodsApplyDTO getByOrderInfoId(Long orderInfoId) throws Exception {
+        return returnGoodsApplyDAO.getByOrderInfoId(orderInfoId).clone(ReturnGoodsApplyDTO.class);
+    }
+
+    /**
+     * 更新退货物流单号
+     *
+     * @param orderInfoId             订单id
+     * @param returnGoodsLogisticCode 退货物流单号
+     * @throws Exception
+     */
+    @Override
+    public void updateReturnGoodsLogisticCode(Long orderInfoId,
+                                              String returnGoodsLogisticCode) throws Exception {
+        OrderInfoDTO order = getById(orderInfoId);
+
+        ReturnGoodsApplyDO apply = returnGoodsApplyDAO.getByOrderInfoId(orderInfoId);
+        apply.setReturnGoodsLogisticCode(returnGoodsLogisticCode);
+
+        customerService.syncReturnGoodsLogisticsCode(orderInfoId, returnGoodsLogisticCode);
+
+        orderStateManager.sendOutReturnGoods(order);
+
+        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.SEND_OUT_RETURN_GOODS));
+    }
 }

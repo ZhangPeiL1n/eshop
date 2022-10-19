@@ -158,4 +158,54 @@ public class OrderStateManagerImpl implements OrderStateManager {
         OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.WAIT_FOR_SEND_OUT_RETURN_GOODS);
         orderState.doTransition(order);
     }
+
+    /**
+     * 寄送退货商品
+     *
+     * @param order 订单
+     * @throws Exception
+     */
+    @Override
+    public void sendOutReturnGoods(OrderInfoDTO order) throws Exception {
+        OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.WAIT_FOR_RECEIVE_RETURN_GOODS);
+        orderState.doTransition(order);
+    }
+
+
+    /**
+     * 确认收到退货商品
+     *
+     * @param order 订单
+     * @throws Exception
+     */
+    @Override
+    public void confirmReceivedReturnGoods(OrderInfoDTO order) throws Exception {
+        OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.WAIT_FOR_INPUT_RETURN_GOODS);
+        orderState.doTransition(order);
+    }
+
+    /**
+     * 完成退货入库
+     *
+     * @param order 订单
+     * @throws Exception
+     */
+    @Override
+    public void finishedInputReturnGoods(OrderInfoDTO order) throws Exception {
+        OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.FINISHED_INPUT_RETURN_GOODS);
+        orderState.doTransition(order);
+    }
+
+    /**
+     * 完成退款
+     *
+     * @param order 订单
+     * @throws Exception
+     */
+    @Override
+    public void finishedRefund(OrderInfoDTO order) throws Exception {
+        OrderState orderState = orderStateFactory.getByOrderStatus(OrderStatus.FINISHED_REFUND);
+        orderState.doTransition(order);
+
+    }
 }

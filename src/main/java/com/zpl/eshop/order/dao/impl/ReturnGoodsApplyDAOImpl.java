@@ -54,14 +54,14 @@ public class ReturnGoodsApplyDAOImpl implements ReturnGoodsApplyDAO {
     }
 
     /**
-     * 更新退货申请的状态
+     * 更新退货申请
      *
      * @param apply 退货申请
      */
     @Override
-    public void updateStatus(ReturnGoodsApplyDO apply) throws Exception {
+    public void update(ReturnGoodsApplyDO apply) throws Exception {
         apply.setGmtModified(dateProvider.getCurrentTime());
-        returnGoodsApplyMapper.updateStatus(apply);
+        returnGoodsApplyMapper.update(apply);
     }
 
     /**
@@ -76,6 +76,6 @@ public class ReturnGoodsApplyDAOImpl implements ReturnGoodsApplyDAO {
         ReturnGoodsApplyDO apply = getByOrderInfoId(orderInfoId);
         apply.setReturnGoodsApplyStatus(status);
         apply.setGmtModified(dateProvider.getCurrentTime());
-        returnGoodsApplyMapper.updateStatus(apply);
+        returnGoodsApplyMapper.update(apply);
     }
 }
