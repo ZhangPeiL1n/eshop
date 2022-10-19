@@ -16,4 +16,12 @@ public interface SendOutOrderDAO {
      * @param sendOutOrder 发货单
      */
     Long save(SendOutOrderDO sendOutOrder) throws Exception;
+
+    /**
+     * 根据id查询发货单
+     *
+     * @param id 发货单id
+     * @return 发货单
+     */
+    SendOutOrderDO getBySaleDeliveryOrderId(Long id);
 }

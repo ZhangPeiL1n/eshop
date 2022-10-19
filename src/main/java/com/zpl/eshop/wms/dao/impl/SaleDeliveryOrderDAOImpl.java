@@ -1,5 +1,6 @@
 package com.zpl.eshop.wms.dao.impl;
 
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.wms.dao.SaleDeliveryOrderDAO;
 import com.zpl.eshop.wms.domain.SaleDeliveryOrderDO;
 import com.zpl.eshop.wms.domain.SaleDeliveryOrderQuery;
@@ -24,6 +25,11 @@ public class SaleDeliveryOrderDAOImpl implements SaleDeliveryOrderDAO {
     @Autowired
     private SaleDeliveryOrderMapper saleDeliveryOrderMapper;
 
+    /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
 
     /**
      * 新增销售出库单
@@ -32,6 +38,8 @@ public class SaleDeliveryOrderDAOImpl implements SaleDeliveryOrderDAO {
      */
     @Override
     public Long save(SaleDeliveryOrderDO saleDeliveryOrder) throws Exception {
+        saleDeliveryOrder.setGmtCreate(dateProvider.getCurrentTime());
+        saleDeliveryOrder.setGmtModified(dateProvider.getCurrentTime());
         saleDeliveryOrderMapper.save(saleDeliveryOrder);
         return saleDeliveryOrder.getId();
     }
@@ -45,5 +53,27 @@ public class SaleDeliveryOrderDAOImpl implements SaleDeliveryOrderDAO {
     @Override
     public List<SaleDeliveryOrderDO> listByPage(SaleDeliveryOrderQuery query) throws Exception {
         return saleDeliveryOrderMapper.listByPage(query);
+    }
+
+    /**
+     * 根据id查询销售出库单
+     *
+     * @param id 销售出库单id
+     * @return 销售出库单
+     */
+    @Override
+    public SaleDeliveryOrderDO getById(Long id) {
+        return saleDeliveryOrderMapper.getById(id);
+    }
+
+    /**
+     * 更新销售出库单
+     *
+     * @param saleDeliveryOrder 销售出库单
+     */
+    @Override
+    public void update(SaleDeliveryOrderDO saleDeliveryOrder) throws Exception {
+        saleDeliveryOrder.setGmtModified(dateProvider.getCurrentTime());
+        saleDeliveryOrderMapper.update(saleDeliveryOrder);
     }
 }

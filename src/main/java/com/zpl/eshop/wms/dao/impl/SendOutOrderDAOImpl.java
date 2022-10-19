@@ -1,5 +1,6 @@
 package com.zpl.eshop.wms.dao.impl;
 
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.wms.dao.SendOutOrderDAO;
 import com.zpl.eshop.wms.domain.SendOutOrderDO;
 import com.zpl.eshop.wms.mapper.SendOutOrderMapper;
@@ -22,13 +23,32 @@ public class SendOutOrderDAOImpl implements SendOutOrderDAO {
     private SendOutOrderMapper sendOutOrderMapper;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 新增发货单
      *
      * @param sendOutOrder 发货单
      */
     @Override
     public Long save(SendOutOrderDO sendOutOrder) throws Exception {
+        sendOutOrder.setGmtCreate(dateProvider.getCurrentTime());
+        sendOutOrder.setGmtModified(dateProvider.getCurrentTime());
         sendOutOrderMapper.save(sendOutOrder);
         return sendOutOrder.getId();
+    }
+
+    /**
+     * 根据id查询发货单
+     *
+     * @param id 发货单id
+     * @return 发货单
+     */
+    @Override
+    public SendOutOrderDO getBySaleDeliveryOrderId(Long id) {
+        return sendOutOrderMapper.getBySaleDeliveryOrderId(id);
     }
 }

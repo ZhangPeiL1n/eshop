@@ -2,6 +2,8 @@ package com.zpl.eshop.wms.dao;
 
 import com.zpl.eshop.wms.domain.SaleDeliveryOrderItemDO;
 
+import java.util.List;
+
 /**
  * 销售出库单条目DAO组件接口
  *
@@ -16,4 +18,12 @@ public interface SaleDeliveryOrderItemDAO {
      * @param saleDeliveryOrderItem 销售出库单条目
      */
     Long save(SaleDeliveryOrderItemDO saleDeliveryOrderItem) throws Exception;
+
+    /**
+     * 根据销售出库单id查询销售出库单条目
+     *
+     * @param saleDeliveryOrderId 销售出库单idi
+     * @return 销售出库单条目
+     */
+    List<SaleDeliveryOrderItemDO> listBySaleDeliveryOrderId(Long saleDeliveryOrderId);
 }

@@ -27,4 +27,19 @@ public interface SaleDeliveryOrderDAO {
      * @return 销售出库单
      */
     List<SaleDeliveryOrderDO> listByPage(SaleDeliveryOrderQuery query) throws Exception;
+
+    /**
+     * 根据id查询销售出库单
+     *
+     * @param id 销售出库单id
+     * @return 销售出库单
+     */
+    SaleDeliveryOrderDO getById(Long id);
+
+    /**
+     * 更新销售出库单
+     *
+     * @param saleDeliveryOrder 销售出库单
+     */
+    void update(SaleDeliveryOrderDO saleDeliveryOrder) throws Exception;
 }

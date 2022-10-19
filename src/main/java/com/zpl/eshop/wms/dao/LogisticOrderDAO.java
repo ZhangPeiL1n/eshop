@@ -17,4 +17,11 @@ public interface LogisticOrderDAO {
      */
     void save(LogisticOrderDO logisticOrder) throws Exception;
 
+    /**
+     * 根据销售出库单id查询物流单
+     *
+     * @param saleDeliveryOrderId 销售出库单id
+     * @return 物流单
+     */
+    LogisticOrderDO getBySaleDeliveryOrderId(Long saleDeliveryOrderId);
 }
