@@ -8,16 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 待付款状态
+ * 已完成状态
  *
  * @author ZhangPeiL1n
- * @date 2022/9/12 14:43
+ * @date 2022/10/11 20:52
  **/
 @Component
-public class WaitForPayOrderState extends AbstractOrderState {
+public class FinishedOrderState extends AbstractOrderState {
 
     @Autowired
-    public WaitForPayOrderState(DateProvider dateProvider, OrderInfoDAO orderInfoDAO) {
+    public FinishedOrderState(DateProvider dateProvider, OrderInfoDAO orderInfoDAO) {
         super(dateProvider, orderInfoDAO);
     }
 
@@ -29,28 +29,17 @@ public class WaitForPayOrderState extends AbstractOrderState {
      */
     @Override
     protected Integer getOrderStatus() throws Exception {
-        return OrderStatus.WAIT_FOR_PAY;
+        return OrderStatus.FINISHED;
     }
 
     /**
-     * 判断当前状态能否执行取消订单操作
+     * 能否申请退货
      *
      * @param order 订单
-     * @return 能否取消
+     * @return 能否退货
      */
     @Override
-    public Boolean canCancel(OrderInfoDTO order) {
-        return true;
-    }
-
-    /**
-     * 判断当前状态能否执行支付操作
-     *
-     * @param order 订单
-     * @return 能否支付
-     */
-    @Override
-    public Boolean canPay(OrderInfoDTO order) {
+    public Boolean canApplyReturnGoods(OrderInfoDTO order) {
         return true;
     }
 }

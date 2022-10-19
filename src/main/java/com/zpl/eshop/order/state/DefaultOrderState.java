@@ -1,6 +1,9 @@
 package com.zpl.eshop.order.state;
 
-import com.zpl.eshop.order.domain.OrderInfoDTO;
+import com.zpl.eshop.common.util.DateProvider;
+import com.zpl.eshop.order.constant.OrderStatus;
+import com.zpl.eshop.order.dao.OrderInfoDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,59 +13,21 @@ import org.springframework.stereotype.Component;
  * @date 2022/9/12 15:00
  **/
 @Component
-public class DefaultOrderState implements OrderState {
+public class DefaultOrderState extends AbstractOrderState {
 
-    /**
-     * 状态流转
-     *
-     * @param order 订单
-     */
-    @Override
-    public void doTransition(OrderInfoDTO order) {
+    @Autowired
+    public DefaultOrderState(DateProvider dateProvider, OrderInfoDAO orderInfoDAO) {
+        super(dateProvider, orderInfoDAO);
     }
 
     /**
-     * 判断当前状态能否执行取消订单操作
+     * 获取待设置的订单状态
      *
-     * @param order 订单
-     * @return 能否取消
+     * @return 订单状态
+     * @throws Exception
      */
     @Override
-    public Boolean canCancel(OrderInfoDTO order) {
-        return false;
+    protected Integer getOrderStatus() throws Exception {
+        return OrderStatus.UNKNOWN;
     }
-
-    /**
-     * 判断当前状态能否执行支付操作
-     *
-     * @param order 订单
-     * @return 能否支付
-     */
-    @Override
-    public Boolean canPay(OrderInfoDTO order) {
-        return false;
-    }
-
-    /**
-     * 判断当前订单能否执行确认收货操作
-     *
-     * @param order 订单
-     * @return 能否确认收货
-     */
-    @Override
-    public Boolean canConfirmReceipt(OrderInfoDTO order) {
-        return false;
-    }
-
-    /**
-     * 能否申请退货
-     *
-     * @param order 订单
-     * @return 能否退货
-     */
-    @Override
-    public Boolean canApplyReturnGoods(OrderInfoDTO order) {
-        return false;
-    }
-
 }
