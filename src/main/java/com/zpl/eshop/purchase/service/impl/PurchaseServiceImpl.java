@@ -1,6 +1,8 @@
 package com.zpl.eshop.purchase.service.impl;
 
+import com.zpl.eshop.purchase.constant.PurchaseOrderStatus;
 import com.zpl.eshop.purchase.domain.SupplierDTO;
+import com.zpl.eshop.purchase.service.PurchaseOrderService;
 import com.zpl.eshop.purchase.service.PurchaseService;
 import com.zpl.eshop.purchase.service.SupplierService;
 import org.slf4j.Logger;
@@ -30,15 +32,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     private SupplierService supplierService;
 
     /**
-     * 判断是否有关联商品 sku 的采购单
-     *
-     * @param goodsSkuId 商品 sku id
-     * @return 是否有采购单关联了商品 sku
+     * 采购单管理service组件
      */
-    @Override
-    public Boolean existRelatedPurchaseOrder(Long goodsSkuId) {
-        return true;
-    }
+    @Autowired
+    private PurchaseOrderService purchaseOrderService;
 
     /**
      * 通知采购中心，“创建采购入库单”事件发生了
@@ -48,7 +45,13 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     public Boolean informCreatePurchaseInputOrderEvent(Long purchaseOrderId) {
-        return true;
+        try {
+            purchaseOrderService.updateStatus(purchaseOrderId, PurchaseOrderStatus.WAIT_FOR_INPUT);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**
@@ -59,7 +62,13 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     public Boolean informFinishedPurchaseInputOrderEvent(Long purchaseOrderId) {
-        return true;
+        try {
+            purchaseOrderService.updateStatus(purchaseOrderId, PurchaseOrderStatus.FINISHED_INPUT);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**
@@ -70,18 +79,30 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     public Boolean informCreatePurchaseSettlementOrderEvent(Long purchaseOrderId) {
-        return true;
+        try {
+            purchaseOrderService.updateStatus(purchaseOrderId, PurchaseOrderStatus.WAIT_FOR_SETTLEMENT);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**
-     * 通知采购中心，“创建采购结算单”事件发生了
+     * 通知采购中心，“完成采购结算单”事件发生了
      *
      * @param purchaseOrderId 采购单 id
      * @return 处理结果
      */
     @Override
     public Boolean informFinishedPurchaseSettlementOrderEvent(Long purchaseOrderId) {
-        return true;
+        try {
+            purchaseOrderService.updateStatus(purchaseOrderId, PurchaseOrderStatus.FINISHED);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**

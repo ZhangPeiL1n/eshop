@@ -13,14 +13,6 @@ import java.util.List;
 public interface PurchaseService {
 
     /**
-     * 判断是否有关联商品 sku 的采购单
-     *
-     * @param goodsSkuId 商品 sku id
-     * @return 是否有采购单关联了商品 sku
-     */
-    Boolean existRelatedPurchaseOrder(Long goodsSkuId);
-
-    /**
      * 通知采购中心，“创建采购入库单”事件发生了
      *
      * @param purchaseOrderId 采购单 id

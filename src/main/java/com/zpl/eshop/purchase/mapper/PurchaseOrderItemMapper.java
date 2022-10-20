@@ -65,4 +65,12 @@ public interface PurchaseOrderItemMapper {
     })
     List<PurchaseOrderItemDO> listByPurchaseOrderId(
             @Param("purchaseOrderId") Long purchaseOrderId);
+
+    /**
+     * 根据采购单id删除采购单条目
+     *
+     * @param purchaseOrderId 采购单id
+     */
+    @Delete("DELETE FROM purchase_order_item WHERE purchase_order_id=#{purchaseOrderId}")
+    void removeByPurchaseOrderId(@Param("purchaseOrderId") Long purchaseOrderId);
 }

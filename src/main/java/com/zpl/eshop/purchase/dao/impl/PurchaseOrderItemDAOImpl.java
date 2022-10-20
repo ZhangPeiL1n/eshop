@@ -58,4 +58,14 @@ public class PurchaseOrderItemDAOImpl implements PurchaseOrderItemDAO {
         return purchaseOrderItemMapper.listByPurchaseOrderId(purchaseOrderId);
     }
 
+    /**
+     * 根据采购单id删除采购单条目
+     *
+     * @param purchaseOrderId 采购单id
+     */
+    @Override
+    public void removeByPurchaseOrderId(Long purchaseOrderId) {
+        purchaseOrderItemMapper.removeByPurchaseOrderId(purchaseOrderId);
+    }
+
 }

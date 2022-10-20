@@ -66,4 +66,30 @@ public class PurchaseOrderDAOImpl implements PurchaseOrderDAO {
     public PurchaseOrderDO getById(Long id) throws Exception {
         return purchaseOrderMapper.getById(id);
     }
+
+    /**
+     * 更新采购单
+     *
+     * @param purchaseOrder 采购单
+     */
+    @Override
+    public void update(PurchaseOrderDO purchaseOrder) throws Exception {
+        purchaseOrder.setGmtModified(dateProvider.getCurrentTime());
+        purchaseOrderMapper.update(purchaseOrder);
+    }
+
+    /**
+     * 更新采购单的状态
+     *
+     * @param id     采购单id
+     * @param status 采购单状态
+     * @throws Exception
+     */
+    @Override
+    public void updateStatus(Long id, Integer status) throws Exception {
+        PurchaseOrderDO purchaseOrder = getById(id);
+        purchaseOrder.setStatus(status);
+        purchaseOrder.setGmtModified(dateProvider.getCurrentTime());
+        purchaseOrderMapper.update(purchaseOrder);
+    }
 }

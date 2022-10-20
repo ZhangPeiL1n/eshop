@@ -1,10 +1,10 @@
-package com.zpl.eshop.purchase.costant;
+package com.zpl.eshop.purchase.constant;
 
 /**
  * 采购单状态
  *
  * @author ZhangPeiL1n
- * @date 2022/10/17 22:31
+ * @date 2022/10/20 16:19
  **/
 public class PurchaseOrderStatus {
 
@@ -29,14 +29,19 @@ public class PurchaseOrderStatus {
     public static final Integer WAIT_FOR_INPUT = 4;
 
     /**
+     * 已入库
+     */
+    public static final Integer FINISHED_INPUT = 5;
+
+    /**
      * 待结算
      */
-    public static final Integer WAIT_FOR_SETTLEMENT = 5;
+    public static final Integer WAIT_FOR_SETTLEMENT = 6;
 
     /**
      * 已完成
      */
-    public static final Integer FINISHED = 6;
+    public static final Integer FINISHED = 7;
 
     private PurchaseOrderStatus() {
 
