@@ -44,7 +44,7 @@ public class MonthSettlementTask {
     /**
      * 每月运行一次
      */
-    @Scheduled(fixedRate = 1 * 30 * 24 * 60 * 60 * 1000)
+    @Scheduled(cron = "0 0 0 1 * ?")
     public void execute() {
         try {
             List<SupplierDTO> suppliers = purchaseService.listSuppliersBySettlementPeriod(

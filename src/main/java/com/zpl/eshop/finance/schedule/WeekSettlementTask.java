@@ -44,8 +44,10 @@ public class WeekSettlementTask {
 
     /**
      * 每周运行一次
+     * <p>
+     * 秒 分 时 日 月 周
      */
-    @Scheduled(fixedRate = 1 * 7 * 24 * 60 * 60 * 1000)
+    @Scheduled(cron = "0 0 0 ? * MON")
     public void execute() {
         try {
             List<SupplierDTO> suppliers = purchaseService.listSuppliersBySettlementPeriod(

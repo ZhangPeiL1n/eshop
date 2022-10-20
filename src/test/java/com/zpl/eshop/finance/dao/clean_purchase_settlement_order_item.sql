@@ -1,0 +1,2 @@
+DELETE
+FROM finance_purchase_settlement_order_item;
