@@ -2,7 +2,6 @@ package com.zpl.eshop.order.state;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.order.dao.OrderInfoDAO;
-import com.zpl.eshop.order.domain.OrderInfoDO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 
 /**
@@ -33,9 +32,7 @@ public abstract class AbstractOrderState implements OrderState {
      */
     @Override
     public void doTransition(OrderInfoDTO order) throws Exception {
-        order.setOrderStatus(getOrderStatus());
-        order.setGmtModified(dateProvider.getCurrentTime());
-        orderInfoDAO.updateStatus(order.clone(OrderInfoDO.class));
+        orderInfoDAO.updateStatus(order.getId(), getOrderStatus());
     }
 
     /**

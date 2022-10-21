@@ -3,6 +3,7 @@ package com.zpl.eshop.order.service.impl;
 import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.membership.service.MembershipService;
 import com.zpl.eshop.order.constant.OrderOperateType;
+import com.zpl.eshop.order.constant.PublishedComment;
 import com.zpl.eshop.order.constant.ReturnGoodsApplyStatus;
 import com.zpl.eshop.order.dao.OrderOperateLogDAO;
 import com.zpl.eshop.order.dao.ReturnGoodsApplyDAO;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -205,7 +205,15 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Boolean informPublishCommentEvent(Long orderId) {
-        return true;
+        try {
+            OrderInfoDTO order = orderInfoService.getById(orderId);
+            order.setPublishedComment(PublishedComment.YES);
+            orderInfoService.update(order);
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**
@@ -237,7 +245,12 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<OrderInfoDTO> listNotPublishCommentOrders() {
-        return new ArrayList<>();
+        try {
+            return orderInfoService.listNotPublishedCommentOrders();
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
     }
 
     /**
@@ -248,7 +261,15 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Boolean informBatchPublishCommentEvent(List<Long> orderIds) {
-        return true;
+        try {
+            for (Long orderId : orderIds) {
+                informPublishCommentEvent(orderId);
+            }
+            return true;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return false;
+        }
     }
 
     /**

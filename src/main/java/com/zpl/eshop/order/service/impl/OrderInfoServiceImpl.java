@@ -258,10 +258,37 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public OrderInfoDTO getById(Long id) throws Exception {
         OrderInfoDTO order = orderInfoDAO.getById(id).clone(OrderInfoDTO.class);
-        List<OrderItemDTO> items = ObjectUtils.convertList(orderItemDAO.listByOrderInfoId(order.getId()), OrderItemDTO.class);
-        List<OrderOperateLogDTO> logs = ObjectUtils.convertList(orderOperateLogDAO.listByOrderInfoId(order.getId()), OrderOperateLogDTO.class);
+        setOrderItems(order);
+        setOrderOperateLogs(order);
+        return order;
+    }
 
-        order.setOrderItems(items);
+    /**
+     * 为订单查询并且设置订单条目
+     *
+     * @param order 订单
+     * @return 订单
+     * @throws Exception
+     */
+    private OrderInfoDTO setOrderItems(OrderInfoDTO order) throws Exception {
+        List<OrderItemDTO> orderItems = ObjectUtils.convertList(
+                orderItemDAO.listByOrderInfoId(order.getId()),
+                OrderItemDTO.class);
+        order.setOrderItems(orderItems);
+        return order;
+    }
+
+    /**
+     * 为订单查询并且设置订单操作日志
+     *
+     * @param order 订单
+     * @return 订单
+     * @throws Exception
+     */
+    private OrderInfoDTO setOrderOperateLogs(OrderInfoDTO order) throws Exception {
+        List<OrderOperateLogDTO> logs = ObjectUtils.convertList(
+                orderOperateLogDAO.listByOrderInfoId(order.getId()),
+                OrderOperateLogDTO.class);
         order.setLogs(logs);
         return order;
     }
@@ -346,7 +373,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      */
     private OrderInfoDTO saveOrder(OrderInfoDTO order) throws Exception {
         order.setOrderNo(UUID.randomUUID().toString().replaceAll("-", ""));
-        order.setPublishComment(PublishedComment.NO);
+        order.setPublishedComment(PublishedComment.NO);
         order.setOrderStatus(OrderStatus.UNKNOWN);
         order.setGmtCreate(dateProvider.getCurrentTime());
         order.setGmtModified(dateProvider.getCurrentTime());
@@ -418,5 +445,35 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         orderStateManager.sendOutReturnGoods(order);
 
         orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.SEND_OUT_RETURN_GOODS));
+    }
+
+    /**
+     * 更新订单
+     *
+     * @param order 订单
+     * @throws Exception
+     */
+    @Override
+    public void update(OrderInfoDTO order) throws Exception {
+        orderInfoDAO.update(order.clone(OrderInfoDO.class));
+    }
+
+    /**
+     * 查询确认收货时间超过了7天而且还没有发表评论的订单
+     *
+     * @return 订单
+     */
+    @Override
+    public List<OrderInfoDTO> listNotPublishedCommentOrders() throws Exception {
+        List<OrderInfoDTO> orders = ObjectUtils.convertList(
+                orderInfoDAO.listNotPublishedCommentOrders(),
+                OrderInfoDTO.class);
+
+        for (OrderInfoDTO order : orders) {
+            setOrderItems(order);
+            setOrderOperateLogs(order);
+        }
+
+        return orders;
     }
 }

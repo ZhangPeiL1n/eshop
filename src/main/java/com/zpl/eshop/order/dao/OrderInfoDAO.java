@@ -41,7 +41,23 @@ public interface OrderInfoDAO {
      *
      * @param order 订单
      */
-    void updateStatus(OrderInfoDO order) throws Exception;
+    void update(OrderInfoDO order) throws Exception;
+
+    /**
+     * 更新订单状态
+     *
+     * @param id     订单id
+     * @param status 订单状态
+     */
+    void updateStatus(Long id, Integer status) throws Exception;
+
+    /**
+     * 更新订单的确认收货时间
+     *
+     * @param id                 订单id
+     * @param confirmReceiptDate 订单确认收货时间
+     */
+    void updateConfirmReceiptTime(Long id, Date confirmReceiptDate) throws Exception;
 
     /**
      * 查询所有未付款的订单
@@ -51,17 +67,17 @@ public interface OrderInfoDAO {
     List<OrderInfoDO> listAllUnpaid();
 
     /**
-     * 更新订单的确认收货时间
-     *
-     * @param order 订单
-     */
-    void updateConfirmReceiptTime(Long id, Date confirmReceiptDate) throws Exception;
-
-    /**
      * 查询待收货的订单
      *
      * @return 订单
      * @throws Exception
      */
     List<OrderInfoDO> listUnreceived() throws Exception;
+
+    /**
+     * 查询确认收货时间超过了7天而且还没有发表评论的订单
+     *
+     * @return 订单
+     */
+    List<OrderInfoDO> listNotPublishedCommentOrders();
 }

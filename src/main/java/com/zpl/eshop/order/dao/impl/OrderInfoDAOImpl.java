@@ -73,9 +73,35 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      * @param order 订单
      */
     @Override
-    public void updateStatus(OrderInfoDO order) throws Exception {
+    public void update(OrderInfoDO order) throws Exception {
         order.setGmtModified(dateProvider.getCurrentTime());
-        orderInfoMapper.updateStatus(order);
+        orderInfoMapper.update(order);
+    }
+
+    /**
+     * 更新订单状态
+     *
+     * @param id     订单id
+     * @param status 订单状态
+     */
+    @Override
+    public void updateStatus(Long id, Integer status) throws Exception {
+        OrderInfoDO order = getById(id);
+        order.setOrderStatus(status);
+        update(order);
+    }
+
+    /**
+     * 更新订单的确认收货时间
+     *
+     * @param id                 订单id
+     * @param confirmReceiptDate 确认收货时间
+     */
+    @Override
+    public void updateConfirmReceiptTime(Long id, Date confirmReceiptDate) throws Exception {
+        OrderInfoDO order = getById(id);
+        order.setConfirmReceiptTime(confirmReceiptDate);
+        update(order);
     }
 
     /**
@@ -89,20 +115,6 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     }
 
     /**
-     * 更新订单的确认收货时间
-     *
-     * @param id                 订单id
-     * @param confirmReceiptDate 确认收货时间
-     */
-    @Override
-    public void updateConfirmReceiptTime(Long id, Date confirmReceiptDate) throws Exception {
-        OrderInfoDO order = getById(id);
-        order.setConfirmReceiptTime(confirmReceiptDate);
-        order.setGmtModified(dateProvider.getCurrentTime());
-        orderInfoMapper.updateConfirmReceiptTime(order);
-    }
-
-    /**
      * 查询待收货的订单
      *
      * @return 订单
@@ -111,5 +123,15 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     @Override
     public List<OrderInfoDO> listUnreceived() throws Exception {
         return orderInfoMapper.listByStatus(OrderStatus.WAIT_FOR_RECEIVE);
+    }
+
+    /**
+     * 查询确认收货时间超过了7天而且还没有发表评论的订单
+     *
+     * @return 订单
+     */
+    @Override
+    public List<OrderInfoDO> listNotPublishedCommentOrders() {
+        return orderInfoMapper.listNotPublishedCommentOrders();
     }
 }
