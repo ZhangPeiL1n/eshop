@@ -42,13 +42,13 @@ public class SendOutOrderDAOImpl implements SendOutOrderDAO {
     }
 
     /**
-     * 根据id查询发货单
+     * 根据销售出库单id查询发货单
      *
-     * @param id 发货单id
+     * @param saleDeliveryOrderId 销售出库单id
      * @return 发货单
      */
     @Override
-    public SendOutOrderDO getBySaleDeliveryOrderId(Long id) {
-        return sendOutOrderMapper.getBySaleDeliveryOrderId(id);
+    public SendOutOrderDO getBySaleDeliveryOrderId(Long saleDeliveryOrderId) {
+        return sendOutOrderMapper.getBySaleDeliveryOrderId(saleDeliveryOrderId);
     }
 }

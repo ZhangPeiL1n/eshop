@@ -1,0 +1,2 @@
+delete
+from wms_sale_delivery_order_send_out_detail;

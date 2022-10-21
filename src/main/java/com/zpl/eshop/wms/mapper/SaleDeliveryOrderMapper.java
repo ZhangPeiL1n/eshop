@@ -74,7 +74,7 @@ public interface SaleDeliveryOrderMapper {
 
             + "SELECT "
             + "a.id,"
-            + "a.gmt_create,"
+            + "a.order_id,"
             + "a.order_no,"
             + "a.consignee,"
             + "a.total_amount,"
@@ -84,7 +84,10 @@ public interface SaleDeliveryOrderMapper {
             + "a.payable_amount,"
             + "a.pay_type,"
             + "a.status,"
-            + "a.user_account_id "
+            + "a.user_account_id, "
+            + "a.delivery_time, "
+            + "a.gmt_create,"
+            + "a.gmt_modified "
             + "FROM wms_sale_delivery_order a,"
             + "("
             + "SELECT id "
@@ -103,7 +106,7 @@ public interface SaleDeliveryOrderMapper {
     )
     @Results({
             @Result(column = "id", property = "id", id = true),
-            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "order_id", property = "orderId"),
             @Result(column = "order_no", property = "orderNo"),
             @Result(column = "consignee", property = "consignee"),
             @Result(column = "total_amount", property = "totalAmount"),
@@ -114,6 +117,9 @@ public interface SaleDeliveryOrderMapper {
             @Result(column = "pay_type", property = "payType"),
             @Result(column = "status", property = "status"),
             @Result(column = "user_account_id", property = "userAccountId"),
+            @Result(column = "delivery_time", property = "deliveryTime"),
+            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "gmt_modified", property = "gmtModified")
     })
     List<SaleDeliveryOrderDO> listByPage(SaleDeliveryOrderQuery query);
 
@@ -162,7 +168,7 @@ public interface SaleDeliveryOrderMapper {
             @Result(column = "payable_amount", property = "payableAmount"),
             @Result(column = "invoice_title", property = "invoiceTitle"),
             @Result(column = "taxpayer_id", property = "taxpayerId"),
-            @Result(column = "order_comment", property = "order_comment"),
+            @Result(column = "order_comment", property = "orderComment"),
             @Result(column = "status", property = "status"),
             @Result(column = "delivery_time", property = "deliveryTime"),
             @Result(column = "gmt_create", property = "gmtCreate"),

@@ -20,8 +20,8 @@ public interface SendOutOrderDAO {
     /**
      * 根据id查询发货单
      *
-     * @param id 发货单id
+     * @param saleDeliveryOrderId 发货单id
      * @return 发货单
      */
-    SendOutOrderDO getBySaleDeliveryOrderId(Long id);
+    SendOutOrderDO getBySaleDeliveryOrderId(Long saleDeliveryOrderId);
 }
