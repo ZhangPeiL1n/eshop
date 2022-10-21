@@ -18,5 +18,5 @@ public interface CouponCalculator {
      * @param coupon 优惠券
      * @return 抵扣金额
      */
-    Double calculate(OrderInfoDTO order, CouponDTO coupon);
+    Double calculate(OrderInfoDTO order, CouponDTO coupon) throws Exception;
 }

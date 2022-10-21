@@ -18,5 +18,5 @@ public interface PromotionActivityCalculator {
      * @param promotionActivity 促销活动
      * @return
      */
-    PromotionActivityResult calculate(OrderItemDTO item, PromotionActivityDTO promotionActivity);
+    PromotionActivityResult calculate(OrderItemDTO item, PromotionActivityDTO promotionActivity) throws Exception;
 }

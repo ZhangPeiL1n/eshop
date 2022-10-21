@@ -179,7 +179,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      * @return 计算金额后的订单
      */
     @Override
-    public OrderInfoDTO calculateCouponDiscountPrice(OrderInfoDTO order, CouponDTO coupon) {
+    public OrderInfoDTO calculateCouponDiscountPrice(OrderInfoDTO order, CouponDTO coupon) throws Exception {
         CouponCalculator couponCalculator = couponCalculatorFactory.create(coupon);
         Double couponAmount = couponCalculator.calculate(order, coupon);
         order.setCouponAmount(couponAmount);

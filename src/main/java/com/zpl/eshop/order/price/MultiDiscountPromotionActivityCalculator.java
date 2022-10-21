@@ -2,8 +2,10 @@ package com.zpl.eshop.order.price;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zpl.eshop.common.json.JsonExtractor;
 import com.zpl.eshop.order.domain.OrderItemDTO;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,9 +17,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class MultiDiscountPromotionActivityCalculator implements PromotionActivityCalculator {
 
+    /**
+     * json 字段值提取器
+     */
+    @Autowired
+    private JsonExtractor jsonExtractor;
+
     @Override
-    public PromotionActivityResult calculate(OrderItemDTO item, PromotionActivityDTO promotionActivity) {
-        PromotionActivityResult result = new PromotionActivityResult();
+    public PromotionActivityResult calculate(OrderItemDTO item, PromotionActivityDTO promotionActivity) throws Exception {
         Long purchaseCount = item.getPurchaseQuantity();
         double totalAmount = item.getPurchasePrice() * item.getPurchaseQuantity();
 
@@ -25,9 +32,9 @@ public class MultiDiscountPromotionActivityCalculator implements PromotionActivi
         JSONArray rules = JSONArray.parseArray(rulesJson);
         for (int i = 0; i < rules.size(); i++) {
             JSONObject rule = rules.getJSONObject(i);
-            Long thresholdCount = rule.getLong("thresholdCount");
+            Long thresholdCount = jsonExtractor.getLong(rule, "thresholdCount");
             if (purchaseCount > thresholdCount) {
-                return new PromotionActivityResult(rule.getDouble("discountRate"));
+                return new PromotionActivityResult(totalAmount * jsonExtractor.getDouble(rule, "discountRate"));
             }
         }
         return new PromotionActivityResult();
