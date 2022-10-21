@@ -510,7 +510,7 @@ public class InventoryServiceTest {
         order.setInvoiceTitle("测试发票抬头");
         order.setTaxpayerId("测试纳税人识别号");
         order.setOrderComment("测试订单");
-        order.setPublishComment(1);
+        order.setPublishedComment(1);
         order.setConfirmReceiptTime(dateProvider.parse2Datetime("2022-05-01 14:20:00"));
         order.setGmtCreate(dateProvider.parse2Datetime("2022-05-01 14:20:00"));
         order.setGmtModified(dateProvider.parse2Datetime("2022-05-01 14:20:00"));

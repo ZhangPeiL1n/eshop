@@ -231,7 +231,7 @@ public class ScheduleServiceTest {
         order.setInvoiceTitle("xxxx");
         order.setTaxpayerId(UUID.randomUUID().toString().replace("-", ""));
         order.setOrderComment("测试订单");
-        order.setPublishComment(0);
+        order.setPublishedComment(0);
         order.setGmtCreate(dateProvider.getCurrentTime());
         order.setGmtModified(dateProvider.getCurrentTime());
         order.setOrderItems(new ArrayList<>());
