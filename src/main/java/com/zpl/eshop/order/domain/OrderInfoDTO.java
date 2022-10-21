@@ -104,7 +104,7 @@ public class OrderInfoDTO extends AbstractObject {
     /**
      * 是否发表评论
      */
-    private Integer publishComment;
+    private Integer publishedComment;
 
     /**
      * 确认收货时间
