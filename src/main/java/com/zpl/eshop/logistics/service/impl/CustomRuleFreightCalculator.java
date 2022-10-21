@@ -2,9 +2,11 @@ package com.zpl.eshop.logistics.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zpl.eshop.common.json.JsonExtractor;
 import com.zpl.eshop.logistics.domain.FreightTemplateDTO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,6 +17,12 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class CustomRuleFreightCalculator implements FreightCalculator {
+
+    /**
+     * json 字段值提取器
+     */
+    @Autowired
+    private JsonExtractor jsonExtractor;
 
     /**
      * 计算订单条目的运费
@@ -33,14 +41,15 @@ public class CustomRuleFreightCalculator implements FreightCalculator {
 
         for (int i = 0; i < rules.size(); i++) {
             JSONObject rule = rules.getJSONObject(i);
-            String provinces = rule.getString("provinces");
+
+            String provinces = jsonExtractor.getString(rule, "provinces");
             if (!provinces.contains(province)) {
                 continue;
             }
-            Double threshold = rule.getDouble("threshold");
-            Double thresholdFreight = rule.getDouble("threshold_freight");
-            Double incrStep = rule.getDouble("incr_step");
-            Double incrFreight = rule.getDouble("incr_freight");
+            Double threshold = jsonExtractor.getDouble(rule, "threshold");
+            Double thresholdFreight = jsonExtractor.getDouble(rule, "threshold_freight");
+            Double incrStep = jsonExtractor.getDouble(rule, "incr_step");
+            Double incrFreight = jsonExtractor.getDouble(rule, "incr_freight");
 
             if (totalGrossWeight <= threshold) {
                 return thresholdFreight;
