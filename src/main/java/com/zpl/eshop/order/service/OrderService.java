@@ -85,10 +85,10 @@ public interface OrderService {
     /**
      * 通知订单中心，“批量发表评论”事件发生了
      *
-     * @param orderId 订单 id 集合
+     * @param orderIds 订单 id 集合
      * @return 处理结果
      */
-    Boolean informBatchPublishCommentEvent(List<Long> orderId);
+    Boolean informBatchPublishCommentEvent(List<Long> orderIds);
 
     /**
      * 根据id查询订单
