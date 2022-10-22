@@ -3,18 +3,16 @@ package com.zpl.eshop.order.schedule;
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.inventory.service.InventoryService;
-import com.zpl.eshop.order.constant.OrderOperateType;
 import com.zpl.eshop.order.dao.OrderInfoDAO;
 import com.zpl.eshop.order.dao.OrderItemDAO;
-import com.zpl.eshop.order.dao.OrderOperateLogDAO;
 import com.zpl.eshop.order.domain.OrderInfoDO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
-import com.zpl.eshop.order.service.impl.OrderOperateLogFactory;
 import com.zpl.eshop.order.state.OrderStateManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -55,22 +53,13 @@ public class AutoCancelOrderTask {
      * 订单状态管理组件
      */
     @Autowired
+    @Qualifier("loggedOrderStateManager")
     private OrderStateManager orderStateManager;
     /**
      * 库存中心接口
      */
     @Autowired
     private InventoryService inventoryService;
-    /**
-     * 订单操作日志DAO
-     */
-    @Autowired
-    private OrderOperateLogDAO orderOperateLogDAO;
-    /**
-     * 订单操作内容工厂
-     */
-    @Autowired
-    private OrderOperateLogFactory orderOperateLogFactory;
 
     @Scheduled(fixedRate = 60 * 1000)
     public void task() {
@@ -82,9 +71,8 @@ public class AutoCancelOrderTask {
                     if (dateProvider.getCurrentTime().getTime() - order.getGmtCreate().getTime() < timeout) {
                         return;
                     }
-                    orderStateManager.cancelOrder(order);
+                    orderStateManager.cancel(order);
                     inventoryService.informCancelOrderEvent(order);
-                    orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.AUTO_CANCEL_ORDER));
                 } catch (Exception e) {
                     logger.error("error", e);
                 }

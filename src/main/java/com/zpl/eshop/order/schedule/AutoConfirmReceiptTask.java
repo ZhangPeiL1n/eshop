@@ -2,16 +2,14 @@ package com.zpl.eshop.order.schedule;
 
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.logistics.service.LogisticsService;
-import com.zpl.eshop.order.constant.OrderOperateType;
 import com.zpl.eshop.order.dao.OrderInfoDAO;
-import com.zpl.eshop.order.dao.OrderOperateLogDAO;
 import com.zpl.eshop.order.domain.OrderInfoDO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
-import com.zpl.eshop.order.service.impl.OrderOperateLogFactory;
 import com.zpl.eshop.order.state.OrderStateManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -51,19 +49,8 @@ public class AutoConfirmReceiptTask {
      * 订单状态管理器
      */
     @Autowired
+    @Qualifier("loggedOrderStateManager")
     private OrderStateManager orderStateManager;
-
-    /**
-     * 订单操作日志DAO组件
-     */
-    @Autowired
-    private OrderOperateLogDAO orderOperateLogDAO;
-
-    /**
-     * 订单操作内容工厂
-     */
-    @Autowired
-    private OrderOperateLogFactory orderOperateLogFactory;
 
     @Scheduled(fixedRate = 60 * 1000)
     public void execute() {
@@ -80,7 +67,6 @@ public class AutoConfirmReceiptTask {
                         7 * 24 * 60 * 60 * 1000) {
                     orderStateManager.confirmReceipt(unreceivedOrder.clone(OrderInfoDTO.class));
                     orderInfoDAO.updateConfirmReceiptTime(unreceivedOrder.getId(), dateProvider.getCurrentTime());
-                    orderOperateLogDAO.save(orderOperateLogFactory.get(unreceivedOrder.clone(OrderInfoDTO.class), OrderOperateType.AUTO_CONFIRM_RECEIPT));
                 }
             }
         } catch (Exception e) {

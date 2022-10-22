@@ -4,7 +4,6 @@ import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.customer.service.CustomerService;
 import com.zpl.eshop.inventory.service.InventoryService;
-import com.zpl.eshop.order.constant.OrderOperateType;
 import com.zpl.eshop.order.constant.OrderStatus;
 import com.zpl.eshop.order.constant.PublishedComment;
 import com.zpl.eshop.order.dao.OrderInfoDAO;
@@ -21,6 +20,7 @@ import com.zpl.eshop.promotion.domain.CouponDTO;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
 import com.zpl.eshop.promotion.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -98,15 +98,10 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     private OrderOperateLogDAO orderOperateLogDAO;
 
     /**
-     * 订单操作内容工厂
-     */
-    @Autowired
-    private OrderOperateLogFactory orderOperateLogFactory;
-
-    /**
      * 订单状态管理组件
      */
     @Autowired
+    @Qualifier("loggedOrderStateManager")
     private OrderStateManager orderStateManager;
 
     /**
@@ -219,8 +214,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             return order;
         }
         saveOrder(order);
-        orderStateManager.createOrder(order);
-        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.CREATE_ORDER));
+        orderStateManager.create(order);
         inventoryService.informSubmitOrderEvent(order);
         promotionService.useCoupon(order.getCouponId(), order.getUserAccountId());
         return order;
@@ -309,9 +303,8 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         if (!orderStateManager.canCancel(order)) {
             return false;
         }
-        orderStateManager.cancelOrder(order);
+        orderStateManager.cancel(order);
         inventoryService.informCancelOrderEvent(order);
-        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.MANUAL_CANCEL_ORDER));
         return true;
     }
 
@@ -344,7 +337,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         }
         orderStateManager.confirmReceipt(order);
         orderInfoDAO.updateConfirmReceiptTime(id, new Date());
-        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.MANUAL_CONFIRM_RECEIPT));
         return true;
     }
 
@@ -408,7 +400,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         }
         returnGoodsApplyDAO.save(apply.clone(ReturnGoodsApplyDO.class));
         orderStateManager.applyReturnGoods(order);
-        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.APPLY_RETURN_GOODS));
         customerService.createReturnGoodsWorkSheet(order.getId(), order.getOrderNo(), apply.getReturnGoodsReason(), apply.getReturnGoodsComment());
         return true;
     }
@@ -443,8 +434,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         customerService.syncReturnGoodsLogisticsCode(orderInfoId, returnGoodsLogisticCode);
 
         orderStateManager.sendOutReturnGoods(order);
-
-        orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.SEND_OUT_RETURN_GOODS));
     }
 
     /**

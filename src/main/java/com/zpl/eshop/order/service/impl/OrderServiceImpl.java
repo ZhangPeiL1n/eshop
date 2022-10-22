@@ -2,10 +2,8 @@ package com.zpl.eshop.order.service.impl;
 
 import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.membership.service.MembershipService;
-import com.zpl.eshop.order.constant.OrderOperateType;
 import com.zpl.eshop.order.constant.PublishedComment;
 import com.zpl.eshop.order.constant.ReturnGoodsApplyStatus;
-import com.zpl.eshop.order.dao.OrderOperateLogDAO;
 import com.zpl.eshop.order.dao.ReturnGoodsApplyDAO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.service.OrderInfoService;
@@ -15,6 +13,7 @@ import com.zpl.eshop.schedule.service.ScheduleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
      * 订单状态管理器
      */
     @Autowired
+    @Qualifier("loggedOrderStateManager")
     private OrderStateManager orderStateManager;
 
     /**
@@ -63,18 +63,6 @@ public class OrderServiceImpl implements OrderService {
     private MembershipService membershipService;
 
     /**
-     * 订单操作日志管理DAO组件
-     */
-    @Autowired
-    private OrderOperateLogDAO orderOperateLogDAO;
-
-    /**
-     * 订单操作日志工厂
-     */
-    @Autowired
-    private OrderOperateLogFactory orderOperateLogFactory;
-
-    /**
      * 退货申请DAO组件
      */
     @Autowired
@@ -92,7 +80,6 @@ public class OrderServiceImpl implements OrderService {
             OrderInfoDTO order = orderInfoService.getById(orderId);
             orderStateManager.finishDelivery(order);
 
-            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.GOODS_DELIVERY));
             return true;
         } catch (Exception e) {
             logger.error("error", e);
@@ -112,7 +99,6 @@ public class OrderServiceImpl implements OrderService {
             OrderInfoDTO order = orderInfoService.getById(orderId);
             orderStateManager.rejectReturnGoodsApply(order);
             returnGoodsApplyDAO.updateStatus(orderId, ReturnGoodsApplyStatus.REJECTED);
-            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.RETURN_GOODS_REJECTED));
             return true;
         } catch (Exception e) {
             logger.error("error", e);
@@ -132,7 +118,6 @@ public class OrderServiceImpl implements OrderService {
             OrderInfoDTO order = orderInfoService.getById(orderId);
             orderStateManager.passedReturnGoodsApply(order);
             returnGoodsApplyDAO.updateStatus(orderId, ReturnGoodsApplyStatus.PASSED);
-            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.RETURN_GOODS_APPROVED));
             return true;
         } catch (Exception e) {
             logger.error("error", e);
@@ -151,7 +136,6 @@ public class OrderServiceImpl implements OrderService {
         try {
             OrderInfoDTO order = orderInfoService.getById(orderId);
             orderStateManager.confirmReceivedReturnGoods(order);
-            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.CONFIRM_RETURN_GOODS_RECEIPT));
             return true;
         } catch (Exception e) {
             logger.error("error", e);
@@ -170,7 +154,6 @@ public class OrderServiceImpl implements OrderService {
         try {
             OrderInfoDTO order = orderInfoService.getById(orderId);
             orderStateManager.finishedInputReturnGoods(order);
-            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.FINISHED_RETURN_GOODS_INPUT));
             return true;
         } catch (Exception e) {
             logger.error("error", e);
@@ -189,7 +172,6 @@ public class OrderServiceImpl implements OrderService {
         try {
             OrderInfoDTO order = orderInfoService.getById(orderId);
             orderStateManager.finishedRefund(order);
-            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.FINISHED_RETURN_GOODS_REFUND));
             return true;
         } catch (Exception e) {
             logger.error("error", e);
@@ -226,8 +208,7 @@ public class OrderServiceImpl implements OrderService {
     public Boolean informPaySucceed(Long orderId) {
         try {
             OrderInfoDTO order = orderInfoService.getById(orderId);
-            orderStateManager.payOrder(order);
-            orderOperateLogDAO.save(orderOperateLogFactory.get(order, OrderOperateType.PAY_ORDER));
+            orderStateManager.pay(order);
             inventoryService.informPayOrderEvent(order);
             scheduleService.scheduleSaleDelivery(order);
             membershipService.informPayOrderEvent(order.getUserAccountId(), order.getPayableAmount());
