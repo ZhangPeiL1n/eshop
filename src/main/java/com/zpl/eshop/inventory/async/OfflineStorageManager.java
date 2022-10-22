@@ -32,19 +32,7 @@ public interface OfflineStorageManager {
      */
     void setOffline(Boolean offline);
 
-    /**
-     * 判断是否还有下一批库存更新消息
-     *
-     * @return true 还有库存更新消息
-     */
-    Boolean hasNext();
-
-    /**
-     * 离线恢复线程使用，每次批量查询50条
-     *
-     * @return 50条数据
-     */
-    List<StockUpdateMessage> getNextBatch() throws Exception;
+    OfflineStorageIterator iterator() throws Exception;
 
     /**
      * 批量删除

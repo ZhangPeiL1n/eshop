@@ -87,34 +87,7 @@ public class OfflineStorageManagerImpl implements OfflineStorageManager {
         return stockUpdateMessageDO;
     }
 
-    /**
-     * 判断是否还有下一批库存更新消息
-     *
-     * @return true 还有库存更新消息
-     */
-    @Override
-    public Boolean hasNext() {
-        return stockUpdateMessageDAO.count() > 0;
-    }
 
-    /**
-     * 离线恢复线程使用，每次批量查询50条
-     *
-     * @return 50条数据
-     */
-    @Override
-    public List<StockUpdateMessage> getNextBatch() throws Exception {
-        List<StockUpdateMessage> stockUpdateMessages = new ArrayList<>();
-        List<StockUpdateMessageDO> stockUpdateMessageDOList = stockUpdateMessageDAO.listByBatch();
-        for (StockUpdateMessageDO stockUpdateMessageDO : stockUpdateMessageDOList) {
-            StockUpdateMessage stockUpdateMessage = new StockUpdateMessage();
-            stockUpdateMessage.setId(stockUpdateMessageDO.getMessageId());
-            stockUpdateMessage.setOperation(stockUpdateMessageDO.getOperation());
-            stockUpdateMessage.setParameter(JSONObject.parseObject(stockUpdateMessageDO.getParameter(), Class.forName(stockUpdateMessageDO.getParameterClazz())));
-            stockUpdateMessages.add(stockUpdateMessage);
-        }
-        return stockUpdateMessages;
-    }
 
     /**
      * 批量删除
@@ -138,5 +111,50 @@ public class OfflineStorageManagerImpl implements OfflineStorageManager {
     @Override
     public Long count() {
         return stockUpdateMessageDAO.count();
+    }
+
+    /**
+     * 获取离线数据迭代器
+     */
+    @Override
+    public OfflineStorageIterator iterator() throws Exception {
+        return new OfflineStorageIteratorImpl();
+    }
+
+    /**
+     * 离线数据迭代器
+     *
+     * @author zhonghuashishan
+     */
+    public class OfflineStorageIteratorImpl implements OfflineStorageIterator {
+
+        /**
+         * 判断是否还有下一批库存更新消息
+         *
+         * @return true 还有库存更新消息
+         */
+        @Override
+        public Boolean hasNext() {
+            return stockUpdateMessageDAO.count() > 0;
+        }
+
+        /**
+         * 离线恢复线程使用，每次批量查询50条
+         *
+         * @return 50条数据
+         */
+        @Override
+        public List<StockUpdateMessage> next() throws Exception {
+            List<StockUpdateMessage> stockUpdateMessages = new ArrayList<>();
+            List<StockUpdateMessageDO> stockUpdateMessageDOList = stockUpdateMessageDAO.listByBatch();
+            for (StockUpdateMessageDO stockUpdateMessageDO : stockUpdateMessageDOList) {
+                StockUpdateMessage stockUpdateMessage = new StockUpdateMessage();
+                stockUpdateMessage.setId(stockUpdateMessageDO.getMessageId());
+                stockUpdateMessage.setOperation(stockUpdateMessageDO.getOperation());
+                stockUpdateMessage.setParameter(JSONObject.parseObject(stockUpdateMessageDO.getParameter(), Class.forName(stockUpdateMessageDO.getParameterClazz())));
+                stockUpdateMessages.add(stockUpdateMessage);
+            }
+            return stockUpdateMessages;
+        }
     }
 }
