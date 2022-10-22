@@ -3,6 +3,10 @@ package com.zpl.eshop.logistics.service.impl;
 import com.zpl.eshop.commodity.domain.GoodsDTO;
 import com.zpl.eshop.commodity.service.CommodityService;
 import com.zpl.eshop.common.util.DateProvider;
+import com.zpl.eshop.logistics.api.CreateEOrderRequest;
+import com.zpl.eshop.logistics.api.CreateEOrderRequestBuilder;
+import com.zpl.eshop.logistics.api.CreateEOrderResponse;
+import com.zpl.eshop.logistics.api.LogisticApi;
 import com.zpl.eshop.logistics.domain.FreightTemplateDTO;
 import com.zpl.eshop.logistics.service.FreightTemplateService;
 import com.zpl.eshop.logistics.service.LogisticsService;
@@ -54,6 +58,12 @@ public class LogisticsServiceImpl implements LogisticsService {
     private FreightCalculatorFactory freightCalculatorFactory;
 
     /**
+     * 物流api接口
+     */
+    @Autowired
+    private LogisticApi logisticApi;
+
+    /**
      * 计算商品 sku 的运费
      *
      * @param order     订单
@@ -86,7 +96,27 @@ public class LogisticsServiceImpl implements LogisticsService {
      */
     @Override
     public LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order) {
-        return null;
+        try {
+            CreateEOrderRequest request = CreateEOrderRequestBuilder.get()
+                    .buildOrderRelatedInfo(order)
+                    .buildReceiver(order)
+                    .buildGoodsList(order)
+                    .buildTotalDataMetric(order)
+                    .create();
+
+            CreateEOrderResponse response = logisticApi.createEOrder(request);
+
+            LogisticOrderDTO logisticOrder = new LogisticOrderDTO();
+            logisticOrder.setLogisticCode(response.getLogisticCode());
+            logisticOrder.setContent(response.getLogisticOrderContent());
+            logisticOrder.setGmtCreate(dateProvider.getCurrentTime());
+            logisticOrder.setGmtModified(dateProvider.getCurrentTime());
+
+            return logisticOrder;
+        } catch (Exception e) {
+            logger.error("error", e);
+            return null;
+        }
     }
 
     /**
