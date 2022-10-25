@@ -1,4 +1,4 @@
-package com.zpl.eshop.pay;
+package com.zpl.eshop.pay.service;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 
