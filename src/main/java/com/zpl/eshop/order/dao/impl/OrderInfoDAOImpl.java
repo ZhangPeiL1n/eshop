@@ -9,7 +9,6 @@ import com.zpl.eshop.order.mapper.OrderInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -92,26 +91,13 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
     }
 
     /**
-     * 更新订单的确认收货时间
-     *
-     * @param id                 订单id
-     * @param confirmReceiptDate 确认收货时间
-     */
-    @Override
-    public void updateConfirmReceiptTime(Long id, Date confirmReceiptDate) throws Exception {
-        OrderInfoDO order = getById(id);
-        order.setConfirmReceiptTime(confirmReceiptDate);
-        update(order);
-    }
-
-    /**
      * 查询所有未付款的订单
      *
      * @return 所有未付款的订单
      */
     @Override
     public List<OrderInfoDO> listAllUnpaid() {
-        return orderInfoMapper.listAllUnpaid();
+        return orderInfoMapper.listByStatus(OrderStatus.WAIT_FOR_PAY);
     }
 
     /**

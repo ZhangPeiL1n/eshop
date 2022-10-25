@@ -85,6 +85,7 @@ public interface OrderInfoMapper {
             + "a.order_status,"
             + "a.user_account_id,"
             + "a.username,"
+            + "a.confirm_receipt_time,"
             + "a.gmt_create "
             + "FROM order_info a,"
             + "("
@@ -108,6 +109,7 @@ public interface OrderInfoMapper {
             @Result(column = "payable_amount", property = "payableAmount"),
             @Result(column = "pay_type", property = "payType"),
             @Result(column = "order_status", property = "orderStatus"),
+            @Result(column = "confirm_receipt_time", property = "confirmReceiptTime"),
             @Result(column = "gmt_create", property = "gmtCreate")
     })
     List<OrderInfoDO> listByPage(OrderInfoQuery query);
@@ -136,7 +138,10 @@ public interface OrderInfoMapper {
             + "user_account_id,"
             + "username,"
             + "order_comment,"
-            + "gmt_create "
+            + "is_published_comment,"
+            + "confirm_receipt_time,"
+            + "gmt_create, "
+            + "gmt_modified "
             + "FROM order_info "
             + "WHERE id=#{id}"
     )
@@ -158,7 +163,10 @@ public interface OrderInfoMapper {
             @Result(column = "invoice_title", property = "invoiceTitle"),
             @Result(column = "taxpayer_id", property = "taxpayerId"),
             @Result(column = "order_comment", property = "orderComment"),
-            @Result(column = "gmt_create", property = "gmtCreate")
+            @Result(column = "is_published_comment", property = "publishedComment"),
+            @Result(column = "confirm_receipt_time", property = "confirmReceiptTime"),
+            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "gmt_modified", property = "gmtModified")
     })
     OrderInfoDO getById(@Param("id") Long id);
 
@@ -176,56 +184,7 @@ public interface OrderInfoMapper {
     void update(OrderInfoDO order);
 
     /**
-     * 查询所有未付款的订单
-     *
-     * @return 所有未付款的订单
-     */
-    @Select("SELECT "
-            + "id,"
-            + "gmt_create,"
-            + "order_no,"
-            + "consignee,"
-            + "delivery_address,"
-            + "consignee_cell_phone_number,"
-            + "total_amount,"
-            + "discount_amount,"
-            + "coupon_amount,"
-            + "freight,"
-            + "payable_amount,"
-            + "pay_type,"
-            + "invoice_title,"
-            + "taxpayer_id,"
-            + "order_status,"
-            + "user_account_id,"
-            + "username,"
-            + "order_comment "
-            + "FROM order_info "
-            + "WHERE order_status = 1"
-    )
-    @Results({
-            @Result(column = "id", property = "id", id = true),
-            @Result(column = "gmt_create", property = "gmtCreate"),
-            @Result(column = "order_no", property = "orderNo"),
-            @Result(column = "consignee", property = "consignee"),
-            @Result(column = "total_amount", property = "totalAmount"),
-            @Result(column = "discount_amount", property = "discountAmount"),
-            @Result(column = "coupon_amount", property = "couponAmount"),
-            @Result(column = "freight", property = "freight"),
-            @Result(column = "payable_amount", property = "payableAmount"),
-            @Result(column = "pay_type", property = "payType"),
-            @Result(column = "order_status", property = "orderStatus"),
-            @Result(column = "delivery_address", property = "deliveryAddress"),
-            @Result(column = "consignee_cell_phone_number", property = "consigneeCellPhoneNumber"),
-            @Result(column = "invoice_title", property = "invoiceTitle"),
-            @Result(column = "taxpayer_id", property = "taxpayerId"),
-            @Result(column = "user_account_id", property = "userAccountId"),
-            @Result(column = "username", property = "username"),
-            @Result(column = "order_comment", property = "orderComment")
-    })
-    List<OrderInfoDO> listAllUnpaid();
-
-    /**
-     * 查询处于待收货状态的订单
+     * 根据状态查询订单
      *
      * @return 订单
      */
@@ -247,7 +206,11 @@ public interface OrderInfoMapper {
             + "order_status,"
             + "user_account_id,"
             + "username,"
-            + "order_comment "
+            + "order_comment, "
+            + "is_published_comment,"
+            + "confirm_receipt_time,"
+            + "gmt_create,"
+            + "gmt_modified "
             + "FROM order_info "
             + "WHERE order_status=#{orderStatus}"
     )
@@ -269,7 +232,11 @@ public interface OrderInfoMapper {
             @Result(column = "taxpayer_id", property = "taxpayerId"),
             @Result(column = "user_account_id", property = "userAccountId"),
             @Result(column = "username", property = "username"),
-            @Result(column = "order_comment", property = "orderComment")
+            @Result(column = "order_comment", property = "orderComment"),
+            @Result(column = "is_published_comment", property = "publishedComment"),
+            @Result(column = "confirm_receipt_time", property = "confirmReceiptTime"),
+            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "gmt_modified", property = "gmtModified")
     })
     List<OrderInfoDO> listByStatus(@Param("orderStatus") Integer orderStatus);
 
@@ -296,7 +263,11 @@ public interface OrderInfoMapper {
             + "order_status,"
             + "user_account_id,"
             + "username,"
-            + "order_comment "
+            + "order_comment, "
+            + "is_published_comment,"
+            + "confirm_receipt_time,"
+            + "gmt_create,"
+            + "gmt_modified "
             + "FROM order_info "
             + "WHERE DATEDIFF(NOW(),IFNULL(confirm_receipt_time,NOW())) > 7 "
             + "AND is_published_comment=0"
@@ -319,7 +290,11 @@ public interface OrderInfoMapper {
             @Result(column = "taxpayer_id", property = "taxpayerId"),
             @Result(column = "user_account_id", property = "userAccountId"),
             @Result(column = "username", property = "username"),
-            @Result(column = "order_comment", property = "orderComment")
+            @Result(column = "order_comment", property = "orderComment"),
+            @Result(column = "is_published_comment", property = "publishedComment"),
+            @Result(column = "confirm_receipt_time", property = "confirmReceiptTime"),
+            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "gmt_modified", property = "gmtModified")
     })
     List<OrderInfoDO> listNotPublishedCommentOrders();
 }

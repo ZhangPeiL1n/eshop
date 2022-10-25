@@ -1,2 +1,2 @@
 DELETE
-FROM order_info
+FROM order_info;

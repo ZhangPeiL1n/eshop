@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -336,7 +335,8 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             return false;
         }
         orderStateManager.confirmReceipt(order);
-        orderInfoDAO.updateConfirmReceiptTime(id, new Date());
+        order.setConfirmReceiptTime(dateProvider.getCurrentTime());
+        orderInfoDAO.update(order.clone(OrderInfoDO.class));
         return true;
     }
 

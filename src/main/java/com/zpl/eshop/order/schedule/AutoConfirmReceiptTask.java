@@ -66,7 +66,8 @@ public class AutoConfirmReceiptTask {
                 if (dateProvider.getCurrentTime().getTime() - signedTime.getTime() >
                         7 * 24 * 60 * 60 * 1000) {
                     orderStateManager.confirmReceipt(unreceivedOrder.clone(OrderInfoDTO.class));
-                    orderInfoDAO.updateConfirmReceiptTime(unreceivedOrder.getId(), dateProvider.getCurrentTime());
+                    unreceivedOrder.setConfirmReceiptTime(dateProvider.getCurrentTime());
+                    orderInfoDAO.update(unreceivedOrder);
                 }
             }
         } catch (Exception e) {

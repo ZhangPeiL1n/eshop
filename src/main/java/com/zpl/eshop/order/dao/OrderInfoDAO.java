@@ -3,7 +3,6 @@ package com.zpl.eshop.order.dao;
 import com.zpl.eshop.order.domain.OrderInfoDO;
 import com.zpl.eshop.order.domain.OrderInfoQuery;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,14 +49,6 @@ public interface OrderInfoDAO {
      * @param status 订单状态
      */
     void updateStatus(Long id, Integer status) throws Exception;
-
-    /**
-     * 更新订单的确认收货时间
-     *
-     * @param id                 订单id
-     * @param confirmReceiptDate 订单确认收货时间
-     */
-    void updateConfirmReceiptTime(Long id, Date confirmReceiptDate) throws Exception;
 
     /**
      * 查询所有未付款的订单

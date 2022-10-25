@@ -1,6 +1,7 @@
 package com.zpl.eshop.order.dao;
 
 import com.zpl.eshop.common.util.DateProvider;
+import com.zpl.eshop.order.constant.OrderStatus;
 import com.zpl.eshop.order.domain.OrderInfoDO;
 import com.zpl.eshop.order.domain.OrderInfoQuery;
 import org.hamcrest.Matchers;
@@ -48,7 +49,8 @@ public class OrderInfoDAOTest {
     @Test
     public void testSave() throws Exception {
         Long userAccountId = 1L;
-        OrderInfoDO order = createOrder(userAccountId);
+        Integer orderStatus = OrderStatus.WAIT_FOR_PAY;
+        OrderInfoDO order = createOrder(userAccountId, orderStatus);
         Assert.assertNotNull(order);
         Assert.assertThat(order.getId(), Matchers.greaterThan(0L));
     }
@@ -62,9 +64,10 @@ public class OrderInfoDAOTest {
     @Sql({"clean_order.sql"})
     public void testListByPage() throws Exception {
         Long userAccountId = 1L;
+        Integer orderStatus = OrderStatus.WAIT_FOR_PAY;
 
         Integer count = 30;
-        Map<Long, OrderInfoDO> expectedOrderMap = createOrderMap(count, userAccountId);
+        Map<Long, OrderInfoDO> expectedOrderMap = createOrderMap(count, userAccountId, orderStatus);
         processExpectedOrderForListByPage(expectedOrderMap);
 
         Integer offset = 10;
@@ -83,29 +86,111 @@ public class OrderInfoDAOTest {
     @Test
     public void testGetById() throws Exception {
         Long userAccountId = 1L;
-        OrderInfoDO expectedOrder = createOrder(userAccountId);
-        processExpectedOrderForGetById(expectedOrder);
+        Integer orderStatus = OrderStatus.WAIT_FOR_PAY;
+        OrderInfoDO expectedOrder = createOrder(userAccountId, orderStatus);
         OrderInfoDO actualOrder = orderInfoDAO.getById(expectedOrder.getId());
         Assert.assertEquals(expectedOrder, actualOrder);
     }
 
     /**
-     * 为分页查询处理一下期望的订单集合
+     * 测试查询所有未付款的订单
      *
-     * @param expectedOrderMap 期望的订单集合
      * @throws Exception
      */
-    private void processExpectedOrderForListByPage(Map<Long, OrderInfoDO> expectedOrderMap) throws Exception {
-        for (OrderInfoDO expectedOrder : expectedOrderMap.values()) {
-            expectedOrder.setDeliveryAddress(null);
-            expectedOrder.setConsigneeCellPhoneNumber(null);
-            expectedOrder.setInvoiceTitle(null);
-            expectedOrder.setTaxpayerId(null);
-            expectedOrder.setOrderComment(null);
-            expectedOrder.setPublishedComment(null);
-            expectedOrder.setGmtModified(null);
-        }
+    @Test
+    @Sql({"clean_order.sql"})
+    public void testListAllUnpaid() throws Exception {
+        Long userAccountId = 1L;
+        Integer orderStatus = OrderStatus.WAIT_FOR_PAY;
+
+        Integer count = 10;
+        Map<Long, OrderInfoDO> expectedOrders = createOrderMap(count, userAccountId, orderStatus);
+
+        List<OrderInfoDO> actualOrders = orderInfoDAO.listAllUnpaid();
+
+        compareOrders(count, expectedOrders, actualOrders);
     }
+
+    /**
+     * 测试查询所有待收货的订单
+     *
+     * @throws Exception
+     */
+    @Test
+    @Sql({"clean_order.sql"})
+    public void testListAllUnreceived() throws Exception {
+        Long userAccountId = 1L;
+        Integer orderStatus = OrderStatus.WAIT_FOR_RECEIVE;
+
+        Integer count = 10;
+        Map<Long, OrderInfoDO> expectedOrders = createOrderMap(count, userAccountId, orderStatus);
+
+        List<OrderInfoDO> actualOrders = orderInfoDAO.listUnreceived();
+
+        compareOrders(count, expectedOrders, actualOrders);
+    }
+
+    /**
+     * 测试查询确认收货时间超过了7天而且还没有发表评论的订单
+     *
+     * @throws Exception
+     */
+    @Test
+    @Sql({"clean_order.sql"})
+    public void testListNotPublishedCommentOrders() throws Exception {
+        Long userAccountId = 1L;
+        Integer orderStatus = OrderStatus.WAIT_FOR_PAY;
+
+        Integer count = 10;
+        Map<Long, OrderInfoDO> expectedOrders = createOrderMap(count, userAccountId, orderStatus);
+
+        List<OrderInfoDO> actualOrders = orderInfoDAO.listNotPublishedCommentOrders();
+
+        compareOrders(count, expectedOrders, actualOrders);
+    }
+
+    /**
+     * 测试更新订单
+     *
+     * @throws Exception
+     */
+    @Test
+    @Sql({"clean_order.sql"})
+    public void testUpdate() throws Exception {
+        Long userAccountId = 1L;
+        Integer orderStatus = OrderStatus.WAIT_FOR_PAY;
+
+        OrderInfoDO expectedOrder = createOrder(userAccountId, orderStatus);
+
+        expectedOrder.setOrderStatus(OrderStatus.WAIT_FOR_DELIVERY);
+        orderInfoDAO.update(expectedOrder);
+
+        OrderInfoDO actualOrder = orderInfoDAO.getById(expectedOrder.getId());
+
+        Assert.assertEquals(expectedOrder, actualOrder);
+    }
+
+    /**
+     * 测试更新订单状态
+     *
+     * @throws Exception
+     */
+    @Test
+    @Sql({"clean_order.sql"})
+    public void testUpdateStatus() throws Exception {
+        Long userAccountId = 1L;
+        Integer orderStatus = OrderStatus.WAIT_FOR_PAY;
+
+        OrderInfoDO expectedOrder = createOrder(userAccountId, orderStatus);
+        expectedOrder.setOrderStatus(OrderStatus.WAIT_FOR_DELIVERY);
+
+        orderInfoDAO.updateStatus(expectedOrder.getId(), OrderStatus.WAIT_FOR_DELIVERY);
+
+        OrderInfoDO actualOrder = orderInfoDAO.getById(expectedOrder.getId());
+
+        Assert.assertEquals(expectedOrder, actualOrder);
+    }
+
 
     /**
      * 为分页查询处理一下期望的订单集合
@@ -118,12 +203,34 @@ public class OrderInfoDAOTest {
     }
 
     /**
+     * 为分页查询处理一下期望的订单集合
+     *
+     * @param expectedOrderMap 期望的订单集合
+     * @throws Exception
+     */
+    private void processExpectedOrderForListByPage(
+            Map<Long, OrderInfoDO> expectedOrderMap) throws Exception {
+        for (OrderInfoDO expectedOrder : expectedOrderMap.values()) {
+            expectedOrder.setDeliveryAddress(null);
+            expectedOrder.setConsigneeCellPhoneNumber(null);
+            expectedOrder.setInvoiceTitle(null);
+            expectedOrder.setTaxpayerId(null);
+            expectedOrder.setOrderComment(null);
+            expectedOrder.setPublishedComment(null);
+            expectedOrder.setGmtModified(null);
+        }
+    }
+
+    /**
      * 比较订单集合
      *
      * @param expectedOrderMap 期望的订单集合
      * @param actualOrders     实际的订单集合
+     * @throws Exception
      */
-    private void compareOrders(Integer expectedSize, Map<Long, OrderInfoDO> expectedOrderMap, List<OrderInfoDO> actualOrders) {
+    private void compareOrders(Integer expectedSize,
+                               Map<Long, OrderInfoDO> expectedOrderMap,
+                               List<OrderInfoDO> actualOrders) throws Exception {
         Assert.assertEquals((int) expectedSize, actualOrders.size());
 
         for (OrderInfoDO actualOrder : actualOrders) {
@@ -138,8 +245,10 @@ public class OrderInfoDAOTest {
      * @param offset 分页查询起始位置
      * @param size   每页的数据量
      * @return 订单查询条件
+     * @throws Exception
      */
-    private OrderInfoQuery createOrderInfoQuery(Integer offset, Integer size, Long userAccountId) {
+    private OrderInfoQuery createOrderInfoQuery(Integer offset,
+                                                Integer size, Long userAccountId) throws Exception {
         OrderInfoQuery query = new OrderInfoQuery();
         query.setOffset(offset);
         query.setSize(size);
@@ -154,10 +263,11 @@ public class OrderInfoDAOTest {
      * @return 订单map
      * @throws Exception
      */
-    private Map<Long, OrderInfoDO> createOrderMap(Integer count, Long userAccountId) throws Exception {
+    private Map<Long, OrderInfoDO> createOrderMap(Integer count,
+                                                  Long userAccountId, Integer orderStatus) throws Exception {
         Map<Long, OrderInfoDO> orderMap = new HashMap<>();
 
-        List<OrderInfoDO> orders = createOrders(count, userAccountId);
+        List<OrderInfoDO> orders = createOrders(count, userAccountId, orderStatus);
         for (OrderInfoDO order : orders) {
             orderMap.put(order.getId(), order);
         }
@@ -172,42 +282,41 @@ public class OrderInfoDAOTest {
      * @return 订单集合
      * @throws Exception
      */
-    private List<OrderInfoDO> createOrders(Integer count, Long userAccountId) throws Exception {
+    private List<OrderInfoDO> createOrders(Integer count,
+                                           Long userAccountId, Integer orderStatus) throws Exception {
         List<OrderInfoDO> orders = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            orders.add(createOrder(userAccountId));
+            orders.add(createOrder(userAccountId, orderStatus));
         }
         return orders;
     }
 
-    /**
-     * 创建订单
-     *
-     * @return 订单
-     * @throws Exception
-     */
-    private OrderInfoDO createOrder(Long userAccountId) throws Exception {
+    private OrderInfoDO createOrder(Long userAccountId, Integer orderStatus) throws Exception {
         OrderInfoDO order = new OrderInfoDO();
+
         order.setUserAccountId(userAccountId);
         order.setUsername("zhangsan");
         order.setOrderNo(UUID.randomUUID().toString().replace("-", ""));
-        order.setOrderStatus(1);
+        order.setOrderStatus(orderStatus);
         order.setConsignee("张三");
-        order.setDeliveryAddress("运城市");
-        order.setConsigneeCellPhoneNumber("18612345678");
+        order.setDeliveryAddress("上海市");
+        order.setConsigneeCellPhoneNumber("13900567849");
         order.setFreight(10.8);
         order.setPayType(1);
         order.setTotalAmount(100.00);
         order.setDiscountAmount(1.8);
-        order.setCouponAmount(10.0);
+        order.setCouponAmount(10.00);
         order.setPayableAmount(99.0);
-        order.setInvoiceTitle("xxxx");
+        order.setInvoiceTitle("上海市某公司");
         order.setTaxpayerId(UUID.randomUUID().toString().replace("-", ""));
         order.setOrderComment("测试订单");
         order.setPublishedComment(0);
+        order.setConfirmReceiptTime(dateProvider.parse2Datetime("2018-01-01 10:00:00"));
         order.setGmtCreate(dateProvider.getCurrentTime());
         order.setGmtModified(dateProvider.getCurrentTime());
+
         orderInfoDAO.save(order);
+
         return order;
     }
 }
