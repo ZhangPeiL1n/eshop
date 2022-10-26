@@ -106,17 +106,27 @@ public class LogisticsServiceImpl implements LogisticsService {
 
             CreateEOrderResponse response = logisticApi.createEOrder(request);
 
-            LogisticOrderDTO logisticOrder = new LogisticOrderDTO();
-            logisticOrder.setLogisticCode(response.getLogisticCode());
-            logisticOrder.setContent(response.getLogisticOrderContent());
-            logisticOrder.setGmtCreate(dateProvider.getCurrentTime());
-            logisticOrder.setGmtModified(dateProvider.getCurrentTime());
-
-            return logisticOrder;
+            return createLogisticOrder(response);
         } catch (Exception e) {
             logger.error("error", e);
             return null;
         }
+    }
+
+    /**
+     * 创建物流单
+     *
+     * @param response 申请电子面单结果
+     * @return 物流单
+     * @throws Exception
+     */
+    private LogisticOrderDTO createLogisticOrder(CreateEOrderResponse response) throws Exception {
+        LogisticOrderDTO logisticOrder = new LogisticOrderDTO();
+        logisticOrder.setLogisticCode(response.getLogisticCode());
+        logisticOrder.setContent(response.getLogisticOrderContent());
+        logisticOrder.setGmtCreate(dateProvider.getCurrentTime());
+        logisticOrder.setGmtModified(dateProvider.getCurrentTime());
+        return logisticOrder;
     }
 
     /**
