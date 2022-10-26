@@ -99,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informPaySucceed(Long orderId) {
+    public Boolean informPayOrderSucceed(Long orderId) {
         return true;
     }
 
