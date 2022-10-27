@@ -1,6 +1,7 @@
 package com.zpl.eshop.pay.service;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
+import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 
 /**
  * 支付中心接口
@@ -17,5 +18,13 @@ public interface PayService {
      * @return 二维码
      */
     String getQrCode(OrderInfoDTO order);
+
+    /**
+     * 进行退款
+     *
+     * @param returnGoodsInputOrder 退货入库单
+     * @return 退款结果
+     */
+    Boolean refund(ReturnGoodsInputOrderDTO returnGoodsInputOrder);
 
 }
