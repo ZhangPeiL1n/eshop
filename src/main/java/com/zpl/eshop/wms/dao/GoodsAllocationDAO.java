@@ -26,7 +26,7 @@ public interface GoodsAllocationDAO {
      *
      * @param goodsAllocation 货位
      */
-    void save(GoodsAllocationDO goodsAllocation);
+    void save(GoodsAllocationDO goodsAllocation) throws Exception;
 
     /**
      * 根据id查询货位
@@ -41,5 +41,5 @@ public interface GoodsAllocationDAO {
      *
      * @param goodsAllocation 货位
      */
-    void update(GoodsAllocationDO goodsAllocation);
+    void update(GoodsAllocationDO goodsAllocation) throws Exception;
 }

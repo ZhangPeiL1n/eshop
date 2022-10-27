@@ -2,7 +2,6 @@ package com.zpl.eshop.wms.dao.impl;
 
 import com.zpl.eshop.wms.dao.GoodsAllocationStockDetailDAO;
 import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDO;
-import com.zpl.eshop.wms.domain.PurchaseInputOrderPutOnItemDO;
 import com.zpl.eshop.wms.mapper.GoodsAllocationStockDetailMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -66,25 +65,4 @@ public class GoodsAllocationStockDetailDAOImpl implements GoodsAllocationStockDe
         goodsAllocationStockDetailMapper.save(stockDetail);
     }
 
-    /**
-     * 根据上架条目新增一个货位库存明细
-     *
-     * @param putOnItem 上架条目
-     * @throws Exception
-     */
-    @Override
-    public GoodsAllocationStockDetailDO saveByPutOnItem(
-            PurchaseInputOrderPutOnItemDO putOnItem) throws Exception {
-        GoodsAllocationStockDetailDO stockDetail = new GoodsAllocationStockDetailDO();
-        stockDetail.setGoodsAllocationId(putOnItem.getGoodsAllocationId());
-        stockDetail.setGoodsSkuId(putOnItem.getGoodsSkuId());
-        stockDetail.setPutOnQuantity(putOnItem.getPutOnShelvesCount());
-        stockDetail.setPutOnTime(putOnItem.getGmtCreate());
-        stockDetail.setCurrentStockQuantity(stockDetail.getPutOnQuantity());
-        stockDetail.setLockedStockQuantity(0L);
-
-        save(stockDetail);
-
-        return stockDetail;
-    }
 }

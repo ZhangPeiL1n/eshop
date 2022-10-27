@@ -28,4 +28,11 @@ public interface ReturnGoodsInputOrderItemDAO {
     List<ReturnGoodsInputOrderItemDO> listByReturnGoodsInputOrderId(
             Long returnGoodsInputOrderId) throws Exception;
 
+    /**
+     * 更新退货入库单条目
+     *
+     * @param returnGoodsInputOrderItem 退货入库单条目
+     */
+    void update(ReturnGoodsInputOrderItemDO returnGoodsInputOrderItem) throws Exception;
+
 }

@@ -22,9 +22,14 @@ public class ReturnGoodsInputOrderDO extends AbstractObject {
     private Long id;
 
     /**
+     * 退货工单id
+     */
+    private Long returnGoodsWorksheetId;
+
+    /**
      * 用户帐号 id
      */
-    private String userAccountId;
+    private Long userAccountId;
 
     /**
      * 订单 id

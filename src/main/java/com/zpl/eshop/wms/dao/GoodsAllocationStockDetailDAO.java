@@ -1,7 +1,6 @@
 package com.zpl.eshop.wms.dao;
 
 import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDO;
-import com.zpl.eshop.wms.domain.PurchaseInputOrderPutOnItemDO;
 
 import java.util.List;
 
@@ -43,12 +42,4 @@ public interface GoodsAllocationStockDetailDAO {
      */
     void save(GoodsAllocationStockDetailDO stockDetail);
 
-    /**
-     * 根据上架条目新增一个货位库存明细
-     *
-     * @param putOnItem 上架条目
-     * @throws Exception
-     */
-    GoodsAllocationStockDetailDO saveByPutOnItem(
-            PurchaseInputOrderPutOnItemDO putOnItem) throws Exception;
 }

@@ -36,4 +36,20 @@ public interface ReturnGoodsInputOrderDAO {
      */
     ReturnGoodsInputOrderDO getById(Long id) throws Exception;
 
+    /**
+     * 更新退货入库单
+     *
+     * @param returnGoodsInputOrder 退货入库单
+     */
+    void update(ReturnGoodsInputOrderDO returnGoodsInputOrder) throws Exception;
+
+    /**
+     * 更新退货入库单的状态
+     *
+     * @param id     退货入库单id
+     * @param status 退货入库单状态
+     * @throws Exception
+     */
+    void updateStatus(Long id, Integer status) throws Exception;
+
 }

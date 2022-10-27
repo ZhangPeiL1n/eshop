@@ -21,6 +21,7 @@ public interface ReturnGoodsInputOrderMapper {
      * @param returnGoodsInputOrder 退货入库单
      */
     @Insert("INSERT INTO wms_return_goods_input_order("
+            + "return_goods_worksheet_id,"
             + "user_account_id,"
             + "order_id,"
             + "order_no,"
@@ -42,6 +43,7 @@ public interface ReturnGoodsInputOrderMapper {
             + "gmt_create,"
             + "gmt_modified"
             + ") VALUES("
+            + "#{returnGoodsWorksheetId},"
             + "#{userAccountId},"
             + "#{orderId},"
             + "#{orderNo},"
@@ -74,7 +76,8 @@ public interface ReturnGoodsInputOrderMapper {
      */
     @Select("SELECT "
             + "a.id,"
-            + "a.gmt_create,"
+            + "a.return_goods_worksheet_id,"
+            + "a.user_account_id,"
             + "a.order_no,"
             + "a.consignee,"
             + "a.total_amount,"
@@ -84,7 +87,7 @@ public interface ReturnGoodsInputOrderMapper {
             + "a.payable_amount,"
             + "a.pay_type,"
             + "a.status,"
-            + "a.user_account_id "
+            + "a.gmt_create "
             + "FROM wms_return_goods_input_order a,"
             + "("
             + "SELECT id "
@@ -95,7 +98,8 @@ public interface ReturnGoodsInputOrderMapper {
     )
     @Results({
             @Result(column = "id", property = "id", id = true),
-            @Result(column = "gmt_create", property = "gmtCreate"),
+            @Result(column = "return_goods_worksheet_id", property = "returnGoodsWorksheetId"),
+            @Result(column = "user_account_id", property = "userAccountId"),
             @Result(column = "order_no", property = "orderNo"),
             @Result(column = "consignee", property = "consignee"),
             @Result(column = "total_amount", property = "totalAmount"),
@@ -105,7 +109,7 @@ public interface ReturnGoodsInputOrderMapper {
             @Result(column = "payable_amount", property = "payableAmount"),
             @Result(column = "pay_type", property = "payType"),
             @Result(column = "status", property = "status"),
-            @Result(column = "user_account_id", property = "userAccountId")
+            @Result(column = "gmt_create", property = "gmtCreate")
     })
     List<ReturnGoodsInputOrderDO> listByPage(ReturnGoodsInputOrderQuery query);
 
@@ -117,6 +121,7 @@ public interface ReturnGoodsInputOrderMapper {
      */
     @Select("SELECT "
             + "id,"
+            + "return_goods_worksheet_id,"
             + "user_account_id,"
             + "order_id,"
             + "order_no,"
@@ -140,6 +145,7 @@ public interface ReturnGoodsInputOrderMapper {
     )
     @Results({
             @Result(column = "id", property = "id", id = true),
+            @Result(column = "return_goods_worksheet_id", property = "returnGoodsWorksheetId"),
             @Result(column = "user_account_id", property = "userAccountId"),
             @Result(column = "order_id", property = "orderId"),
             @Result(column = "order_no", property = "orderNo"),
@@ -161,4 +167,17 @@ public interface ReturnGoodsInputOrderMapper {
             @Result(column = "gmt_modified", property = "gmtModified")
     })
     ReturnGoodsInputOrderDO getById(@Param("id") Long id);
+
+
+    /**
+     * 更新退货入库单
+     *
+     * @param returnGoodsInputOrder 退货入库单
+     */
+    @Update("UPDATE wms_return_goods_input_order SET "
+            + "arrival_time=#{arrivalTime},"
+            + "status=#{status},"
+            + "gmt_modified=#{gmtModified} "
+            + "WHERE id=#{id}")
+    void update(ReturnGoodsInputOrderDO returnGoodsInputOrder);
 }

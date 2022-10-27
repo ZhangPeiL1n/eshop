@@ -166,4 +166,5 @@ public interface PurchaseInputOrderMapper {
             + "gmt_modified=#{gmtModified} "
             + "WHERE id=#{id}")
     void updateStatus(PurchaseInputOrderDO purchaseInputOrder);
+
 }

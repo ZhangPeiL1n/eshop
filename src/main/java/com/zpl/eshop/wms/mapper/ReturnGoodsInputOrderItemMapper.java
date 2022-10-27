@@ -99,4 +99,16 @@ public interface ReturnGoodsInputOrderItemMapper {
     })
     List<ReturnGoodsInputOrderItemDO> listByReturnGoodsInputOrderId(
             @Param("returnGoodsInputOrderId") Long returnGoodsInputOrderId);
+
+    /**
+     * 更新退货入库单条目
+     *
+     * @param returnGoodsInputOrderItem 退货入库单条目
+     */
+    @Update("UPDATE wms_return_goods_input_order_item SET "
+            + "qualified_count=#{qualifiedCount},"
+            + "arrival_count=#{arrivalCount},"
+            + "gmt_modified=#{gmtModified} "
+            + "WHERE id=#{id}")
+    void update(ReturnGoodsInputOrderItemDO returnGoodsInputOrderItem);
 }
