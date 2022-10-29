@@ -73,7 +73,7 @@ public interface OrderService {
      * @param orderId 订单id
      * @return 处理结果
      */
-    Boolean informPaySucceed(Long orderId);
+    Boolean informPayOrderSucceed(Long orderId);
 
     /**
      * 从订单中心获取，确认收货时间超过了 7天而且没有发表评论的订单

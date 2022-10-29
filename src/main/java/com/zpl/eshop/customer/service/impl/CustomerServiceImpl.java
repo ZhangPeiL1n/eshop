@@ -47,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
      * @return 处理结果
      */
     @Override
-    public Boolean informReturnGoodsInputFinishEvent(Long returnGoodsWorksheetId) {
+    public Boolean informReturnGoodsInputFinishedEvent(Long returnGoodsWorksheetId) {
         return true;
     }
 
@@ -58,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
      * @return 处理结果
      */
     @Override
-    public Boolean informRefundFinishEvent(Long returnGoodsWorksheetId) {
+    public Boolean informRefundFinishedEvent(Long returnGoodsWorksheetId) {
         return true;
     }
 }
