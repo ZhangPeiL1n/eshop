@@ -1,5 +1,8 @@
 package com.zpl.eshop.wms.service.impl;
 
+import com.zpl.eshop.common.util.DateProvider;
+import com.zpl.eshop.schedule.domain.SaleDeliveryScheduleResult;
+import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDTO;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
@@ -95,33 +98,33 @@ public class WmsServiceImpl implements WmsService {
     /**
      * 通知 wms中心，“提交订单“事件发生了
      *
-     * @param order 订单 DTO
+     * @param scheduleResult 调度结果
      * @return 处理结果
      */
     @Override
-    public Boolean informSubmitOrderEvent(OrderInfoDTO order) {
+    public Boolean informSubmitOrderEvent(SaleDeliveryScheduleResult scheduleResult) {
         return true;
     }
 
     /**
      * 通知 wms中心，“支付订单”事件发生了
      *
-     * @param order 订单 DTO
+     * @param scheduleResult 调度结果
      * @return 处理结果
      */
     @Override
-    public Boolean informPayOrderEvent(OrderInfoDTO order) {
+    public Boolean informPayOrderEvent(SaleDeliveryScheduleResult scheduleResult) {
         return true;
     }
 
     /**
      * 通知 wms中心，“取消订单”事件发生了
      *
-     * @param order 订单 DTO
+     * @param scheduleResult 调度结果
      * @return 处理结果
      */
     @Override
-    public Boolean informCancelOrderEvent(OrderInfoDTO order) {
+    public Boolean informCancelOrderEvent(SaleDeliveryScheduleResult scheduleResult) {
         return true;
     }
 
