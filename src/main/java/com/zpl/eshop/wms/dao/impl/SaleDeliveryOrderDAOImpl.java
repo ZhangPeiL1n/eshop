@@ -67,6 +67,17 @@ public class SaleDeliveryOrderDAOImpl implements SaleDeliveryOrderDAO {
     }
 
     /**
+     * 根据订单id查询销售出库单
+     *
+     * @param orderId 销售出库单id
+     * @return 销售出库单
+     */
+    @Override
+    public SaleDeliveryOrderDO getByOrderId(Long orderId) {
+        return saleDeliveryOrderMapper.getByOrderId(orderId);
+    }
+
+    /**
      * 更新销售出库单
      *
      * @param saleDeliveryOrder 销售出库单

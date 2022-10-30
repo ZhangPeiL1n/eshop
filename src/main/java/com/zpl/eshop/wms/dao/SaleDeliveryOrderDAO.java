@@ -37,6 +37,14 @@ public interface SaleDeliveryOrderDAO {
     SaleDeliveryOrderDO getById(Long id);
 
     /**
+     * 根据订单id查询销售出库单
+     *
+     * @param orderId 销售出库单id
+     * @return 销售出库单
+     */
+    SaleDeliveryOrderDO getByOrderId(Long orderId);
+
+    /**
      * 更新销售出库单
      *
      * @param saleDeliveryOrder 销售出库单

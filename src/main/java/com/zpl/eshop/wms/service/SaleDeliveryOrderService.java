@@ -40,6 +40,14 @@ public interface SaleDeliveryOrderService {
     SaleDeliveryOrderDTO getById(Long id) throws Exception;
 
     /**
+     * 根据订单id查询销售出库单
+     *
+     * @param orderId 销售出库单id
+     * @return 销售出库单
+     */
+    SaleDeliveryOrderDTO getByOrderId(Long orderId) throws Exception;
+
+    /**
      * 更新销售出库单的发货时间
      *
      * @param id           销售出库单id
@@ -63,4 +71,5 @@ public interface SaleDeliveryOrderService {
      * @throws Exception
      */
     void approve(Long id, Integer approveResult) throws Exception;
+
 }
