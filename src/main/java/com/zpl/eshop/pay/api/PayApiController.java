@@ -53,7 +53,7 @@ public class PayApiController {
             payTransactionService.update(payTransaction);
 
             if (PayTransactionStatus.SUCCESS.equals(response.getPayTransactionStatus())) {
-                orderService.informPaySucceed(payTransaction.getOrderInfoId());
+                orderService.informPayOrderSucceed(payTransaction.getOrderInfoId());
             }
 
             return true;
