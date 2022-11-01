@@ -37,7 +37,7 @@ public class ReturnGoodsInputOrderDAOImpl implements ReturnGoodsInputOrderDAO {
      */
     @Override
     public Long save(ReturnGoodsInputOrderDO returnGoodsInputOrder) throws Exception {
-        returnGoodsInputOrder.setGmtCreateTime(dateProvider.getCurrentTime());
+        returnGoodsInputOrder.setGmtCreate(dateProvider.getCurrentTime());
         returnGoodsInputOrder.setGmtModified(dateProvider.getCurrentTime());
         returnGoodsInputOrderMapper.save(returnGoodsInputOrder);
         return returnGoodsInputOrder.getId();
