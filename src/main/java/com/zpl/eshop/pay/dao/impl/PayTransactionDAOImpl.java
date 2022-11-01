@@ -3,6 +3,7 @@ package com.zpl.eshop.pay.dao.impl;
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.pay.dao.PayTransactionDAO;
 import com.zpl.eshop.pay.domain.PayTransactionDO;
+import com.zpl.eshop.pay.domain.PayTransactionQuery;
 import com.zpl.eshop.pay.mapper.PayTransactionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,17 @@ public class PayTransactionDAOImpl implements PayTransactionDAO {
      */
     @Autowired
     private DateProvider dateProvider;
+
+    /**
+     * 分页查询支付交易流水
+     *
+     * @param query 查询条件
+     * @return 支付交易流水
+     */
+    @Override
+    public List<PayTransactionDO> listByPage(PayTransactionQuery query) {
+        return payTransactionMapper.listByPage(query);
+    }
 
     /**
      * 新增支付交易流水

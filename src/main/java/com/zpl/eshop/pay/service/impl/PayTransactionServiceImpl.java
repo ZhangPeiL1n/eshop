@@ -1,8 +1,10 @@
 package com.zpl.eshop.pay.service.impl;
 
+import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.pay.dao.PayTransactionDAO;
 import com.zpl.eshop.pay.domain.PayTransactionDO;
 import com.zpl.eshop.pay.domain.PayTransactionDTO;
+import com.zpl.eshop.pay.domain.PayTransactionQuery;
 import com.zpl.eshop.pay.service.PayTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,17 @@ public class PayTransactionServiceImpl implements PayTransactionService {
         }
 
         return null;
+    }
+
+    /**
+     * 分页查询支付交易流水
+     *
+     * @param query 查询条件
+     * @return 支付交易流水
+     */
+    @Override
+    public List<PayTransactionDTO> listByPage(PayTransactionQuery query) throws Exception {
+        return ObjectUtils.convertList(payTransactionDAO.listByPage(query), PayTransactionDTO.class);
     }
 
 }

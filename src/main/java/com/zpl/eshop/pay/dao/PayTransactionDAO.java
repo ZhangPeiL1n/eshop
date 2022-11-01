@@ -1,6 +1,7 @@
 package com.zpl.eshop.pay.dao;
 
 import com.zpl.eshop.pay.domain.PayTransactionDO;
+import com.zpl.eshop.pay.domain.PayTransactionQuery;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,14 @@ import java.util.Map;
  * @date 2022/10/25 22:18
  **/
 public interface PayTransactionDAO {
+
+    /**
+     * 分页查询支付交易流水
+     *
+     * @param query 查询条件
+     * @return 支付交易流水
+     */
+    List<PayTransactionDO> listByPage(PayTransactionQuery query);
 
     /**
      * 新增支付交易流水

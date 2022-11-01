@@ -395,7 +395,7 @@ public class InventoryServiceTest {
     private ReturnGoodsInputOrderDTO createReturnGoodsInputOrder(Long purchaseQuantity, Long... goodsSkuIds) throws Exception {
         ReturnGoodsInputOrderDTO returnGoodsInputOrder = new ReturnGoodsInputOrderDTO();
         returnGoodsInputOrder.setId(1L);
-        returnGoodsInputOrder.setUserAccountId("测试帐号id");
+        returnGoodsInputOrder.setUserAccountId(133221L);
         returnGoodsInputOrder.setOrderId(1L);
         returnGoodsInputOrder.setOrderNo("test");
         returnGoodsInputOrder.setStatus(3);

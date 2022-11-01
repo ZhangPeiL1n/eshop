@@ -2,6 +2,7 @@ package com.zpl.eshop.pay.service.impl;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.pay.api.PayApi;
+import com.zpl.eshop.pay.constant.PayTransactionStatus;
 import com.zpl.eshop.pay.domain.PayTransactionBuilder;
 import com.zpl.eshop.pay.domain.PayTransactionDTO;
 import com.zpl.eshop.pay.service.PayService;
@@ -72,6 +73,9 @@ public class PayServiceImpl implements PayService {
         try {
             PayTransactionDTO payTransaction = payTransactionService.getByOrderNo(
                     returnGoodsInputOrder.getOrderNo());
+
+            payTransaction.setStatus(PayTransactionStatus.REFUND);
+            payTransactionService.update(payTransaction);
 
             Integer transactionChannel = payTransaction.getTransactionChannel();
             String orderNo = returnGoodsInputOrder.getOrderNo();
