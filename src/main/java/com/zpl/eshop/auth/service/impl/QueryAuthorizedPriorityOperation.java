@@ -2,6 +2,7 @@ package com.zpl.eshop.auth.service.impl;
 
 import com.zpl.eshop.auth.dao.PriorityDAO;
 import com.zpl.eshop.auth.domain.PriorityDO;
+import com.zpl.eshop.common.constant.CollectionSize;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -36,10 +37,11 @@ public class QueryAuthorizedPriorityOperation implements PriorityOperation<Boole
     /**
      * 执行这个操作
      */
+    @Override
     public Boolean doExecute(Priority priority) throws Exception {
         List<Priority> targetChildren = new ArrayList<>();
 
-        Map<String, Object> parameters = new HashMap<>();
+        Map<String, Object> parameters = new HashMap<>(CollectionSize.DEFAULT);
         parameters.put("accountId", accountId);
         parameters.put("parentId", priority.getId());
 

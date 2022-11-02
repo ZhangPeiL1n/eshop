@@ -17,6 +17,7 @@ public interface MemberLevelDetailDAO {
      *
      * @param query 查询调价你
      * @return 会员等级变更明细
+     * @throws Exception
      */
     List<MemberLevelDetailDO> listByPage(MemberLevelDetailQuery query) throws Exception;
 
@@ -24,6 +25,7 @@ public interface MemberLevelDetailDAO {
      * 新增会员等级明细
      *
      * @param memberLevelDetail 会员等级明细
+     * @throws Exception
      */
     void save(MemberLevelDetailDO memberLevelDetail) throws Exception;
 

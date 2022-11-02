@@ -10,7 +10,9 @@ public interface PriorityOperation<T> {
     /**
      * 执行这个操作
      *
-     * @param node
+     * @param priority 权限
+     * @return
+     * @throws Exception
      */
     T doExecute(Priority priority) throws Exception;
 

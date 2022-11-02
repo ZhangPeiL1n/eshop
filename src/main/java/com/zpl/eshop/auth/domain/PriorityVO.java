@@ -1,12 +1,16 @@
 package com.zpl.eshop.auth.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 权限VO类
  *
  * @author ZhangPeiL1n
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class PriorityVO extends AbstractObject {
 
     /**

@@ -17,6 +17,7 @@ public interface RoleService {
      *
      * @param query 查询条件
      * @return 角色DO对象集合
+     * @throws Exception
      */
     List<RoleDTO> listByPage(RoleQuery query) throws Exception;
 
@@ -25,6 +26,7 @@ public interface RoleService {
      *
      * @param id 角色 id
      * @return 角色DO对象
+     * @throws Exception
      */
     RoleDTO getById(Long id) throws Exception;
 
@@ -32,6 +34,8 @@ public interface RoleService {
      * 新增角色
      *
      * @param role 角色DO对象
+     * @return 新增结果
+     * @throws Exception
      */
     Boolean save(RoleDTO role) throws Exception;
 
@@ -39,6 +43,8 @@ public interface RoleService {
      * 更新角色
      *
      * @param role 角色DO对象
+     * @return 更新结果
+     * @throws Exception
      */
     Boolean update(RoleDTO role) throws Exception;
 
@@ -46,6 +52,8 @@ public interface RoleService {
      * 删除角色
      *
      * @param id 角色id
+     * @return 删除结果
+     * @throws Exception
      */
     Boolean remove(Long id) throws Exception;
 

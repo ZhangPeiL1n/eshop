@@ -12,12 +12,12 @@ import java.util.List;
  * @author ZhangPeiL1n
  * @date 2022/10/22 23:55
  **/
-public class CreateEOrderRequestBuilder {
+public class CreateEorderRequestBuilder {
 
-    private final CreateEOrderRequest request = new CreateEOrderRequest();
+    private final CreateEorderRequest request = new CreateEorderRequest();
 
-    public static CreateEOrderRequestBuilder get() {
-        return new CreateEOrderRequestBuilder();
+    public static CreateEorderRequestBuilder get() {
+        return new CreateEorderRequestBuilder();
     }
 
     /**
@@ -27,7 +27,7 @@ public class CreateEOrderRequestBuilder {
      * @return 构建器
      * @throws Exception
      */
-    public CreateEOrderRequestBuilder buildOrderRelatedInfo(
+    public CreateEorderRequestBuilder buildOrderRelatedInfo(
             OrderInfoDTO order) throws Exception {
         request.setOrderNo(order.getOrderNo());
         request.setFreight(order.getFreight());
@@ -41,8 +41,8 @@ public class CreateEOrderRequestBuilder {
      * @return 构建器
      * @throws Exception
      */
-    public CreateEOrderRequestBuilder buildReceiver(OrderInfoDTO order) throws Exception {
-        CreateEOrderRequest.Receiver receiver = new CreateEOrderRequest.Receiver();
+    public CreateEorderRequestBuilder buildReceiver(OrderInfoDTO order) throws Exception {
+        CreateEorderRequest.Receiver receiver = new CreateEorderRequest.Receiver();
         receiver.setConsignee(order.getConsignee());
         receiver.setConsigneeCellPhoneNumber(order.getConsigneeCellPhoneNumber());
         receiver.setDeliveryAddress(order.getDeliveryAddress());
@@ -57,11 +57,11 @@ public class CreateEOrderRequestBuilder {
      * @return 构建器
      * @throws Exception
      */
-    public CreateEOrderRequestBuilder buildGoodsList(OrderInfoDTO order) throws Exception {
-        List<CreateEOrderRequest.Goods> goodsList = new ArrayList<>();
+    public CreateEorderRequestBuilder buildGoodsList(OrderInfoDTO order) throws Exception {
+        List<CreateEorderRequest.Goods> goodsList = new ArrayList<>();
 
         for (OrderItemDTO orderItem : order.getOrderItems()) {
-            CreateEOrderRequest.Goods goods = new CreateEOrderRequest.Goods();
+            CreateEorderRequest.Goods goods = new CreateEorderRequest.Goods();
             goods.setGoodsName(orderItem.getGoodsName());
             goods.setPurchaseQuantity(orderItem.getPurchaseQuantity());
             goods.setGrossWeight(orderItem.getGoodsGrossWeight());
@@ -78,7 +78,7 @@ public class CreateEOrderRequestBuilder {
      * @return 构建器
      * @throws Exception
      */
-    public CreateEOrderRequestBuilder buildTotalDataMetric(OrderInfoDTO order) throws Exception {
+    public CreateEorderRequestBuilder buildTotalDataMetric(OrderInfoDTO order) throws Exception {
         Double totalGrossWeight = 0.0;
         Long totalPurchaseQuantity = 0L;
         Double totalVolume = 0.0;
@@ -102,7 +102,7 @@ public class CreateEOrderRequestBuilder {
      * @return 请求
      * @throws Exception
      */
-    public CreateEOrderRequest create() throws Exception {
+    public CreateEorderRequest create() throws Exception {
         return request;
     }
 }

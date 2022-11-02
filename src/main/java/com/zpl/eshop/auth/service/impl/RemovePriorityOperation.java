@@ -28,13 +28,14 @@ public class RemovePriorityOperation implements PriorityOperation<Boolean> {
      *
      * @param node 权限树节点
      */
+    @Override
     public Boolean doExecute(Priority node) throws Exception {
-        List<PriorityDO> priorityDOs = priorityDAO
+        List<PriorityDO> priorities = priorityDAO
                 .listChildPriorities(node.getId());
 
-        if (priorityDOs != null && priorityDOs.size() > 0) {
-            for (PriorityDO priorityDO : priorityDOs) {
-                Priority priorityNode = priorityDO.clone(Priority.class);
+        if (priorities != null && priorities.size() > 0) {
+            for (PriorityDO priority : priorities) {
+                Priority priorityNode = priority.clone(Priority.class);
                 priorityNode.execute(this);
             }
         }

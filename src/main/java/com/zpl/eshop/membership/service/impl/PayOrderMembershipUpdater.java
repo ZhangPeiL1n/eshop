@@ -1,5 +1,6 @@
 package com.zpl.eshop.membership.service.impl;
 
+import com.zpl.eshop.common.constant.CollectionSize;
 import com.zpl.eshop.membership.constant.MemberLevel;
 import com.zpl.eshop.membership.constant.UpdateMemberLevelResult;
 import com.zpl.eshop.membership.constant.UpdateMemberPointResult;
@@ -60,7 +61,7 @@ public class PayOrderMembershipUpdater extends AbstractMembershipUpdater<Object,
                                                     Object parameter) throws Exception {
         Long totalOrderAmount = (Long) parameter;
 
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(16);
 
         MemberLevelDO memberLevel = memberLevelDAO.getByUserAccountId(userAccountId);
 
@@ -88,7 +89,7 @@ public class PayOrderMembershipUpdater extends AbstractMembershipUpdater<Object,
                                                     Object parameter) throws Exception {
         Long totalOrderAmount = (Long) parameter;
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>(CollectionSize.DEFAULT);
 
         MemberPointDO memberPoint = memberPointDAO.getByUserAccountId(userAccountId);
 
@@ -139,7 +140,7 @@ public class PayOrderMembershipUpdater extends AbstractMembershipUpdater<Object,
                                                          Object parameter) throws Exception {
         Long totalOrderAmount = (Long) parameter;
 
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(CollectionSize.DEFAULT);
 
         MemberLevelDO memberLevel = memberLevelDAO.getByUserAccountId(userAccountId);
 
@@ -167,7 +168,7 @@ public class PayOrderMembershipUpdater extends AbstractMembershipUpdater<Object,
                                                          Object parameter) throws Exception {
         Long totalOrderAmount = (Long) parameter;
 
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(CollectionSize.DEFAULT);
 
         MemberPointDO memberPoint = memberPointDAO.getByUserAccountId(userAccountId);
 

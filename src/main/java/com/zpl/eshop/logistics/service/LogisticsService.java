@@ -20,6 +20,7 @@ public interface LogisticsService {
      * @param order     订单
      * @param orderItem 订单条目
      * @return 商品 sku 的运费
+     * @throws Exception
      */
     Double calculateFreight(OrderInfoDTO order, OrderItemDTO orderItem) throws Exception;
 

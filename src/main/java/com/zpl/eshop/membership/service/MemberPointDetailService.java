@@ -17,6 +17,7 @@ public interface MemberPointDetailService {
      *
      * @param query 查询调价你
      * @return 会员积分变更明细
+     * @throws Exception
      */
     List<MemberPointDetailDTO> listByPage(MemberPointDetailQuery query) throws Exception;
 

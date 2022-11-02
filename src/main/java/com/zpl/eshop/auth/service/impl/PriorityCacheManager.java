@@ -22,7 +22,7 @@ interface PriorityCacheManager {
      *
      * @param accountId              账号id
      * @param authorizedPriorityTree 授权菜单树
-     * @throws Excxeption
+     * @throws Exception
      */
     void cacheAuthorizedPriorityTree(Long accountId,
                                      List<Priority> authorizedPriorityTree) throws Exception;
@@ -46,7 +46,7 @@ interface PriorityCacheManager {
     /**
      * 缓存账号对指定编号的权限是否被授权
      *
-     * @param AccountId  账号
+     * @param accountId  账号
      * @param code       权限编号
      * @param authorized 是否被授权
      * @throws Exception
@@ -74,7 +74,7 @@ interface PriorityCacheManager {
     /**
      * 缓存账号对指定URL的权限是否被授权
      *
-     * @param AccountId  账号
+     * @param accountId  账号
      * @param url        权限url
      * @param authorized 是否被授权
      * @throws Exception

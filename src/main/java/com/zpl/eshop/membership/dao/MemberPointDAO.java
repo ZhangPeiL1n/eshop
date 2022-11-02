@@ -14,6 +14,7 @@ public interface MemberPointDAO {
      *
      * @param userAccountId 用户账号id
      * @return 会员积分
+     * @throws Exception
      */
     MemberPointDO getByUserAccountId(Long userAccountId) throws Exception;
 
@@ -21,6 +22,7 @@ public interface MemberPointDAO {
      * 新增会员积分
      *
      * @param memberPoint 会员积分
+     * @throws Exception
      */
     void save(MemberPointDO memberPoint) throws Exception;
 
@@ -28,6 +30,7 @@ public interface MemberPointDAO {
      * 更新会员积分
      *
      * @param memberPoint 会员积分
+     * @throws Exception
      */
     void update(MemberPointDO memberPoint) throws Exception;
 

@@ -32,6 +32,7 @@ public interface AccountDAO {
      * 新增账号
      *
      * @param account 账号
+     * @return id
      */
     Long save(AccountDO account);
 

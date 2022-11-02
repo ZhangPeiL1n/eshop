@@ -16,6 +16,7 @@ public interface DeliveryAddressService {
      *
      * @param userAccountId 用户账号id
      * @return 所有收货地址
+     * @throws Exception
      */
     List<DeliveryAddressDTO> listAllByUserAccountId(Long userAccountId) throws Exception;
 
@@ -23,6 +24,7 @@ public interface DeliveryAddressService {
      * 新增收货地址
      *
      * @param deliveryAddress 收货地址
+     * @throws Exception
      */
     void save(DeliveryAddressDTO deliveryAddress) throws Exception;
 
@@ -30,6 +32,7 @@ public interface DeliveryAddressService {
      * 更新收货地址
      *
      * @param deliveryAddress 收货地址
+     * @throws Exception
      */
     void update(DeliveryAddressDTO deliveryAddress) throws Exception;
 
@@ -37,6 +40,7 @@ public interface DeliveryAddressService {
      * 删除收货地址
      *
      * @param id 收货地址id
+     * @throws Exception
      */
     void remove(Long id) throws Exception;
 

@@ -5,6 +5,7 @@ import com.zpl.eshop.auth.domain.PriorityDO;
 import com.zpl.eshop.auth.domain.PriorityDTO;
 import com.zpl.eshop.auth.service.PriorityService;
 import com.zpl.eshop.common.bean.SpringApplicationContext;
+import com.zpl.eshop.common.constant.CollectionSize;
 import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,17 +53,17 @@ public class PriorityServiceImpl implements PriorityService {
      */
     @Override
     public List<PriorityDTO> listRootPriorities() throws Exception {
-        List<PriorityDO> priorityDOs = priorityDAO.listRootPriorities();
-        if (priorityDOs == null) {
+        List<PriorityDO> priorityDOList = priorityDAO.listRootPriorities();
+        if (priorityDOList == null) {
             return null;
         }
 
-        List<PriorityDTO> priorityDTOs = new ArrayList<>(priorityDOs.size());
-        for (PriorityDO priorityDO : priorityDOs) {
-            priorityDTOs.add(priorityDO.clone(PriorityDTO.class));
+        List<PriorityDTO> priorityDTOList = new ArrayList<>(priorityDOList.size());
+        for (PriorityDO priorityDO : priorityDOList) {
+            priorityDTOList.add(priorityDO.clone(PriorityDTO.class));
         }
 
-        return priorityDTOs;
+        return priorityDTOList;
     }
 
     /**
@@ -73,17 +74,17 @@ public class PriorityServiceImpl implements PriorityService {
      */
     @Override
     public List<PriorityDTO> listChildPriorities(Long parentId) throws Exception {
-        List<PriorityDO> priorityDOs = priorityDAO.listChildPriorities(parentId);
-        if (priorityDOs == null) {
+        List<PriorityDO> priorityDOList = priorityDAO.listChildPriorities(parentId);
+        if (priorityDOList == null) {
             return null;
         }
 
-        List<PriorityDTO> priorityDTOs = new ArrayList<PriorityDTO>(priorityDOs.size());
-        for (PriorityDO priorityDO : priorityDOs) {
-            priorityDTOs.add(priorityDO.clone(PriorityDTO.class));
+        List<PriorityDTO> priorityDTOList = new ArrayList<>(priorityDOList.size());
+        for (PriorityDO priorityDO : priorityDOList) {
+            priorityDTOList.add(priorityDO.clone(PriorityDTO.class));
         }
 
-        return priorityDTOs;
+        return priorityDTOList;
     }
 
     /**
@@ -122,9 +123,9 @@ public class PriorityServiceImpl implements PriorityService {
                 QueryAuthorizedPriorityOperation.class);
         operation.setAccountId(accountId);
 
-        authorizedTree = new ArrayList<Priority>();
+        authorizedTree = new ArrayList<>();
 
-        Map<String, Object> parameters = new HashMap<>();
+        Map<String, Object> parameters = new HashMap<>(CollectionSize.DEFAULT);
         parameters.put("accountId", accountId);
         parameters.put("parentId", null);
 
@@ -167,7 +168,7 @@ public class PriorityServiceImpl implements PriorityService {
     /**
      * 判断账号是否存在对指定url的权限的授权记录
      *
-     * @param AccountId 账号id
+     * @param accountId 账号id
      * @param url       权限url
      * @return 是否存在授权记录
      * @throws Exception

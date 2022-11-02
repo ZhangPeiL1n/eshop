@@ -3,9 +3,9 @@ package com.zpl.eshop.logistics.service.impl;
 import com.zpl.eshop.commodity.domain.GoodsDTO;
 import com.zpl.eshop.commodity.service.CommodityService;
 import com.zpl.eshop.common.util.DateProvider;
-import com.zpl.eshop.logistics.api.CreateEOrderRequest;
-import com.zpl.eshop.logistics.api.CreateEOrderRequestBuilder;
-import com.zpl.eshop.logistics.api.CreateEOrderResponse;
+import com.zpl.eshop.logistics.api.CreateEorderRequest;
+import com.zpl.eshop.logistics.api.CreateEorderRequestBuilder;
+import com.zpl.eshop.logistics.api.CreateEorderResponse;
 import com.zpl.eshop.logistics.api.LogisticApi;
 import com.zpl.eshop.logistics.domain.FreightTemplateDTO;
 import com.zpl.eshop.logistics.service.FreightTemplateService;
@@ -97,14 +97,14 @@ public class LogisticsServiceImpl implements LogisticsService {
     @Override
     public LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order) {
         try {
-            CreateEOrderRequest request = CreateEOrderRequestBuilder.get()
+            CreateEorderRequest request = CreateEorderRequestBuilder.get()
                     .buildOrderRelatedInfo(order)
                     .buildReceiver(order)
                     .buildGoodsList(order)
                     .buildTotalDataMetric(order)
                     .create();
 
-            CreateEOrderResponse response = logisticApi.createEOrder(request);
+            CreateEorderResponse response = logisticApi.createEorder(request);
 
             return createLogisticOrder(response);
         } catch (Exception e) {
@@ -120,7 +120,7 @@ public class LogisticsServiceImpl implements LogisticsService {
      * @return 物流单
      * @throws Exception
      */
-    private LogisticOrderDTO createLogisticOrder(CreateEOrderResponse response) throws Exception {
+    private LogisticOrderDTO createLogisticOrder(CreateEorderResponse response) throws Exception {
         LogisticOrderDTO logisticOrder = new LogisticOrderDTO();
         logisticOrder.setLogisticCode(response.getLogisticCode());
         logisticOrder.setContent(response.getLogisticOrderContent());

@@ -17,6 +17,7 @@ public interface MemberLevelDetailService {
      *
      * @param query 查询调价你
      * @return 会员等级变更明细
+     * @throws Exception
      */
     List<MemberLevelDetailDTO> listByPage(MemberLevelDetailQuery query) throws Exception;
 

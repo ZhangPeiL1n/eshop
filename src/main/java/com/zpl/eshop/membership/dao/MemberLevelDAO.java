@@ -14,6 +14,7 @@ public interface MemberLevelDAO {
      *
      * @param userAccountId 用户账号id
      * @return 会员等级
+     * @throws Exception
      */
     MemberLevelDO getByUserAccountId(Long userAccountId) throws Exception;
 
@@ -21,6 +22,7 @@ public interface MemberLevelDAO {
      * 新增会员等级
      *
      * @param memberLevel 会员等级
+     * @throws Exception
      */
     void save(MemberLevelDO memberLevel) throws Exception;
 
@@ -28,6 +30,7 @@ public interface MemberLevelDAO {
      * 更新会员等级
      *
      * @param memberLevel 会员等级
+     * @throws Exception
      */
     void update(MemberLevelDO memberLevel) throws Exception;
 

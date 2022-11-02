@@ -44,16 +44,16 @@ public class PriorityController {
     @GetMapping("/root")
     public List<PriorityVO> listRootPriorities() {
         try {
-            List<PriorityDTO> priorityDTOs = priorityService.listRootPriorities();
-            if (priorityDTOs == null) {
-                priorityDTOs = new ArrayList<>();
+            List<PriorityDTO> priorityDTOList = priorityService.listRootPriorities();
+            if (priorityDTOList == null) {
+                priorityDTOList = new ArrayList<>();
             }
 
-            List<PriorityVO> priorityVOs = new ArrayList<>(priorityDTOs.size());
-            for (PriorityDTO priorityDTO : priorityDTOs) {
-                priorityVOs.add(convertPriorityDTO2VO(priorityDTO));
+            List<PriorityVO> priorityVOList = new ArrayList<>(priorityDTOList.size());
+            for (PriorityDTO priorityDTO : priorityDTOList) {
+                priorityVOList.add(convertPriorityDto2vo(priorityDTO));
             }
-            return priorityVOs;
+            return priorityVOList;
         } catch (Exception e) {
             logger.error("error", e);
         }
@@ -70,17 +70,17 @@ public class PriorityController {
     public List<PriorityVO> listChildPriorities(
             @PathVariable("parentId") Long parentId) {
         try {
-            List<PriorityDTO> priorityDTOs = priorityService.listChildPriorities(parentId);
-            if (priorityDTOs == null) {
-                priorityDTOs = new ArrayList<>();
+            List<PriorityDTO> priorityDTOList = priorityService.listChildPriorities(parentId);
+            if (priorityDTOList == null) {
+                priorityDTOList = new ArrayList<>();
             }
 
-            List<PriorityVO> priorityVOs = new ArrayList<>(priorityDTOs.size());
-            for (PriorityDTO priorityDTO : priorityDTOs) {
-                priorityVOs.add(convertPriorityDTO2VO(priorityDTO));
+            List<PriorityVO> priorityVOList = new ArrayList<>(priorityDTOList.size());
+            for (PriorityDTO priorityDTO : priorityDTOList) {
+                priorityVOList.add(convertPriorityDto2vo(priorityDTO));
             }
 
-            return priorityVOs;
+            return priorityVOList;
         } catch (Exception e) {
             logger.error("error", e);
         }
@@ -101,7 +101,7 @@ public class PriorityController {
                 priorityDTO = new PriorityDTO();
             }
 
-            return convertPriorityDTO2VO(priorityDTO);
+            return convertPriorityDto2vo(priorityDTO);
         } catch (Exception e) {
             logger.error("error", e);
         }
@@ -163,7 +163,7 @@ public class PriorityController {
     @PostMapping("/")
     public Boolean savePriority(@RequestBody PriorityVO priorityVO) {
         try {
-            priorityService.savePriority(convertPriorityVO2DTO(priorityVO));
+            priorityService.savePriority(convertPriorityVo2Dto(priorityVO));
         } catch (Exception e) {
             logger.error("error", e);
             return false;
@@ -179,7 +179,7 @@ public class PriorityController {
     @PutMapping("/{id}")
     public Boolean updatePriority(@RequestBody PriorityVO priorityVO) {
         try {
-            priorityService.updatePriority(convertPriorityVO2DTO(priorityVO));
+            priorityService.updatePriority(convertPriorityVo2Dto(priorityVO));
         } catch (Exception e) {
             logger.error("error", e);
             return false;
@@ -207,7 +207,7 @@ public class PriorityController {
      * @return
      * @throws Exception
      */
-    private PriorityVO convertPriorityDTO2VO(PriorityDTO priorityDTO) throws Exception {
+    private PriorityVO convertPriorityDto2vo(PriorityDTO priorityDTO) throws Exception {
         PriorityVO priorityVO = priorityDTO.clone(PriorityVO.class);
         priorityVO.setGmtCreate(dateProvider.formatDateTime(priorityDTO.getGmtCreate()));
         priorityVO.setGmtModified(dateProvider.formatDateTime(priorityDTO.getGmtModified()));
@@ -221,7 +221,7 @@ public class PriorityController {
      * @return
      * @throws Exception
      */
-    private PriorityDTO convertPriorityVO2DTO(PriorityVO priorityVO) throws Exception {
+    private PriorityDTO convertPriorityVo2Dto(PriorityVO priorityVO) throws Exception {
         PriorityDTO priorityDTO = priorityVO.clone(PriorityDTO.class);
         if (priorityVO.getGmtCreate() != null) {
             priorityDTO.setGmtCreate(dateProvider.parse2Datetime(priorityVO.getGmtCreate()));

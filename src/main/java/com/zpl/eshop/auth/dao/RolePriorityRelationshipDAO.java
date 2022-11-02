@@ -14,9 +14,9 @@ public interface RolePriorityRelationshipDAO {
     /**
      * 新增角色和权限的关联关系
      *
-     * @param rolePriorityRelationshipDO
+     * @param rolePriorityRelationshipDO 关系DO
      */
-    Boolean save(RolePriorityRelationshipDO rolePriorityRelationshipDO);
+    void save(RolePriorityRelationshipDO rolePriorityRelationshipDO);
 
     /**
      * 根据权限id查询记录数

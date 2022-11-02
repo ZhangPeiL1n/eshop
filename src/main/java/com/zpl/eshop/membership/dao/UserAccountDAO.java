@@ -15,6 +15,7 @@ public interface UserAccountDAO {
      * 新增用户账号
      *
      * @param userAccount 用户账号
+     * @return 帐号
      */
     UserAccountDO save(UserAccountDO userAccount);
 
@@ -22,7 +23,7 @@ public interface UserAccountDAO {
      * 为登录来统计是否有对应的账号在
      *
      * @param userAccount 用户账号
-     * @return
+     * @return 帐号
      */
     UserAccountDO getForLogin(UserAccountDO userAccount);
 

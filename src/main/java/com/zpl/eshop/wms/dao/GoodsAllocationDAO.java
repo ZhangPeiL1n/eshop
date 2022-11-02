@@ -25,6 +25,7 @@ public interface GoodsAllocationDAO {
      * 新增货位
      *
      * @param goodsAllocation 货位
+     * @throws Exception
      */
     void save(GoodsAllocationDO goodsAllocation) throws Exception;
 
@@ -40,6 +41,7 @@ public interface GoodsAllocationDAO {
      * 更新货位
      *
      * @param goodsAllocation 货位
+     * @throws Exception
      */
     void update(GoodsAllocationDO goodsAllocation) throws Exception;
 }

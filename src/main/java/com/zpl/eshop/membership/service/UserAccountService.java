@@ -14,6 +14,8 @@ public interface UserAccountService {
      * 新增用户账号
      *
      * @param userAccount 用户账号
+     * @return 新增结果
+     * @throws Exception
      */
     UserAccountDTO save(UserAccountDTO userAccount) throws Exception;
 
@@ -21,7 +23,8 @@ public interface UserAccountService {
      * 为登录来统计是否有对应的账号在
      *
      * @param userAccount 用户账号
-     * @return
+     * @return 帐号
+     * @throws Exception
      */
     UserAccountDTO getForLogin(UserAccountDTO userAccount) throws Exception;
 
@@ -30,6 +33,7 @@ public interface UserAccountService {
      *
      * @param id 用户账号id
      * @return 用户账号
+     * @throws Exception
      */
     UserAccountDTO getById(Long id) throws Exception;
 
@@ -37,6 +41,7 @@ public interface UserAccountService {
      * 更新密码
      *
      * @param userAccount 用户账号
+     * @throws Exception
      */
     void updatePassword(UserAccountDO userAccount) throws Exception;
 

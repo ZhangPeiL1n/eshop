@@ -13,7 +13,7 @@ public interface LogisticApi {
      * @return 响应
      * @throws Exception
      */
-    CreateEOrderResponse createEOrder(CreateEOrderRequest request) throws Exception;
+    CreateEorderResponse createEorder(CreateEorderRequest request) throws Exception;
 
     /**
      * 查询物流进度

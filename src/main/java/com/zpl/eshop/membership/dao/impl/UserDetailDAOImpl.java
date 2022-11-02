@@ -25,6 +25,7 @@ public class UserDetailDAOImpl implements UserDetailDAO {
      *
      * @param userDetail 用户详细信息
      */
+    @Override
     public void save(UserDetailDO userDetail) {
         userDetailMapper.save(userDetail);
     }

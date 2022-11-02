@@ -39,6 +39,7 @@ public abstract class AbstractMembershipUpdater<T, K> implements MembershipUpdat
      * @return 返回值
      * @throws Exception
      */
+    @Override
     public K execute(Long userAccountId, T parameter) throws Exception {
         Map<String, Object> updateMemberLevelResult = updateMemberLevel(userAccountId, parameter);
         Map<String, Object> updateMemberPointResult = updateMemberPoint(userAccountId, parameter);
@@ -55,6 +56,7 @@ public abstract class AbstractMembershipUpdater<T, K> implements MembershipUpdat
      * @return 返回值
      * @throws Exception
      */
+    @Override
     public K undo(Long userAccountId, T parameter) throws Exception {
         Map<String, Object> undoMemberLevelResult = undoUpdatedMemberLevel(userAccountId, parameter);
         Map<String, Object> undoMemberPointResult = undoUpdatedMemberPoint(userAccountId, parameter);
@@ -79,6 +81,7 @@ public abstract class AbstractMembershipUpdater<T, K> implements MembershipUpdat
      *
      * @param userAccountId 用户账号id
      * @param parameter     参数
+     * @return 更新的积分
      * @throws Exception
      */
     protected abstract Map<String, Object> updateMemberPoint(
@@ -87,9 +90,9 @@ public abstract class AbstractMembershipUpdater<T, K> implements MembershipUpdat
     /**
      * 获取会员等级更新原因
      *
-     * @param userAccountId
-     * @param parameter
-     * @param updateMemberLevelResult
+     * @param userAccountId           用户帐号id
+     * @param parameter               参数
+     * @param updateMemberLevelResult 更新结果
      * @return
      * @throws Exception
      */
@@ -143,10 +146,10 @@ public abstract class AbstractMembershipUpdater<T, K> implements MembershipUpdat
     /**
      * 获取会员积分更新原因
      *
-     * @param userAccountId
-     * @param parameter
-     * @param updateMemberLevelResult
-     * @return
+     * @param userAccountId           用户帐号id
+     * @param parameter               参数
+     * @param updateMemberPointResult 会员积分更新结果
+     * @return 更新原因
      * @throws Exception
      */
     protected abstract String getMemberPointUpdateReason(Long userAccountId,
@@ -227,10 +230,10 @@ public abstract class AbstractMembershipUpdater<T, K> implements MembershipUpdat
     /**
      * 获取撤销会员等级更新原因
      *
-     * @param userAccountId
-     * @param parameter
-     * @param updateMemberLevelResult
-     * @return
+     * @param userAccountId         用户帐号id
+     * @param parameter             参数
+     * @param undoMemberLevelResult 撤回会员等级
+     * @return 原因
      * @throws Exception
      */
     protected abstract String getUndoMemberLevelUpdateReason(Long userAccountId,
@@ -239,10 +242,10 @@ public abstract class AbstractMembershipUpdater<T, K> implements MembershipUpdat
     /**
      * 获取撤销会员积分更新原因
      *
-     * @param userAccountId
-     * @param parameter
-     * @param updateMemberLevelResult
-     * @return
+     * @param userAccountId         用户帐号
+     * @param parameter             参数
+     * @param undoMemberPointResult 撤销积分结果
+     * @return 撤销积分原因
      * @throws Exception
      */
     protected abstract String getUndoMemberPointUpdateReason(Long userAccountId,

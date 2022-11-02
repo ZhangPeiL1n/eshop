@@ -58,6 +58,7 @@ public class RoleServiceImpl implements RoleService {
      * @param query 查询条件
      * @return 角色DO对象集合
      */
+    @Override
     public List<RoleDTO> listByPage(RoleQuery query) throws Exception {
         List<RoleDO> roles = roleDAO.listByPage(query);
         return ObjectUtils.convertList(roles, RoleDTO.class);
@@ -69,6 +70,7 @@ public class RoleServiceImpl implements RoleService {
      * @param id 角色 id
      * @return 角色DO对象
      */
+    @Override
     public RoleDTO getById(Long id) throws Exception {
         RoleDO role = roleDAO.getById(id);
         if (role == null) {
@@ -90,6 +92,7 @@ public class RoleServiceImpl implements RoleService {
      *
      * @param role 角色DO对象
      */
+    @Override
     public Boolean save(RoleDTO role) throws Exception {
         role.setGmtCreate(dateProvider.getCurrentTime());
         role.setGmtModified(dateProvider.getCurrentTime());
@@ -110,6 +113,7 @@ public class RoleServiceImpl implements RoleService {
      *
      * @param role 角色DO对象
      */
+    @Override
     public Boolean update(RoleDTO role) throws Exception {
         role.setGmtModified(dateProvider.getCurrentTime());
         roleDAO.update(role.clone(RoleDO.class));
@@ -137,6 +141,7 @@ public class RoleServiceImpl implements RoleService {
      *
      * @param id 角色id
      */
+    @Override
     public Boolean remove(Long id) throws Exception {
         Long count = accountRoleRelationDAO.countByRoleId(id);
         if (count > 0L) {

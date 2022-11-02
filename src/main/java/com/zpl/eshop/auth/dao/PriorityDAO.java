@@ -38,11 +38,10 @@ public interface PriorityDAO {
     /**
      * 查询账号被授权的菜单
      *
-     * @param accountId 账号id
+     * @param parameters 参数
      * @return
      */
-    List<PriorityDO> listAuthorizedByAccountId(
-            Map<String, Object> parameters);
+    List<PriorityDO> listAuthorizedByAccountId(Map<String, Object> parameters);
 
     /**
      * 根据权限id查询账号id
@@ -84,7 +83,7 @@ public interface PriorityDAO {
      * @param priorityDO 权限DO对象
      * @return 操作结果
      */
-    Boolean updatePriority(PriorityDO priorityDO);
+    void updatePriority(PriorityDO priorityDO);
 
     /**
      * 删除权限
@@ -92,6 +91,6 @@ public interface PriorityDAO {
      * @param id 权限id
      * @return 操作结果
      */
-    Boolean removePriority(Long id);
+    void removePriority(Long id);
 
 }

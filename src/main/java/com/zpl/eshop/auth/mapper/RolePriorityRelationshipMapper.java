@@ -16,7 +16,7 @@ public interface RolePriorityRelationshipMapper {
     /**
      * 新增角色和权限的关联关系
      *
-     * @param accountPriorityRelationshipDO
+     * @param rolePriorityRelationshipDO 角色权限do
      */
     @Insert("INSERT INTO auth_role_priority_relationship("
             + "role_id,"

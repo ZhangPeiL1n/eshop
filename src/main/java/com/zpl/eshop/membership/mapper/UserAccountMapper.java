@@ -108,6 +108,8 @@ public interface UserAccountMapper {
 
     /**
      * 查询所有用户账号
+     *
+     * @return 所有帐号
      */
     @Select("SELECT "
             + "id,"

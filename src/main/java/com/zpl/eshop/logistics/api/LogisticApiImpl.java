@@ -30,14 +30,15 @@ public class LogisticApiImpl implements LogisticApi {
      * @return 响应
      * @throws Exception
      */
-    public CreateEOrderResponse createEOrder(CreateEOrderRequest request) throws Exception {
+    @Override
+    public CreateEorderResponse createEorder(CreateEorderRequest request) throws Exception {
         // 将request转换成物流商api指定的json请求的格式
         // 发送请求到物理商api接口
         // 获取到物流商api接口返回的结果，从结果中提取出来对应的信息
         // 将响应结果封装成CreateEOrderResponse即可
 
-        CreateEOrderResponse response = new CreateEOrderResponse();
-        response.setStatus(CreateEOrderResponse.SUCCESS);
+        CreateEorderResponse response = new CreateEorderResponse();
+        response.setStatus(CreateEorderResponse.SUCCESS);
         response.setLogisticCode(UUID.randomUUID().toString().replace("-", ""));
         response.setLogisticOrderContent("测试物流单内容");
 
@@ -51,6 +52,7 @@ public class LogisticApiImpl implements LogisticApi {
      * @return 响应
      * @throws Exception
      */
+    @Override
     public QueryProgressResponse queryProgress(QueryProgressRequest request) throws Exception {
         // 整体情况同上
 

@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2022/10/22 23:50
  **/
 @Data
-public class CreateEOrderRequest {
+public class CreateEorderRequest {
 
     /**
      * 订单编号

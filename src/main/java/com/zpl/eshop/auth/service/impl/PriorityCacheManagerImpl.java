@@ -36,6 +36,7 @@ public class PriorityCacheManagerImpl implements PriorityCacheManager {
      * @param accountId 账号id
      * @return
      */
+    @Override
     public List<Priority> getAuthorizedPriorityTree(Long accountId) {
         return authorizedPriorityTreeCache.get(accountId);
     }

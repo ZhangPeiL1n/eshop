@@ -85,7 +85,7 @@ public interface FreightTemplateMapper {
     /**
      * 根据id查询运费模板
      *
-     * @param query 运费模板查询条件
+     * @param id id
      * @return 运费模板
      */
     @Select("SELECT "

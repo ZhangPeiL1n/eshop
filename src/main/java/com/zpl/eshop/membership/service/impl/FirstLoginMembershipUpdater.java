@@ -58,7 +58,7 @@ public class FirstLoginMembershipUpdater extends AbstractMembershipUpdater<Objec
     @Override
     protected Map<String, Object> updateMemberLevel(Long userAccountId,
                                                     Object parameter) throws Exception {
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(16);
 
         MemberLevelDO memberLevel = memberLevelDAO.getByUserAccountId(userAccountId);
 
@@ -84,7 +84,7 @@ public class FirstLoginMembershipUpdater extends AbstractMembershipUpdater<Objec
     @Override
     protected Map<String, Object> updateMemberPoint(Long userAccountId,
                                                     Object parameter) throws Exception {
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(16);
 
         MemberPointDO memberPoint = memberPointDAO.getByUserAccountId(userAccountId);
 

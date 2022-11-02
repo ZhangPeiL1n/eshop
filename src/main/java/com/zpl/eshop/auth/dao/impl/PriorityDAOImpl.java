@@ -118,9 +118,8 @@ public class PriorityDAOImpl implements PriorityDAO {
      * @param priorityDO 权限DO对象
      */
     @Override
-    public Boolean updatePriority(PriorityDO priorityDO) {
+    public void updatePriority(PriorityDO priorityDO) {
         priorityMapper.updatePriority(priorityDO);
-        return true;
     }
 
     /**
@@ -129,9 +128,8 @@ public class PriorityDAOImpl implements PriorityDAO {
      * @param id 权限id
      */
     @Override
-    public Boolean removePriority(Long id) {
+    public void removePriority(Long id) {
         priorityMapper.removePriority(id);
-        return true;
     }
 
 }
