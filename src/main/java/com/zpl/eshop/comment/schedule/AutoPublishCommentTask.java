@@ -48,23 +48,23 @@ public class AutoPublishCommentTask {
     public void execute() {
         try {
             // 先从订单中心查询确认时间超过7天，且没有发表评论的订单
-            List<OrderInfoDTO> orderInfoDTOs = orderService.listNotPublishCommentOrders();
-            if (orderInfoDTOs != null && orderInfoDTOs.size() > 0) {
-                List<Long> orderInfoIds = new ArrayList<>(orderInfoDTOs.size());
-                for (OrderInfoDTO orderInfoDTO : orderInfoDTOs) {
+            List<OrderInfoDTO> orderInfos = orderService.listNotPublishCommentOrders();
+            if (orderInfos != null && orderInfos.size() > 0) {
+                List<Long> orderInfoIds = new ArrayList<>(orderInfos.size());
+                for (OrderInfoDTO orderInfo : orderInfos) {
                     // 卫语句
-                    if (orderInfoDTO.getOrderItems() == null || orderInfoDTO.getOrderItems().size() == 0) {
+                    if (orderInfo.getOrderItems() == null || orderInfo.getOrderItems().size() == 0) {
                         continue;
                     }
 
                     // 遍历订单中的订单项
-                    for (OrderItemDTO orderItemDTO : orderInfoDTO.getOrderItems()) {
+                    for (OrderItemDTO orderItemDTO : orderInfo.getOrderItems()) {
                         // 先保存自动发表的评论信息
-                        CommentInfoDTO commentInfoDTO = commentInfoService.saveAutoPublishedCommentInfo(orderInfoDTO, orderItemDTO);
+                        CommentInfoDTO commentInfoDTO = commentInfoService.saveAutoPublishedCommentInfo(orderInfo, orderItemDTO);
                         // 更新统计信息
                         commentAggregateService.updateCommentAggregate(commentInfoDTO);
                     }
-                    orderInfoIds.add(orderInfoDTO.getId());
+                    orderInfoIds.add(orderInfo.getId());
                 }
                 // 通知订单中心批量发表评论
                 orderService.informBatchPublishCommentEvent(orderInfoIds);

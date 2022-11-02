@@ -26,6 +26,7 @@ public interface PromotionService {
      *
      * @param id 促销活动id
      * @return 促销活动
+     * @throws Exception
      */
     PromotionActivityDTO getById(Long id) throws Exception;
 
@@ -43,6 +44,7 @@ public interface PromotionService {
      * @param couponId      优惠券id
      * @param userAccountId 帐号id
      * @return 处理结果
+     * @throws Exception
      */
     Boolean useCoupon(Long couponId, Long userAccountId) throws Exception;
 }
