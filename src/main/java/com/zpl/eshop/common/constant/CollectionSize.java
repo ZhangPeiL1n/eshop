@@ -11,7 +11,7 @@ public class CollectionSize {
     /**
      * 默认集合大小
      */
-    private static final Integer DEFAULT = 100;
+    public static final Integer DEFAULT = 100;
 
     private CollectionSize() {
 
