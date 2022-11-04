@@ -17,12 +17,14 @@ public interface PurchaseSettlementOrderService {
      * 新增采购结算单
      *
      * @param purchaseSettlementOrder 采购结算单
+     * @throws Exception
      */
     void save(PurchaseSettlementOrderDTO purchaseSettlementOrder) throws Exception;
 
     /**
      * 分页查询采购结算单
      *
+     * @param query 查询条件
      * @return 采购结算单
      * @throws Exception
      */
@@ -31,6 +33,7 @@ public interface PurchaseSettlementOrderService {
     /**
      * 根据id查询采购结算单
      *
+     * @param id id
      * @return 采购结算单
      * @throws Exception
      */

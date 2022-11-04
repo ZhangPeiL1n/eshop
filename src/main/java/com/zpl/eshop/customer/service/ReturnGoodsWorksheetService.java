@@ -18,6 +18,7 @@ public interface ReturnGoodsWorksheetService {
      *
      * @param query 查询条件
      * @return 退货工单
+     * @throws Exception
      */
     List<ReturnGoodsWorksheetDTO> listByPage(ReturnGoodsWorksheetQuery query) throws Exception;
 
@@ -26,6 +27,7 @@ public interface ReturnGoodsWorksheetService {
      *
      * @param id 退货工单id
      * @return 退货工单
+     * @throws Exception
      */
     ReturnGoodsWorksheetDTO getById(Long id) throws Exception;
 

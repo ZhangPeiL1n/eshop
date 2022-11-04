@@ -16,6 +16,7 @@ public interface ShoppingCartService {
      * @param userAccountId 用户帐号id
      * @param goodsSkuId    商品条目
      * @return 处理结果
+     * @throws ParseException
      */
     Boolean addShoppingCartItem(Long userAccountId, Long goodsSkuId) throws ParseException;
 

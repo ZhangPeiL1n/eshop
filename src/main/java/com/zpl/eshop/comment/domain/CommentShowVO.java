@@ -1,5 +1,8 @@
 package com.zpl.eshop.comment.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.List;
 
 /**
@@ -7,6 +10,8 @@ import java.util.List;
  * @author ZhangPeiL1n
  *
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class CommentShowVO {
 
 	/**

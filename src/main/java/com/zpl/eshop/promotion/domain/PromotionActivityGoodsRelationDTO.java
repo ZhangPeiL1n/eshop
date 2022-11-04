@@ -1,6 +1,8 @@
 package com.zpl.eshop.promotion.domain;
 
 import com.zpl.eshop.common.util.AbstractObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -9,58 +11,32 @@ import java.util.Date;
  * @author ZhangPeiL1n
  *
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class PromotionActivityGoodsRelationDTO extends AbstractObject {
 
 	/**
 	 * id
 	 */
 	private Long id;
-	/**
+
+    /**
 	 * 促销活动id
 	 */
 	private Long promotionActivityId;
-	/**
+
+    /**
 	 * 商品id
 	 */
 	private Long goodsId;
-	/**
+
+    /**
 	 * 创建时间
 	 */
 	private Date gmtCreate;
-	/**
+
+    /**
 	 * 修改时间
 	 */
 	private Date gmtModified;
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Long getPromotionActivityId() {
-		return promotionActivityId;
-	}
-	public void setPromotionActivityId(Long promotionActivityId) {
-		this.promotionActivityId = promotionActivityId;
-	}
-	public Long getGoodsId() {
-		return goodsId;
-	}
-	public void setGoodsId(Long goodsId) {
-		this.goodsId = goodsId;
-	}
-	public Date getGmtCreate() {
-		return gmtCreate;
-	}
-	public void setGmtCreate(Date gmtCreate) {
-		this.gmtCreate = gmtCreate;
-	}
-	public Date getGmtModified() {
-		return gmtModified;
-	}
-	public void setGmtModified(Date gmtModified) {
-		this.gmtModified = gmtModified;
-	}
-	
 }

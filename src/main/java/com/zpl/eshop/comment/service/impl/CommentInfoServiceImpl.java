@@ -25,6 +25,9 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class CommentInfoServiceImpl implements CommentInfoService {
 
+    private static final Integer GOOD_COMMENT_THRESHOLD = 4;
+    private static final Integer MEDIUM_COMMENT_THRESHOLD = 3;
+    private static final Integer BAD_COMMENT_THRESHOLD = 2;
     /**
      * 评论信息管理模块的DAO组件
      */
@@ -57,11 +60,11 @@ public class CommentInfoServiceImpl implements CommentInfoService {
 
         // 设置评论的类型
         Integer commentType = 0;
-        if (totalScore >= 4) {
+        if (totalScore >= GOOD_COMMENT_THRESHOLD) {
             commentType = CommentType.GOOD_COMMENT;
-        } else if (totalScore == 3) {
+        } else if (totalScore.equals(MEDIUM_COMMENT_THRESHOLD)) {
             commentType = CommentType.MEDIUM_COMMENT;
-        } else if (totalScore > 0 && totalScore <= 2) {
+        } else if (totalScore > 0 && totalScore <= BAD_COMMENT_THRESHOLD) {
             commentType = CommentType.BAD_COMMENT;
         }
 

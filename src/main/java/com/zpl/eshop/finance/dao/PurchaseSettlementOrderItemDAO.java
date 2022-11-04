@@ -27,6 +27,7 @@ public interface PurchaseSettlementOrderItemDAO {
      *
      * @param purchaseSettlementOrderId 采购结算单id
      * @return 采购结算单条目
+     * @throws Exception
      */
     List<PurchaseSettlementOrderItemDO> listByPurchaseSettlementOrderId(
             Long purchaseSettlementOrderId) throws Exception;

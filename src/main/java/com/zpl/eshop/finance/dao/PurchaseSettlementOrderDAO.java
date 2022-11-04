@@ -18,6 +18,8 @@ public interface PurchaseSettlementOrderDAO {
      * 新增采购结算单
      *
      * @param purchaseSettlementOrder 采购结算单
+     * @return id
+     * @throws Exception
      */
     Long save(PurchaseSettlementOrderDO purchaseSettlementOrder) throws Exception;
 
@@ -41,6 +43,7 @@ public interface PurchaseSettlementOrderDAO {
      * 更新采购结算单
      *
      * @param purchaseSettlementOrder 采购结算单
+     * @throws Exception
      */
     void update(PurchaseSettlementOrderDO purchaseSettlementOrder) throws Exception;
 
@@ -58,6 +61,7 @@ public interface PurchaseSettlementOrderDAO {
      * 更新采购结算单状态
      *
      * @param purchaseSettlementOrder 采购结算单
+     * @throws Exception
      */
     void updateStatus(PurchaseSettlementOrderDO purchaseSettlementOrder) throws Exception;
 

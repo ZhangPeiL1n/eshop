@@ -17,14 +17,17 @@ public interface CommentAggregateDAO {
 	CommentAggregateDO getCommentAggregateByGoodsId(Long goodsId);
 	
 	/**
-	 * 新增评论统计信息
-	 * @param commentAggregateDO 评论统计信息DO对象
-	 */
+     * 新增评论统计信息
+     *
+     * @param commentAggregateDO 评论统计信息DO对象
+     * @return 新增结果
+     */
 	Boolean saveCommentAggregate(CommentAggregateDO commentAggregateDO);
-	
-	/**
-	 * 更新评论统计信息
-	 * @param commentAggregateDO 评论统计信息DO对象
+
+    /**
+     * 更新评论统计信息
+     * @param commentAggregateDO 评论统计信息DO对象
+     * @return 更新结果
 	 */
 	Boolean updateCommentAggregate(CommentAggregateDO commentAggregateDO);
 	
