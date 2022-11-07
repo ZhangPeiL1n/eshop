@@ -33,6 +33,7 @@ public class ReturnGoodsInputOrderItemDAOImpl implements ReturnGoodsInputOrderIt
      * 新增退货入库单条目
      *
      * @param returnGoodsInputOrderItem 退货入库单条目
+     * @throws Exception
      */
     @Override
     public void save(ReturnGoodsInputOrderItemDO returnGoodsInputOrderItem) throws Exception {
@@ -46,6 +47,7 @@ public class ReturnGoodsInputOrderItemDAOImpl implements ReturnGoodsInputOrderIt
      *
      * @param returnGoodsInputOrderId 退货入库单id
      * @return 退货入库单条目
+     * @throws Exception
      */
     @Override
     public List<ReturnGoodsInputOrderItemDO> listByReturnGoodsInputOrderId(
@@ -57,6 +59,7 @@ public class ReturnGoodsInputOrderItemDAOImpl implements ReturnGoodsInputOrderIt
      * 更新退货入库单条目
      *
      * @param returnGoodsInputOrderItem 退货入库单条目
+     *                                  @throws Exception
      */
     @Override
     public void update(ReturnGoodsInputOrderItemDO returnGoodsInputOrderItem) throws Exception {

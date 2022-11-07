@@ -35,6 +35,7 @@ public class PurchaseInputOrderDAOImpl implements PurchaseInputOrderDAO {
      * 新增采购入库单
      *
      * @param purchaseInputOrder 采购入库单
+     * @throws Exception
      */
     @Override
     public Long save(PurchaseInputOrderDO purchaseInputOrder) throws Exception {
@@ -49,9 +50,10 @@ public class PurchaseInputOrderDAOImpl implements PurchaseInputOrderDAO {
      *
      * @param query 查询条件
      * @return 采购入库单
+     * @throws Exception
      */
     @Override
-    public List<PurchaseInputOrderDO> listByPage(PurchaseInputOrderQuery query) {
+    public List<PurchaseInputOrderDO> listByPage(PurchaseInputOrderQuery query) throws Exception {
         return purchaseInputOrderMapper.listByPage(query);
     }
 
@@ -60,9 +62,10 @@ public class PurchaseInputOrderDAOImpl implements PurchaseInputOrderDAO {
      *
      * @param id 采购入库单id
      * @return 采购入库单
+     * @throws Exception
      */
     @Override
-    public PurchaseInputOrderDO getById(Long id) {
+    public PurchaseInputOrderDO getById(Long id) throws Exception {
         return purchaseInputOrderMapper.getById(id);
     }
 
@@ -70,6 +73,7 @@ public class PurchaseInputOrderDAOImpl implements PurchaseInputOrderDAO {
      * 更新采购入库单
      *
      * @param purchaseInputOrder 采购入库单
+     * @throws Exception
      */
     @Override
     public void update(PurchaseInputOrderDO purchaseInputOrder) throws Exception {
@@ -81,6 +85,7 @@ public class PurchaseInputOrderDAOImpl implements PurchaseInputOrderDAO {
      * 更新采购入库单状态
      *
      * @param purchaseInputOrder 采购入库单
+     * @throws Exception
      */
     @Override
     public void updateStatus(PurchaseInputOrderDO purchaseInputOrder) throws Exception {

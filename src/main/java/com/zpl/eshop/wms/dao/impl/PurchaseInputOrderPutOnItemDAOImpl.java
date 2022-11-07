@@ -33,7 +33,8 @@ public class PurchaseInputOrderPutOnItemDAOImpl implements PurchaseInputOrderPut
     /**
      * 批量新增采购入库单上架条目
      *
-     * @param putOnItem 上架条目
+     * @param putOnItems 上架条目
+     * @throws Exception
      */
     @Override
     public void batchSave(List<PurchaseInputOrderPutOnItemDO> putOnItems) throws Exception {
@@ -54,9 +55,10 @@ public class PurchaseInputOrderPutOnItemDAOImpl implements PurchaseInputOrderPut
      *
      * @param purchaseInputOrderItemId 采购入库单id
      * @return 采购入库单上架条目
+     * @throws Exception
      */
     @Override
-    public List<PurchaseInputOrderPutOnItemDO> listByPurchaseInputOrderItemId(Long purchaseInputOrderItemId) {
+    public List<PurchaseInputOrderPutOnItemDO> listByPurchaseInputOrderItemId(Long purchaseInputOrderItemId) throws Exception {
         return purchaseInputOrderPutOnItemMapper.listByPurchaseInputOrderItemId(purchaseInputOrderItemId);
     }
 }

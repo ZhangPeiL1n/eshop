@@ -14,6 +14,8 @@ public interface SendOutOrderDAO {
      * 新增发货单
      *
      * @param sendOutOrder 发货单
+     * @return id
+     * @throws Exception
      */
     Long save(SendOutOrderDO sendOutOrder) throws Exception;
 
@@ -22,6 +24,7 @@ public interface SendOutOrderDAO {
      *
      * @param saleDeliveryOrderId 发货单id
      * @return 发货单
+     * @throws Exception
      */
-    SendOutOrderDO getBySaleDeliveryOrderId(Long saleDeliveryOrderId);
+    SendOutOrderDO getBySaleDeliveryOrderId(Long saleDeliveryOrderId) throws Exception;
 }

@@ -27,6 +27,7 @@ public interface SaleDeliveryOrderService {
      *
      * @param query 查询条件
      * @return 销售出库单
+     * @throws Exception
      */
     List<SaleDeliveryOrderDTO> listByPage(SaleDeliveryOrderQuery query) throws Exception;
 
@@ -44,6 +45,7 @@ public interface SaleDeliveryOrderService {
      *
      * @param orderId 销售出库单id
      * @return 销售出库单
+     * @throws Exception
      */
     SaleDeliveryOrderDTO getByOrderId(Long orderId) throws Exception;
 
@@ -52,6 +54,7 @@ public interface SaleDeliveryOrderService {
      *
      * @param id           销售出库单id
      * @param deliveryTime 发货时间
+     * @throws Exception
      */
     void updateDeliveryTime(Long id, Date deliveryTime) throws Exception;
 

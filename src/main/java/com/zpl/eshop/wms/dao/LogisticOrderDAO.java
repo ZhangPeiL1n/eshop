@@ -14,6 +14,7 @@ public interface LogisticOrderDAO {
      * 新增物流单
      *
      * @param logisticOrder 物流单
+     * @throws Exception
      */
     void save(LogisticOrderDO logisticOrder) throws Exception;
 
@@ -22,6 +23,7 @@ public interface LogisticOrderDAO {
      *
      * @param saleDeliveryOrderId 销售出库单id
      * @return 物流单
+     * @throws Exception
      */
-    LogisticOrderDO getBySaleDeliveryOrderId(Long saleDeliveryOrderId);
+    LogisticOrderDO getBySaleDeliveryOrderId(Long saleDeliveryOrderId) throws Exception;
 }

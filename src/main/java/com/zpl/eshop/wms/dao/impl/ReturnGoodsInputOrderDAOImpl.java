@@ -34,6 +34,7 @@ public class ReturnGoodsInputOrderDAOImpl implements ReturnGoodsInputOrderDAO {
      * 新增退货入库单
      *
      * @param returnGoodsInputOrder 退货入库单
+     * @throws Exception
      */
     @Override
     public Long save(ReturnGoodsInputOrderDO returnGoodsInputOrder) throws Exception {
@@ -48,6 +49,7 @@ public class ReturnGoodsInputOrderDAOImpl implements ReturnGoodsInputOrderDAO {
      *
      * @param query 查询条件
      * @return 退货入库单
+     * @throws Exception
      */
     @Override
     public List<ReturnGoodsInputOrderDO> listByPage(
@@ -60,6 +62,7 @@ public class ReturnGoodsInputOrderDAOImpl implements ReturnGoodsInputOrderDAO {
      *
      * @param id 退货入库单id
      * @return 退后入库单
+     * @throws Exception
      */
     @Override
     public ReturnGoodsInputOrderDO getById(Long id) throws Exception {
@@ -70,6 +73,7 @@ public class ReturnGoodsInputOrderDAOImpl implements ReturnGoodsInputOrderDAO {
      * 更新退货入库单
      *
      * @param returnGoodsInputOrder 退货入库单
+     * @throws Exception
      */
     @Override
     public void update(ReturnGoodsInputOrderDO returnGoodsInputOrder) throws Exception {

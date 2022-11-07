@@ -47,6 +47,7 @@ public class RelatedCheckCategoryOperation extends AbstractCategoryOperation<Boo
      * @return 返回操作结果
      * @throws Exception
      */
+    @Override
     public Boolean getResult() throws Exception {
         return related;
     }

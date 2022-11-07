@@ -35,6 +35,7 @@ public class SaleDeliveryOrderDAOImpl implements SaleDeliveryOrderDAO {
      * 新增销售出库单
      *
      * @param saleDeliveryOrder 销售出库单
+     * @throws Exception
      */
     @Override
     public Long save(SaleDeliveryOrderDO saleDeliveryOrder) throws Exception {
@@ -49,6 +50,7 @@ public class SaleDeliveryOrderDAOImpl implements SaleDeliveryOrderDAO {
      *
      * @param query 查询条件
      * @return 销售出库单
+     * @throws Exception
      */
     @Override
     public List<SaleDeliveryOrderDO> listByPage(SaleDeliveryOrderQuery query) throws Exception {
@@ -60,9 +62,10 @@ public class SaleDeliveryOrderDAOImpl implements SaleDeliveryOrderDAO {
      *
      * @param id 销售出库单id
      * @return 销售出库单
+     * @throws Exception
      */
     @Override
-    public SaleDeliveryOrderDO getById(Long id) {
+    public SaleDeliveryOrderDO getById(Long id) throws Exception {
         return saleDeliveryOrderMapper.getById(id);
     }
 
@@ -71,9 +74,10 @@ public class SaleDeliveryOrderDAOImpl implements SaleDeliveryOrderDAO {
      *
      * @param orderId 销售出库单id
      * @return 销售出库单
+     * @throws Exception
      */
     @Override
-    public SaleDeliveryOrderDO getByOrderId(Long orderId) {
+    public SaleDeliveryOrderDO getByOrderId(Long orderId) throws Exception {
         return saleDeliveryOrderMapper.getByOrderId(orderId);
     }
 
@@ -81,6 +85,7 @@ public class SaleDeliveryOrderDAOImpl implements SaleDeliveryOrderDAO {
      * 更新销售出库单
      *
      * @param saleDeliveryOrder 销售出库单
+     * @throws Exception
      */
     @Override
     public void update(SaleDeliveryOrderDO saleDeliveryOrder) throws Exception {

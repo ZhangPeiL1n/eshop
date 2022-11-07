@@ -34,6 +34,7 @@ public class SaleDeliveryOrderPickingItemDAOImpl implements SaleDeliveryOrderPic
      * 新增销售出库单拣货条目
      *
      * @param pickingItem
+     * @throws Exception
      */
     @Override
     public void save(SaleDeliveryOrderPickingItemDO pickingItem) throws Exception {
@@ -47,9 +48,10 @@ public class SaleDeliveryOrderPickingItemDAOImpl implements SaleDeliveryOrderPic
      *
      * @param saleDeliveryOrderItemId 销售出库单条目id
      * @return 拣货条目
+     * @throws Exception
      */
     @Override
-    public List<SaleDeliveryOrderPickingItemDO> listBySaleDeliveryOrderItemId(Long saleDeliveryOrderItemId) {
+    public List<SaleDeliveryOrderPickingItemDO> listBySaleDeliveryOrderItemId(Long saleDeliveryOrderItemId) throws Exception {
         return pickingItemMapper.listBySaleDeliveryOrderItemId(saleDeliveryOrderItemId);
     }
 }

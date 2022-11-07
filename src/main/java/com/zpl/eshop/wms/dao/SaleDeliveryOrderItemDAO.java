@@ -16,6 +16,8 @@ public interface SaleDeliveryOrderItemDAO {
      * 新增销售出库单条目
      *
      * @param saleDeliveryOrderItem 销售出库单条目
+     * @return id
+     * @throws Exception
      */
     Long save(SaleDeliveryOrderItemDO saleDeliveryOrderItem) throws Exception;
 
@@ -24,6 +26,7 @@ public interface SaleDeliveryOrderItemDAO {
      *
      * @param saleDeliveryOrderId 销售出库单idi
      * @return 销售出库单条目
+     * @throws Exception
      */
-    List<SaleDeliveryOrderItemDO> listBySaleDeliveryOrderId(Long saleDeliveryOrderId);
+    List<SaleDeliveryOrderItemDO> listBySaleDeliveryOrderId(Long saleDeliveryOrderId) throws Exception;
 }

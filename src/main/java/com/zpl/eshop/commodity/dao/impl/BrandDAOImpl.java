@@ -52,6 +52,7 @@ public class BrandDAOImpl implements BrandDAO {
      *
      * @param brand 品牌
      */
+    @Override
     public void save(BrandDO brand) {
         brandMapper.save(brand);
     }

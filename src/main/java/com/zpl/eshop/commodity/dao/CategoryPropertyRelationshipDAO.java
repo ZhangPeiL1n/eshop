@@ -17,6 +17,7 @@ public interface CategoryPropertyRelationshipDAO {
      *
      * @param relationshipDO 类目属性关系
      * @return 新增成功
+     * @throws Exception
      */
     Boolean save(CategoryPropertyRelationshipDO relationshipDO) throws Exception;
 
@@ -25,6 +26,7 @@ public interface CategoryPropertyRelationshipDAO {
      *
      * @param categoryId 类目id
      * @return 类目属性关联关系DO
+     * @throws Exception
      */
     List<CategoryPropertyRelationshipDO> listByCategoryId(Long categoryId) throws Exception;
 
@@ -33,13 +35,15 @@ public interface CategoryPropertyRelationshipDAO {
      *
      * @param id 类目属性关联关系id
      * @return 类目属性关联关系DO
+     * @throws Exception
      */
-    CategoryPropertyRelationshipDO getById(Long id);
+    CategoryPropertyRelationshipDO getById(Long id) throws Exception;
 
     /**
      * 根据类目id删除
      *
      * @param categoryId 类目id
+     * @throws Exception
      */
     void removeByCategoryId(Long categoryId) throws Exception;
 

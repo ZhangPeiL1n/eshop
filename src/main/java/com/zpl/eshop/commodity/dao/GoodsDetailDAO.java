@@ -15,28 +15,33 @@ public interface GoodsDetailDAO {
      *
      * @param goodsId 商品id
      * @return 商品详情
+     * @throws Exception
      */
-    GoodsDetailDO getByGoodsId(Long goodsId);
+    GoodsDetailDO getByGoodsId(Long goodsId) throws Exception;
 
     /**
      * 新增商品详情
      *
      * @param detail 商品详情
+     * @return id
+     * @throws Exception
      */
-    Long save(GoodsDetailDO detail);
+    Long save(GoodsDetailDO detail) throws Exception;
 
     /**
      * 更新商品详情
      *
      * @param detail 商品详情
+     * @throws Exception
      */
-    void update(GoodsDetailDO detail);
+    void update(GoodsDetailDO detail) throws Exception;
 
     /**
      * 删除商品详情
      *
      * @param id 商品详情id
+     * @throws Exception
      */
-    void remove(Long id);
+    void remove(Long id) throws Exception;
 
 }

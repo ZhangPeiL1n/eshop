@@ -34,6 +34,7 @@ public class SendOutOrderItemDAOImpl implements SendOutOrderItemDAO {
      * 新增发货单条目
      *
      * @param sendOutOrderItem 发货单条目
+     * @throws Exception
      */
     @Override
     public void save(SendOutOrderItemDO sendOutOrderItem) throws Exception {
@@ -47,10 +48,11 @@ public class SendOutOrderItemDAOImpl implements SendOutOrderItemDAO {
      *
      * @param sendOutOrderId 发货单id
      * @return 发货单条目
+     * @throws Exception
      */
 
     @Override
-    public List<SendOutOrderItemDO> listByOrderInfoId(Long sendOutOrderId) {
+    public List<SendOutOrderItemDO> listByOrderInfoId(Long sendOutOrderId) throws Exception {
         return sendOutOrderItemMapper.listByOrderInfoId(sendOutOrderId);
     }
 }

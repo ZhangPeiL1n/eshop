@@ -26,9 +26,10 @@ public class WmsGoodsStockDAOImpl implements WmsGoodsStockDAO {
      *
      * @param goodsSkuId 商品sku id
      * @return 商品库存
+     * @throws Exception
      */
     @Override
-    public WmsGoodsStockDO getBySkuId(Long goodsSkuId) {
+    public WmsGoodsStockDO getBySkuId(Long goodsSkuId) throws Exception {
         return wmsGoodsStockMapper.getBySkuId(goodsSkuId);
     }
 
@@ -36,9 +37,10 @@ public class WmsGoodsStockDAOImpl implements WmsGoodsStockDAO {
      * 新增商品库存
      *
      * @param goodsStockDO 商品库存DO对象
+     * @throws Exception
      */
     @Override
-    public void save(WmsGoodsStockDO goodsStockDO) {
+    public void save(WmsGoodsStockDO goodsStockDO) throws Exception {
         wmsGoodsStockMapper.save(goodsStockDO);
     }
 
@@ -46,9 +48,10 @@ public class WmsGoodsStockDAOImpl implements WmsGoodsStockDAO {
      * 更新商品库存
      *
      * @param goodsStockDO 商品库存DO对象
+     * @throws Exception
      */
     @Override
-    public void update(WmsGoodsStockDO goodsStockDO) {
+    public void update(WmsGoodsStockDO goodsStockDO) throws Exception {
         wmsGoodsStockMapper.update(goodsStockDO);
     }
 }

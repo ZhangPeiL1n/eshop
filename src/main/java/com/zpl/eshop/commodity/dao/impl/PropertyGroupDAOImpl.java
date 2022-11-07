@@ -28,7 +28,9 @@ public class PropertyGroupDAOImpl implements PropertyGroupDAO {
      *
      * @param propertyGroupDO 属性分组
      * @return 新增成功
+     * @throws Exception
      */
+    @Override
     public Long save(PropertyGroupDO propertyGroupDO) throws Exception {
         propertyGroupMapper.save(propertyGroupDO);
         return propertyGroupDO.getCategoryId();
@@ -40,6 +42,7 @@ public class PropertyGroupDAOImpl implements PropertyGroupDAO {
      * @param categoryId 类目id
      * @return 属性分组
      */
+    @Override
     public List<PropertyGroupDO> listByCategoryId(Long categoryId) throws Exception {
         return propertyGroupMapper.listByCategoryId(categoryId);
     }

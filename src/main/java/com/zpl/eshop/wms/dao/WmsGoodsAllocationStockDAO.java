@@ -13,23 +13,27 @@ public interface WmsGoodsAllocationStockDAO {
     /**
      * 根据商品sku id查询商品库存
      *
-     * @param goodsSkuId 商品sku id
+     * @param goodsAllocationId 商品货位id
+     * @param goodsSkuId        商品skuId
      * @return 商品库存
+     * @throws Exception
      */
 
-    WmsGoodsAllocationStockDO getBySkuId(Long goodsAllocationId, Long goodsSkuId);
+    WmsGoodsAllocationStockDO getBySkuId(Long goodsAllocationId, Long goodsSkuId) throws Exception;
 
     /**
      * 新增商品库存
      *
      * @param goodsAllocationStock 商品库存DO对象
+     * @throws Exception
      */
-    void save(WmsGoodsAllocationStockDO goodsAllocationStock);
+    void save(WmsGoodsAllocationStockDO goodsAllocationStock) throws Exception;
 
     /**
      * 更新商品库存
      *
      * @param goodsAllocationStock 商品库存DO对象
+     * @throws Exception
      */
-    void update(WmsGoodsAllocationStockDO goodsAllocationStock);
+    void update(WmsGoodsAllocationStockDO goodsAllocationStock) throws Exception;
 }

@@ -56,6 +56,7 @@ public class PropertyDTO extends AbstractObject {
      */
     private Date gmtModified;
 
+    @Override
     public <T> T clone(Class<T> clazz) {
         T target = null;
         try {

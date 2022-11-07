@@ -14,6 +14,7 @@ public interface GoodsStateManager {
      * 创建一个商品
      *
      * @param goods 商品
+     * @throws Exception
      */
     void create(GoodsDTO goods) throws Exception;
 
@@ -29,6 +30,7 @@ public interface GoodsStateManager {
      * 编辑商品
      *
      * @param goods 商品
+     * @throws Exception
      */
     void edit(GoodsDTO goods) throws Exception;
 
@@ -45,6 +47,7 @@ public interface GoodsStateManager {
      *
      * @param goods         商品
      * @param approveResult 审核结果
+     * @throws Exception
      */
     void approve(GoodsDTO goods, Integer approveResult) throws Exception;
 
@@ -60,6 +63,7 @@ public interface GoodsStateManager {
      * 上架商品
      *
      * @param goods 商品
+     * @throws Exception
      */
     void putOnShelves(GoodsDTO goods) throws Exception;
 
@@ -75,6 +79,7 @@ public interface GoodsStateManager {
      * 下架商品
      *
      * @param goods 商品
+     * @throws Exception
      */
     void pullOffShelves(GoodsDTO goods) throws Exception;
 

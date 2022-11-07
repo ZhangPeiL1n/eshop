@@ -89,7 +89,7 @@ public class GoodsDetailPictureServiceImpl implements GoodsDetailPictureService 
      * @param goodsDetailId 商品id
      */
     @Override
-    public void batchRemoveByGoodsDetailId(Long goodsDetailId) {
+    public void batchRemoveByGoodsDetailId(Long goodsDetailId) throws Exception {
         List<GoodsDetailPictureDO> pictures = goodsDetailPictureDAO.listByGoodsDetailId(goodsDetailId);
         pictures.forEach(picture -> {
             FileUtils.deleteFile(picture.getPicturePath());

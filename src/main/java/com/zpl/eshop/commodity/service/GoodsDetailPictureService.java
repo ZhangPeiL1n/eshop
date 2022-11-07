@@ -18,6 +18,7 @@ public interface GoodsDetailPictureService {
      *
      * @param id 商品图片id
      * @return 商品图片
+     * @throws Exception
      */
     GoodsDetailPictureDTO getById(Long id) throws Exception;
 
@@ -27,14 +28,16 @@ public interface GoodsDetailPictureService {
      * @param goodsDetailId 商品详情id
      * @param pictures      图片
      * @return 图片id
+     * @throws Exception
      */
-    List<Long> batchUploadPicture(Long goodsDetailId, MultipartFile[] pictures);
+    List<Long> batchUploadPicture(Long goodsDetailId, MultipartFile[] pictures) throws Exception;
 
     /**
      * 根据商品id删除图片
      *
      * @param goodsId 商品id
+     * @throws Exception
      */
-    void batchRemoveByGoodsDetailId(Long goodsId);
+    void batchRemoveByGoodsDetailId(Long goodsId) throws Exception;
 
 }

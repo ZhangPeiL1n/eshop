@@ -17,6 +17,7 @@ public interface GoodsPropertyValueService {
      *
      * @param goodsId 商品id
      * @return 属性值
+     * @throws Exception
      */
     List<GoodsPropertyValueDTO> listByGoodsId(Long goodsId) throws Exception;
 
@@ -24,13 +25,15 @@ public interface GoodsPropertyValueService {
      * 新增商品属性值
      *
      * @param propertyValues 商品属性值
+     * @throws Exception
      */
-    void batchSave(List<GoodsPropertyValueDTO> propertyValues);
+    void batchSave(List<GoodsPropertyValueDTO> propertyValues) throws Exception;
 
     /**
      * 根据商品id删除图片
      *
      * @param goodsId 商品id
+     * @throws Exception
      */
-    void removeByGoodsId(Long goodsId);
+    void removeByGoodsId(Long goodsId) throws Exception;
 }

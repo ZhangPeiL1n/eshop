@@ -16,6 +16,7 @@ public interface SaleDeliveryOrderSendOutDetailDAO {
      * 新增销售出库单发货明细
      *
      * @param sendOutDetail 销售出库单发货明细
+     * @throws Exception
      */
     void save(SaleDeliveryOrderSendOutDetailDO sendOutDetail) throws Exception;
 
@@ -24,6 +25,7 @@ public interface SaleDeliveryOrderSendOutDetailDAO {
      *
      * @param saleDeliveryOrderItemId 销售出库单id
      * @return 发货明细
+     * @throws Exception
      */
-    List<SaleDeliveryOrderSendOutDetailDO> listBySaleDeliveryOrderItemId(Long saleDeliveryOrderItemId);
+    List<SaleDeliveryOrderSendOutDetailDO> listBySaleDeliveryOrderItemId(Long saleDeliveryOrderItemId) throws Exception;
 }

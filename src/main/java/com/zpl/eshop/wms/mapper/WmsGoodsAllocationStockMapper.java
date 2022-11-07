@@ -15,7 +15,8 @@ public interface WmsGoodsAllocationStockMapper {
     /**
      * 根据商品sku id查询商品库存
      *
-     * @param goodsSkuId 商品sku id
+     * @param goodsAllocationId 商品货位id
+     * @param goodsSkuId        商品skuId
      * @return 商品库存
      */
     @Select("SELECT "

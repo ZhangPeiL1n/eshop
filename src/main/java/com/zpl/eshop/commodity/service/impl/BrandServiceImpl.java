@@ -69,6 +69,7 @@ public class BrandServiceImpl implements BrandService {
      *
      * @param query 查询条件
      * @return 品牌列表
+     * @throws Exception
      */
     @Override
     public List<BrandDTO> listByPage(BrandQuery query) throws Exception {
@@ -80,6 +81,7 @@ public class BrandServiceImpl implements BrandService {
      *
      * @param id 品牌id
      * @return 品牌
+     * @throws Exception
      */
     @Override
     public BrandDTO getById(Long id) throws Exception {
@@ -92,6 +94,7 @@ public class BrandServiceImpl implements BrandService {
      * @param brand           品牌
      * @param logoFile        logo图片
      * @param authVoucherFile 品牌授权认证图片
+     * @throws Exception
      */
     @Override
     public void save(BrandDTO brand, MultipartFile logoFile, MultipartFile authVoucherFile) throws Exception {
@@ -146,6 +149,7 @@ public class BrandServiceImpl implements BrandService {
      * 更新批判
      *
      * @param brand 品牌
+     * @throws Exception
      */
     @Override
     public void update(BrandDTO brand) throws Exception {
@@ -158,6 +162,7 @@ public class BrandServiceImpl implements BrandService {
      *
      * @param id       品牌id
      * @param logoFile 图片文件
+     * @throws Exception
      */
     @Override
     public void updateLogoPicture(Long id, MultipartFile logoFile) throws Exception {
@@ -174,6 +179,7 @@ public class BrandServiceImpl implements BrandService {
      *
      * @param id              品牌id
      * @param authVoucherFile 授权认证图片
+     * @throws Exception
      */
     @Override
     public void updateAuthVoucherPicture(Long id, MultipartFile authVoucherFile) throws Exception {
@@ -189,9 +195,10 @@ public class BrandServiceImpl implements BrandService {
      * 删除品牌
      *
      * @param id 品牌id
+     * @throws Exception
      */
     @Override
-    public void remove(Long id) {
+    public void remove(Long id) throws Exception {
         BrandDO brand = brandDAO.getById(id);
         FileUtils.deleteFile(brand.getLogoPath());
         FileUtils.deleteFile(brand.getAuthVoucherPath());

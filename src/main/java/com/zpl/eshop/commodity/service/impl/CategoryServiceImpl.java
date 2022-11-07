@@ -69,6 +69,7 @@ public class CategoryServiceImpl implements CategoryService {
      *
      * @return 根类目集合
      */
+    @Override
     public List<CategoryDTO> listRoots() throws Exception {
         List<CategoryDO> roots = categoryDAO.listRoots();
         return ObjectUtils.convertList(roots, CategoryDTO.class);
@@ -80,6 +81,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @param id 父类目 id
      * @return 子类目集合
      */
+    @Override
     public List<CategoryDTO> listChildren(Long id) throws Exception {
         List<CategoryDO> children = categoryDAO.listChildren(id);
         return ObjectUtils.convertList(children, CategoryDTO.class);

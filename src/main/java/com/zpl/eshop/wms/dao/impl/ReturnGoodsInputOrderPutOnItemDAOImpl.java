@@ -35,6 +35,7 @@ public class ReturnGoodsInputOrderPutOnItemDAOImpl implements ReturnGoodsInputOr
      *
      * @param returnGoodsInputOrderItemId 退货入库单条目id
      * @return 上架条目
+     * @throws Exception
      */
     @Override
     public List<ReturnGoodsInputOrderPutOnItemDO> listByReturnGoodsInputOrderItemId(
@@ -46,6 +47,7 @@ public class ReturnGoodsInputOrderPutOnItemDAOImpl implements ReturnGoodsInputOr
      * 新增退货入库单上架条目
      *
      * @param putOnItem 上架条目
+     * @throws Exception
      */
     @Override
     public void save(ReturnGoodsInputOrderPutOnItemDO putOnItem) throws Exception {

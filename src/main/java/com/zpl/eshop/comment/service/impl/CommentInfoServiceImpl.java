@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -21,6 +22,7 @@ import java.util.Date;
  * @date 2022/1/12 22:40
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class CommentInfoServiceImpl implements CommentInfoService {
 
     private static final Logger logger = LoggerFactory.getLogger(CommentInfoServiceImpl.class);

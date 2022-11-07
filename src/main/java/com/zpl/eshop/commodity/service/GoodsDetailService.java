@@ -15,6 +15,7 @@ public interface GoodsDetailService {
      *
      * @param goodsId 商品id
      * @return 商品详情
+     * @throws Exception
      */
     GoodsDetailDTO getByGoodsId(Long goodsId) throws Exception;
 
@@ -23,6 +24,7 @@ public interface GoodsDetailService {
      *
      * @param goodsDetail 商品详情
      * @return 商品详情id
+     * @throws Exception
      */
     Long save(GoodsDetailDTO goodsDetail) throws Exception;
 
@@ -31,6 +33,7 @@ public interface GoodsDetailService {
      * 更新商品详情
      *
      * @param goodsDetail 商品详情
+     * @throws Exception
      */
     void update(GoodsDetailDTO goodsDetail) throws Exception;
 }

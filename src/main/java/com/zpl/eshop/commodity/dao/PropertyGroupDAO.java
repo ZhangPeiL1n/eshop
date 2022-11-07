@@ -17,6 +17,7 @@ public interface PropertyGroupDAO {
      *
      * @param propertyGroupDO 属性分组
      * @return 新增成功
+     * @throws Exception
      */
     Long save(PropertyGroupDO propertyGroupDO) throws Exception;
 
@@ -25,6 +26,7 @@ public interface PropertyGroupDAO {
      *
      * @param categoryId 类目id
      * @return 属性分组
+     * @throws Exception
      */
     List<PropertyGroupDO> listByCategoryId(Long categoryId) throws Exception;
 
@@ -32,6 +34,7 @@ public interface PropertyGroupDAO {
      * 根据类目id删除属性分组
      *
      * @param categoryId 类目id
+     * @throws Exception
      */
     void removeByCategoryId(Long categoryId) throws Exception;
 }

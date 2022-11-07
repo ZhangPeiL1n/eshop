@@ -15,20 +15,23 @@ public interface WmsGoodsStockDAO {
      *
      * @param goodsSkuId 商品sku id
      * @return 商品库存
+     * @throws Exception
      */
-    WmsGoodsStockDO getBySkuId(Long goodsSkuId);
+    WmsGoodsStockDO getBySkuId(Long goodsSkuId) throws Exception;
 
     /**
      * 新增商品库存
      *
      * @param goodsStockDO 商品库存DO对象
+     * @throws Exception
      */
-    void save(WmsGoodsStockDO goodsStockDO);
+    void save(WmsGoodsStockDO goodsStockDO) throws Exception;
 
     /**
      * 更新商品库存
      *
      * @param goodsStockDO 商品库存DO对象
+     * @throws Exception
      */
-    void update(WmsGoodsStockDO goodsStockDO);
+    void update(WmsGoodsStockDO goodsStockDO) throws Exception;
 }

@@ -12,6 +12,7 @@ public interface WmsStockUpdater {
      * 更新商品库存
      *
      * @return 处理结果
+     * @throws Exception
      */
     Boolean update() throws Exception;
 
@@ -21,6 +22,6 @@ public interface WmsStockUpdater {
      * @param parameter 参数
      * @throws Exception
      */
-    void setParameter(Object parameter);
+    void setParameter(Object parameter) throws Exception;
 
 }

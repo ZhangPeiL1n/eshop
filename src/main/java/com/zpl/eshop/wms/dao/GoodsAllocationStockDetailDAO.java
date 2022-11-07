@@ -17,29 +17,33 @@ public interface GoodsAllocationStockDetailDAO {
      *
      * @param goodsSkuId 商品sku id
      * @return 货位库存明细
+     * @throws Exception
      */
-    List<GoodsAllocationStockDetailDO> listByGoodsSkuId(Long goodsSkuId);
+    List<GoodsAllocationStockDetailDO> listByGoodsSkuId(Long goodsSkuId) throws Exception;
 
     /**
      * 根据id查询货位库存明细
      *
      * @param id 货位库粗明细id
      * @return 货位库存明细
+     * @throws Exception
      */
-    GoodsAllocationStockDetailDO getById(Long id);
+    GoodsAllocationStockDetailDO getById(Long id) throws Exception;
 
     /**
      * 更新货位库存明细
      *
      * @param stockDetail 货位库存明细
+     * @throws Exception
      */
-    void update(GoodsAllocationStockDetailDO stockDetail);
+    void update(GoodsAllocationStockDetailDO stockDetail) throws Exception;
 
     /**
      * 新增货位库存明细
      *
      * @param stockDetail 货位库存明细
+     * @throws Exception
      */
-    void save(GoodsAllocationStockDetailDO stockDetail);
+    void save(GoodsAllocationStockDetailDO stockDetail) throws Exception;
 
 }

@@ -44,9 +44,10 @@ public class PurchaseInputOrderItemDAOImpl implements PurchaseInputOrderItemDAO 
      *
      * @param purchaseInputOrderId 采购入库单id
      * @return 采购入库单条目
+     * @throws Exception
      */
     @Override
-    public List<PurchaseInputOrderItemDO> listByPurchaseInputOrderId(Long purchaseInputOrderId) {
+    public List<PurchaseInputOrderItemDO> listByPurchaseInputOrderId(Long purchaseInputOrderId) throws Exception {
         return purchaseInputOrderItemMapper.listByPurchaseInputOrderId(purchaseInputOrderId);
     }
 
@@ -54,9 +55,10 @@ public class PurchaseInputOrderItemDAOImpl implements PurchaseInputOrderItemDAO 
      * 更新采购入库单条目
      *
      * @param purchaseInputOrderItem 采购入库单条目
+     * @throws Exception
      */
     @Override
-    public void update(PurchaseInputOrderItemDO purchaseInputOrderItem) {
+    public void update(PurchaseInputOrderItemDO purchaseInputOrderItem) throws Exception {
         purchaseInputOrderItemMapper.update(purchaseInputOrderItem);
     }
 }
