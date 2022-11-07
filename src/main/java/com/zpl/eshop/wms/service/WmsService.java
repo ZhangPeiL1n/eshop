@@ -62,6 +62,14 @@ public interface WmsService {
      */
     Boolean informCancelOrderEvent(SaleDeliveryScheduleResult scheduleResult);
 
+    /**
+     * 根据商品 skuId 查询货位库存明细
+     *
+     * @param goodsSkuId 商品sku
+     * @return 货位库存明细
+     * @throws Exception
+     */
+    List<GoodsAllocationStockDetailDTO> listStockDetailsByGoodsSkuId(Long goodsSkuId) throws Exception;
 
     /**
      * 获取订单对应的物流单号

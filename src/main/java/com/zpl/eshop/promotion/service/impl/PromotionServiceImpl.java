@@ -35,39 +35,39 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Override
     public List<PromotionActivityDTO> listByGoodsId(Long goodsId) {
-        List<PromotionActivityDTO> promotionActivityDTOs = new ArrayList<>();
+        List<PromotionActivityDTO> promotionActivities = new ArrayList<>();
         try {
 
-            PromotionActivityDTO promotionActivityDTO1 = new PromotionActivityDTO();
-            promotionActivityDTO1.setId(1L);
-            promotionActivityDTO1.setName("测试促销活动1");
-            promotionActivityDTO1.setRemark("测试促销活动");
-            promotionActivityDTO1.setRule("测试促销活动规则");
-            promotionActivityDTO1.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
-            promotionActivityDTO1.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
-            promotionActivityDTO1.setStatus(PromotionActivityStatus.ENABLED);
-            promotionActivityDTO1.setType(PromotionActivityType.REACH_DISCOUNT);
-            promotionActivityDTO1.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-            promotionActivityDTO1.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-            promotionActivityDTOs.add(promotionActivityDTO1);
+            PromotionActivityDTO promotionActivity1 = new PromotionActivityDTO();
+            promotionActivity1.setId(1L);
+            promotionActivity1.setName("测试促销活动1");
+            promotionActivity1.setRemark("测试促销活动");
+            promotionActivity1.setRule("测试促销活动规则");
+            promotionActivity1.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
+            promotionActivity1.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
+            promotionActivity1.setStatus(PromotionActivityStatus.ENABLED);
+            promotionActivity1.setType(PromotionActivityType.REACH_DISCOUNT);
+            promotionActivity1.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
+            promotionActivity1.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
+            promotionActivities.add(promotionActivity1);
 
-            PromotionActivityDTO promotionActivityDTO2 = new PromotionActivityDTO();
-            promotionActivityDTO2.setId(2L);
-            promotionActivityDTO2.setName("测试促销活动2");
-            promotionActivityDTO2.setRemark("测试促销活动2");
-            promotionActivityDTO2.setRule("测试促销活动规则2");
-            promotionActivityDTO2.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
-            promotionActivityDTO2.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
-            promotionActivityDTO2.setStatus(PromotionActivityStatus.ENABLED);
-            promotionActivityDTO2.setType(PromotionActivityType.DIRECT_GIFT);
-            promotionActivityDTO2.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-            promotionActivityDTO2.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
-            promotionActivityDTOs.add(promotionActivityDTO2);
+            PromotionActivityDTO promotionActivity2 = new PromotionActivityDTO();
+            promotionActivity2.setId(2L);
+            promotionActivity2.setName("测试促销活动2");
+            promotionActivity2.setRemark("测试促销活动2");
+            promotionActivity2.setRule("测试促销活动规则2");
+            promotionActivity2.setStartTime(dateProvider.parse2Datetime("2022-02-08 23:50:00"));
+            promotionActivity2.setEndTime(dateProvider.parse2Datetime("2022-11-11 11:11:11"));
+            promotionActivity2.setStatus(PromotionActivityStatus.ENABLED);
+            promotionActivity2.setType(PromotionActivityType.DIRECT_GIFT);
+            promotionActivity2.setGmtCreate(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
+            promotionActivity2.setGmtModified(dateProvider.parse2Datetime("2022-02-14 11:11:11"));
+            promotionActivities.add(promotionActivity2);
         } catch (Exception e) {
             logger.error("error", e);
             return new ArrayList<>();
         }
-        return promotionActivityDTOs;
+        return promotionActivities;
     }
 
     /**
@@ -78,9 +78,11 @@ public class PromotionServiceImpl implements PromotionService {
      */
     @Override
     public PromotionActivityDTO getById(Long id) throws Exception {
-        if (id.equals(1L)) {
+        Long id1 = 1L;
+        Long id2 = 2L;
+        if (id.equals(id1)) {
             return createDiscountPromotionActivity(id);
-        } else if (id.equals(2L)) {
+        } else if (id.equals(id2)) {
             return createGiftPromotionActivity(id);
         }
         return null;

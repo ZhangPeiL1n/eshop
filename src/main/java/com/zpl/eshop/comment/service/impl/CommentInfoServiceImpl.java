@@ -51,11 +51,14 @@ public class CommentInfoServiceImpl implements CommentInfoService {
             commentInfoDTO.setCommentStatus(CommentStatus.APPROVING);
             // 设置评论的类型
             Integer commentType = 0;
-            if (totalScore >= 4) {
+            int goodThreshold = 4;
+            int midThreshold = 3;
+            int badThreshold = 0;
+            if (totalScore >= goodThreshold) {
                 commentType = CommentType.GOOD_COMMENT;
-            } else if (totalScore >= 3) {
+            } else if (totalScore >= midThreshold) {
                 commentType = CommentType.MEDIUM_COMMENT;
-            } else if (totalScore > 0) {
+            } else if (totalScore > badThreshold) {
                 commentType = CommentType.BAD_COMMENT;
             }
             commentInfoDTO.setCommentType(commentType);
