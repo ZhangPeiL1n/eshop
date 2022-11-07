@@ -1,6 +1,6 @@
 package com.zpl.eshop.wms.service;
 
-import com.zpl.eshop.order.domain.OrderInfoDTO;
+import com.zpl.eshop.schedule.domain.SaleDeliveryScheduleResult;
 import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
@@ -44,26 +44,26 @@ public interface WmsService {
     /**
      * 通知 wms中心，“提交订单“事件发生了
      *
-     * @param order 订单 DTO
+     * @param scheduleResult 调度结果
      * @return 处理结果
      */
-    Boolean informSubmitOrderEvent(OrderInfoDTO order);
+    Boolean informSubmitOrderEvent(SaleDeliveryScheduleResult scheduleResult);
 
     /**
      * 通知 wms中心，“支付订单”事件发生了
      *
-     * @param order 订单 DTO
+     * @param scheduleResult 调度结果
      * @return 处理结果
      */
-    Boolean informPayOrderEvent(OrderInfoDTO order);
+    Boolean informPayOrderEvent(SaleDeliveryScheduleResult scheduleResult);
 
     /**
      * 通知 wms中心，“取消订单”事件发生了
      *
-     * @param order 订单 DTO
+     * @param scheduleResult 调度结果
      * @return 处理结果
      */
-    Boolean informCancelOrderEvent(OrderInfoDTO order);
+    Boolean informCancelOrderEvent(SaleDeliveryScheduleResult scheduleResult);
 
     /**
      * 根据商品 skuId 查询货位库存明细

@@ -36,7 +36,7 @@ public interface CustomerService {
      * @param returnGoodsWorksheetId 退货工单id
      * @return 处理结果
      */
-    Boolean informReturnGoodsInputFinishEvent(Long returnGoodsWorksheetId);
+    Boolean informReturnGoodsInputFinishedEvent(Long returnGoodsWorksheetId);
 
     /**
      * 通知客服中心，“完成退款”事件发生了
@@ -44,5 +44,5 @@ public interface CustomerService {
      * @param returnGoodsWorksheetId 退货工单id
      * @return 处理结果
      */
-    Boolean informRefundFinishEvent(Long returnGoodsWorksheetId);
+    Boolean informRefundFinishedEvent(Long returnGoodsWorksheetId);
 }

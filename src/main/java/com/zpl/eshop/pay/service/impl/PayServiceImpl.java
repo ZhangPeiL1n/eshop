@@ -1,6 +1,8 @@
-package com.zpl.eshop.pay.service;
+package com.zpl.eshop.pay.service.impl;
 
 import com.zpl.eshop.order.domain.OrderInfoDTO;
+import com.zpl.eshop.pay.service.PayService;
+import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,17 @@ public class PayServiceImpl implements PayService {
      */
     @Override
     public String getQrCode(OrderInfoDTO order) {
+        return null;
+    }
+
+    /**
+     * 进行退款
+     *
+     * @param returnGoodsInputOrder 退货入库单
+     * @return 退款结果
+     */
+    @Override
+    public Boolean refund(ReturnGoodsInputOrderDTO returnGoodsInputOrder) {
         return null;
     }
 }

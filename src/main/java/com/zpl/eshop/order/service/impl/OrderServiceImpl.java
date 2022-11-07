@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informGoodsDeliveryFinishEvent(Long orderId) {
+    public Boolean informGoodsDeliveryFinishedEvent(Long orderId) {
         return true;
     }
 
@@ -99,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
      * @return 处理结果
      */
     @Override
-    public Boolean informPaySucceed(Long orderId) {
+    public Boolean informPayOrderSucceed(Long orderId) {
         return true;
     }
 
@@ -116,11 +116,11 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 通知订单中心，“批量发表评论”事件发生了
      *
-     * @param orderId 订单 id 集合
+     * @param orderIds 订单 id 集合
      * @return 处理结果
      */
     @Override
-    public Boolean informBatchPublishCommentEvent(List<Long> orderId) {
+    public Boolean informBatchPublishCommentEvent(List<Long> orderIds) {
         return true;
     }
 

@@ -17,7 +17,7 @@ public interface OrderService {
      * @param orderId 订单 id
      * @return 处理结果
      */
-    Boolean informGoodsDeliveryFinishEvent(Long orderId);
+    Boolean informGoodsDeliveryFinishedEvent(Long orderId);
 
     /**
      * 通知订单中心，“退货工单审核不通过”事件发生了
@@ -73,7 +73,7 @@ public interface OrderService {
      * @param orderId 订单id
      * @return 处理结果
      */
-    Boolean informPaySucceed(Long orderId);
+    Boolean informPayOrderSucceed(Long orderId);
 
     /**
      * 从订单中心获取，确认收货时间超过了 7天而且没有发表评论的订单
@@ -85,10 +85,10 @@ public interface OrderService {
     /**
      * 通知订单中心，“批量发表评论”事件发生了
      *
-     * @param orderId 订单 id 集合
+     * @param orderIds 订单 id 集合
      * @return 处理结果
      */
-    Boolean informBatchPublishCommentEvent(List<Long> orderId);
+    Boolean informBatchPublishCommentEvent(List<Long> orderIds);
 
     /**
      * 根据id查询订单

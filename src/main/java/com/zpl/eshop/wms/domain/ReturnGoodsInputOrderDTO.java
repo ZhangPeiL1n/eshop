@@ -23,9 +23,14 @@ public class ReturnGoodsInputOrderDTO extends AbstractObject {
     private Long id;
 
     /**
+     * 退货工单id
+     */
+    private Long returnGoodsWorksheetId;
+
+    /**
      * 用户帐号 id
      */
-    private String userAccountId;
+    private Long userAccountId;
 
     /**
      * 订单 id
@@ -119,7 +124,7 @@ public class ReturnGoodsInputOrderDTO extends AbstractObject {
     /**
      * 退货入库单创建时间
      */
-    private Date gmtCreateTime;
+    private Date gmtCreate;
 
     /**
      * 退货入库单修改时间
