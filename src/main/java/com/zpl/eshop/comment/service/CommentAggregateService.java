@@ -18,5 +18,5 @@ public interface CommentAggregateService {
      * @return 更新是否成功
      * @throws Exception
      */
-    Boolean updateCommentAggregate(CommentInfoDTO commentInfoDTO) throws Exception;
+    void updateCommentAggregate(CommentInfoDTO commentInfoDTO) throws Exception;
 }

@@ -54,9 +54,10 @@ public class GoodsPictureServiceImpl implements GoodsPictureService {
      *
      * @param goodsId 商品id
      * @return 商品图片id
+     * @throws Exception
      */
     @Override
-    public List<Long> listIdsByGoodsId(Long goodsId) {
+    public List<Long> listIdsByGoodsId(Long goodsId) throws Exception {
         return goodsPictureDAO.listIdsByGoodsId(goodsId);
     }
 
@@ -65,6 +66,7 @@ public class GoodsPictureServiceImpl implements GoodsPictureService {
      *
      * @param id 商品图片id
      * @return 商品图片
+     * @throws Exception
      */
     @Override
     public GoodsPictureDTO getById(Long id) throws Exception {
@@ -90,9 +92,10 @@ public class GoodsPictureServiceImpl implements GoodsPictureService {
      * 根据商品id删除图片
      *
      * @param goodsId 商品id
+     * @throws Exception
      */
     @Override
-    public void batchRemoveByGoodsId(Long goodsId) {
+    public void batchRemoveByGoodsId(Long goodsId) throws Exception {
         List<GoodsPictureDO> pictures = goodsPictureDAO.listByGoodsId(goodsId);
         pictures.forEach(picture -> {
             FileUtils.deleteFile(picture.getPicturePath());
@@ -106,6 +109,7 @@ public class GoodsPictureServiceImpl implements GoodsPictureService {
      * @param goodsId     商品id
      * @param picturePath 图片路径
      * @return 商品图片DO
+     * @throws Exception
      */
     private void saveGoodsPicture(Long goodsId, String picturePath) throws Exception {
         GoodsPictureDO picture = new GoodsPictureDO();
@@ -131,7 +135,7 @@ public class GoodsPictureServiceImpl implements GoodsPictureService {
     /**
      * 获取最终图片上传的路径
      *
-     * @return
+     * @return 上传路径
      * @throws Exception
      */
     private String getUploadDirPath() throws Exception {

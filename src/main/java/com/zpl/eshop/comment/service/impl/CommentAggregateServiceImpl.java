@@ -27,7 +27,7 @@ public class CommentAggregateServiceImpl implements CommentAggregateService {
     private CommentAggregateDAO commentAggregateDAO;
 
     @Override
-    public Boolean updateCommentAggregate(CommentInfoDTO commentInfoDTO) {
+    public void updateCommentAggregate(CommentInfoDTO commentInfoDTO) {
         CommentAggregateDO commentAggregateDO = commentAggregateDAO.getCommentAggregateByGoodsId(commentInfoDTO.getGoodsId());
         if (commentAggregateDO == null) {
             commentAggregateDO = new CommentAggregateDO();
@@ -65,6 +65,5 @@ public class CommentAggregateServiceImpl implements CommentAggregateService {
             commentAggregateDO.setGmtModified(new Date());
             commentAggregateDAO.updateCommentAggregate(commentAggregateDO);
         }
-        return true;
     }
 }

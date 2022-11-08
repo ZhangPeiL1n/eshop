@@ -86,7 +86,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<GoodsDTO> listByPage(GoodsQuery query) throws Exception {
         List<GoodsDO> goods = goodsDAO.listByPage(query);
-
         return ObjectUtils.convertList(goods, GoodsDTO.class);
     }
 
@@ -94,7 +93,8 @@ public class GoodsServiceImpl implements GoodsService {
      * 根据id查询商品
      *
      * @param id 商品id
-     * @return
+     * @return 商品
+     * @throws Exception
      */
     @Override
     public GoodsDTO getById(Long id) throws Exception {
@@ -105,6 +105,8 @@ public class GoodsServiceImpl implements GoodsService {
      * 新增商品
      *
      * @param goods 商品
+     * @return 商品id
+     * @throws Exception
      */
     @Override
     public Long save(GoodsDTO goods) throws Exception {
@@ -121,6 +123,7 @@ public class GoodsServiceImpl implements GoodsService {
      * 更新商品
      *
      * @param goods 商品
+     * @throws Exception
      */
     @Override
     public Boolean update(GoodsDTO goods) throws Exception {
@@ -135,8 +138,10 @@ public class GoodsServiceImpl implements GoodsService {
     /**
      * 审核商品
      *
-     * @param goodsId 商品id
+     * @param goodsId       商品id
+     * @param approveResult 审核结果
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean approve(Long goodsId, Integer approveResult) throws Exception {
@@ -153,6 +158,7 @@ public class GoodsServiceImpl implements GoodsService {
      *
      * @param goodsId 商品id
      * @return 上架结果
+     * @throws Exception
      */
     @Override
     public Boolean putOnShelves(Long goodsId) throws Exception {

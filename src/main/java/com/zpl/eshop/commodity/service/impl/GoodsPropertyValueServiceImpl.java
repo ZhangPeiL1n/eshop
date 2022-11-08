@@ -39,6 +39,7 @@ public class GoodsPropertyValueServiceImpl implements GoodsPropertyValueService 
      *
      * @param goodsId 商品id
      * @return 属性值
+     * @throws Exception
      */
     @Override
     public List<GoodsPropertyValueDTO> listByGoodsId(Long goodsId) throws Exception {
@@ -49,9 +50,10 @@ public class GoodsPropertyValueServiceImpl implements GoodsPropertyValueService 
      * 新增商品属性值
      *
      * @param propertyValues 商品属性值
+     * @throws Exception
      */
     @Override
-    public void batchSave(List<GoodsPropertyValueDTO> propertyValues) {
+    public void batchSave(List<GoodsPropertyValueDTO> propertyValues) throws Exception {
         propertyValues.forEach(propertyValue -> {
             try {
                 propertyValue.setGmtCreate(dateProvider.getCurrentTime());
@@ -67,9 +69,10 @@ public class GoodsPropertyValueServiceImpl implements GoodsPropertyValueService 
      * 根据商品id删除图片
      *
      * @param goodsId 商品id
+     * @throws Exception
      */
     @Override
-    public void removeByGoodsId(Long goodsId) {
+    public void removeByGoodsId(Long goodsId) throws Exception {
         goodsPropertyValueDAO.removeByGoodsId(goodsId);
     }
 }

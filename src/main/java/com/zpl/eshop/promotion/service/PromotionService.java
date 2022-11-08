@@ -46,5 +46,5 @@ public interface PromotionService {
      * @return 处理结果
      * @throws Exception
      */
-    public Boolean useCoupon(Long couponId, Long userAccountId) throws Exception;
+    Boolean useCoupon(Long couponId, Long userAccountId) throws Exception;
 }

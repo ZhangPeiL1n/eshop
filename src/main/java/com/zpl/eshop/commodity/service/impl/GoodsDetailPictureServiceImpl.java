@@ -56,6 +56,7 @@ public class GoodsDetailPictureServiceImpl implements GoodsDetailPictureService 
      *
      * @param id 商品图片id
      * @return 商品图片
+     * @throws Exception
      */
     @Override
     public GoodsDetailPictureDTO getById(Long id) throws Exception {
@@ -68,9 +69,10 @@ public class GoodsDetailPictureServiceImpl implements GoodsDetailPictureService 
      * @param goodsDetailId 商品详情id
      * @param pictures      图片
      * @return 图片id
+     * @throws Exception
      */
     @Override
-    public List<Long> batchUploadPicture(Long goodsDetailId, MultipartFile[] pictures) {
+    public List<Long> batchUploadPicture(Long goodsDetailId, MultipartFile[] pictures) throws Exception {
         ArrayList<Long> ids = new ArrayList<>(pictures.length);
         Arrays.stream(pictures).forEach(picture -> {
             try {
@@ -87,6 +89,7 @@ public class GoodsDetailPictureServiceImpl implements GoodsDetailPictureService 
      * 根据商品详情id删除图片
      *
      * @param goodsDetailId 商品id
+     * @throws Exception
      */
     @Override
     public void batchRemoveByGoodsDetailId(Long goodsDetailId) throws Exception {
@@ -103,6 +106,7 @@ public class GoodsDetailPictureServiceImpl implements GoodsDetailPictureService 
      * @param goodsDetailId 商品id
      * @param picturePath   图片路径
      * @return 商品图片DO
+     * @throws Exception
      */
     private Long saveGoodsPicture(Long goodsDetailId, String picturePath) throws Exception {
         GoodsDetailPictureDO picture = new GoodsDetailPictureDO();

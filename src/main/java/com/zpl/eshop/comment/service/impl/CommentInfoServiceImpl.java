@@ -36,48 +36,41 @@ public class CommentInfoServiceImpl implements CommentInfoService {
      * 新增评论信息
      *
      * @param commentInfoDTO 评论信息对象
-     * @return 新增是否成功
      */
     @Override
-    public Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfoDTO) {
-        try {
-            // 计算总分数
-            Integer totalScore = Math.round((commentInfoDTO.getGoodsScore()
-                    + commentInfoDTO.getLogisticsScore()
-                    + commentInfoDTO.getCustomerServiceScore()) / 3);
-            commentInfoDTO.setTotalScore(totalScore);
+    public void saveManualPublishedCommentInfo(CommentInfoDTO commentInfoDTO) {
+        // 计算总分数
+        Integer totalScore = Math.round((commentInfoDTO.getGoodsScore()
+                + commentInfoDTO.getLogisticsScore()
+                + commentInfoDTO.getCustomerServiceScore()) / 3);
+        commentInfoDTO.setTotalScore(totalScore);
 
-            // 设置是否是默认评论
-            commentInfoDTO.setDefaultComment(DefaultComment.NO);
-            // 设置评论状态
-            commentInfoDTO.setCommentStatus(CommentStatus.APPROVING);
-            // 设置评论的类型
-            Integer commentType = 0;
-            int goodThreshold = 4;
-            int midThreshold = 3;
-            int badThreshold = 0;
-            if (totalScore >= goodThreshold) {
-                commentType = CommentType.GOOD_COMMENT;
-            } else if (totalScore >= midThreshold) {
-                commentType = CommentType.MEDIUM_COMMENT;
-            } else if (totalScore > badThreshold) {
-                commentType = CommentType.BAD_COMMENT;
-            }
-            commentInfoDTO.setCommentType(commentType);
-
-            commentInfoDTO.setGmtCreate(new Date());
-            commentInfoDTO.setGmtCreate(new Date());
-
-            // 保存评论信息
-            CommentInfoDO commentInfoDO = commentInfoDTO.clone(CommentInfoDO.class);
-            Boolean result = commentInfoDAO.saveCommentInfo(commentInfoDO);
-            //设置评论信息的 id
-            commentInfoDTO.setId(commentInfoDO.getId());
-            return result;
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
+        // 设置是否是默认评论
+        commentInfoDTO.setDefaultComment(DefaultComment.NO);
+        // 设置评论状态
+        commentInfoDTO.setCommentStatus(CommentStatus.APPROVING);
+        // 设置评论的类型
+        Integer commentType = 0;
+        int goodThreshold = 4;
+        int midThreshold = 3;
+        int badThreshold = 0;
+        if (totalScore >= goodThreshold) {
+            commentType = CommentType.GOOD_COMMENT;
+        } else if (totalScore >= midThreshold) {
+            commentType = CommentType.MEDIUM_COMMENT;
+        } else if (totalScore > badThreshold) {
+            commentType = CommentType.BAD_COMMENT;
         }
+        commentInfoDTO.setCommentType(commentType);
+
+        commentInfoDTO.setGmtCreate(new Date());
+        commentInfoDTO.setGmtCreate(new Date());
+
+        // 保存评论信息
+        CommentInfoDO commentInfoDO = commentInfoDTO.clone(CommentInfoDO.class);
+        Boolean result = commentInfoDAO.saveCommentInfo(commentInfoDO);
+        //设置评论信息的 id
+        commentInfoDTO.setId(commentInfoDO.getId());
     }
 
     /**

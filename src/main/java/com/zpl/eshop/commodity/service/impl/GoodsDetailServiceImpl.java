@@ -36,6 +36,7 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
      *
      * @param goodsId 商品id
      * @return 商品详情
+     * @throws Exception
      */
     @Override
     public GoodsDetailDTO getByGoodsId(Long goodsId) throws Exception {
@@ -47,6 +48,7 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
      *
      * @param goodsDetail 商品详情
      * @return 商品详情id
+     * @throws Exception
      */
     @Override
     public Long save(GoodsDetailDTO goodsDetail) throws Exception {
@@ -60,6 +62,7 @@ public class GoodsDetailServiceImpl implements GoodsDetailService {
      * 更新商品详情
      *
      * @param goodsDetail 商品详情
+     * @throws Exception
      */
     @Override
     public void update(GoodsDetailDTO goodsDetail) throws Exception {

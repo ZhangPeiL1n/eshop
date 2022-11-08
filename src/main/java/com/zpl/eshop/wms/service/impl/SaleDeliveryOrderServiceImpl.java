@@ -132,6 +132,7 @@ public class SaleDeliveryOrderServiceImpl implements SaleDeliveryOrderService {
      *
      * @param query 查询条件
      * @return 销售出库单
+     * @throws Exception
      */
     @Override
     public List<SaleDeliveryOrderDTO> listByPage(SaleDeliveryOrderQuery query) throws Exception {
@@ -192,10 +193,11 @@ public class SaleDeliveryOrderServiceImpl implements SaleDeliveryOrderService {
     }
 
     /**
-     * 根据id查询销售出库单
+     * 根据订单id查询销售出库单
      *
-     * @param id 销售出库单id
+     * @param orderId 订单id
      * @return 销售出库单
+     * @throws Exception
      */
     @Override
     public SaleDeliveryOrderDTO getByOrderId(Long orderId) throws Exception {
@@ -207,6 +209,7 @@ public class SaleDeliveryOrderServiceImpl implements SaleDeliveryOrderService {
      *
      * @param id           销售出库单id
      * @param deliveryTime 发货时间
+     * @throws Exception
      */
     @Override
     public void updateDeliveryTime(Long id, Date deliveryTime) throws Exception {

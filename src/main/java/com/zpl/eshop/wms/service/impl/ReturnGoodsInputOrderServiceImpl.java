@@ -101,10 +101,10 @@ public class ReturnGoodsInputOrderServiceImpl implements ReturnGoodsInputOrderSe
      *
      * @param query 查询条件
      * @return 退货入库单
+     * @throws Exception
      */
     @Override
-    public List<ReturnGoodsInputOrderDTO> listByPage(
-            ReturnGoodsInputOrderQuery query) throws Exception {
+    public List<ReturnGoodsInputOrderDTO> listByPage(ReturnGoodsInputOrderQuery query) throws Exception {
         return ObjectUtils.convertList(
                 returnGoodsInputOrderDAO.listByPage(query),
                 ReturnGoodsInputOrderDTO.class);
@@ -211,5 +211,4 @@ public class ReturnGoodsInputOrderServiceImpl implements ReturnGoodsInputOrderSe
         membershipService.informFinishReturnGoodsEvent(returnGoodsInputOrder.getUserAccountId(),
                 returnGoodsInputOrder.getPayableAmount());
     }
-
 }

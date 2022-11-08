@@ -4,6 +4,7 @@ import com.zpl.eshop.purchase.service.PurchaseService;
 import com.zpl.eshop.schedule.domain.SaleDeliveryScheduleResult;
 import com.zpl.eshop.wms.constant.PurchaseInputOrderStatus;
 import com.zpl.eshop.wms.constant.WmsStockUpdateEvent;
+import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
@@ -18,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author ZhangPeiL1n
@@ -164,6 +167,18 @@ public class WmsServiceImpl implements WmsService {
             logger.error("error", e);
             return false;
         }
+    }
+
+    /**
+     * 根据商品 skuId 查询货位库存明细
+     *
+     * @param goodsSkuId 商品sku
+     * @return 货位库存明细
+     * @throws Exception
+     */
+    @Override
+    public List<GoodsAllocationStockDetailDTO> listStockDetailsByGoodsSkuId(Long goodsSkuId) throws Exception {
+        return null;
     }
 
 

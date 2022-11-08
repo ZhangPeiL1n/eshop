@@ -10,6 +10,7 @@ import com.zpl.eshop.wms.domain.*;
 import com.zpl.eshop.wms.service.PurchaseInputOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * @date 2022/10/6 16:54
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class PurchaseInputOrderServiceImpl implements PurchaseInputOrderService {
 
     /**
@@ -27,11 +29,13 @@ public class PurchaseInputOrderServiceImpl implements PurchaseInputOrderService 
      */
     @Autowired
     private PurchaseInputOrderDAO purchaseInputOrderDAO;
+
     /**
      * 采购入库单条目管理DAO组件
      */
     @Autowired
     private PurchaseInputOrderItemDAO purchaseInputOrderItemDAO;
+
     /**
      * 采购入库单上架条目管理的DAO组件
      */
@@ -48,6 +52,7 @@ public class PurchaseInputOrderServiceImpl implements PurchaseInputOrderService 
      * 新增采购入库单
      *
      * @param purchaseInputOrder 采购入库单
+     * @throws Exception
      */
     @Override
     public void save(PurchaseInputOrderDTO purchaseInputOrder) throws Exception {

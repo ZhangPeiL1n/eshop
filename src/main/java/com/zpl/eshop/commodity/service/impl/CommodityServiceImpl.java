@@ -5,8 +5,6 @@ import com.zpl.eshop.commodity.domain.GoodsSkuDTO;
 import com.zpl.eshop.commodity.service.CommodityService;
 import com.zpl.eshop.commodity.service.GoodsService;
 import com.zpl.eshop.commodity.service.GoodsSkuService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class CommodityServiceImpl implements CommodityService {
-
-    private final Logger logger = LoggerFactory.getLogger(CommodityServiceImpl.class);
 
     /**
      * 商品Sku管理模块Service组件
@@ -42,13 +38,8 @@ public class CommodityServiceImpl implements CommodityService {
      * @return 商品 sku dto
      */
     @Override
-    public GoodsSkuDTO getGoodsSkuById(Long goodsSkuId) {
-        try {
-            return goodsSkuService.getById(goodsSkuId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public GoodsSkuDTO getGoodsSkuById(Long goodsSkuId) throws Exception {
+        return goodsSkuService.getById(goodsSkuId);
     }
 
     /**
@@ -58,12 +49,7 @@ public class CommodityServiceImpl implements CommodityService {
      * @return 商品
      */
     @Override
-    public GoodsDTO getGoodsById(Long goodsId) {
-        try {
-            return goodsService.getById(goodsId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public GoodsDTO getGoodsById(Long goodsId) throws Exception {
+        return goodsService.getById(goodsId);
     }
 }

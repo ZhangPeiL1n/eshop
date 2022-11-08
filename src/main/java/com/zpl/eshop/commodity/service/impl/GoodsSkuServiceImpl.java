@@ -69,6 +69,7 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
      *
      * @param goodsId 商品id
      * @return 商品sku
+     * @throws Exception
      */
     @Override
     public List<GoodsSkuDTO> listByGoodsId(Long goodsId) throws Exception {
@@ -108,9 +109,10 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
      * 根据商品id删除sku
      *
      * @param goodsId 商品id
+     * @throws Exception
      */
     @Override
-    public void removeByGoodsId(Long goodsId) {
+    public void removeByGoodsId(Long goodsId) throws Exception {
         List<GoodsSkuDO> goodsSkus = goodsSkuDAO.listByGoodsId(goodsId);
         goodsSkus.forEach(goodsSku -> {
             goodsSkuSalePropertyValueDAO.removeByGoodsSkuId(goodsSku.getId());
@@ -122,8 +124,9 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
      * 批量新增商品sku的销售属性值
      *
      * @param propertyValues 属性值
+     * @throws Exception
      */
-    private void batchSavePropertyValues(Long goodsSkuId, List<GoodsSkuSalePropertyValueDTO> propertyValues) {
+    private void batchSavePropertyValues(Long goodsSkuId, List<GoodsSkuSalePropertyValueDTO> propertyValues) throws Exception {
         propertyValues.forEach(propertyValue -> {
             try {
                 propertyValue.setGoodsSkuId(goodsSkuId);
@@ -154,10 +157,11 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
      * 获取销售属性
      *
      * @param propertyValues 属性值
-     * @return
+     * @return 销售属性
+     * @throws Exception
      */
     private String getSaleProperties(List<GoodsSkuSalePropertyValueDTO> propertyValues) throws Exception {
-        StringBuilder builder = new StringBuilder("");
+        StringBuilder builder = new StringBuilder();
         for (int i = 0; i < propertyValues.size(); i++) {
             CategoryPropertyRelationshipDO relation = categoryPropertyRelationshipDAO.getById(propertyValues.get(i).getRelationId());
             PropertyDO property = propertyDAO.getPropertyById(relation.getPropertyId());
@@ -174,6 +178,7 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
      *
      * @param id 商品skuId
      * @return 商品sku
+     * @throws Exception
      */
     @Override
     public GoodsSkuDTO getById(Long id) throws Exception {
@@ -187,6 +192,7 @@ public class GoodsSkuServiceImpl implements GoodsSkuService {
      *
      * @param query 查询条件
      * @return 商品sku
+     * @throws Exception
      */
     @Override
     public List<GoodsSkuDTO> listByPage(GoodsSkuQuery query) throws Exception {

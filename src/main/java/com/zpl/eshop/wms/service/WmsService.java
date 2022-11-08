@@ -1,9 +1,12 @@
 package com.zpl.eshop.wms.service;
 
 import com.zpl.eshop.schedule.domain.SaleDeliveryScheduleResult;
+import com.zpl.eshop.wms.domain.GoodsAllocationStockDetailDTO;
 import com.zpl.eshop.wms.domain.PurchaseInputOrderDTO;
 import com.zpl.eshop.wms.domain.ReturnGoodsInputOrderDTO;
 import com.zpl.eshop.wms.domain.SaleDeliveryOrderDTO;
+
+import java.util.List;
 
 /**
  * wms中心对外提供的接口

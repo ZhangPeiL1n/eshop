@@ -24,50 +24,44 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
-
-    /**
-     * 类目DAO组件
-     */
-    @Autowired
-    private CategoryDAO categoryDAO;
-
-    /**
-     * 类目属性管理DAO组件
-     */
-    @Autowired
-    private CategoryPropertyRelationshipDAO categoryPropertyRelationDAO;
-
-    /**
-     * 属性分组DAO组件
-     */
-    @Autowired
-    private PropertyGroupDAO propertyGroupDAO;
-
-    /**
-     * 属性分组与属性管理DAO
-     */
-    @Autowired
-    private PropertyGroupRelationshipDAO propertyGroupRelationDAO;
-
-    /**
-     * 属性管理DAO
-     */
-    @Autowired
-    private PropertyDAO propertyDAO;
-
-    @Autowired
-    private DateProvider dateProvider;
-
     /**
      * Spring 容器组件
      */
     @Autowired
     SpringApplicationContext context;
+    /**
+     * 类目DAO组件
+     */
+    @Autowired
+    private CategoryDAO categoryDAO;
+    /**
+     * 类目属性管理DAO组件
+     */
+    @Autowired
+    private CategoryPropertyRelationshipDAO categoryPropertyRelationDAO;
+    /**
+     * 属性分组DAO组件
+     */
+    @Autowired
+    private PropertyGroupDAO propertyGroupDAO;
+    /**
+     * 属性分组与属性管理DAO
+     */
+    @Autowired
+    private PropertyGroupRelationshipDAO propertyGroupRelationDAO;
+    /**
+     * 属性管理DAO
+     */
+    @Autowired
+    private PropertyDAO propertyDAO;
+    @Autowired
+    private DateProvider dateProvider;
 
     /**
      * 查询根类目
      *
      * @return 根类目集合
+     * @throws Exception
      */
     @Override
     public List<CategoryDTO> listRoots() throws Exception {
@@ -80,6 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
      *
      * @param id 父类目 id
      * @return 子类目集合
+     * @throws Exception
      */
     @Override
     public List<CategoryDTO> listChildren(Long id) throws Exception {
@@ -91,6 +86,7 @@ public class CategoryServiceImpl implements CategoryService {
      * 新增类目
      *
      * @return 类目
+     * @throws Exception
      */
     @Override
     public Boolean save(CategoryDTO categoryDTO) throws Exception {
@@ -107,6 +103,7 @@ public class CategoryServiceImpl implements CategoryService {
      * 保存类目基本信息
      *
      * @param categoryDTO 类目基本信息
+     * @throws Exception
      */
     private void saveCategory(CategoryDTO categoryDTO) throws Exception {
         categoryDTO.setGmtCreate(dateProvider.getCurrentTime());
@@ -155,7 +152,7 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * 保存属性分组与属性的关联关系
      *
-     * @param groups
+     * @param groups 属性分组
      * @throws Exception
      */
     private void savePropertyGroupRelations(PropertyGroupDTO groups) throws Exception {
@@ -175,6 +172,7 @@ public class CategoryServiceImpl implements CategoryService {
      *
      * @param id 类目id
      * @return 类目
+     * @throws Exception
      */
     @Override
     public CategoryDTO getById(Long id) throws Exception {
@@ -245,20 +243,22 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * 更新类目
+     *
      * @param category 类目
      * @throws Exception
      */
-    private void updateCategory(CategoryDTO category) throws Exception{
+    private void updateCategory(CategoryDTO category) throws Exception {
         category.setGmtModified(dateProvider.getCurrentTime());
         categoryDAO.update(category.clone(CategoryDO.class));
     }
 
     /**
      * 删除类目与属性的关联关系
+     *
      * @param category 类目
      * @throws Exception
      */
-    private void removeCategoryPropertyRelations(CategoryDTO category) throws Exception{
+    private void removeCategoryPropertyRelations(CategoryDTO category) throws Exception {
         categoryPropertyRelationDAO.removeByCategoryId(category.getId());
 
     }
@@ -267,6 +267,7 @@ public class CategoryServiceImpl implements CategoryService {
      * 删除类目的属性分组与属性的关联关系
      *
      * @param category 类目
+     * @throws Exception
      */
     private void removePropertyGroupRelations(CategoryDTO category) throws Exception {
         List<PropertyGroupDO> propertyGroups = propertyGroupDAO.listByCategoryId(category.getId());
