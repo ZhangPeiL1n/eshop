@@ -13,15 +13,11 @@ import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.service.InventoryService;
 import com.zpl.eshop.promotion.domain.PromotionActivityDTO;
 import com.zpl.eshop.promotion.service.PromotionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,40 +25,44 @@ import java.util.List;
  * @date 2022/1/20 22:48
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
     /**
      * 购物车管理模块DAO组件
      */
     @Autowired
     private ShoppingCartDAO shoppingCartDAO;
+
     /**
      * 购物车条目管理模块DAO组件
      */
     @Autowired
     private ShoppingCartItemDAO shoppingCartItemDAO;
+
     /**
      * 商品中心对外接口Service组件
      */
     @Autowired
     private CommodityService commodityService;
+
     /**
      * 库存中心对外接口Service组件
      */
     @Autowired
     private InventoryService inventoryService;
+
     /**
      * 促销中心对外接口Service组件
      */
     @Autowired
     private PromotionService promotionService;
+
     /**
      * 日期辅助组件
      */
     @Autowired
     private DateProvider dateProvider;
-
 
     /**
      * 添加购物车条目
@@ -70,43 +70,32 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * @param userAccountId 用户帐号id
      * @param goodsSkuId    商品条目
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean addShoppingCartItem(Long userAccountId, Long goodsSkuId) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date currentTime = dateFormat.parse(dateFormat.format(new Date()));
-        try {
-            // 根据用户帐号id查找一下购物车
-            ShoppingCartDO shoppingCartDO = shoppingCartDAO.getShoppingCartByUserAccountId(userAccountId);
-            // 如果购物车不存在，则创建一个购物车
-            if (shoppingCartDO == null) {
-                shoppingCartDO = new ShoppingCartDO();
-                shoppingCartDO.setUserAccountId(userAccountId);
-                shoppingCartDO.setGmtCreate(currentTime);
-                shoppingCartDO.setGmtModified(currentTime);
-                shoppingCartDAO.saveShoppingCart(shoppingCartDO);
-            }
+    public Boolean addShoppingCartItem(Long userAccountId, Long goodsSkuId) throws Exception {
+        // 根据用户帐号id查找一下购物车
+        ShoppingCartDO shoppingCartDO = shoppingCartDAO.getShoppingCartByUserAccountId(userAccountId);
+        // 如果购物车不存在，则创建一个购物车
+        if (shoppingCartDO == null) {
+            shoppingCartDO = new ShoppingCartDO();
+            shoppingCartDO.setUserAccountId(userAccountId);
+            shoppingCartDAO.saveShoppingCart(shoppingCartDO);
+        }
 
-            // 查询一下购物车中是否存在这个商品条目
-            ShoppingCartItemDO shoppingCartItemDO = shoppingCartItemDAO.getShoppingCartItemByGoodsSkuId(shoppingCartDO.getId(), goodsSkuId);
-            // 如果不存在就新增
-            if (shoppingCartItemDO == null) {
-                shoppingCartItemDO = new ShoppingCartItemDO();
-                shoppingCartItemDO.setShoppingCartId(shoppingCartDO.getId());
-                shoppingCartItemDO.setGoodsSkuId(goodsSkuId);
-                shoppingCartItemDO.setPurchaseQuantity(1L);
-                shoppingCartItemDO.setGmtCreate(currentTime);
-                shoppingCartItemDO.setGmtModified(currentTime);
-                shoppingCartItemDAO.saveShoppingCartItem(shoppingCartItemDO);
-                // 如果存在则购买数量 +1
-            } else {
-                shoppingCartItemDO.setPurchaseQuantity(shoppingCartItemDO.getPurchaseQuantity() + 1L);
-                shoppingCartItemDO.setGmtModified(currentTime);
-                shoppingCartItemDAO.updateShoppingCartItem(shoppingCartItemDO);
-            }
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
+        // 查询一下购物车中是否存在这个商品条目
+        ShoppingCartItemDO shoppingCartItemDO = shoppingCartItemDAO.getShoppingCartItemByGoodsSkuId(shoppingCartDO.getId(), goodsSkuId);
+        // 如果不存在就新增
+        if (shoppingCartItemDO == null) {
+            shoppingCartItemDO = new ShoppingCartItemDO();
+            shoppingCartItemDO.setShoppingCartId(shoppingCartDO.getId());
+            shoppingCartItemDO.setGoodsSkuId(goodsSkuId);
+            shoppingCartItemDO.setPurchaseQuantity(1L);
+            shoppingCartItemDAO.saveShoppingCartItem(shoppingCartItemDO);
+            // 如果存在则购买数量 +1
+        } else {
+            shoppingCartItemDO.setPurchaseQuantity(shoppingCartItemDO.getPurchaseQuantity() + 1L);
+            shoppingCartItemDAO.updateShoppingCartItem(shoppingCartItemDO);
         }
         return true;
     }
@@ -116,39 +105,35 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      *
      * @param userAccountId 用户帐号id
      * @return 购物车DTO对象
+     * @throws Exception
      */
     @Override
-    public ShoppingCartDTO getShoppingCartDTOByUserAccountId(Long userAccountId) {
-        try {
-            ShoppingCartDO shoppingCart = shoppingCartDAO.getShoppingCartByUserAccountId(userAccountId);
-            if (shoppingCart == null) {
-                return new ShoppingCartDTO();
-            }
-            ShoppingCartDTO shoppingCartDTO = shoppingCart.clone(ShoppingCartDTO.class);
-            // 查询购物车条目
-            List<ShoppingCartItemDO> shoppingCartItemDOList = shoppingCartItemDAO.listShoppingCartItemByCartId(shoppingCartDTO.getId());
-            if (shoppingCartItemDOList == null || shoppingCartItemDOList.size() == 0) {
-                return shoppingCartDTO;
-            }
-            List<ShoppingCartItemDTO> shoppingCartItemDTOList = new ArrayList<>();
-            // 为购物车条目填充相关数据
-            for (ShoppingCartItemDO shoppingCartItemDO : shoppingCartItemDOList) {
-                ShoppingCartItemDTO item = shoppingCartItemDO.clone(ShoppingCartItemDTO.class);
-                // 给购物车条目填充商品数据
-                setGoodsRelatedData(item);
-                // 给购物车条目填充库存数据
-                setStockRelatedData(item);
-                // 给购物车条目填充促销数据
-                setPromotionRelatedData(item);
-                // 添加购物车条目到集合中
-                shoppingCartItemDTOList.add(item);
-            }
-            shoppingCartDTO.setShoppingCartItemDTOList(shoppingCartItemDTOList);
-            return shoppingCartDTO;
-        } catch (Exception e) {
-            logger.error("error", e);
+    public ShoppingCartDTO getShoppingCartDtoByUserAccountId(Long userAccountId) throws Exception {
+        ShoppingCartDO shoppingCart = shoppingCartDAO.getShoppingCartByUserAccountId(userAccountId);
+        if (shoppingCart == null) {
             return new ShoppingCartDTO();
         }
+        ShoppingCartDTO shoppingCartDTO = shoppingCart.clone(ShoppingCartDTO.class);
+        // 查询购物车条目
+        List<ShoppingCartItemDO> shoppingCartItemDOList = shoppingCartItemDAO.listShoppingCartItemByCartId(shoppingCartDTO.getId());
+        if (shoppingCartItemDOList == null || shoppingCartItemDOList.size() == 0) {
+            return shoppingCartDTO;
+        }
+        List<ShoppingCartItemDTO> shoppingCartItemDTOList = new ArrayList<>();
+        // 为购物车条目填充相关数据
+        for (ShoppingCartItemDO shoppingCartItemDO : shoppingCartItemDOList) {
+            ShoppingCartItemDTO item = shoppingCartItemDO.clone(ShoppingCartItemDTO.class);
+            // 给购物车条目填充商品数据
+            setGoodsRelatedData(item);
+            // 给购物车条目填充库存数据
+            setStockRelatedData(item);
+            // 给购物车条目填充促销数据
+            setPromotionRelatedData(item);
+            // 添加购物车条目到集合中
+            shoppingCartItemDTOList.add(item);
+        }
+        shoppingCartDTO.setShoppingCartItemDTOList(shoppingCartItemDTOList);
+        return shoppingCartDTO;
     }
 
     /**
@@ -191,5 +176,4 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         List<PromotionActivityDTO> promotionActivityDTOList = promotionService.listByGoodsId(item.getGoodsId());
         item.setPromotionActivityDTOList(promotionActivityDTOList);
     }
-
 }

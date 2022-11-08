@@ -3,8 +3,7 @@ package com.zpl.eshop.cart.dao.impl;
 import com.zpl.eshop.cart.dao.ShoppingCartItemDAO;
 import com.zpl.eshop.cart.domain.ShoppingCartItemDO;
 import com.zpl.eshop.cart.mapper.ShoppingCartItemMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +18,6 @@ import java.util.List;
 @Repository
 public class ShoppingCartItemDAOImpl implements ShoppingCartItemDAO {
 
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartItemDAOImpl.class);
     /**
      * 购物车条目管理模块mapper
      */
@@ -27,20 +25,22 @@ public class ShoppingCartItemDAOImpl implements ShoppingCartItemDAO {
     private ShoppingCartItemMapper shoppingCartItemMapper;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 新增购物车条目
      *
-     * @param shoppingCartItemDO 购物车条目DO对象
-     * @return 新增成功返回true
+     * @param shoppingCartItem 购物车条目DO对象
+     * @throws Exception
      */
     @Override
-    public Long saveShoppingCartItem(ShoppingCartItemDO shoppingCartItemDO) {
-        try {
-            shoppingCartItemMapper.saveShoppingCartItem(shoppingCartItemDO);
-            return shoppingCartItemDO.getId();
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public void saveShoppingCartItem(ShoppingCartItemDO shoppingCartItem) throws Exception {
+        shoppingCartItem.setGmtCreate(dateProvider.getCurrentTime());
+        shoppingCartItem.setGmtModified(dateProvider.getCurrentTime());
+        shoppingCartItemMapper.saveShoppingCartItem(shoppingCartItem);
     }
 
     /**
@@ -49,33 +49,24 @@ public class ShoppingCartItemDAOImpl implements ShoppingCartItemDAO {
      * @param shoppingCartId 购物车id
      * @param goodsSkuId     商品id
      * @return 购物车条目DO
+     * @throws Exception
      */
     @Override
-    public ShoppingCartItemDO getShoppingCartItemByGoodsSkuId(Long shoppingCartId, Long goodsSkuId) {
-        try {
-            return shoppingCartItemMapper.getShoppingCartItemByGoodsSkuId(shoppingCartId, goodsSkuId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public ShoppingCartItemDO getShoppingCartItemByGoodsSkuId(Long shoppingCartId, Long goodsSkuId) throws Exception {
+        return shoppingCartItemMapper.getShoppingCartItemByGoodsSkuId(shoppingCartId, goodsSkuId);
     }
 
 
     /**
      * 更新购物车条目
      *
-     * @param shoppingCartItemDO 更新购物车条目
-     * @return 更新成功返回 true
+     * @param shoppingCartItem 更新购物车条目
+     * @throws Exception
      */
     @Override
-    public Boolean updateShoppingCartItem(ShoppingCartItemDO shoppingCartItemDO) {
-        try {
-            shoppingCartItemMapper.updateShoppingCartItem(shoppingCartItemDO);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
-        return true;
+    public void updateShoppingCartItem(ShoppingCartItemDO shoppingCartItem) throws Exception {
+        shoppingCartItem.setGmtModified(dateProvider.getCurrentTime());
+        shoppingCartItemMapper.updateShoppingCartItem(shoppingCartItem);
     }
 
     /**
@@ -83,31 +74,21 @@ public class ShoppingCartItemDAOImpl implements ShoppingCartItemDAO {
      *
      * @param shoppingCartId 购物车id
      * @return 购物车中所有条目DO集合
+     * @throws Exception
      */
     @Override
-    public List<ShoppingCartItemDO> listShoppingCartItemByCartId(Long shoppingCartId) {
-        try {
-            return shoppingCartItemMapper.listShoppingCartItemByCartSkuId(shoppingCartId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public List<ShoppingCartItemDO> listShoppingCartItemByCartId(Long shoppingCartId) throws Exception {
+        return shoppingCartItemMapper.listShoppingCartItemByCartSkuId(shoppingCartId);
     }
 
     /**
      * 删除购物车条目
      *
      * @param id 购物车条目id
-     * @return 操作结果
+     * @throws Exception
      */
     @Override
-    public Boolean remove(Long id) {
-        try {
-            shoppingCartItemMapper.remove(id);
-            return true;
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
+    public void remove(Long id) throws Exception {
+        shoppingCartItemMapper.remove(id);
     }
 }

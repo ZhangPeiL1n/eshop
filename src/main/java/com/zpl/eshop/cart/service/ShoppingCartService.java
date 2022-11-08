@@ -16,7 +16,7 @@ public interface ShoppingCartService {
      * @param userAccountId 用户帐号id
      * @param goodsSkuId    商品条目
      * @return 处理结果
-     * @throws ParseException
+     * @throws Exception
      */
     Boolean addShoppingCartItem(Long userAccountId, Long goodsSkuId) throws Exception;
 
@@ -25,8 +25,9 @@ public interface ShoppingCartService {
      *
      * @param userAccountId 用户帐号id
      * @return 购物车DTO对象
+     * @throws Exception
      */
-    ShoppingCartDTO getShoppingCartDTOByUserAccountId(Long userAccountId);
+    ShoppingCartDTO getShoppingCartDtoByUserAccountId(Long userAccountId) throws Exception;
 
 
 }

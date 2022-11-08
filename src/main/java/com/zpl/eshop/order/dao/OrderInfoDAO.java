@@ -17,6 +17,7 @@ public interface OrderInfoDAO {
      * 新建订单
      *
      * @param order 订单
+     * @throws Exception
      */
     Long save(OrderInfoDO order) throws Exception;
 
@@ -25,20 +26,24 @@ public interface OrderInfoDAO {
      *
      * @param query 查询条件
      * @return 订单
+     * @throws Exception
      */
-    List<OrderInfoDO> listByPage(OrderInfoQuery query);
+    List<OrderInfoDO> listByPage(OrderInfoQuery query) throws Exception;
 
     /**
      * 查询订单详情
      *
+     * @param id id
      * @return 订单
+     * @throws Exception
      */
-    OrderInfoDO getById(Long id);
+    OrderInfoDO getById(Long id) throws Exception;
 
     /**
      * 更新订单状态
      *
      * @param order 订单
+     * @throws Exception
      */
     void update(OrderInfoDO order) throws Exception;
 
@@ -47,6 +52,7 @@ public interface OrderInfoDAO {
      *
      * @param id     订单id
      * @param status 订单状态
+     * @throws Exception
      */
     void updateStatus(Long id, Integer status) throws Exception;
 
@@ -54,8 +60,9 @@ public interface OrderInfoDAO {
      * 查询所有未付款的订单
      *
      * @return 所有未付款的订单
+     * @throws Exception
      */
-    List<OrderInfoDO> listAllUnpaid();
+    List<OrderInfoDO> listAllUnpaid() throws Exception;
 
     /**
      * 查询待收货的订单
@@ -69,6 +76,7 @@ public interface OrderInfoDAO {
      * 查询确认收货时间超过了7天而且还没有发表评论的订单
      *
      * @return 订单
+     * @throws Exception
      */
-    List<OrderInfoDO> listNotPublishedCommentOrders();
+    List<OrderInfoDO> listNotPublishedCommentOrders() throws Exception;
 }

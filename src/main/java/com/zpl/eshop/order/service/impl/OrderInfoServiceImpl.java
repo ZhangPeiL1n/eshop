@@ -206,6 +206,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      * 保存订单
      *
      * @param order 订单
+     * @throws Exception
      */
     @Override
     public OrderInfoDTO save(OrderInfoDTO order) throws Exception {
@@ -224,6 +225,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      *
      * @param query 分页查询条件
      * @return 订单
+     * @throws Exception
      */
     @Override
     public List<OrderInfoDTO> listByPage(OrderInfoQuery query) throws Exception {
@@ -247,6 +249,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      *
      * @param id 订单id
      * @return 订单
+     * @throws Exception
      */
     @Override
     public OrderInfoDTO getById(Long id) throws Exception {
@@ -327,6 +330,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      * 手动确认收货
      *
      * @param id 订单id
+     * @throws Exception
      */
     @Override
     public Boolean manualConfirmReceipt(Long id) throws Exception {
@@ -345,8 +349,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      *
      * @param order 订单
      * @return 库存是否充足
+     * @throws Exception
      */
-    private Boolean isStockEnough(OrderInfoDTO order) {
+    private Boolean isStockEnough(OrderInfoDTO order) throws Exception {
         for (OrderItemDTO item : order.getOrderItems()) {
             Long saleStockQuantity = inventoryService.getSaleStockQuantity(item.getGoodsSkuId());
             if (saleStockQuantity < item.getPurchaseQuantity()) {
@@ -360,7 +365,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      * 新增订单
      *
      * @param order 订单
-     * @return
+     * @return 订单
      * @throws Exception
      */
     private OrderInfoDTO saveOrder(OrderInfoDTO order) throws Exception {
@@ -391,6 +396,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      *
      * @param apply 退货申请
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean applyReturnGoods(ReturnGoodsApplyDTO apply) throws Exception {
@@ -451,6 +457,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
      * 查询确认收货时间超过了7天而且还没有发表评论的订单
      *
      * @return 订单
+     * @throws Exception
      */
     @Override
     public List<OrderInfoDTO> listNotPublishedCommentOrders() throws Exception {
@@ -462,7 +469,6 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             setOrderItems(order);
             setOrderOperateLogs(order);
         }
-
         return orders;
     }
 }

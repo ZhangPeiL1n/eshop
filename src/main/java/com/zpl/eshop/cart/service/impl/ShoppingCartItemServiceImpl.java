@@ -4,20 +4,17 @@ import com.zpl.eshop.cart.dao.ShoppingCartItemDAO;
 import com.zpl.eshop.cart.domain.ShoppingCartItemDO;
 import com.zpl.eshop.cart.service.ShoppingCartItemService;
 import com.zpl.eshop.common.util.DateProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author ZhangPeiL1n
  * @date 2022/5/28 10:37
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
-
-
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartItemServiceImpl.class);
 
     /**
      * 日期辅助组件
@@ -36,15 +33,12 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
      *
      * @param id 购物车条目id
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean remove(Long id) {
-        try {
-            return shoppingCartItemDAO.remove(id);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
+    public Boolean remove(Long id) throws Exception {
+        shoppingCartItemDAO.remove(id);
+        return true;
     }
 
     /**
@@ -53,18 +47,15 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
      * @param id               购物车条目id
      * @param purchaseQuantity 购买数量
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean updatePurchaseQuantity(Long id, Long purchaseQuantity) {
-        try {
-            ShoppingCartItemDO item = new ShoppingCartItemDO();
-            item.setId(id);
-            item.setPurchaseQuantity(purchaseQuantity);
-            item.setGmtModified(dateProvider.getCurrentTime());
-            return shoppingCartItemDAO.updateShoppingCartItem(item);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
+    public Boolean updatePurchaseQuantity(Long id, Long purchaseQuantity) throws Exception {
+        ShoppingCartItemDO item = new ShoppingCartItemDO();
+        item.setId(id);
+        item.setPurchaseQuantity(purchaseQuantity);
+        item.setGmtModified(dateProvider.getCurrentTime());
+        shoppingCartItemDAO.updateShoppingCartItem(item);
+        return true;
     }
 }

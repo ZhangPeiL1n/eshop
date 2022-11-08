@@ -1,5 +1,6 @@
 package com.zpl.eshop.order.dao.impl;
 
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.order.dao.OrderOperateLogDAO;
 import com.zpl.eshop.order.domain.OrderOperateLogDO;
 import com.zpl.eshop.order.mapper.OrderOperateLogMapper;
@@ -24,12 +25,21 @@ public class OrderOperateLogDAOImpl implements OrderOperateLogDAO {
     private OrderOperateLogMapper orderOperateLogMapper;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 新增订单操作日志
      *
      * @param log 订单操作日志
+     * @throws Exception
      */
     @Override
-    public void save(OrderOperateLogDO log) {
+    public void save(OrderOperateLogDO log) throws Exception {
+        log.setGmtCreate(dateProvider.getCurrentTime());
+        log.setGmtModified(dateProvider.getCurrentTime());
         orderOperateLogMapper.save(log);
     }
 
@@ -38,9 +48,10 @@ public class OrderOperateLogDAOImpl implements OrderOperateLogDAO {
      *
      * @param orderInfoId 订单id
      * @return 订单操作日志
+     * @throws Exception
      */
     @Override
-    public List<OrderOperateLogDO> listByOrderInfoId(Long orderInfoId) {
+    public List<OrderOperateLogDO> listByOrderInfoId(Long orderInfoId) throws Exception {
         return orderOperateLogMapper.listByOrderInfoId(orderInfoId);
     }
 }

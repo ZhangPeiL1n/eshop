@@ -1,7 +1,6 @@
 package com.zpl.eshop.cart.dao;
 
 import com.zpl.eshop.cart.domain.ShoppingCartItemDO;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,9 +16,9 @@ public interface ShoppingCartItemDAO {
      * 新增购物车条目
      *
      * @param shoppingCartItemDO 购物车条目DO对象
-     * @return 新增成功返回true
+     * @throws Exception
      */
-    Long saveShoppingCartItem(ShoppingCartItemDO shoppingCartItemDO);
+    void saveShoppingCartItem(ShoppingCartItemDO shoppingCartItemDO) throws Exception;
 
     /**
      * 根据购物车和商品id查询购物车条目
@@ -27,33 +26,34 @@ public interface ShoppingCartItemDAO {
      * @param shoppingCartId 购物车id
      * @param goodsSkuId     商品id
      * @return 购物车条目DO
+     * @throws Exception
      */
-    ShoppingCartItemDO getShoppingCartItemByGoodsSkuId(@Param("shoppingCartId") Long shoppingCartId, @Param("goodsSkuId") Long goodsSkuId);
+    ShoppingCartItemDO getShoppingCartItemByGoodsSkuId(Long shoppingCartId, Long goodsSkuId) throws Exception;
 
 
     /**
      * 更新购物车条目
      *
      * @param shoppingCartItemDO 更新购物车条目
-     * @return 更新成功返回 true
+     * @throws Exception
      */
-    Boolean updateShoppingCartItem(ShoppingCartItemDO shoppingCartItemDO);
+    void updateShoppingCartItem(ShoppingCartItemDO shoppingCartItemDO) throws Exception;
 
     /**
      * 查询购物车中的所有条目
      *
      * @param shoppingCartId 购物车id
      * @return 购物车中所有条目DO集合
+     * @throws Exception
      */
-    List<ShoppingCartItemDO> listShoppingCartItemByCartId(@Param("shoppingCartId") Long shoppingCartId);
+    List<ShoppingCartItemDO> listShoppingCartItemByCartId(Long shoppingCartId) throws Exception;
 
 
     /**
      * 删除购物车条目
      *
      * @param id 购物车条目id
-     * @return 操作结果
+     * @throws Exception
      */
-    Boolean remove(Long id);
-
+    void remove(Long id) throws Exception;
 }

@@ -3,8 +3,7 @@ package com.zpl.eshop.comment.dao.impl;
 import com.zpl.eshop.comment.dao.CommentAggregateDAO;
 import com.zpl.eshop.comment.domain.CommentAggregateDO;
 import com.zpl.eshop.comment.mapper.CommentAggregateMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,60 +21,46 @@ public class CommentAggregateDAOImpl implements CommentAggregateDAO {
     @Autowired
     private CommentAggregateMapper commentAggregateMapper;
 
-    private final Logger logger = LoggerFactory.getLogger(CommentAggregateDAOImpl.class);
+    /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
 
     /**
      * 根据商品 id 查询评论统计信息
      *
      * @param goodsId 商品id
      * @return 评论统计信息
+     * @throws Exception
      */
     @Override
-    public CommentAggregateDO getCommentAggregateByGoodsId(Long goodsId) {
-        try {
-            return commentAggregateMapper.getCommentAggregateByGoodsId(goodsId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public CommentAggregateDO getCommentAggregateByGoodsId(Long goodsId) throws Exception {
+        return commentAggregateMapper.getCommentAggregateByGoodsId(goodsId);
     }
-
 
     /**
      * 新增评论统计信息
      *
-     * @param commentAggregateDO 评论统计信息DO
-     * @return 新增是否成功
+     * @param commentAggregate 评论统计信息DO
+     * @throws Exception
      */
     @Override
-    public Boolean saveCommentAggregate(CommentAggregateDO commentAggregateDO) {
-        try {
-            commentAggregateMapper.saveCommentAggregate(commentAggregateDO);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
-        return true;
+    public void saveCommentAggregate(CommentAggregateDO commentAggregate) throws Exception {
+        commentAggregate.setGmtCreate(dateProvider.getCurrentTime());
+        commentAggregate.setGmtModified(dateProvider.getCurrentTime());
+        commentAggregateMapper.saveCommentAggregate(commentAggregate);
     }
-
-    ;
 
     /**
      * 更新评论统计信息
      *
-     * @param commentAggregateDO 评论统计信息DO
-     * @return 新增是否成功
+     * @param commentAggregate 评论统计信息DO
+     * @throws Exception
      */
     @Override
-    public Boolean updateCommentAggregate(CommentAggregateDO commentAggregateDO) {
-        try {
-            commentAggregateMapper.updateCommentAggregate(commentAggregateDO);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
-        return true;
+    public void updateCommentAggregate(CommentAggregateDO commentAggregate) throws Exception {
+        commentAggregate.setGmtModified(dateProvider.getCurrentTime());
+        commentAggregateMapper.updateCommentAggregate(commentAggregate);
     }
-
-    ;
 }

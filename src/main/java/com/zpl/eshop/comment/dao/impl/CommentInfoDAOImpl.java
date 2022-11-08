@@ -3,8 +3,7 @@ package com.zpl.eshop.comment.dao.impl;
 import com.zpl.eshop.comment.dao.CommentInfoDAO;
 import com.zpl.eshop.comment.domain.CommentInfoDO;
 import com.zpl.eshop.comment.mapper.CommentInfoMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,16 +23,22 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
     @Autowired
     private CommentInfoMapper commentInfoMapper;
 
-    private final Logger logger = LoggerFactory.getLogger(CommentInfoDAOImpl.class);
+    /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
 
+    /**
+     * 新增评论信息
+     *
+     * @param commentInfo 评论信息对象
+     * @throws Exception
+     */
     @Override
-    public Boolean saveCommentInfo(CommentInfoDO commentInfoDO) {
-        try {
-            commentInfoMapper.saveCommentInfo(commentInfoDO);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
-        return true;
+    public void saveCommentInfo(CommentInfoDO commentInfo) throws Exception {
+        commentInfo.setGmtCreate(dateProvider.getCurrentTime());
+        commentInfo.setGmtModified(dateProvider.getCurrentTime());
+        commentInfoMapper.saveCommentInfo(commentInfo);
     }
 }

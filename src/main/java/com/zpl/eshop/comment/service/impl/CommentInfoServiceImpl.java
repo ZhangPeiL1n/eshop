@@ -7,10 +7,9 @@ import com.zpl.eshop.comment.domain.CommentInfoDTO;
 import com.zpl.eshop.comment.service.CommentInfoService;
 import com.zpl.eshop.order.domain.OrderInfoDTO;
 import com.zpl.eshop.order.domain.OrderItemDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -21,9 +20,9 @@ import java.util.Date;
  * @date 2022/1/12 22:40
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class CommentInfoServiceImpl implements CommentInfoService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CommentInfoServiceImpl.class);
     /**
      * 评论信息管理模块DAO组件
      */
@@ -33,107 +32,93 @@ public class CommentInfoServiceImpl implements CommentInfoService {
     /**
      * 新增评论信息
      *
-     * @param commentInfoDTO 评论信息对象
-     * @return 新增是否成功
+     * @param commentInfo 评论信息对象
+     * @throws Exception
      */
     @Override
-    public Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfoDTO) {
-        try {
-            // 计算总分数
-            Integer totalScore = Math.round((commentInfoDTO.getGoodsScore()
-                    + commentInfoDTO.getLogisticsScore()
-                    + commentInfoDTO.getCustomerServiceScore()) / 3);
-            commentInfoDTO.setTotalScore(totalScore);
+    public void saveManualPublishedCommentInfo(CommentInfoDTO commentInfo) throws Exception {
+        // 计算总分数
+        Integer totalScore = Math.round((commentInfo.getGoodsScore()
+                + commentInfo.getLogisticsScore()
+                + commentInfo.getCustomerServiceScore()) / 3);
+        commentInfo.setTotalScore(totalScore);
 
-            // 设置是否是默认评论
-            commentInfoDTO.setDefaultComment(DefaultComment.NO);
-            // 设置评论状态
-            commentInfoDTO.setCommentStatus(CommentStatus.APPROVING);
-            // 设置评论的类型
-            Integer commentType = 0;
-            int goodThreshold = 4;
-            int midThreshold = 3;
-            int badThreshold = 0;
-            if (totalScore >= goodThreshold) {
-                commentType = CommentType.GOOD_COMMENT;
-            } else if (totalScore >= midThreshold) {
-                commentType = CommentType.MEDIUM_COMMENT;
-            } else if (totalScore > badThreshold) {
-                commentType = CommentType.BAD_COMMENT;
-            }
-            commentInfoDTO.setCommentType(commentType);
-
-            commentInfoDTO.setGmtCreate(new Date());
-            commentInfoDTO.setGmtCreate(new Date());
-
-            // 保存评论信息
-            CommentInfoDO commentInfoDO = commentInfoDTO.clone(CommentInfoDO.class);
-            Boolean result = commentInfoDAO.saveCommentInfo(commentInfoDO);
-            //设置评论信息的 id
-            commentInfoDTO.setId(commentInfoDO.getId());
-            return result;
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
+        // 设置是否是默认评论
+        commentInfo.setDefaultComment(DefaultComment.NO);
+        // 设置评论状态
+        commentInfo.setCommentStatus(CommentStatus.APPROVING);
+        // 设置评论的类型
+        Integer commentType = 0;
+        int goodThreshold = 4;
+        int midThreshold = 3;
+        int badThreshold = 0;
+        if (totalScore >= goodThreshold) {
+            commentType = CommentType.GOOD_COMMENT;
+        } else if (totalScore >= midThreshold) {
+            commentType = CommentType.MEDIUM_COMMENT;
+        } else if (totalScore > badThreshold) {
+            commentType = CommentType.BAD_COMMENT;
         }
+        commentInfo.setCommentType(commentType);
+        // 保存评论信息
+        CommentInfoDO commentInfoDO = commentInfo.clone(CommentInfoDO.class);
+        commentInfoDAO.saveCommentInfo(commentInfoDO);
+        //设置评论信息的 id
+        commentInfo.setId(commentInfoDO.getId());
     }
 
     /**
      * 新增自动发表的评论信息
      *
-     * @param orderInfoDTO 订单信息DTO
-     * @param orderItemDTO 订单项DTO
+     * @param orderInfo 订单信息DTO
+     * @param orderItem 订单项DTO
      * @return 新增成功返回 true
+     * @throws Exception
      */
     @Override
-    public CommentInfoDTO saveAutoPublishedCommentInfo(OrderInfoDTO orderInfoDTO, OrderItemDTO orderItemDTO) {
-        CommentInfoDTO commentInfoDTO = null;
-        try {
-            commentInfoDTO = createCommentInfoDTO(orderInfoDTO, orderItemDTO);
-            // 保存评论信息
-            CommentInfoDO commentInfoDO = commentInfoDTO.clone(CommentInfoDO.class);
-            Boolean result = commentInfoDAO.saveCommentInfo(commentInfoDO);
-            //设置评论信息的 id
-            commentInfoDTO.setId(commentInfoDO.getId());
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
-        return commentInfoDTO;
+    public CommentInfoDTO saveAutoPublishedCommentInfo(OrderInfoDTO orderInfo, OrderItemDTO orderItem) throws Exception {
+        CommentInfoDTO commentInfo = createCommentInfoDTO(orderInfo, orderItem);
+        // 保存评论信息
+        CommentInfoDO commentInfoDO = commentInfo.clone(CommentInfoDO.class);
+        commentInfoDAO.saveCommentInfo(commentInfoDO);
+        //设置评论信息的 id
+        commentInfo.setId(commentInfoDO.getId());
+        return commentInfo;
     }
 
     /**
      * 创建评论信息DTO对象
      *
-     * @param orderInfoDTO 订单信息DTO
-     * @param orderItemDTO 订单条目DTO
+     * @param orderInfo 订单信息DTO
+     * @param orderItem 订单条目DTO
      * @return 评论信息DTO对象
+     * @throws Exception
      */
-    public CommentInfoDTO createCommentInfoDTO(OrderInfoDTO orderInfoDTO, OrderItemDTO orderItemDTO) {
+    public CommentInfoDTO createCommentInfoDTO(OrderInfoDTO orderInfo, OrderItemDTO orderItem) throws Exception {
         // 创建评论信息DTO对象
-        CommentInfoDTO commentInfoDTO = new CommentInfoDTO();
-        commentInfoDTO.setUserAccountId(orderInfoDTO.getUserAccountId());
-        commentInfoDTO.setUsername(orderInfoDTO.getUsername());
-        commentInfoDTO.setOrderInfoId(orderInfoDTO.getId());
-        commentInfoDTO.setOrderItemId(orderItemDTO.getId());
-        commentInfoDTO.setGoodsId(orderItemDTO.getGoodsId());
-        commentInfoDTO.setGoodsSkuId(orderItemDTO.getGoodsSkuId());
-        commentInfoDTO.setGoodsSkuSaleProperties(orderItemDTO.getSaleProperties());
+        CommentInfoDTO commentInfo = new CommentInfoDTO();
+        commentInfo.setUserAccountId(orderInfo.getUserAccountId());
+        commentInfo.setUsername(orderInfo.getUsername());
+        commentInfo.setOrderInfoId(orderInfo.getId());
+        commentInfo.setOrderItemId(orderItem.getId());
+        commentInfo.setGoodsId(orderItem.getGoodsId());
+        commentInfo.setGoodsSkuId(orderItem.getGoodsSkuId());
+        commentInfo.setGoodsSkuSaleProperties(orderItem.getSaleProperties());
         // 计算总分数
-        commentInfoDTO.setTotalScore(CommentInfoScore.FIVE);
-        commentInfoDTO.setGoodsScore(CommentInfoScore.FIVE);
-        commentInfoDTO.setCustomerServiceScore(CommentInfoScore.FIVE);
-        commentInfoDTO.setLogisticsScore(CommentInfoScore.FIVE);
-        commentInfoDTO.setCommentContent(CommentContent.DEFAULT);
-        commentInfoDTO.setShowPicture(ShowPicture.NO);
+        commentInfo.setTotalScore(CommentInfoScore.FIVE);
+        commentInfo.setGoodsScore(CommentInfoScore.FIVE);
+        commentInfo.setCustomerServiceScore(CommentInfoScore.FIVE);
+        commentInfo.setLogisticsScore(CommentInfoScore.FIVE);
+        commentInfo.setCommentContent(CommentContent.DEFAULT);
+        commentInfo.setShowPicture(ShowPicture.NO);
         // 设置是否是默认评论
-        commentInfoDTO.setDefaultComment(DefaultComment.YES);
+        commentInfo.setDefaultComment(DefaultComment.YES);
         // 设置评论状态
-        commentInfoDTO.setCommentStatus(CommentStatus.APPROVED);
+        commentInfo.setCommentStatus(CommentStatus.APPROVED);
         // 设置评论的类型
-        commentInfoDTO.setCommentType(CommentType.GOOD_COMMENT);
-        commentInfoDTO.setGmtCreate(new Date());
-        commentInfoDTO.setGmtCreate(new Date());
-        return commentInfoDTO;
+        commentInfo.setCommentType(CommentType.GOOD_COMMENT);
+        commentInfo.setGmtCreate(new Date());
+        commentInfo.setGmtCreate(new Date());
+        return commentInfo;
     }
 }

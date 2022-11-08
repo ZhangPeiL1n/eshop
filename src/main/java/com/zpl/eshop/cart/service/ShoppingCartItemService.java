@@ -12,8 +12,9 @@ public interface ShoppingCartItemService {
      *
      * @param id 购物车条目id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean remove(Long id);
+    Boolean remove(Long id) throws Exception;
 
     /**
      * 更新购物车条目购买数量
@@ -21,6 +22,7 @@ public interface ShoppingCartItemService {
      * @param id               购物车条目id
      * @param purchaseQuantity 购买数量
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean updatePurchaseQuantity(Long id, Long purchaseQuantity);
+    Boolean updatePurchaseQuantity(Long id, Long purchaseQuantity) throws Exception;
 }

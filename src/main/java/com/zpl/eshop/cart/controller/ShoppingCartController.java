@@ -51,7 +51,7 @@ public class ShoppingCartController {
     @GetMapping("/{userAccountId}")
     public ShoppingCartVO getShoppingCartVO(@PathVariable("userAccountId") Long userAccountId) {
         try {
-            ShoppingCartDTO shoppingCartDTO = shoppingCartService.getShoppingCartDTOByUserAccountId(userAccountId);
+            ShoppingCartDTO shoppingCartDTO = shoppingCartService.getShoppingCartDtoByUserAccountId(userAccountId);
             ShoppingCartVO shoppingCartVO = shoppingCartDTO.clone(ShoppingCartVO.class);
 
             List<ShoppingCartItemVO> shoppingCartItemVOList = new ArrayList<>();

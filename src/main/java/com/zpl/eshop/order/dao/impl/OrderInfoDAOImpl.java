@@ -36,6 +36,7 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      * 新建订单
      *
      * @param order 订单
+     * @throws Exception
      */
     @Override
     public Long save(OrderInfoDO order) throws Exception {
@@ -50,9 +51,10 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      *
      * @param query 查询条件
      * @return 订单
+     * @throws Exception
      */
     @Override
-    public List<OrderInfoDO> listByPage(OrderInfoQuery query) {
+    public List<OrderInfoDO> listByPage(OrderInfoQuery query) throws Exception {
         return orderInfoMapper.listByPage(query);
     }
 
@@ -60,9 +62,10 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      * 查询订单详情
      *
      * @return 订单
+     * @throws Exception
      */
     @Override
-    public OrderInfoDO getById(Long id) {
+    public OrderInfoDO getById(Long id) throws Exception {
         return orderInfoMapper.getById(id);
     }
 
@@ -70,6 +73,7 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      * 更新订单状态
      *
      * @param order 订单
+     * @throws Exception
      */
     @Override
     public void update(OrderInfoDO order) throws Exception {
@@ -82,6 +86,7 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      *
      * @param id     订单id
      * @param status 订单状态
+     * @throws Exception
      */
     @Override
     public void updateStatus(Long id, Integer status) throws Exception {
@@ -94,9 +99,10 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      * 查询所有未付款的订单
      *
      * @return 所有未付款的订单
+     * @throws Exception
      */
     @Override
-    public List<OrderInfoDO> listAllUnpaid() {
+    public List<OrderInfoDO> listAllUnpaid() throws Exception {
         return orderInfoMapper.listByStatus(OrderStatus.WAIT_FOR_PAY);
     }
 
@@ -115,9 +121,10 @@ public class OrderInfoDAOImpl implements OrderInfoDAO {
      * 查询确认收货时间超过了7天而且还没有发表评论的订单
      *
      * @return 订单
+     * @throws Exception
      */
     @Override
-    public List<OrderInfoDO> listNotPublishedCommentOrders() {
+    public List<OrderInfoDO> listNotPublishedCommentOrders() throws Exception {
         return orderInfoMapper.listNotPublishedCommentOrders();
     }
 }

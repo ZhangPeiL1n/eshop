@@ -33,6 +33,7 @@ public class ReturnGoodsApplyDAOImpl implements ReturnGoodsApplyDAO {
      * 新增退货申请
      *
      * @param apply 退货申请
+     * @throws Exception
      */
     @Override
     public void save(ReturnGoodsApplyDO apply) throws Exception {
@@ -47,9 +48,10 @@ public class ReturnGoodsApplyDAOImpl implements ReturnGoodsApplyDAO {
      *
      * @param orderInfoId 订单id
      * @return 退货申请
+     * @throws Exception
      */
     @Override
-    public ReturnGoodsApplyDO getByOrderInfoId(Long orderInfoId) {
+    public ReturnGoodsApplyDO getByOrderInfoId(Long orderInfoId) throws Exception {
         return returnGoodsApplyMapper.getByOrderInfoId(orderInfoId);
     }
 
@@ -57,6 +59,7 @@ public class ReturnGoodsApplyDAOImpl implements ReturnGoodsApplyDAO {
      * 更新退货申请
      *
      * @param apply 退货申请
+     * @throws Exception
      */
     @Override
     public void update(ReturnGoodsApplyDO apply) throws Exception {
