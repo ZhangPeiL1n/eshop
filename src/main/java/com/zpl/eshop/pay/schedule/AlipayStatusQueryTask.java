@@ -1,5 +1,6 @@
 package com.zpl.eshop.pay.schedule;
 
+import com.zpl.eshop.common.constant.CollectionSize;
 import com.zpl.eshop.order.service.OrderService;
 import com.zpl.eshop.pay.api.PayApi;
 import com.zpl.eshop.pay.api.QueryPayStatusResponse;
@@ -83,7 +84,7 @@ public class AlipayStatusQueryTask {
      * @return 交易流水
      */
     private List<PayTransactionDO> listUnpaidAlipayTransactions() throws Exception {
-        Map<String, Object> parameters = new HashMap<>();
+        Map<String, Object> parameters = new HashMap<>(CollectionSize.DEFAULT);
         parameters.put("transactionChannel", PayType.ALIPAY);
         parameters.put("status", PayTransactionStatus.UNPAID);
 

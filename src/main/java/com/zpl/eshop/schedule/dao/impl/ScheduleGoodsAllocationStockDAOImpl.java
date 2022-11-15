@@ -32,8 +32,10 @@ public class ScheduleGoodsAllocationStockDAOImpl implements ScheduleGoodsAllocat
     /**
      * 根据货位 skuId 获取库存
      *
-     * @param goodsSkuId 货位skuId
+     * @param goodsAllocationId 商品货位id
+     * @param goodsSkuId        货位skuId
      * @return 货位库存DO
+     * @throws Exception
      */
     @Override
     public ScheduleGoodsAllocationStockDO getBySkuId(Long goodsAllocationId, Long goodsSkuId) throws Exception {
@@ -54,6 +56,7 @@ public class ScheduleGoodsAllocationStockDAOImpl implements ScheduleGoodsAllocat
      * 新增货位库存
      *
      * @param goodsAllocationStock 货位库存DO对象
+     * @throws Exception
      */
     @Override
     public void save(ScheduleGoodsAllocationStockDO goodsAllocationStock) throws Exception {
@@ -66,6 +69,7 @@ public class ScheduleGoodsAllocationStockDAOImpl implements ScheduleGoodsAllocat
      * 更新货位库存
      *
      * @param goodsAllocationStock 货位库存
+     * @throws Exception
      */
     @Override
     public void update(ScheduleGoodsAllocationStockDO goodsAllocationStock) throws Exception {

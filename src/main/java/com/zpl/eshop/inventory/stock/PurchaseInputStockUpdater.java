@@ -26,18 +26,18 @@ public class PurchaseInputStockUpdater extends AbstractStockUpdater {
     /**
      * 构造函数
      *
-     * @param goodsStockDO                 商品库存对象
-     * @param goodsStockDAO                商品库存管理模块DAO组件
-     * @param dateProvider                 日期辅助组件
-     * @param purchaseInputOrderItemDTOMap 采购入库单条目DTO Map
+     * @param goodsStockDO              商品库存对象
+     * @param goodsStockDAO             商品库存管理模块DAO组件
+     * @param dateProvider              日期辅助组件
+     * @param purchaseInputOrderItemMap 采购入库单条目DTO Map
      */
     public PurchaseInputStockUpdater(
             List<GoodsStockDO> goodsStockDO,
             GoodsStockDAO goodsStockDAO,
             DateProvider dateProvider,
-            Map<Long, PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOMap) {
+            Map<Long, PurchaseInputOrderItemDTO> purchaseInputOrderItemMap) {
         super(goodsStockDO, goodsStockDAO, dateProvider);
-        this.purchaseInputOrderItemDTOMap = purchaseInputOrderItemDTOMap;
+        this.purchaseInputOrderItemDTOMap = purchaseInputOrderItemMap;
     }
 
     /**
@@ -71,7 +71,7 @@ public class PurchaseInputStockUpdater extends AbstractStockUpdater {
      * @throws Exception
      */
     @Override
-    protected void updateSaledStockQuantity() throws Exception {
+    protected void updateSoldStockQuantity() throws Exception {
 
     }
 }

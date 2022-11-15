@@ -16,6 +16,7 @@ public interface SaleDeliveryScheduler {
      *
      * @param orderItem 订单条目
      * @return 调度结果
+     * @throws Exception
      */
     SaleDeliveryScheduleResult schedule(OrderItemDTO orderItem) throws Exception;
 

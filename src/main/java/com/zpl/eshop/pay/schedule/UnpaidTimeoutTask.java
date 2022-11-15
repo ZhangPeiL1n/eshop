@@ -1,5 +1,6 @@
 package com.zpl.eshop.pay.schedule;
 
+import com.zpl.eshop.common.constant.CollectionSize;
 import com.zpl.eshop.pay.constant.PayTransactionStatus;
 import com.zpl.eshop.pay.dao.PayTransactionDAO;
 import com.zpl.eshop.pay.domain.PayTransactionDO;
@@ -51,7 +52,7 @@ public class UnpaidTimeoutTask {
      * @return 交易流水
      */
     private List<PayTransactionDO> listUnpayedTransactions() throws Exception {
-        Map<String, Object> parameters = new HashMap<>();
+        Map<String, Object> parameters = new HashMap<>(CollectionSize.DEFAULT);
         parameters.put("status", PayTransactionStatus.UNPAID);
         return payTransactionDAO.listByCondition(parameters);
     }

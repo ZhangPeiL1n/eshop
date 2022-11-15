@@ -17,7 +17,8 @@ public interface ScheduleGoodsAllocationStockMapper {
     /**
      * 根据商品 skuId 获取库存
      *
-     * @param goodsSkuId 商品skuId
+     * @param goodsSkuId       商品skuId
+     * @param goodAllocationId 商品货位Id
      * @return 商品库存DO
      */
     @Select("SELECT" +

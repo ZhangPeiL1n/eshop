@@ -47,7 +47,7 @@ public interface ScheduleService {
      * @return 处理结果
      * @throws Exception
      */
-    Boolean cancelOrderEvent(OrderInfoDTO order) throws Exception;
+    Boolean informCancelOrderEvent(OrderInfoDTO order) throws Exception;
 
     /**
      * 通知调度中心，“退货入库”事件发生了

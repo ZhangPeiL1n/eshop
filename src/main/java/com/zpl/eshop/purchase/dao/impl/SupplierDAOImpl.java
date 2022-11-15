@@ -35,6 +35,7 @@ public class SupplierDAOImpl implements SupplierDAO {
      * 新增供应商
      *
      * @param supplier 供应商
+     * @throws Exception
      */
     @Override
     public void save(SupplierDO supplier) throws Exception {
@@ -48,9 +49,10 @@ public class SupplierDAOImpl implements SupplierDAO {
      *
      * @param query 供应商查询条件
      * @return 供应商
+     * @throws Exception
      */
     @Override
-    public List<SupplierDO> listByPage(SupplierQuery query) {
+    public List<SupplierDO> listByPage(SupplierQuery query) throws Exception {
         return supplierMapper.listByPage(query);
     }
 
@@ -59,9 +61,10 @@ public class SupplierDAOImpl implements SupplierDAO {
      *
      * @param id 供应商id
      * @return 供应商
+     * @throws Exception
      */
     @Override
-    public SupplierDO getById(Long id) {
+    public SupplierDO getById(Long id) throws Exception {
         return supplierMapper.getById(id);
     }
 
@@ -70,9 +73,10 @@ public class SupplierDAOImpl implements SupplierDAO {
      *
      * @param settlementPeriod 结算周期
      * @return 供应商
+     * @throws Exception
      */
     @Override
-    public List<SupplierDO> listBySettlementPeriod(Integer settlementPeriod) {
+    public List<SupplierDO> listBySettlementPeriod(Integer settlementPeriod) throws Exception {
         return supplierMapper.listBySettlementPeriod(settlementPeriod);
     }
 }

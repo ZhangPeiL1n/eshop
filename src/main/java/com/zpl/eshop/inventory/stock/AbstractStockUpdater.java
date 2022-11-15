@@ -52,7 +52,7 @@ public abstract class AbstractStockUpdater implements StockUpdater {
         try {
             updateSaleStockQuantity();
             updateLockedStockQuantity();
-            updateSaledStockQuantity();
+            updateSoldStockQuantity();
             updateStockStatus();
             updateGmtModified();
             executeUpdateGoodsStock();
@@ -83,7 +83,7 @@ public abstract class AbstractStockUpdater implements StockUpdater {
      *
      * @throws Exception 交由基类处理
      */
-    protected abstract void updateSaledStockQuantity() throws Exception;
+    protected abstract void updateSoldStockQuantity() throws Exception;
 
     /**
      * 更新商品的库存状态

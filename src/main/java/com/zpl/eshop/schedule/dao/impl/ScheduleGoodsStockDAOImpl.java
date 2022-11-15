@@ -35,6 +35,7 @@ public class ScheduleGoodsStockDAOImpl implements ScheduleGoodsStockDAO {
      *
      * @param goodsSkuId 商品skuId
      * @return 商品库存DO
+     * @throws Exception
      */
     @Override
     public ScheduleGoodsStockDO getBySkuId(Long goodsSkuId) throws Exception {
@@ -54,6 +55,7 @@ public class ScheduleGoodsStockDAOImpl implements ScheduleGoodsStockDAO {
      * 新增商品库存
      *
      * @param goodsStock 商品库存DO对象
+     * @throws Exception
      */
     @Override
     public void save(ScheduleGoodsStockDO goodsStock) throws Exception {
@@ -66,6 +68,7 @@ public class ScheduleGoodsStockDAOImpl implements ScheduleGoodsStockDAO {
      * 更新商品库存
      *
      * @param goodsStock 商品库存
+     * @throws Exception
      */
     @Override
     public void update(ScheduleGoodsStockDO goodsStock) throws Exception {

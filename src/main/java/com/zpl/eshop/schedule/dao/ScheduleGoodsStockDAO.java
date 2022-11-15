@@ -15,6 +15,7 @@ public interface ScheduleGoodsStockDAO {
      *
      * @param goodsSkuId 商品skuId
      * @return 商品库存DO
+     * @throws Exception
      */
     ScheduleGoodsStockDO getBySkuId(Long goodsSkuId) throws Exception;
 
@@ -22,6 +23,7 @@ public interface ScheduleGoodsStockDAO {
      * 新增商品库存
      *
      * @param goodsStock 商品库存DO对象
+     * @throws Exception
      */
     void save(ScheduleGoodsStockDO goodsStock) throws Exception;
 
@@ -29,6 +31,7 @@ public interface ScheduleGoodsStockDAO {
      * 更新商品库存
      *
      * @param goodsStock 商品库存
+     * @throws Exception
      */
     void update(ScheduleGoodsStockDO goodsStock) throws Exception;
 

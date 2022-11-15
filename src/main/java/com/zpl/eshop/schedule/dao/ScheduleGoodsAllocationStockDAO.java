@@ -13,8 +13,10 @@ public interface ScheduleGoodsAllocationStockDAO {
     /**
      * 根据货位 skuId 获取库存
      *
-     * @param goodsSkuId 货位skuId
+     * @param goodsAllocationId 商品货位id
+     * @param goodsSkuId        货位skuId
      * @return 货位库存DO
+     * @throws Exception
      */
     ScheduleGoodsAllocationStockDO getBySkuId(Long goodsAllocationId, Long goodsSkuId) throws Exception;
 
@@ -22,6 +24,7 @@ public interface ScheduleGoodsAllocationStockDAO {
      * 新增货位库存
      *
      * @param goodsAllocationStock 货位库存DO对象
+     * @throws Exception
      */
     void save(ScheduleGoodsAllocationStockDO goodsAllocationStock) throws Exception;
 
@@ -29,7 +32,7 @@ public interface ScheduleGoodsAllocationStockDAO {
      * 更新货位库存
      *
      * @param goodsAllocationStock 货位库存
+     * @throws Exception
      */
     void update(ScheduleGoodsAllocationStockDO goodsAllocationStock) throws Exception;
-
 }

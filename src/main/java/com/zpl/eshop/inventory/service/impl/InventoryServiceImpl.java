@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -26,6 +27,7 @@ import java.util.UUID;
  * @date 2022/1/29 21:55
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class InventoryServiceImpl implements InventoryService {
 
     private final Logger logger = LoggerFactory.getLogger(InventoryServiceImpl.class);
@@ -141,17 +143,17 @@ public class InventoryServiceImpl implements InventoryService {
      * @throws Exception
      */
     @Override
-    public Boolean informPayOrderEvent(OrderInfoDTO orderInfoDTO) {
+    public Boolean informPayOrderEvent(OrderInfoDTO order) {
         try {
             // 更新本地库存
-            StockUpdater stockUpdater = payOrderStockUpdaterFactory.create(orderInfoDTO);
+            StockUpdater stockUpdater = payOrderStockUpdaterFactory.create(order);
             stockUpdater.updateGoodsStock();
 
             // 发送异步消息到内存队列
             StockUpdateMessage stockUpdateMessage = new StockUpdateMessage();
             stockUpdateMessage.setId(UUID.randomUUID().toString().replace("-", ""));
             stockUpdateMessage.setOperation(GoodsStockUpdateOperation.PAY_ORDER);
-            stockUpdateMessage.setParameter(orderInfoDTO);
+            stockUpdateMessage.setParameter(order);
             stockUpdateQueue.put(stockUpdateMessage);
 
             // 监听异步处理结果
@@ -163,6 +165,7 @@ public class InventoryServiceImpl implements InventoryService {
         return true;
     }
 
+
     /**
      * 通知库存中心，“取消订单”事件发生了
      *
@@ -171,16 +174,16 @@ public class InventoryServiceImpl implements InventoryService {
      * @throws Exception
      */
     @Override
-    public Boolean informCancelOrderEvent(OrderInfoDTO orderInfoDTO) {
+    public Boolean informCancelOrderEvent(OrderInfoDTO order) {
         try {
             // 更新本地库存
-            StockUpdater stockUpdater = cancelOrderStockUpdaterFactory.create(orderInfoDTO);
+            StockUpdater stockUpdater = cancelOrderStockUpdaterFactory.create(order);
             stockUpdater.updateGoodsStock();
             // 发送异步消息到内存队列
             StockUpdateMessage stockUpdateMessage = new StockUpdateMessage();
             stockUpdateMessage.setId(UUID.randomUUID().toString().replace("-", ""));
             stockUpdateMessage.setOperation(GoodsStockUpdateOperation.CANCEL_ORDER);
-            stockUpdateMessage.setParameter(orderInfoDTO);
+            stockUpdateMessage.setParameter(order);
             stockUpdateQueue.put(stockUpdateMessage);
             // 监听异步处理结果
             stockUpdateResultManager.observe(stockUpdateMessage.getId());
@@ -199,9 +202,9 @@ public class InventoryServiceImpl implements InventoryService {
      * @throws Exception
      */
     @Override
-    public Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO) {
+    public Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrder) {
         try {
-            StockUpdater stockUpdater = returnGoodsInputStockUpdateCommandFactory.create(returnGoodsInputOrderDTO);
+            StockUpdater stockUpdater = returnGoodsInputStockUpdateCommandFactory.create(returnGoodsInputOrder);
             stockUpdater.updateGoodsStock();
         } catch (Exception e) {
             logger.error("error", e);

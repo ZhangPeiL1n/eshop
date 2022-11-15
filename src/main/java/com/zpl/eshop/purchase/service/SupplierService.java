@@ -17,6 +17,7 @@ public interface SupplierService {
      * 新增供应商
      *
      * @param supplier 供应商
+     * @throws Exception
      */
     void save(SupplierDTO supplier) throws Exception;
 
@@ -25,6 +26,7 @@ public interface SupplierService {
      *
      * @param query 供应商查询条件
      * @return 供应商
+     * @throws Exception
      */
     List<SupplierDTO> listByPage(SupplierQuery query) throws Exception;
 
@@ -33,6 +35,7 @@ public interface SupplierService {
      *
      * @param id 供应商id
      * @return 供应商
+     * @throws Exception
      */
     SupplierDTO getById(Long id) throws Exception;
 
@@ -41,6 +44,7 @@ public interface SupplierService {
      *
      * @param settlementPeriod 结算周期
      * @return 供应商
+     * @throws Exception
      */
     List<SupplierDTO> listBySettlementPeriod(Integer settlementPeriod) throws Exception;
 }

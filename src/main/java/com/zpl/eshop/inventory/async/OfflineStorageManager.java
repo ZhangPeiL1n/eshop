@@ -32,6 +32,12 @@ public interface OfflineStorageManager {
      */
     void setOffline(Boolean offline);
 
+    /**
+     * 获取迭代器
+     *
+     * @return 迭代器
+     * @throws Exception
+     */
     OfflineStorageIterator iterator() throws Exception;
 
     /**

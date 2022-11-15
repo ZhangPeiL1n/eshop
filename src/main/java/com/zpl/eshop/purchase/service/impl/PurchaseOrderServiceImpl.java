@@ -46,6 +46,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
      * 新增采购单
      *
      * @param purchaseOrder 采购单
+     * @throws Exception
      */
     @Override
     public void save(PurchaseOrderDTO purchaseOrder) throws Exception {
@@ -57,6 +58,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**
      * 分页查询采购单
      *
+     * @param query 查询条件
      * @return 采购单
      * @throws Exception
      */
@@ -71,6 +73,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     /**
      * 根据id查询采购单
      *
+     * @param id 采购单id
      * @return 采购单
      * @throws Exception
      */
@@ -91,6 +94,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
      * 更新采购单
      *
      * @param purchaseOrder 采购单
+     * @throws Exception
      */
     @Override
     public void update(PurchaseOrderDTO purchaseOrder) throws Exception {

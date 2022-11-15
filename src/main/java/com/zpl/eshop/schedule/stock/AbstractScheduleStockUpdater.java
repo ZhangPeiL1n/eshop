@@ -8,7 +8,6 @@ package com.zpl.eshop.schedule.stock;
  **/
 public abstract class AbstractScheduleStockUpdater implements ScheduleStockUpdater {
 
-
     @Override
     public Boolean update() throws Exception {
         updateGoodsStock();

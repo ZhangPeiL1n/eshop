@@ -19,4 +19,15 @@ public class CommentType {
      * 差评
      */
     public static final Integer BAD_COMMENT = 3;
+
+    /**
+     * 好评阈值
+     */
+    public static final Integer GOOD_COMMENT_THRESHOLD = 4;
+
+    /**
+     * 中评阈值
+     */
+    public static final Integer MEDIUM_COMMENT_THRESHOLD = 3;
+
 }

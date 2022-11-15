@@ -1,5 +1,6 @@
 package com.zpl.eshop.pay.service.impl;
 
+import com.zpl.eshop.common.constant.CollectionSize;
 import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.pay.dao.PayTransactionDAO;
 import com.zpl.eshop.pay.domain.PayTransactionDO;
@@ -35,6 +36,7 @@ public class PayTransactionServiceImpl implements PayTransactionService {
      * 新增支付交易流水
      *
      * @param payTransaction 支付交易流水
+     * @throws Exception
      */
     @Override
     public void save(PayTransactionDTO payTransaction) throws Exception {
@@ -61,7 +63,7 @@ public class PayTransactionServiceImpl implements PayTransactionService {
      */
     @Override
     public PayTransactionDTO getByOrderNo(String orderNo) throws Exception {
-        Map<String, Object> parameters = new HashMap<>();
+        Map<String, Object> parameters = new HashMap<>(CollectionSize.DEFAULT);
         parameters.put("orderNo", orderNo);
 
         List<PayTransactionDO> payTransactions = payTransactionDAO.listByCondition(parameters);
@@ -77,6 +79,7 @@ public class PayTransactionServiceImpl implements PayTransactionService {
      *
      * @param query 查询条件
      * @return 支付交易流水
+     * @throws Exception
      */
     @Override
     public List<PayTransactionDTO> listByPage(PayTransactionQuery query) throws Exception {

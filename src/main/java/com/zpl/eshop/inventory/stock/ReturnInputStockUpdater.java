@@ -19,7 +19,7 @@ public class ReturnInputStockUpdater extends AbstractStockUpdater {
     /**
      * 退货入库单条目DTO集合
      */
-    private Map<Long, ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOMap;
+    private final Map<Long, ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemMap;
 
     /**
      * 构造函数
@@ -32,9 +32,9 @@ public class ReturnInputStockUpdater extends AbstractStockUpdater {
             List<GoodsStockDO> goodsStockDOList,
             GoodsStockDAO goodsStockDAO,
             DateProvider dateProvider,
-            Map<Long, ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOMap) {
+            Map<Long, ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderMap) {
         super(goodsStockDOList, goodsStockDAO, dateProvider);
-        this.returnGoodsInputOrderItemDTOMap = returnGoodsInputOrderItemDTOMap;
+        this.returnGoodsInputOrderItemMap = returnGoodsInputOrderMap;
     }
 
     /**
@@ -46,7 +46,7 @@ public class ReturnInputStockUpdater extends AbstractStockUpdater {
     protected void updateSaleStockQuantity() throws Exception {
         for (GoodsStockDO goodsStockDO : goodsStockDOList) {
             // 获取采购条目DTO对象
-            ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO = returnGoodsInputOrderItemDTOMap.get(goodsStockDO.getGoodsSkuId());
+            ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO = returnGoodsInputOrderItemMap.get(goodsStockDO.getGoodsSkuId());
             // 设置入库后的库存
             goodsStockDO.setSaleStockQuantity(goodsStockDO.getSaleStockQuantity() + returnGoodsInputOrderItemDTO.getArrivalCount());
         }
@@ -68,10 +68,10 @@ public class ReturnInputStockUpdater extends AbstractStockUpdater {
      * @throws Exception
      */
     @Override
-    protected void updateSaledStockQuantity() throws Exception {
+    protected void updateSoldStockQuantity() throws Exception {
         for (GoodsStockDO goodsStockDO : goodsStockDOList) {
             // 获取采购条目DTO对象
-            ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO = returnGoodsInputOrderItemDTOMap.get(goodsStockDO.getGoodsSkuId());
+            ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO = returnGoodsInputOrderItemMap.get(goodsStockDO.getGoodsSkuId());
             // 设置入库后的库存
             goodsStockDO.setSaledStockQuantity(goodsStockDO.getSaledStockQuantity() - returnGoodsInputOrderItemDTO.getArrivalCount());
         }

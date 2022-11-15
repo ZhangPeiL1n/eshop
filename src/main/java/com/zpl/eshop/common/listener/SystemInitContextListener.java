@@ -24,8 +24,6 @@ public class SystemInitContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         System.out.println("系统启动了。。。。。。。。");
-        // ScheduleStockUpdateMessageConsumer stockUpdateMessageConsumer =
-        //         context.getBean(ScheduleStockUpdateMessageConsumer.class);
         StockUpdateMessageConsumer stockUpdateMessageConsumer = context.getBean(StockUpdateMessageConsumer.class);
         stockUpdateMessageConsumer.start();
     }

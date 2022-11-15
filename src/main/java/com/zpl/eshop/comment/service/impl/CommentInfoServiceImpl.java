@@ -34,7 +34,7 @@ public class CommentInfoServiceImpl implements CommentInfoService {
      * @return 新增是否成功
      */
     @Override
-    public Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfo) throws Exception {
+    public saveManualPublishedCommentInfo(CommentInfoDTO commentInfo) throws Exception {
         // 计算总分数
         Integer totalScore = Math.round((commentInfo.getGoodsScore()
                 + commentInfo.getLogisticsScore()

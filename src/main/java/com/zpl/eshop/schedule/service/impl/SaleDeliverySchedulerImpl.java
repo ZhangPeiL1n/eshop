@@ -1,5 +1,6 @@
 package com.zpl.eshop.schedule.service.impl;
 
+import com.zpl.eshop.common.constant.CollectionSize;
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.order.domain.OrderItemDTO;
@@ -73,7 +74,7 @@ public class SaleDeliverySchedulerImpl implements SaleDeliveryScheduler {
         // 拣货单条目明细，同一个货位的拣货单需要合并
         // 因为这个是扣减货位库存明细的，货位库存明细可能会像上面的例子中，同一个 货位A-01 有 2条明细
         // 所以需要这个来合并相同货位上的拣货条目
-        Map<Long, ScheduleOrderPickingItemDTO> pickingItems = new HashMap<>();
+        Map<Long, ScheduleOrderPickingItemDTO> pickingItems = new HashMap<>(CollectionSize.DEFAULT);
         // 出库单明细
         List<ScheduleOrderSendOutDetailDTO> sendOutDetails = new ArrayList<>();
 

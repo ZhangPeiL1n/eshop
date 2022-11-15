@@ -35,9 +35,10 @@ public class ScheduleGoodsAllocationStockDetailDAOImpl implements ScheduleGoodsA
      *
      * @param goodsSkuId 商品sku id
      * @return 货位库存明细
+     * @throws Exception
      */
     @Override
-    public List<ScheduleGoodsAllocationStockDetailDO> listByGoodsSkuId(Long goodsSkuId) {
+    public List<ScheduleGoodsAllocationStockDetailDO> listByGoodsSkuId(Long goodsSkuId) throws Exception {
         return stockDetailMapper.listByGoodsSkuId(goodsSkuId);
     }
 
@@ -56,6 +57,7 @@ public class ScheduleGoodsAllocationStockDetailDAOImpl implements ScheduleGoodsA
      * 更新货位库存明细
      *
      * @param stockDetail 货位库存明细
+     * @throws Exception
      */
     @Override
     public void update(ScheduleGoodsAllocationStockDetailDO stockDetail) throws Exception {
@@ -67,6 +69,7 @@ public class ScheduleGoodsAllocationStockDetailDAOImpl implements ScheduleGoodsA
      * 新增货位库存明细
      *
      * @param stockDetail 货位库存明细
+     * @throws Exception
      */
     @Override
     public void save(ScheduleGoodsAllocationStockDetailDO stockDetail) throws Exception {

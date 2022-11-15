@@ -36,6 +36,7 @@ public class PurchaseOrderDAOImpl implements PurchaseOrderDAO {
      *
      * @param purchaseOrder 采购单
      * @return 采购单id
+     * @throws Exception
      */
     @Override
     public Long save(PurchaseOrderDO purchaseOrder) throws Exception {
@@ -50,6 +51,7 @@ public class PurchaseOrderDAOImpl implements PurchaseOrderDAO {
      *
      * @param query 查询条件
      * @return 采购单
+     * @throws Exception
      */
     @Override
     public List<PurchaseOrderDO> listByPage(PurchaseOrderQuery query) throws Exception {
@@ -61,6 +63,7 @@ public class PurchaseOrderDAOImpl implements PurchaseOrderDAO {
      *
      * @param id 采购单id
      * @return 采购单
+     * @throws Exception
      */
     @Override
     public PurchaseOrderDO getById(Long id) throws Exception {
@@ -71,6 +74,7 @@ public class PurchaseOrderDAOImpl implements PurchaseOrderDAO {
      * 更新采购单
      *
      * @param purchaseOrder 采购单
+     * @throws Exception
      */
     @Override
     public void update(PurchaseOrderDO purchaseOrder) throws Exception {

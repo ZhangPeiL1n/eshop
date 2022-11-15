@@ -19,6 +19,7 @@ public interface SaleDeliveryOrderBuilder {
      *
      * @param order 订单
      * @return builder
+     * @throws Exception
      */
     SaleDeliveryOrderBuilder setOrderRelatedData(OrderInfoDTO order) throws Exception;
 
@@ -27,6 +28,7 @@ public interface SaleDeliveryOrderBuilder {
      *
      * @param orderItems 订单条目
      * @return builder
+     * @throws Exception
      */
     SaleDeliveryOrderBuilder createSaleDeliveryOrderItems(List<OrderItemDTO> orderItems) throws Exception;
 
@@ -35,6 +37,7 @@ public interface SaleDeliveryOrderBuilder {
      *
      * @param order 订单
      * @return builder
+     * @throws Exception
      */
     SaleDeliveryOrderBuilder createSendOutOrder(OrderInfoDTO order) throws Exception;
 
@@ -43,6 +46,7 @@ public interface SaleDeliveryOrderBuilder {
      *
      * @param order 订单
      * @return builder
+     * @throws Exception
      */
     SaleDeliveryOrderBuilder createLogisticOrder(OrderInfoDTO order) throws Exception;
 
@@ -50,6 +54,7 @@ public interface SaleDeliveryOrderBuilder {
      * 初始化销售出库单的状态
      *
      * @return builder
+     * @throws Exception
      */
     SaleDeliveryOrderBuilder initStatus() throws Exception;
 
@@ -57,6 +62,7 @@ public interface SaleDeliveryOrderBuilder {
      * 初始化时间相关的字段
      *
      * @return builder
+     * @throws Exception
      */
     SaleDeliveryOrderBuilder initTimes() throws Exception;
 
@@ -64,6 +70,7 @@ public interface SaleDeliveryOrderBuilder {
      * 创建最终构造好的销售出库单
      *
      * @return 销售出库单
+     * @throws Exception
      */
     SaleDeliveryOrderDTO create() throws Exception;
 }

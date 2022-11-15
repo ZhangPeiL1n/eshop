@@ -1,5 +1,6 @@
 package com.zpl.eshop.inventory.stock;
 
+import com.zpl.eshop.common.constant.CollectionSize;
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.dao.GoodsStockDAO;
 import com.zpl.eshop.inventory.domain.GoodsStockDO;
@@ -68,14 +69,14 @@ public class ReturnInputStockUpdaterFactory extends AbstractStockUpdaterFactory<
     protected StockUpdater create(List<GoodsStockDO> goodsStockDOList, ReturnGoodsInputOrderDTO parameter) throws Exception {
         List<ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOList = parameter.getItems();
 
-        Map<Long, ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemDTOMap = new HashMap<>();
+        Map<Long, ReturnGoodsInputOrderItemDTO> returnGoodsInputOrderItemMap = new HashMap<>(CollectionSize.DEFAULT);
 
         // 卫语句,没有就返回空集合
         if (returnGoodsInputOrderItemDTOList != null && returnGoodsInputOrderItemDTOList.size() > 0) {
             for (ReturnGoodsInputOrderItemDTO returnGoodsInputOrderItemDTO : returnGoodsInputOrderItemDTOList) {
-                returnGoodsInputOrderItemDTOMap.put(returnGoodsInputOrderItemDTO.getGoodsSkuId(), returnGoodsInputOrderItemDTO);
+                returnGoodsInputOrderItemMap.put(returnGoodsInputOrderItemDTO.getGoodsSkuId(), returnGoodsInputOrderItemDTO);
             }
         }
-        return new ReturnInputStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, returnGoodsInputOrderItemDTOMap);
+        return new ReturnInputStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, returnGoodsInputOrderItemMap);
     }
 }

@@ -34,9 +34,10 @@ public class PayTransactionDAOImpl implements PayTransactionDAO {
      *
      * @param query 查询条件
      * @return 支付交易流水
+     * @throws Exception
      */
     @Override
-    public List<PayTransactionDO> listByPage(PayTransactionQuery query) {
+    public List<PayTransactionDO> listByPage(PayTransactionQuery query) throws Exception {
         return payTransactionMapper.listByPage(query);
     }
 
@@ -44,6 +45,7 @@ public class PayTransactionDAOImpl implements PayTransactionDAO {
      * 新增支付交易流水
      *
      * @param payTransaction 支付交易流水
+     * @throws Exception
      */
     @Override
     public void save(PayTransactionDO payTransaction) throws Exception {
@@ -68,6 +70,7 @@ public class PayTransactionDAOImpl implements PayTransactionDAO {
      * 更新支付交易流水
      *
      * @param payTransaction 支付交易流水
+     * @throws Exception
      */
     @Override
     public void update(PayTransactionDO payTransaction) throws Exception {

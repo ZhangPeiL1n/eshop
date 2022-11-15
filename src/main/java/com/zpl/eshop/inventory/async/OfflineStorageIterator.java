@@ -20,6 +20,7 @@ public interface OfflineStorageIterator {
      * 离线恢复线程使用，每次批量查询50条
      *
      * @return 50条数据
+     * @throws Exception
      */
     List<StockUpdateMessage> next() throws Exception;
 }

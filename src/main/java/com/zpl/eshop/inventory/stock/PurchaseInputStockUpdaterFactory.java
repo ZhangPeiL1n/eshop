@@ -1,5 +1,6 @@
 package com.zpl.eshop.inventory.stock;
 
+import com.zpl.eshop.common.constant.CollectionSize;
 import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.inventory.dao.GoodsStockDAO;
 import com.zpl.eshop.inventory.domain.GoodsStockDO;
@@ -67,16 +68,16 @@ public class PurchaseInputStockUpdaterFactory extends AbstractStockUpdaterFactor
     protected StockUpdater create(List<GoodsStockDO> goodsStockDOList, PurchaseInputOrderDTO parameter) throws Exception {
         List<PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOList = parameter.getItems();
 
-        Map<Long, PurchaseInputOrderItemDTO> purchaseInputOrderItemDTOMap = new HashMap<>();
+        Map<Long, PurchaseInputOrderItemDTO> purchaseInputOrderItemMap = new HashMap<>(CollectionSize.DEFAULT);
 
         // 卫语句,没有就返回空集合
         if (purchaseInputOrderItemDTOList != null && purchaseInputOrderItemDTOList.size() > 0) {
             for (PurchaseInputOrderItemDTO purchaseInputOrderItemDTO : purchaseInputOrderItemDTOList) {
-                purchaseInputOrderItemDTOMap.put(purchaseInputOrderItemDTO.getGoodsSkuId(), purchaseInputOrderItemDTO);
+                purchaseInputOrderItemMap.put(purchaseInputOrderItemDTO.getGoodsSkuId(), purchaseInputOrderItemDTO);
             }
         }
 
-        return new PurchaseInputStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, purchaseInputOrderItemDTOMap);
+        return new PurchaseInputStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, purchaseInputOrderItemMap);
     }
 
 }

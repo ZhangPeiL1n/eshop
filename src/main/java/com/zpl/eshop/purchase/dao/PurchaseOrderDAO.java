@@ -17,7 +17,8 @@ public interface PurchaseOrderDAO {
      * 新增采购单
      *
      * @param purchaseOrder 采购单
-     * @return
+     * @return id
+     * @throws Exception
      */
     Long save(PurchaseOrderDO purchaseOrder) throws Exception;
 
@@ -26,6 +27,7 @@ public interface PurchaseOrderDAO {
      *
      * @param query 查询条件
      * @return 采购单
+     * @throws Exception
      */
     List<PurchaseOrderDO> listByPage(PurchaseOrderQuery query) throws Exception;
 
@@ -34,6 +36,7 @@ public interface PurchaseOrderDAO {
      *
      * @param id 采购单id
      * @return 采购单
+     * @throws Exception
      */
     PurchaseOrderDO getById(Long id) throws Exception;
 
@@ -41,6 +44,7 @@ public interface PurchaseOrderDAO {
      * 更新采购单
      *
      * @param purchaseOrder 采购单
+     * @throws Exception
      */
     void update(PurchaseOrderDO purchaseOrder) throws Exception;
 

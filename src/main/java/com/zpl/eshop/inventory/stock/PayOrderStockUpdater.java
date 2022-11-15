@@ -19,7 +19,7 @@ public class PayOrderStockUpdater extends AbstractStockUpdater {
     /**
      * 订单条目DTO集合
      */
-    private Map<Long, OrderItemDTO> orderItemDTOMap;
+    private final Map<Long, OrderItemDTO> orderItemMap;
 
     /**
      * 构造函数
@@ -27,11 +27,11 @@ public class PayOrderStockUpdater extends AbstractStockUpdater {
      * @param goodsStockDOList 商品库存对象集合
      * @param goodsStockDAO    商品库存管理模块DAO组件
      * @param dateProvider     日期辅助组件
-     * @param orderItemDTOMap  订单条目DTO集合
+     * @param orderItemMap     订单条目DTO集合
      */
-    public PayOrderStockUpdater(List<GoodsStockDO> goodsStockDOList, GoodsStockDAO goodsStockDAO, DateProvider dateProvider, Map<Long, OrderItemDTO> orderItemDTOMap) {
+    public PayOrderStockUpdater(List<GoodsStockDO> goodsStockDOList, GoodsStockDAO goodsStockDAO, DateProvider dateProvider, Map<Long, OrderItemDTO> orderItemMap) {
         super(goodsStockDOList, goodsStockDAO, dateProvider);
-        this.orderItemDTOMap = orderItemDTOMap;
+        this.orderItemMap = orderItemMap;
     }
 
     /**
@@ -51,7 +51,7 @@ public class PayOrderStockUpdater extends AbstractStockUpdater {
     @Override
     protected void updateLockedStockQuantity() throws Exception {
         for (GoodsStockDO goodsStockDO : goodsStockDOList) {
-            OrderItemDTO orderItemDTO = orderItemDTOMap.get(goodsStockDO.getGoodsSkuId());
+            OrderItemDTO orderItemDTO = orderItemMap.get(goodsStockDO.getGoodsSkuId());
             goodsStockDO.setLockedStockQuantity(goodsStockDO.getLockedStockQuantity() - orderItemDTO.getPurchaseQuantity());
         }
     }
@@ -62,9 +62,9 @@ public class PayOrderStockUpdater extends AbstractStockUpdater {
      * @throws Exception
      */
     @Override
-    protected void updateSaledStockQuantity() throws Exception {
+    protected void updateSoldStockQuantity() throws Exception {
         for (GoodsStockDO goodsStockDO : goodsStockDOList) {
-            OrderItemDTO orderItemDTO = orderItemDTOMap.get(goodsStockDO.getGoodsSkuId());
+            OrderItemDTO orderItemDTO = orderItemMap.get(goodsStockDO.getGoodsSkuId());
             goodsStockDO.setSaledStockQuantity(goodsStockDO.getSaledStockQuantity() + orderItemDTO.getPurchaseQuantity());
         }
     }

@@ -33,10 +33,10 @@ public class ScheduleOrderPickingItemDAOImpl implements ScheduleOrderPickingItem
      *
      * @param orderItem    订单条目
      * @param pickingItems 拣货条目
+     * @throws Exception
      */
     @Override
-    public void batchSave(Long orderInfoId, Long orderItemId,
-                          List<ScheduleOrderPickingItemDO> pickingItems) throws Exception {
+    public void batchSave(Long orderInfoId, Long orderItemId, List<ScheduleOrderPickingItemDO> pickingItems) throws Exception {
         for (ScheduleOrderPickingItemDO pickingItem : pickingItems) {
             pickingItem.setId(null);
             pickingItem.setOrderInfoId(orderInfoId);
@@ -53,10 +53,11 @@ public class ScheduleOrderPickingItemDAOImpl implements ScheduleOrderPickingItem
      *
      * @param orderInfoId 订单id
      * @param orderItemId 订单条目id
-     * @return
+     * @return 拣货条目
+     * @throws Exception
      */
     @Override
-    public List<ScheduleOrderPickingItemDO> listByOrderItemId(Long orderInfoId, Long orderItemId) {
+    public List<ScheduleOrderPickingItemDO> listByOrderItemId(Long orderInfoId, Long orderItemId) throws Exception {
         return pickingItemMapper.listByOrderItemId(orderInfoId, orderItemId);
     }
 
@@ -65,9 +66,10 @@ public class ScheduleOrderPickingItemDAOImpl implements ScheduleOrderPickingItem
      *
      * @param orderInfoId 订单id
      * @param orderItemId 订单条目id
+     * @throws Exception
      */
     @Override
-    public void removeByOrderItemId(Long orderInfoId, Long orderItemId) {
+    public void removeByOrderItemId(Long orderInfoId, Long orderItemId) throws Exception {
         pickingItemMapper.removeByOrderItemId(orderInfoId, orderItemId);
     }
 }

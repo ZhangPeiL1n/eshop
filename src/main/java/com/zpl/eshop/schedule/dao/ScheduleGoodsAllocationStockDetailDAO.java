@@ -17,8 +17,9 @@ public interface ScheduleGoodsAllocationStockDetailDAO {
      *
      * @param goodsSkuId 商品sku id
      * @return 货位库存明细
+     * @throws Exception
      */
-    List<ScheduleGoodsAllocationStockDetailDO> listByGoodsSkuId(Long goodsSkuId);
+    List<ScheduleGoodsAllocationStockDetailDO> listByGoodsSkuId(Long goodsSkuId) throws Exception;
 
     /**
      * 根据id查询货位库存明细
@@ -32,6 +33,7 @@ public interface ScheduleGoodsAllocationStockDetailDAO {
      * 更新货位库存明细
      *
      * @param stockDetail 货位库存明细
+     * @throws Exception
      */
     void update(ScheduleGoodsAllocationStockDetailDO stockDetail) throws Exception;
 
@@ -39,6 +41,7 @@ public interface ScheduleGoodsAllocationStockDetailDAO {
      * 新增货位库存明细
      *
      * @param stockDetail 货位库存明细
+     * @throws Exception
      */
     void save(ScheduleGoodsAllocationStockDetailDO stockDetail) throws Exception;
 }

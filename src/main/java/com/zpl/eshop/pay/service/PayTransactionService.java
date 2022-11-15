@@ -17,6 +17,7 @@ public interface PayTransactionService {
      * 新增支付交易流水
      *
      * @param payTransaction 支付交易流水
+     * @throws Exception
      */
     void save(PayTransactionDTO payTransaction) throws Exception;
 
@@ -42,6 +43,7 @@ public interface PayTransactionService {
      *
      * @param query 查询条件
      * @return 支付交易流水
+     * @throws Exception
      */
     List<PayTransactionDTO> listByPage(PayTransactionQuery query) throws Exception;
 }

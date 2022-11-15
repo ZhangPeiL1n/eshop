@@ -32,6 +32,7 @@ public class SupplierServiceImpl implements SupplierService {
      * 新增供应商
      *
      * @param supplier 供应商
+     * @throws Exception
      */
     @Override
     public void save(SupplierDTO supplier) throws Exception {
@@ -43,6 +44,7 @@ public class SupplierServiceImpl implements SupplierService {
      *
      * @param query 供应商查询条件
      * @return 供应商
+     * @throws Exception
      */
     @Override
     public List<SupplierDTO> listByPage(SupplierQuery query) throws Exception {
@@ -54,6 +56,7 @@ public class SupplierServiceImpl implements SupplierService {
      *
      * @param id 供应商id
      * @return 供应商
+     * @throws Exception
      */
     @Override
     public SupplierDTO getById(Long id) throws Exception {
@@ -65,6 +68,7 @@ public class SupplierServiceImpl implements SupplierService {
      *
      * @param settlementPeriod 结算周期
      * @return 供应商
+     * @throws Exception
      */
     @Override
     public List<SupplierDTO> listBySettlementPeriod(Integer settlementPeriod) throws Exception {

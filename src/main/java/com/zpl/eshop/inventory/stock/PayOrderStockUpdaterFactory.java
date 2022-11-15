@@ -58,9 +58,9 @@ public class PayOrderStockUpdaterFactory extends AbstractStockUpdaterFactory<Ord
     @Override
     protected StockUpdater create(List<GoodsStockDO> goodsStockDOList, OrderInfoDTO parameter) throws Exception {
         List<OrderItemDTO> orderItemDTOList = parameter.getOrderItems();
-        Map<Long, OrderItemDTO> orderItemDTOMap = new HashMap<>(orderItemDTOList.size());
-        orderItemDTOList.forEach(orderItemDTO -> orderItemDTOMap.put(orderItemDTO.getGoodsSkuId(), orderItemDTO));
-        return new PayOrderStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, orderItemDTOMap);
+        Map<Long, OrderItemDTO> orderItemMap = new HashMap<>(orderItemDTOList.size());
+        orderItemDTOList.forEach(orderItemDTO -> orderItemMap.put(orderItemDTO.getGoodsSkuId(), orderItemDTO));
+        return new PayOrderStockUpdater(goodsStockDOList, goodsStockDAO, dateProvider, orderItemMap);
     }
 
 }

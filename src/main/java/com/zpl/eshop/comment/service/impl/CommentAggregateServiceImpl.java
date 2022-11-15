@@ -24,14 +24,13 @@ import java.util.Date;
 public class CommentAggregateServiceImpl implements CommentAggregateService {
 
     /**
-     * 评论统计管理DAO组件
+     * 评论统计信息管理DAO组件
      */
     @Autowired
     private CommentAggregateDAO commentAggregateDAO;
 
     @Override
     public Boolean updateCommentAggregate(CommentInfoDTO commentInfo) throws Exception {
-
         CommentAggregateDO commentAggregate = commentAggregateDAO.getCommentAggregateByGoodsId(commentInfo.getGoodsId());
         if (commentAggregate == null) {
             commentAggregate = new CommentAggregateDO();
