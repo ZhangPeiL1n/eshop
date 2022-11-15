@@ -6,6 +6,7 @@ import com.zpl.eshop.commodity.service.CommodityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
  * @date 2022/2/8 22:26
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class CommodityServiceImpl implements CommodityService {
 
     private final Logger logger = LoggerFactory.getLogger(CommodityServiceImpl.class);
@@ -31,22 +33,22 @@ public class CommodityServiceImpl implements CommodityService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         try {
-            GoodsSkuDTO goodsSkuDTO = new GoodsSkuDTO();
-            goodsSkuDTO.setId(goodsSkuId);
-            goodsSkuDTO.setGoodsId(999L);
-            goodsSkuDTO.setGoodsName("iPhonePlus");
-            goodsSkuDTO.setGoodsSkuCode("MXD133221");
-            goodsSkuDTO.setGoodsLength(133.00);
-            goodsSkuDTO.setGoodsWidth(221.00);
-            goodsSkuDTO.setGoodsHeight(333.00);
-            goodsSkuDTO.setGrossWeight(123.00);
-            goodsSkuDTO.setSalePrice(9999.00);
-            goodsSkuDTO.setDiscountPrice(8999.00);
-            goodsSkuDTO.setPurchasePrice(6789.33);
-            goodsSkuDTO.setSaleProperties("机身颜色:白色,存储大小:256G");
-            goodsSkuDTO.setGmtCreate(simpleDateFormat.parse("2022-02-14 11:11:11"));
-            goodsSkuDTO.setGmtModified(simpleDateFormat.parse("2022-02-14 11:11:11"));
-            return goodsSkuDTO;
+            GoodsSkuDTO goodsSku = new GoodsSkuDTO();
+            goodsSku.setId(goodsSkuId);
+            goodsSku.setGoodsId(999L);
+            goodsSku.setGoodsName("iPhonePlus");
+            goodsSku.setGoodsSkuCode("MXD133221");
+            goodsSku.setGoodsLength(133.00);
+            goodsSku.setGoodsWidth(221.00);
+            goodsSku.setGoodsHeight(333.00);
+            goodsSku.setGrossWeight(123.00);
+            goodsSku.setSalePrice(9999.00);
+            goodsSku.setDiscountPrice(8999.00);
+            goodsSku.setPurchasePrice(6789.33);
+            goodsSku.setSaleProperties("机身颜色:白色,存储大小:256G");
+            goodsSku.setGmtCreate(simpleDateFormat.parse("2022-02-14 11:11:11"));
+            goodsSku.setGmtModified(simpleDateFormat.parse("2022-02-14 11:11:11"));
+            return goodsSku;
         } catch (Exception e) {
             logger.error("error", e);
             return null;

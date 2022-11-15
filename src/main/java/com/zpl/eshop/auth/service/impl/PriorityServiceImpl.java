@@ -30,6 +30,7 @@ public class PriorityServiceImpl implements PriorityService {
      */
     @Autowired
     private PriorityDAO priorityDAO;
+
     /**
      * 日期辅助组件
      */
@@ -50,6 +51,7 @@ public class PriorityServiceImpl implements PriorityService {
      * 查询根权限
      *
      * @return 根权限集合
+     * @throws Exception
      */
     @Override
     public List<PriorityDTO> listRootPriorities() throws Exception {

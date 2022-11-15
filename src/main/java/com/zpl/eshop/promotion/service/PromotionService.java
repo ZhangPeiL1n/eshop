@@ -18,8 +18,9 @@ public interface PromotionService {
      *
      * @param goodsId 商品 id
      * @return 促销活动
+     * @throws Exception
      */
-    List<PromotionActivityDTO> listByGoodsId(Long goodsId);
+    List<PromotionActivityDTO> listByGoodsId(Long goodsId) throws Exception;
 
     /**
      * 根据id查询促销活动
@@ -35,8 +36,9 @@ public interface PromotionService {
      *
      * @param userAccountId 用户帐号id
      * @return 有效优惠券
+     * @throws Exception
      */
-    List<CouponDTO> listValidByUserAccount(Long userAccountId);
+    List<CouponDTO> listValidByUserAccount(Long userAccountId) throws Exception;
 
     /**
      * 使用优惠券

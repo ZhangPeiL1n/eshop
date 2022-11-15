@@ -17,7 +17,7 @@ public interface PriorityDAO {
      *
      * @return 根权限集合
      */
-    List<PriorityDO> listRootPriorities();
+    List<PriorityDO> listRootPriorities() throws Exception;
 
     /**
      * 根据父权限id查询子权限
@@ -25,7 +25,7 @@ public interface PriorityDAO {
      * @param parentId 父权限id
      * @return 子权限
      */
-    List<PriorityDO> listChildPriorities(Long parentId);
+    List<PriorityDO> listChildPriorities(Long parentId) throws Exception;
 
     /**
      * 根据id查询权限
@@ -33,7 +33,7 @@ public interface PriorityDAO {
      * @param id 权限id
      * @return 权限
      */
-    PriorityDO getPriorityById(Long id);
+    PriorityDO getPriorityById(Long id) throws Exception;
 
     /**
      * 查询账号被授权的菜单
@@ -41,7 +41,7 @@ public interface PriorityDAO {
      * @param parameters 参数
      * @return
      */
-    List<PriorityDO> listAuthorizedByAccountId(Map<String, Object> parameters);
+    List<PriorityDO> listAuthorizedByAccountId(Map<String, Object> parameters) throws Exception;
 
     /**
      * 根据权限id查询账号id
@@ -49,7 +49,7 @@ public interface PriorityDAO {
      * @param priorityId 权限id
      * @return
      */
-    List<Long> listAccountIdsByPriorityId(Long priorityId);
+    List<Long> listAccountIdsByPriorityId(Long priorityId) throws Exception;
 
     /**
      * 统计账号对指定编号的权限是否有授权记录
@@ -58,7 +58,7 @@ public interface PriorityDAO {
      * @param code      权限编号
      * @return 是否有授权记录
      */
-    Long countAuthorizedByCode(Long accountId, String code);
+    Long countAuthorizedByCode(Long accountId, String code) throws Exception;
 
     /**
      * 统计账号对指定URL的权限是否有授权记录
@@ -67,7 +67,7 @@ public interface PriorityDAO {
      * @param url       权限url
      * @return 是否有授权记录
      */
-    Long countAuthorizedByUrl(Long accountId, String url);
+    Long countAuthorizedByUrl(Long accountId, String url) throws Exception;
 
     /**
      * 新增权限
@@ -75,7 +75,7 @@ public interface PriorityDAO {
      * @param priorityDO 权限DO对象
      * @return id
      */
-    Long savePriority(PriorityDO priorityDO);
+    Long savePriority(PriorityDO priorityDO) throws Exception;
 
     /**
      * 更新权限
@@ -83,7 +83,7 @@ public interface PriorityDAO {
      * @param priorityDO 权限DO对象
      * @return 操作结果
      */
-    void updatePriority(PriorityDO priorityDO);
+    void updatePriority(PriorityDO priorityDO) throws Exception;
 
     /**
      * 删除权限
@@ -91,6 +91,6 @@ public interface PriorityDAO {
      * @param id 权限id
      * @return 操作结果
      */
-    void removePriority(Long id);
+    void removePriority(Long id) throws Exception;
 
 }

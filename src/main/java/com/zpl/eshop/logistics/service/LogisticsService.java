@@ -29,8 +29,9 @@ public interface LogisticsService {
      *
      * @param order 订单
      * @return 物流单
+     * @throws Exception
      */
-    LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order);
+    LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order) throws Exception;
 
     /**
      * 获取订单签收时间

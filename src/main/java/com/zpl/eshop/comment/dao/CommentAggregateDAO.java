@@ -15,23 +15,24 @@ public interface CommentAggregateDAO {
      *
      * @param goodsId 商品id
      * @return 评论统计信息
+     * @throws Exception
      */
-    CommentAggregateDO getCommentAggregateByGoodsId(Long goodsId);
+    CommentAggregateDO getCommentAggregateByGoodsId(Long goodsId) throws Exception;
 
 
     /**
      * 新增评论统计信息
      *
-     * @param commentAggregateDO 评论统计信息DO
-     * @return 新增是否成功
+     * @param commentAggregate 评论统计信息DO
+     * @throws Exception
      */
-    Boolean saveCommentAggregate(CommentAggregateDO commentAggregateDO);
+    void saveCommentAggregate(CommentAggregateDO commentAggregate) throws Exception;
 
     /**
      * 更新评论统计信息
      *
-     * @param commentAggregateDO 评论统计信息DO
-     * @return 更新是否成功
+     * @param commentAggregate 评论统计信息DO
+     * @throws Exception
      */
-    Boolean updateCommentAggregate(CommentAggregateDO commentAggregateDO);
+    void updateCommentAggregate(CommentAggregateDO commentAggregate) throws Exception;
 }

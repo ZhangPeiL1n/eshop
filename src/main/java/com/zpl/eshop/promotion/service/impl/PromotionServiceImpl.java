@@ -24,6 +24,7 @@ import java.util.List;
 public class PromotionServiceImpl implements PromotionService {
 
     private final Logger logger = LoggerFactory.getLogger(PromotionServiceImpl.class);
+
     @Autowired
     private DateProvider dateProvider;
 
@@ -75,6 +76,7 @@ public class PromotionServiceImpl implements PromotionService {
      *
      * @param id 促销活动id
      * @return 促销活动
+     * @throws Exception
      */
     @Override
     public PromotionActivityDTO getById(Long id) throws Exception {
@@ -123,9 +125,10 @@ public class PromotionServiceImpl implements PromotionService {
      *
      * @param userAccountId 用户帐号id
      * @return 有效优惠券
+     * @throws Exception
      */
     @Override
-    public List<CouponDTO> listValidByUserAccount(Long userAccountId) {
+    public List<CouponDTO> listValidByUserAccount(Long userAccountId) throws Exception {
         return null;
     }
 
@@ -135,6 +138,7 @@ public class PromotionServiceImpl implements PromotionService {
      * @param couponId      优惠券id
      * @param userAccountId 帐号id
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean useCoupon(Long couponId, Long userAccountId) throws Exception {

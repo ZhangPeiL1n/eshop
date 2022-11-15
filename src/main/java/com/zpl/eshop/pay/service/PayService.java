@@ -16,15 +16,17 @@ public interface PayService {
      *
      * @param order 订单
      * @return 二维码
+     * @throws Exception
      */
-    String getQrCode(OrderInfoDTO order);
+    String getQrCode(OrderInfoDTO order) throws Exception;
 
     /**
      * 进行退款
      *
      * @param returnGoodsInputOrder 退货入库单
      * @return 退款结果
+     * @throws Exception
      */
-    Boolean refund(ReturnGoodsInputOrderDTO returnGoodsInputOrder);
+    Boolean refund(ReturnGoodsInputOrderDTO returnGoodsInputOrder) throws Exception;
 
 }

@@ -16,14 +16,16 @@ public interface FinanceService {
      *
      * @param purchaseInputOrder 采购入库单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean createPurchaseSettlementOrder(PurchaseInputOrderDTO purchaseInputOrder);
+    Boolean createPurchaseSettlementOrder(PurchaseInputOrderDTO purchaseInputOrder) throws Exception;
 
     /**
      * 给物流公司打款
      *
      * @param saleDeliveryOrder 销售出库单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean payForLogisticsCompany(SaleDeliveryOrderDTO saleDeliveryOrder);
+    Boolean payForLogisticsCompany(SaleDeliveryOrderDTO saleDeliveryOrder) throws Exception;
 }

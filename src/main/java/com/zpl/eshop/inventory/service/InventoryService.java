@@ -14,50 +14,56 @@ public interface InventoryService {
     /**
      * 通知库存中心，“采购入库完成”事件发生了
      *
-     * @param purchaseInputOrderDTO 采购入库单DTO
+     * @param purchaseInputOrder 采购入库单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrderDTO);
+    Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrder) throws Exception;
 
     /**
      * 通知库存中心，“提交订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informSubmitOrderEvent(OrderInfoDTO order) throws Exception;
 
     /**
      * 通知库存中心，“支付订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informPayOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informPayOrderEvent(OrderInfoDTO order) throws Exception;
 
     /**
      * 通知库存中心，“取消订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean cancelOrderEvent(OrderInfoDTO orderDTO);
+    Boolean cancelOrderEvent(OrderInfoDTO order) throws Exception;
 
     /**
      * 通知库存中心，“退货入库”事件发生了
      *
-     * @param returnGoodsInputOrderDTO 退货入库DTO
+     * @param returnGoodsInputOrder 退货入库DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO);
+    Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrder) throws Exception;
 
     /**
      * 查询商品 sku 的库存
      *
      * @param goodsSkuId 商品 sku id
      * @return 库存
+     * @throws Exception
      */
-    Long getSaleStockQuantity(Long goodsSkuId);
+    Long getSaleStockQuantity(Long goodsSkuId) throws Exception;
 
     /**
      * 设置销售库存
@@ -65,7 +71,8 @@ public interface InventoryService {
      * @param goodsSkuId        商品skuId
      * @param saleStockQuantity 销售库存
      * @return 设置结果
+     * @throws Exception
      */
-    Boolean setSaleStockQuantity(Long goodsSkuId, Long saleStockQuantity);
+    Boolean setSaleStockQuantity(Long goodsSkuId, Long saleStockQuantity) throws Exception;
 
 }

@@ -69,6 +69,7 @@ public class LogisticsServiceImpl implements LogisticsService {
      * @param order     订单
      * @param orderItem 订单条目
      * @return 商品 sku 的运费
+     * @throws Exception
      */
     @Override
     public Double calculateFreight(OrderInfoDTO order, OrderItemDTO orderItem) throws Exception {
@@ -93,9 +94,10 @@ public class LogisticsServiceImpl implements LogisticsService {
      *
      * @param order 订单
      * @return 物流单
+     * @throws Exception
      */
     @Override
-    public LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order) {
+    public LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order) throws Exception {
         try {
             CreateEorderRequest request = CreateEorderRequestBuilder.get()
                     .buildOrderRelatedInfo(order)
