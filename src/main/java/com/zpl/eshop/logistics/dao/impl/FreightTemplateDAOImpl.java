@@ -35,6 +35,7 @@ public class FreightTemplateDAOImpl implements FreightTemplateDAO {
      * 新增运费模板
      *
      * @param freightTemplate 运费模板
+     * @throws Exception
      */
     @Override
     public void save(FreightTemplateDO freightTemplate) throws Exception {
@@ -48,17 +49,19 @@ public class FreightTemplateDAOImpl implements FreightTemplateDAO {
      *
      * @param query 运费模板查询条件
      * @return 运费模板
+     * @throws Exception
      */
     @Override
-    public List<FreightTemplateDO> listByPage(FreightTemplateQuery query) {
+    public List<FreightTemplateDO> listByPage(FreightTemplateQuery query) throws Exception {
         return freightTemplateMapper.listByPage(query);
     }
 
     /**
      * 根据id查询运费模板
      *
-     * @param query 运费模板查询条件
+     * @param id id
      * @return 运费模板
+     * @throws Exception
      */
     @Override
     public FreightTemplateDO getById(Long id) {
@@ -69,6 +72,7 @@ public class FreightTemplateDAOImpl implements FreightTemplateDAO {
      * 更新运费模板
      *
      * @param freightTemplate 运费模板
+     * @throws Exception
      */
     @Override
     public void update(FreightTemplateDO freightTemplate) throws Exception {

@@ -16,37 +16,41 @@ public interface AccountRoleRelationshipDAO {
      *
      * @param roleId 角色id
      * @return 记录数
+     * @throws Exception
      */
-    Long countByRoleId(Long roleId);
+    Long countByRoleId(Long roleId) throws Exception;
 
     /**
      * 根据账号id查询账号和角色关联关系
      *
      * @param accountId 账号id
      * @return 账号和角色关联关系
+     * @throws Exception
      */
-    List<AccountRoleRelationshipDO> listByAccountId(Long accountId);
+    List<AccountRoleRelationshipDO> listByAccountId(Long accountId) throws Exception;
 
     /**
      * 根据角色id查询账号id集合
      *
      * @param roleId 角色id
      * @return 账号id集合
+     * @throws Exception
      */
-    List<Long> listAccountIdsByRoleId(Long roleId);
+    List<Long> listAccountIdsByRoleId(Long roleId) throws Exception;
 
     /**
      * 新增账号和角色的关联关系
      *
      * @param relation 账号和角色的关联关系
+     * @throws Exception
      */
-    void save(AccountRoleRelationshipDO relation);
+    void save(AccountRoleRelationshipDO relation) throws Exception;
 
     /**
      * 根据账号id删除账号和角色的关联关系
      *
      * @param accountId 账号id
+     * @throws Exception
      */
-    void removeByAccountId(Long accountId);
-
+    void removeByAccountId(Long accountId) throws Exception;
 }

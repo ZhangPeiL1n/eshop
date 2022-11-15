@@ -28,6 +28,12 @@ public class CommentPictureDAOImpl implements CommentPictureDAO {
     @Autowired
     private DateProvider dateProvider;
 
+    /**
+     * 新增评论晒图
+     *
+     * @param commentPicture 评论晒图DO对象
+     * @throws Exception
+     */
     @Override
     public void saveCommentPicture(CommentPictureDO commentPicture) throws Exception {
         commentPicture.setGmtCreate(dateProvider.getCurrentTime());

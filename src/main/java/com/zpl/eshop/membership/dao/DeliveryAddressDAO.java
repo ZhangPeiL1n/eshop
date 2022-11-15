@@ -16,28 +16,31 @@ public interface DeliveryAddressDAO {
      *
      * @param userAccountId 用户账号id
      * @return 所有收货地址
+     * @throws Exception
      */
-    List<DeliveryAddressDO> listAllByUserAccountId(Long userAccountId);
+    List<DeliveryAddressDO> listAllByUserAccountId(Long userAccountId) throws Exception;
 
     /**
      * 新增收货地址
      *
      * @param deliveryAddress 收货地址
+     * @throws Exception
      */
-    void save(DeliveryAddressDO deliveryAddress);
+    void save(DeliveryAddressDO deliveryAddress) throws Exception;
 
     /**
      * 更新收货地址
      *
      * @param deliveryAddress 收货地址
+     * @throws Exception
      */
-    void update(DeliveryAddressDO deliveryAddress);
+    void update(DeliveryAddressDO deliveryAddress) throws Exception;
 
     /**
      * 删除收货地址
      *
      * @param id 收货地址id
+     * @throws Exception
      */
-    void remove(Long id);
-
+    void remove(Long id) throws Exception;
 }

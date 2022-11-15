@@ -32,6 +32,7 @@ public class FreightTemplateServiceImpl implements FreightTemplateService {
      * 新增运费模板
      *
      * @param freightTemplate 运费模板
+     * @throws Exception
      */
     @Override
     public void save(FreightTemplateDTO freightTemplate) throws Exception {
@@ -43,6 +44,7 @@ public class FreightTemplateServiceImpl implements FreightTemplateService {
      *
      * @param query 运费模板查询条件
      * @return 运费模板
+     * @throws Exception
      */
     @Override
     public List<FreightTemplateDTO> listByPage(FreightTemplateQuery query) throws Exception {
@@ -54,8 +56,9 @@ public class FreightTemplateServiceImpl implements FreightTemplateService {
     /**
      * 根据id查询运费模板
      *
-     * @param query 运费模板查询条件
+     * @param id id
      * @return 运费模板
+     * @throws Exception
      */
     @Override
     public FreightTemplateDTO getById(Long id) throws Exception {
@@ -66,6 +69,7 @@ public class FreightTemplateServiceImpl implements FreightTemplateService {
      * 更新运费模板
      *
      * @param freightTemplate 运费模板
+     * @throws Exception
      */
     @Override
     public void update(FreightTemplateDTO freightTemplate) throws Exception {

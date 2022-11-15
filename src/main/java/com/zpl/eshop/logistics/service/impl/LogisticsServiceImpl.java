@@ -137,6 +137,7 @@ public class LogisticsServiceImpl implements LogisticsService {
      * @param orderId 订单id
      * @param orderNo 订单编号
      * @return 签收时间
+     * @throws Exception
      */
     @Override
     public Date getSignedTime(Long orderId, String orderNo) throws Exception {

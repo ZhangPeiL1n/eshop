@@ -37,6 +37,15 @@ public class CommentPictureServiceImpl implements CommentPictureService {
     @Value("${comment.picture.upload.dir.type}")
     private String uploadDirType;
 
+    /**
+     * 新增评论晒图
+     *
+     * @param appBasePath   当前应用根路径
+     * @param commentInfoId 评论信息id
+     * @param files         文件
+     * @return 处理结果
+     * @throws Exception
+     */
     @Override
     public Boolean saveCommentPictures(String appBasePath, Long commentInfoId, MultipartFile[] files) throws Exception {
         if (CommentPictureUploadDirType.RELATIVE.equals(uploadDirType)) {

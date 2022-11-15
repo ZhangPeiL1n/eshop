@@ -29,6 +29,13 @@ public class CommentAggregateServiceImpl implements CommentAggregateService {
     @Autowired
     private CommentAggregateDAO commentAggregateDAO;
 
+    /**
+     * 更新评论统计信息
+     *
+     * @param commentInfo 评论信息DTO
+     * @return 更新是否成功
+     * @throws Exception
+     */
     @Override
     public Boolean updateCommentAggregate(CommentInfoDTO commentInfo) throws Exception {
 

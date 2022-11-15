@@ -9,6 +9,7 @@ import com.zpl.eshop.comment.domain.CommentInfoDO;
  * @date 2022/1/12 22:32
  **/
 public interface CommentInfoDAO {
+
     /**
      * 新增评论信息
      *

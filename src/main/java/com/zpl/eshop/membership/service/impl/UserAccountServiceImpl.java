@@ -44,15 +44,11 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Override
     public UserAccountDTO save(UserAccountDTO userAccount) throws Exception {
-        userAccount.setGmtCreate(dateProvider.getCurrentTime());
-        userAccount.setGmtModified(dateProvider.getCurrentTime());
         UserAccountDO resultUserAccount = userAccountDAO.save(
                 userAccount.clone(UserAccountDO.class));
 
         UserDetailDO userDetail = new UserDetailDO();
         userDetail.setUserAccountId(resultUserAccount.getId());
-        userDetail.setGmtCreate(dateProvider.getCurrentTime());
-        userDetail.setGmtModified(dateProvider.getCurrentTime());
         userDetailDAO.save(userDetail);
 
         return resultUserAccount.clone(UserAccountDTO.class);
@@ -89,7 +85,6 @@ public class UserAccountServiceImpl implements UserAccountService {
      */
     @Override
     public void updatePassword(UserAccountDO userAccount) throws Exception {
-        userAccount.setGmtModified(dateProvider.getCurrentTime());
         userAccountDAO.updatePassword(userAccount);
     }
 

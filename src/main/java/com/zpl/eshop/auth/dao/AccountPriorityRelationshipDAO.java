@@ -16,29 +16,33 @@ public interface AccountPriorityRelationshipDAO {
      *
      * @param priorityId 权限id
      * @return 记录数
+     * @throws Exception
      */
-    Long countByPriorityId(Long priorityId);
+    Long countByPriorityId(Long priorityId) throws Exception;
 
     /**
      * 根据账号id查询账号和权限的关联关系
      *
      * @param accountId 账号id
      * @return 账号和权限的关联关系
+     * @throws Exception
      */
-    List<AccountPriorityRelationshipDO> listByAccountId(Long accountId);
+    List<AccountPriorityRelationshipDO> listByAccountId(Long accountId) throws Exception;
 
     /**
      * 新增账号和权限的关联关系
      *
-     * @param accountPriorityRelationshipDO
+     * @param accountPriorityRelationship 账号和权限的关联关系
+     * @throws Exception
      */
-    void save(AccountPriorityRelationshipDO accountPriorityRelationshipDO);
+    void save(AccountPriorityRelationshipDO accountPriorityRelationship) throws Exception;
 
     /**
      * 根据账号id删除账号和权限的关联关系
      *
      * @param accountId 账号id
+     * @throws Exception
      */
-    void removeByAccountId(Long accountId);
+    void removeByAccountId(Long accountId) throws Exception;
 
 }

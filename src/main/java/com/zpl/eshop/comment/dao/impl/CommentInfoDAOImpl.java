@@ -29,6 +29,13 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
     @Autowired
     private DateProvider dateProvider;
 
+    /**
+     * 新增评论信息
+     *
+     * @param commentInfo 评论信息对象
+     * @return 新增是否成功
+     * @throws Exception
+     */
     @Override
     public Long saveCommentInfo(CommentInfoDO commentInfo) throws Exception {
         commentInfo.setGmtCreate(dateProvider.getCurrentTime());

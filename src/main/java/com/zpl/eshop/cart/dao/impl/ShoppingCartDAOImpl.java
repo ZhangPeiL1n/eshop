@@ -3,8 +3,7 @@ package com.zpl.eshop.cart.dao.impl;
 import com.zpl.eshop.cart.dao.ShoppingCartDAO;
 import com.zpl.eshop.cart.domain.ShoppingCartDO;
 import com.zpl.eshop.cart.mapper.ShoppingCartMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ShoppingCartDAOImpl implements ShoppingCartDAO {
 
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartDAOImpl.class);
     /**
      * 购物车管理模块DAO组件
      */
@@ -25,36 +23,35 @@ public class ShoppingCartDAOImpl implements ShoppingCartDAO {
     private ShoppingCartMapper shoppingCartMapper;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 根据用户帐号获取购物车
      *
      * @param userAccountId 用户帐号
      * @return 购物车
+     * @throws Exception
      */
     @Override
-    public ShoppingCartDO getShoppingCartByUserAccountId(Long userAccountId) {
-        try {
-            logger.debug("testString");
-            return shoppingCartMapper.getShoppingCartByUserAccountId(userAccountId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public ShoppingCartDO getShoppingCartByUserAccountId(Long userAccountId) throws Exception {
+        return shoppingCartMapper.getShoppingCartByUserAccountId(userAccountId);
     }
 
     /**
      * 新增购物车
      *
-     * @param shoppingCartDO 购物车DO
+     * @param shoppingCart 购物车DO
      * @return 插入成功返回 true
+     * @throws Exception
      */
     @Override
-    public Long saveShoppingCart(ShoppingCartDO shoppingCartDO) {
-        try {
-            shoppingCartMapper.saveShoppingCart(shoppingCartDO);
-            return shoppingCartDO.getId();
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public Long saveShoppingCart(ShoppingCartDO shoppingCart) throws Exception {
+        shoppingCart.setGmtCreate(dateProvider.getCurrentTime());
+        shoppingCart.setGmtModified(dateProvider.getCurrentTime());
+        shoppingCartMapper.saveShoppingCart(shoppingCart);
+        return shoppingCart.getId();
     }
 }

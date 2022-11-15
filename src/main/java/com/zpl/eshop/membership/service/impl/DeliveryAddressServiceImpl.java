@@ -52,8 +52,6 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
      */
     @Override
     public void save(DeliveryAddressDTO deliveryAddress) throws Exception {
-        deliveryAddress.setGmtCreate(dateProvider.getCurrentTime());
-        deliveryAddress.setGmtModified(dateProvider.getCurrentTime());
         deliveryAddressDAO.save(deliveryAddress.clone(DeliveryAddressDO.class));
     }
 
@@ -64,7 +62,6 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
      */
     @Override
     public void update(DeliveryAddressDTO deliveryAddress) throws Exception {
-        deliveryAddress.setGmtModified(dateProvider.getCurrentTime());
         deliveryAddressDAO.update(deliveryAddress.clone(DeliveryAddressDO.class));
     }
 

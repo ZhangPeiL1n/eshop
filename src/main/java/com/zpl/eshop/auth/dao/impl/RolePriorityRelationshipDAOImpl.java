@@ -3,8 +3,7 @@ package com.zpl.eshop.auth.dao.impl;
 import com.zpl.eshop.auth.dao.RolePriorityRelationshipDAO;
 import com.zpl.eshop.auth.domain.RolePriorityRelationshipDO;
 import com.zpl.eshop.auth.mapper.RolePriorityRelationshipMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,8 +17,6 @@ import java.util.List;
 @Repository
 public class RolePriorityRelationshipDAOImpl implements RolePriorityRelationshipDAO {
 
-    private static final Logger logger = LoggerFactory.getLogger(RolePriorityRelationshipDAOImpl.class);
-
     /**
      * 角色和权限关系管理模块的mapper组件
      */
@@ -27,19 +24,22 @@ public class RolePriorityRelationshipDAOImpl implements RolePriorityRelationship
     private RolePriorityRelationshipMapper rolePriorityRelationshipMapper;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 新增账号和权限的关联关系
      *
-     * @param rolePriorityRelationshipDO
+     * @param rolePriorityRelationship 帐号权限关联关系
+     * @throws Exception
      */
     @Override
-    public Boolean save(RolePriorityRelationshipDO rolePriorityRelationshipDO) {
-        try {
-            rolePriorityRelationshipMapper.save(rolePriorityRelationshipDO);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
-        return true;
+    public void save(RolePriorityRelationshipDO rolePriorityRelationship) throws Exception {
+        rolePriorityRelationship.setGmtCreate(dateProvider.getCurrentTime());
+        rolePriorityRelationship.setGmtModified(dateProvider.getCurrentTime());
+        rolePriorityRelationshipMapper.save(rolePriorityRelationship);
     }
 
     /**
@@ -47,15 +47,11 @@ public class RolePriorityRelationshipDAOImpl implements RolePriorityRelationship
      *
      * @param priorityId 权限id
      * @return 记录数
+     * @throws Exception
      */
     @Override
-    public Long countByPriorityId(Long priorityId) {
-        try {
-            return rolePriorityRelationshipMapper.countByPriorityId(priorityId);
-        } catch (Exception e) {
-            logger.error("error", e);
-        }
-        return 0L;
+    public Long countByPriorityId(Long priorityId) throws Exception {
+        return rolePriorityRelationshipMapper.countByPriorityId(priorityId);
     }
 
     /**
@@ -63,31 +59,21 @@ public class RolePriorityRelationshipDAOImpl implements RolePriorityRelationship
      *
      * @param roleId 角色id
      * @return 角色权限关系DO对象集合
+     * @throws Exception
      */
     @Override
-    public List<RolePriorityRelationshipDO> listByRoleId(Long roleId) {
-        try {
-            return rolePriorityRelationshipMapper.listByRoleId(roleId);
-        } catch (Exception e) {
-            logger.error("error", e);
-            return null;
-        }
+    public List<RolePriorityRelationshipDO> listByRoleId(Long roleId) throws Exception {
+        return rolePriorityRelationshipMapper.listByRoleId(roleId);
     }
 
     /**
      * 根据角色id删除角色权限关联关系
      *
      * @param roleId 角色id
+     * @throws Exception
      */
     @Override
-    public Boolean removeByRoleId(Long roleId) {
-        try {
-            rolePriorityRelationshipMapper.removeByRoleId(roleId);
-            return true;
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
-        }
+    public void removeByRoleId(Long roleId) throws Exception {
+        rolePriorityRelationshipMapper.removeByRoleId(roleId);
     }
-
 }

@@ -28,5 +28,4 @@ public interface MemberLevelDetailDAO {
      * @throws Exception
      */
     void save(MemberLevelDetailDO memberLevelDetail) throws Exception;
-
 }

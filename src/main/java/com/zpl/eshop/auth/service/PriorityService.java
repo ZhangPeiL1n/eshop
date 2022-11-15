@@ -45,8 +45,7 @@ public interface PriorityService {
      * @return 权限树
      * @throws Exception
      */
-    List<Priority> listAuthorizedByAccountId(
-            Long accountId) throws Exception;
+    List<Priority> listAuthorizedByAccountId(Long accountId) throws Exception;
 
     /**
      * 判断账号是否存在对指定编号的权限的授权记录
@@ -71,20 +70,20 @@ public interface PriorityService {
     /**
      * 新增权限
      *
-     * @param priorityDTO 权限DTO对象
+     * @param priority 权限DTO对象
      * @return 新增结果
      * @throws Exception
      */
-    Boolean savePriority(PriorityDTO priorityDTO) throws Exception;
+    Boolean savePriority(PriorityDTO priority) throws Exception;
 
     /**
      * 更新权限
      *
-     * @param priorityDTO 权限DTO对象
+     * @param priority 权限DTO对象
      * @return 更新结果
      * @throws Exception
      */
-    Boolean updatePriority(PriorityDTO priorityDTO) throws Exception;
+    Boolean updatePriority(PriorityDTO priority) throws Exception;
 
     /**
      * 删除权限
@@ -94,5 +93,4 @@ public interface PriorityService {
      * @throws Exception
      */
     Boolean removePriority(Long id) throws Exception;
-
 }

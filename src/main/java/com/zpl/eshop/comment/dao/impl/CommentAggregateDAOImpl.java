@@ -33,9 +33,10 @@ public class CommentAggregateDAOImpl implements CommentAggregateDAO {
      *
      * @param goodsId 商品id
      * @return 评论统计信息
+     * @throws Exception
      */
     @Override
-    public CommentAggregateDO getCommentAggregateByGoodsId(Long goodsId) {
+    public CommentAggregateDO getCommentAggregateByGoodsId(Long goodsId) throws Exception {
         return commentAggregateMapper.getCommentAggregateByGoodsId(goodsId);
     }
 
@@ -43,6 +44,7 @@ public class CommentAggregateDAOImpl implements CommentAggregateDAO {
      * 新增评论统计信息
      *
      * @param commentAggregate 评论统计信息DO
+     * @throws Exception
      */
     @Override
     public void saveCommentAggregate(CommentAggregateDO commentAggregate) throws Exception {
@@ -55,6 +57,7 @@ public class CommentAggregateDAOImpl implements CommentAggregateDAO {
      * 更新评论统计信息
      *
      * @param commentAggregate 评论统计信息DO
+     * @throws Exception
      */
     @Override
     public void updateCommentAggregate(CommentAggregateDO commentAggregate) throws Exception {

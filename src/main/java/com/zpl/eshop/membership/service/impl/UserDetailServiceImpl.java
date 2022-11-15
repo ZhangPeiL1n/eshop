@@ -49,7 +49,6 @@ public class UserDetailServiceImpl implements UserDetailService {
      */
     @Override
     public void updateByUserAccountId(UserDetailDTO userDetail) throws Exception {
-        userDetail.setGmtModified(dateProvider.getCurrentTime());
         userDetailDAO.updateByUserAccountId(userDetail.clone(UserDetailDO.class));
     }
 

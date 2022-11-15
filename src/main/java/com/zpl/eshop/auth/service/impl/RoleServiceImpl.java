@@ -5,7 +5,6 @@ import com.zpl.eshop.auth.dao.RoleDAO;
 import com.zpl.eshop.auth.dao.RolePriorityRelationshipDAO;
 import com.zpl.eshop.auth.domain.*;
 import com.zpl.eshop.auth.service.RoleService;
-import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,12 +40,6 @@ public class RoleServiceImpl implements RoleService {
     private AccountRoleRelationshipDAO accountRoleRelationDAO;
 
     /**
-     * 日期辅助组件
-     */
-    @Autowired
-    private DateProvider dateProvider;
-
-    /**
      * 权限缓存管理组件
      */
     @Autowired
@@ -57,6 +50,7 @@ public class RoleServiceImpl implements RoleService {
      *
      * @param query 查询条件
      * @return 角色DO对象集合
+     * @throws Exception
      */
     @Override
     public List<RoleDTO> listByPage(RoleQuery query) throws Exception {
@@ -69,6 +63,7 @@ public class RoleServiceImpl implements RoleService {
      *
      * @param id 角色 id
      * @return 角色DO对象
+     * @throws Exception
      */
     @Override
     public RoleDTO getById(Long id) throws Exception {
@@ -91,17 +86,14 @@ public class RoleServiceImpl implements RoleService {
      * 新增角色
      *
      * @param role 角色DO对象
+     * @throws Exception
      */
     @Override
     public Boolean save(RoleDTO role) throws Exception {
-        role.setGmtCreate(dateProvider.getCurrentTime());
-        role.setGmtModified(dateProvider.getCurrentTime());
         Long roleId = roleDAO.save(role.clone(RoleDO.class));
 
         for (RolePriorityRelationshipDTO relation : role.getRolePriorityRelations()) {
             relation.setRoleId(roleId);
-            relation.setGmtCreate(dateProvider.getCurrentTime());
-            relation.setGmtModified(dateProvider.getCurrentTime());
             rolePriorityRelationDAO.save(relation.clone(RolePriorityRelationshipDO.class));
         }
 
@@ -112,18 +104,16 @@ public class RoleServiceImpl implements RoleService {
      * 更新角色
      *
      * @param role 角色DO对象
+     * @throws Exception
      */
     @Override
     public Boolean update(RoleDTO role) throws Exception {
-        role.setGmtModified(dateProvider.getCurrentTime());
         roleDAO.update(role.clone(RoleDO.class));
 
         rolePriorityRelationDAO.removeByRoleId(role.getId());
 
         for (RolePriorityRelationshipDTO relation : role.getRolePriorityRelations()) {
             relation.setRoleId(role.getId());
-            relation.setGmtCreate(dateProvider.getCurrentTime());
-            relation.setGmtModified(dateProvider.getCurrentTime());
             rolePriorityRelationDAO.save(relation.clone(RolePriorityRelationshipDO.class));
         }
 
@@ -140,6 +130,7 @@ public class RoleServiceImpl implements RoleService {
      * 删除角色
      *
      * @param id 角色id
+     * @throws Exception
      */
     @Override
     public Boolean remove(Long id) throws Exception {

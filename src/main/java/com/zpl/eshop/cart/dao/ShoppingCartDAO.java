@@ -21,9 +21,9 @@ public interface ShoppingCartDAO {
     /**
      * 新增购物车
      *
-     * @param shoppingCartDO 购物车DO
+     * @param shoppingCart 购物车DO
      * @return 插入成功返回 true
      * @throws Exception
      */
-    Long saveShoppingCart(ShoppingCartDO shoppingCartDO) throws Exception;
+    Long saveShoppingCart(ShoppingCartDO shoppingCart) throws Exception;
 }

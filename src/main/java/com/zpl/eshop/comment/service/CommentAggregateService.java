@@ -10,7 +10,6 @@ import com.zpl.eshop.comment.domain.CommentInfoDTO;
  **/
 public interface CommentAggregateService {
 
-
     /**
      * 更新评论统计信息
      *

@@ -35,6 +35,7 @@ public class MemberLevelDetailDAOImpl implements MemberLevelDetailDAO {
      *
      * @param query 查询调价你
      * @return 会员等级变更明细
+     * @throws Exception
      */
     @Override
     public List<MemberLevelDetailDO> listByPage(MemberLevelDetailQuery query) throws Exception {
@@ -45,6 +46,7 @@ public class MemberLevelDetailDAOImpl implements MemberLevelDetailDAO {
      * 新增会员等级明细
      *
      * @param memberLevelDetail 会员等级明细
+     * @throws Exception
      */
     @Override
     public void save(MemberLevelDetailDO memberLevelDetail) throws Exception {
@@ -52,5 +54,4 @@ public class MemberLevelDetailDAOImpl implements MemberLevelDetailDAO {
         memberLevelDetail.setGmtModified(dateProvider.getCurrentTime());
         memberLevelDetailMapper.save(memberLevelDetail);
     }
-
 }

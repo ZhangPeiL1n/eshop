@@ -32,6 +32,7 @@ public class CommentInfoServiceImpl implements CommentInfoService {
      *
      * @param commentInfo 评论信息对象
      * @return 新增是否成功
+     * @throws Exception
      */
     @Override
     public Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfo) throws Exception {
@@ -72,6 +73,7 @@ public class CommentInfoServiceImpl implements CommentInfoService {
      * @param orderInfo 订单信息DTO
      * @param orderItem 订单项DTO
      * @return 新增成功返回 true
+     * @throws Exception
      */
     @Override
     public CommentInfoDTO saveAutoPublishedCommentInfo(OrderInfoDTO orderInfo, OrderItemDTO orderItem) throws Exception {

@@ -18,8 +18,9 @@ public interface GoodsAllocationDAO {
      *
      * @param query 查询条件
      * @return 货位
+     * @throws Exception
      */
-    List<GoodsAllocationDO> listByPage(GoodsAllocationQuery query);
+    List<GoodsAllocationDO> listByPage(GoodsAllocationQuery query) throws Exception;
 
     /**
      * 新增货位
@@ -34,8 +35,9 @@ public interface GoodsAllocationDAO {
      *
      * @param id 货位id
      * @return 货位
+     * @throws Exception
      */
-    GoodsAllocationDO getById(Long id);
+    GoodsAllocationDO getById(Long id) throws Exception;
 
     /**
      * 更新货位

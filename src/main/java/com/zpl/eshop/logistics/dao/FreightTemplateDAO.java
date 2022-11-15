@@ -26,8 +26,9 @@ public interface FreightTemplateDAO {
      *
      * @param query 运费模板查询条件
      * @return 运费模板
+     * @throws Exception
      */
-    List<FreightTemplateDO> listByPage(FreightTemplateQuery query);
+    List<FreightTemplateDO> listByPage(FreightTemplateQuery query) throws Exception;
 
     /**
      * 根据id查询运费模板
@@ -36,7 +37,7 @@ public interface FreightTemplateDAO {
      * @return 运费模板
      * @throws Exception
      */
-    FreightTemplateDO getById(Long id);
+    FreightTemplateDO getById(Long id) throws Exception;
 
     /**
      * 更新运费模板

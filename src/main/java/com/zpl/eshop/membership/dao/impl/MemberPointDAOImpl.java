@@ -32,6 +32,7 @@ public class MemberPointDAOImpl implements MemberPointDAO {
      *
      * @param userAccountId 用户账号id
      * @return 会员积分
+     * @throws Exception
      */
     @Override
     public MemberPointDO getByUserAccountId(Long userAccountId) throws Exception {
@@ -51,6 +52,7 @@ public class MemberPointDAOImpl implements MemberPointDAO {
      * 新增会员积分
      *
      * @param memberPoint 会员积分
+     * @throws Exception
      */
     @Override
     public void save(MemberPointDO memberPoint) throws Exception {
@@ -63,6 +65,7 @@ public class MemberPointDAOImpl implements MemberPointDAO {
      * 更新会员积分
      *
      * @param memberPoint 会员积分
+     *                    @throws Exception
      */
     @Override
     public void update(MemberPointDO memberPoint) throws Exception {

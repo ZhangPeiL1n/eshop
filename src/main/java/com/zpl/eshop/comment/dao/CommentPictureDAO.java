@@ -10,7 +10,6 @@ import com.zpl.eshop.comment.domain.CommentPictureDO;
  **/
 public interface CommentPictureDAO {
 
-
     /**
      * 新增评论晒图
      *

@@ -1,5 +1,6 @@
 package com.zpl.eshop.membership.dao.impl;
 
+import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.membership.dao.UserDetailDAO;
 import com.zpl.eshop.membership.domain.UserDetailDO;
 import com.zpl.eshop.membership.mapper.UserDetailMapper;
@@ -21,12 +22,21 @@ public class UserDetailDAOImpl implements UserDetailDAO {
     private UserDetailMapper userDetailMapper;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 新增用户详细信息
      *
      * @param userDetail 用户详细信息
+     * @throws Exception
      */
     @Override
-    public void save(UserDetailDO userDetail) {
+    public void save(UserDetailDO userDetail) throws Exception {
+        userDetail.setGmtCreate(dateProvider.getCurrentTime());
+        userDetail.setGmtModified(dateProvider.getCurrentTime());
         userDetailMapper.save(userDetail);
     }
 
@@ -45,9 +55,11 @@ public class UserDetailDAOImpl implements UserDetailDAO {
      * 更新用户详细信息
      *
      * @param userDetail 用户详细信息
+     * @throws Exception
      */
     @Override
-    public void updateByUserAccountId(UserDetailDO userDetail) {
+    public void updateByUserAccountId(UserDetailDO userDetail) throws Exception {
+        userDetail.setGmtModified(dateProvider.getCurrentTime());
         userDetailMapper.updateByUserAccountId(userDetail);
     }
 

@@ -5,7 +5,6 @@ import com.zpl.eshop.auth.dao.AccountPriorityRelationshipDAO;
 import com.zpl.eshop.auth.dao.AccountRoleRelationshipDAO;
 import com.zpl.eshop.auth.domain.*;
 import com.zpl.eshop.auth.service.AccountService;
-import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,21 +26,19 @@ public class AccountServiceImpl implements AccountService {
      */
     @Autowired
     private AccountDAO accountDAO;
+
     /**
      * 账号和角色关系管理DAO组件
      */
     @Autowired
     private AccountRoleRelationshipDAO roleRelationDAO;
+
     /**
      * 账号和权限关系管理DAO组件
      */
     @Autowired
     private AccountPriorityRelationshipDAO priorityRelationDAO;
-    /**
-     * 日期辅助组件
-     */
-    @Autowired
-    private DateProvider dateProvider;
+
     /**
      * 权限缓存管理组件
      */
@@ -53,13 +50,13 @@ public class AccountServiceImpl implements AccountService {
      *
      * @param query 查询条件
      * @return 账号
+     * @throws Exception
      */
     @Override
     public List<AccountDTO> listByPage(AccountQuery query) throws Exception {
         List<AccountDO> accounts = accountDAO.listByPage(query);
-        List<AccountDTO> resultAccounts = ObjectUtils.convertList(
+        return ObjectUtils.convertList(
                 accounts, AccountDTO.class);
-        return resultAccounts;
     }
 
     /**
@@ -67,6 +64,7 @@ public class AccountServiceImpl implements AccountService {
      *
      * @param id 账号id
      * @return 账号
+     * @throws Exception
      */
     @Override
     public AccountDTO getById(Long id) throws Exception {
@@ -92,15 +90,12 @@ public class AccountServiceImpl implements AccountService {
      * 新增账号
      *
      * @param account 账号
+     * @throws Exception
      */
     @Override
     public void save(AccountDTO account) throws Exception {
-        account.setGmtCreate(dateProvider.getCurrentTime());
-        account.setGmtModified(dateProvider.getCurrentTime());
         Long accountId = accountDAO.save(account.clone(AccountDO.class));
-
         account.setId(accountId);
-
         saveRelations(account);
     }
 
@@ -108,12 +103,11 @@ public class AccountServiceImpl implements AccountService {
      * 更新账号
      *
      * @param account 账号
+     *                @throws Exception
      */
     @Override
     public void update(AccountDTO account) throws Exception {
-        account.setGmtModified(dateProvider.getCurrentTime());
         accountDAO.update(account.clone(AccountDO.class));
-
         roleRelationDAO.removeByAccountId(account.getId());
         priorityRelationDAO.removeByAccountId(account.getId());
 
@@ -126,10 +120,10 @@ public class AccountServiceImpl implements AccountService {
      * 更新密码
      *
      * @param account 账号
+     *                @throws Exception
      */
     @Override
     public void updatePassword(AccountDTO account) throws Exception {
-        account.setGmtModified(dateProvider.getCurrentTime());
         accountDAO.updatePassword(account.clone(AccountDO.class));
     }
 
@@ -142,15 +136,11 @@ public class AccountServiceImpl implements AccountService {
     private void saveRelations(AccountDTO account) throws Exception {
         for (AccountRoleRelationshipDTO roleRelation : account.getRoleRelations()) {
             roleRelation.setAccountId(account.getId());
-            roleRelation.setGmtCreate(dateProvider.getCurrentTime());
-            roleRelation.setGmtModified(dateProvider.getCurrentTime());
             roleRelationDAO.save(roleRelation.clone(AccountRoleRelationshipDO.class));
         }
 
         for (AccountPriorityRelationshipDTO priorityRelation : account.getPriorityRelations()) {
             priorityRelation.setAccountId(account.getId());
-            priorityRelation.setGmtCreate(dateProvider.getCurrentTime());
-            priorityRelation.setGmtModified(dateProvider.getCurrentTime());
             priorityRelationDAO.save(priorityRelation.clone(AccountPriorityRelationshipDO.class));
         }
     }
@@ -167,5 +157,4 @@ public class AccountServiceImpl implements AccountService {
         accountDAO.remove(id);
         priorityCacheManager.remove(id);
     }
-
 }

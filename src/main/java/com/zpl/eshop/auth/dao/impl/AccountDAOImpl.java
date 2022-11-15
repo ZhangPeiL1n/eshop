@@ -4,6 +4,7 @@ import com.zpl.eshop.auth.dao.AccountDAO;
 import com.zpl.eshop.auth.domain.AccountDO;
 import com.zpl.eshop.auth.domain.AccountQuery;
 import com.zpl.eshop.auth.mapper.AccountMapper;
+import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,13 +25,20 @@ public class AccountDAOImpl implements AccountDAO {
     private AccountMapper accountMapper;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 分页查询账号
      *
      * @param query 账号查询条件
      * @return 账号
+     * @throws Exception
      */
     @Override
-    public List<AccountDO> listByPage(AccountQuery query) {
+    public List<AccountDO> listByPage(AccountQuery query) throws Exception {
         return accountMapper.listByPage(query);
     }
 
@@ -39,9 +47,10 @@ public class AccountDAOImpl implements AccountDAO {
      *
      * @param id 账号id
      * @return 账号
+     * @throws Exception
      */
     @Override
-    public AccountDO getById(Long id) {
+    public AccountDO getById(Long id) throws Exception {
         return accountMapper.getById(id);
     }
 
@@ -49,9 +58,13 @@ public class AccountDAOImpl implements AccountDAO {
      * 新增账号
      *
      * @param account 账号
+     * @return id
+     * @throws Exception
      */
     @Override
-    public Long save(AccountDO account) {
+    public Long save(AccountDO account) throws Exception {
+        account.setGmtCreate(dateProvider.getCurrentTime());
+        account.setGmtModified(dateProvider.getCurrentTime());
         accountMapper.save(account);
         return account.getId();
     }
@@ -60,9 +73,11 @@ public class AccountDAOImpl implements AccountDAO {
      * 更新账号
      *
      * @param account 账号
+     * @throws Exception
      */
     @Override
-    public void update(AccountDO account) {
+    public void update(AccountDO account) throws Exception {
+        account.setGmtModified(dateProvider.getCurrentTime());
         accountMapper.update(account);
     }
 
@@ -70,9 +85,11 @@ public class AccountDAOImpl implements AccountDAO {
      * 更新密码
      *
      * @param account 账号
+     * @throws Exception
      */
     @Override
-    public void updatePassword(AccountDO account) {
+    public void updatePassword(AccountDO account) throws Exception {
+        account.setGmtModified(dateProvider.getCurrentTime());
         accountMapper.updatePassword(account);
     }
 
@@ -80,9 +97,10 @@ public class AccountDAOImpl implements AccountDAO {
      * 删除账号
      *
      * @param id 账号id
+     * @throws Exception
      */
     @Override
-    public void remove(Long id) {
+    public void remove(Long id) throws Exception {
         accountMapper.remove(id);
     }
 

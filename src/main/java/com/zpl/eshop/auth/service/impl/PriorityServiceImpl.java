@@ -6,7 +6,6 @@ import com.zpl.eshop.auth.domain.PriorityDTO;
 import com.zpl.eshop.auth.service.PriorityService;
 import com.zpl.eshop.common.bean.SpringApplicationContext;
 import com.zpl.eshop.common.constant.CollectionSize;
-import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,11 +30,6 @@ public class PriorityServiceImpl implements PriorityService {
     @Autowired
     private PriorityDAO priorityDAO;
 
-    /**
-     * 日期辅助组件
-     */
-    @Autowired
-    private DateProvider dateProvider;
     /**
      * spring容器组件
      */
@@ -73,6 +67,7 @@ public class PriorityServiceImpl implements PriorityService {
      *
      * @param parentId 父权限id
      * @return 子权限
+     * @throws Exception
      */
     @Override
     public List<PriorityDTO> listChildPriorities(Long parentId) throws Exception {
@@ -94,6 +89,7 @@ public class PriorityServiceImpl implements PriorityService {
      *
      * @param id 权限id
      * @return 权限
+     * @throws Exception
      */
     @Override
     public PriorityDTO getPriorityById(Long id) throws Exception {
@@ -113,8 +109,7 @@ public class PriorityServiceImpl implements PriorityService {
      * @throws Exception
      */
     @Override
-    public List<Priority> listAuthorizedByAccountId(
-            Long accountId) throws Exception {
+    public List<Priority> listAuthorizedByAccountId(Long accountId) throws Exception {
         List<Priority> authorizedTree = priorityCacheManager
                 .getAuthorizedPriorityTree(accountId);
         if (authorizedTree != null) {
@@ -147,14 +142,13 @@ public class PriorityServiceImpl implements PriorityService {
     /**
      * 判断账号是否存在对指定编号的权限的授权记录
      *
-     * @param AccountId 账号id
+     * @param accountId 账号id
      * @param code      权限编号
      * @return 是否存在授权记录
      * @throws Exception
      */
     @Override
-    public Boolean existAuthorizedByCode(Long accountId,
-                                         String code) throws Exception {
+    public Boolean existAuthorizedByCode(Long accountId, String code) throws Exception {
         Boolean authorized = priorityCacheManager.getAuthorizedByCode(accountId, code);
         if (authorized != null) {
             return authorized;
@@ -176,8 +170,7 @@ public class PriorityServiceImpl implements PriorityService {
      * @throws Exception
      */
     @Override
-    public Boolean existAuthorizedByUrl(Long accountId,
-                                        String url) throws Exception {
+    public Boolean existAuthorizedByUrl(Long accountId, String url) throws Exception {
         Boolean authorized = priorityCacheManager.getAuthorizedByUrl(accountId, url);
         if (authorized != null) {
             return authorized;
@@ -193,27 +186,26 @@ public class PriorityServiceImpl implements PriorityService {
     /**
      * 新增权限
      *
-     * @param priorityDO 权限DO对象
+     * @param priority 权限DTO对象
+     * @throws Exception
      */
     @Override
-    public Boolean savePriority(PriorityDTO priorityDTO) throws Exception {
-        priorityDTO.setGmtCreate(dateProvider.getCurrentTime());
-        priorityDTO.setGmtModified(dateProvider.getCurrentTime());
-        priorityDAO.savePriority(priorityDTO.clone(PriorityDO.class));
+    public Boolean savePriority(PriorityDTO priority) throws Exception {
+        priorityDAO.savePriority(priority.clone(PriorityDO.class));
         return true;
     }
 
     /**
      * 更新权限
      *
-     * @param priorityDO 权限DO对象
+     * @param priority 权限DTO对象
+     * @throws Exception
      */
     @Override
-    public Boolean updatePriority(PriorityDTO priorityDTO) throws Exception {
-        priorityDTO.setGmtModified(dateProvider.getCurrentTime());
-        priorityDAO.updatePriority(priorityDTO.clone(PriorityDO.class));
+    public Boolean updatePriority(PriorityDTO priority) throws Exception {
+        priorityDAO.updatePriority(priority.clone(PriorityDO.class));
 
-        List<Long> accountIds = priorityDAO.listAccountIdsByPriorityId(priorityDTO.getId());
+        List<Long> accountIds = priorityDAO.listAccountIdsByPriorityId(priority.getId());
         for (Long accountId : accountIds) {
             priorityCacheManager.remove(accountId);
         }
@@ -226,6 +218,7 @@ public class PriorityServiceImpl implements PriorityService {
      *
      * @param id 权限id
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean removePriority(Long id) throws Exception {
