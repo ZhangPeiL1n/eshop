@@ -5,12 +5,10 @@ import com.zpl.eshop.cart.dao.ShoppingCartItemDAO;
 import com.zpl.eshop.cart.domain.ShoppingCartDO;
 import com.zpl.eshop.cart.domain.ShoppingCartItemDO;
 import com.zpl.eshop.cart.service.ShoppingCartService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,6 +17,7 @@ import java.util.Date;
  * @date 2022/1/20 22:48
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
@@ -26,14 +25,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Autowired
     private ShoppingCartDAO shoppingCartDAO;
+
     /**
      * 购物车条目管理模块DAO组件
      */
     @Autowired
     private ShoppingCartItemDAO shoppingCartItemDAO;
-
-    private final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
-
 
     /**
      * 添加购物车条目
@@ -43,41 +40,36 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * @return 处理结果
      */
     @Override
-    public Boolean addShoppingCartItem(Long userAccountId, Long goodsSkuId) throws ParseException {
+    public Boolean addShoppingCartItem(Long userAccountId, Long goodsSkuId) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date currentTime = dateFormat.parse(dateFormat.format(new Date()));
-        try {
-            // 根据用户帐号id查找一下购物车
-            ShoppingCartDO shoppingCartDO = shoppingCartDAO.getShoppingCartByUserAccountId(userAccountId);
-            // 如果购物车不存在，则创建一个购物车
-            if (shoppingCartDO == null) {
-                shoppingCartDO = new ShoppingCartDO();
-                shoppingCartDO.setUserAccountId(userAccountId);
-                shoppingCartDO.setGmtCreate(currentTime);
-                shoppingCartDO.setGmtModified(currentTime);
-                shoppingCartDAO.saveShoppingCart(shoppingCartDO);
-            }
+        // 根据用户帐号id查找一下购物车
+        ShoppingCartDO shoppingCart = shoppingCartDAO.getShoppingCartByUserAccountId(userAccountId);
+        // 如果购物车不存在，则创建一个购物车
+        if (shoppingCart == null) {
+            shoppingCart = new ShoppingCartDO();
+            shoppingCart.setUserAccountId(userAccountId);
+            shoppingCart.setGmtCreate(currentTime);
+            shoppingCart.setGmtModified(currentTime);
+            shoppingCartDAO.saveShoppingCart(shoppingCart);
+        }
 
-            // 查询一下购物车中是否存在这个商品条目
-            ShoppingCartItemDO shoppingCartItemDO = shoppingCartItemDAO.getShoppingCartItemByGoodsSkuId(shoppingCartDO.getId(), goodsSkuId);
-            // 如果不存在就新增
-            if (shoppingCartItemDO == null) {
-                shoppingCartItemDO = new ShoppingCartItemDO();
-                shoppingCartItemDO.setShoppingCartId(shoppingCartDO.getId());
-                shoppingCartItemDO.setGoodsSkuId(goodsSkuId);
-                shoppingCartItemDO.setPurchaseQuantity(1L);
-                shoppingCartItemDO.setGmtCreate(currentTime);
-                shoppingCartItemDO.setGmtModified(currentTime);
-                shoppingCartItemDAO.saveShoppingCartItem(shoppingCartItemDO);
-                // 如果存在则购买数量 +1
-            } else {
-                shoppingCartItemDO.setPurchaseQuantity(shoppingCartItemDO.getPurchaseQuantity() + 1L);
-                shoppingCartItemDO.setGmtModified(currentTime);
-                shoppingCartItemDAO.updateShoppingCartItem(shoppingCartItemDO);
-            }
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
+        // 查询一下购物车中是否存在这个商品条目
+        ShoppingCartItemDO shoppingCartItem = shoppingCartItemDAO.getShoppingCartItemByGoodsSkuId(shoppingCart.getId(), goodsSkuId);
+        // 如果不存在就新增
+        if (shoppingCartItem == null) {
+            shoppingCartItem = new ShoppingCartItemDO();
+            shoppingCartItem.setShoppingCartId(shoppingCart.getId());
+            shoppingCartItem.setGoodsSkuId(goodsSkuId);
+            shoppingCartItem.setPurchaseQuantity(1L);
+            shoppingCartItem.setGmtCreate(currentTime);
+            shoppingCartItem.setGmtModified(currentTime);
+            shoppingCartItemDAO.saveShoppingCartItem(shoppingCartItem);
+            // 如果存在则购买数量 +1
+        } else {
+            shoppingCartItem.setPurchaseQuantity(shoppingCartItem.getPurchaseQuantity() + 1L);
+            shoppingCartItem.setGmtModified(currentTime);
+            shoppingCartItemDAO.updateShoppingCartItem(shoppingCartItem);
         }
         return true;
     }

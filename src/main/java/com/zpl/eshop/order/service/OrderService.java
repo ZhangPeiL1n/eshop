@@ -16,85 +16,96 @@ public interface OrderService {
      *
      * @param orderId 订单 id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informGoodsDeliveryFinishedEvent(Long orderId);
+    Boolean informGoodsDeliveryFinishedEvent(Long orderId) throws Exception;
 
     /**
      * 通知订单中心，“退货工单审核不通过”事件发生了
      *
      * @param orderId 订单 id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informReturnGoodsWorksheetRejectedEvent(Long orderId);
+    Boolean informReturnGoodsWorksheetRejectedEvent(Long orderId) throws Exception;
 
     /**
      * 通知订单中心，“退货工单审核通过”事件发生了
      *
      * @param orderId 订单 id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informReturnGoodsWorksheetApprovedEvent(Long orderId);
+    Boolean informReturnGoodsWorksheetApprovedEvent(Long orderId) throws Exception;
 
     /**
      * 通知订单中心，“确认收到退货商品”事件发生了
      *
      * @param orderId 订单 id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informReturnGoodsReceivedEvent(Long orderId);
+    Boolean informReturnGoodsReceivedEvent(Long orderId) throws Exception;
 
     /**
      * 通知订单中心，“退货入库单审核通过”事件发生了
      *
      * @param orderId 订单 id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informReturnGoodsInputOrderApprovedEvent(Long orderId);
+    Boolean informReturnGoodsInputOrderApprovedEvent(Long orderId) throws Exception;
 
     /**
      * 通知订单中心，“完成退款”事件发生了
      *
      * @param orderId 订单 id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informRefundFinishedEvent(Long orderId);
+    Boolean informRefundFinishedEvent(Long orderId) throws Exception;
 
     /**
      * 通知订单中心，“发表评论”事件发生了
      *
      * @param orderId 订单id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informPublishCommentEvent(Long orderId);
+    Boolean informPublishCommentEvent(Long orderId) throws Exception;
 
     /**
      * 通知订单中心，“支付成功”事件发生了
      *
      * @param orderId 订单id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informPayOrderSucceed(Long orderId);
+    Boolean informPayOrderSucceed(Long orderId) throws Exception;
 
     /**
      * 从订单中心获取，确认收货时间超过了 7天而且没有发表评论的订单
      *
      * @return 订单信息 DTO集合
+     * @throws Exception
      */
-    List<OrderInfoDTO> listNotPublishCommentOrders();
+    List<OrderInfoDTO> listNotPublishCommentOrders() throws Exception;
 
     /**
      * 通知订单中心，“批量发表评论”事件发生了
      *
      * @param orderIds 订单 id 集合
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informBatchPublishCommentEvent(List<Long> orderIds);
+    Boolean informBatchPublishCommentEvent(List<Long> orderIds) throws Exception;
 
     /**
      * 根据id查询订单
      *
      * @param orderInfoId 订单id
      * @return 订单
+     * @throws Exception
      */
-    OrderInfoDTO getOrderById(Long orderInfoId);
+    OrderInfoDTO getOrderById(Long orderInfoId) throws Exception;
 }

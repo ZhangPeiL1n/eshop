@@ -18,14 +18,16 @@ public interface PromotionService {
      *
      * @param goodsId 商品 id
      * @return 促销活动
+     * @throws Exception
      */
-    List<PromotionActivityDTO> listByGoodsId(Long goodsId);
+    List<PromotionActivityDTO> listByGoodsId(Long goodsId) throws Exception;
 
     /**
      * 根据id查询促销活动
      *
      * @param id 促销活动id
      * @return 促销活动
+     * @throws Exception
      */
     PromotionActivityDTO getById(Long id) throws Exception;
 
@@ -34,8 +36,9 @@ public interface PromotionService {
      *
      * @param userAccountId 用户帐号id
      * @return 有效优惠券
+     * @throws Exception
      */
-    List<CouponDTO> listValidByUserAccount(Long userAccountId);
+    List<CouponDTO> listValidByUserAccount(Long userAccountId) throws Exception;
 
     /**
      * 使用优惠券
@@ -43,6 +46,7 @@ public interface PromotionService {
      * @param couponId      优惠券id
      * @param userAccountId 帐号id
      * @return 处理结果
+     * @throws Exception
      */
-    public Boolean useCoupon(Long couponId, Long userAccountId) throws Exception;
+    Boolean useCoupon(Long couponId, Long userAccountId) throws Exception;
 }

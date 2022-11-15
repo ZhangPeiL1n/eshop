@@ -96,9 +96,10 @@ public class ScheduleServiceImpl implements ScheduleService {
      *
      * @param purchaseInputOrder 采购入库单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrder) {
+    public Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrder) throws Exception {
         try {
             ScheduleStockUpdater stockUpdater = stockUpdaterFactory.create(StockUpdateEvent.PURCHASE_INPUT, purchaseInputOrder);
             stockUpdater.update();
@@ -113,11 +114,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     /**
      * 通知调度中心，“提交订单”事件发生了
      *
-     * @param order 订单
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean informSubmitOrderEvent(OrderInfoDTO order) {
+    public Boolean informSubmitOrderEvent(OrderInfoDTO order) throws Exception {
         try {
             for (OrderItemDTO orderItem : order.getOrderItems()) {
                 SaleDeliveryScheduleResult scheduleResult = saleDeliveryScheduler.schedule(orderItem);
@@ -141,6 +143,7 @@ public class ScheduleServiceImpl implements ScheduleService {
      *
      * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean informPayOrderEvent(OrderInfoDTO order) {
@@ -166,6 +169,7 @@ public class ScheduleServiceImpl implements ScheduleService {
      *
      * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean informCancelOrderEvent(OrderInfoDTO order) {
@@ -194,6 +198,7 @@ public class ScheduleServiceImpl implements ScheduleService {
      *
      * @param returnGoodsInputOrder 退货入库DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrder) {
@@ -214,6 +219,7 @@ public class ScheduleServiceImpl implements ScheduleService {
      *
      * @param purchaseOrder 采购单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean schedulePurchaseInput(PurchaseOrderDTO purchaseOrder) {
@@ -244,6 +250,7 @@ public class ScheduleServiceImpl implements ScheduleService {
      *
      * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean scheduleSaleDelivery(OrderInfoDTO order) {
@@ -271,9 +278,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     /**
      * 调度退货入库
      *
-     * @param order                订单DTO
+     * @param orderInfo            订单DTO
      * @param returnGoodsWorksheet 退货入库单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean scheduleReturnGoodsInput(OrderInfoDTO order, ReturnGoodsWorksheetDTO returnGoodsWorksheet) throws Exception {

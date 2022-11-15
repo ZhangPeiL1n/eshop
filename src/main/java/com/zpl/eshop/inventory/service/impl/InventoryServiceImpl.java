@@ -87,8 +87,9 @@ public class InventoryServiceImpl implements InventoryService {
     /**
      * 通知库存中心，“采购入库完成”事件发生了
      *
-     * @param purchaseInputOrderDTO 采购入库单DTO
+     * @param purchaseInputOrder 采购入库单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrderDTO) {
@@ -105,8 +106,9 @@ public class InventoryServiceImpl implements InventoryService {
     /**
      * 通知库存中心，“提交订单”事件发生了
      *
-     * @param orderInfoDTO 订单DTO
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean informSubmitOrderEvent(OrderInfoDTO orderInfoDTO) {
@@ -134,8 +136,9 @@ public class InventoryServiceImpl implements InventoryService {
     /**
      * 通知库存中心，“支付订单”事件发生了
      *
-     * @param orderInfoDTO 订单DTO
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean informPayOrderEvent(OrderInfoDTO orderInfoDTO) {
@@ -163,8 +166,9 @@ public class InventoryServiceImpl implements InventoryService {
     /**
      * 通知库存中心，“取消订单”事件发生了
      *
-     * @param orderInfoDTO 订单DTO
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean informCancelOrderEvent(OrderInfoDTO orderInfoDTO) {
@@ -190,8 +194,9 @@ public class InventoryServiceImpl implements InventoryService {
     /**
      * 通知库存中心，“退货入库”事件发生了
      *
-     * @param returnGoodsInputOrderDTO 退货入库DTO
+     * @param returnGoodsInputOrder 退货入库DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO) {
@@ -210,6 +215,7 @@ public class InventoryServiceImpl implements InventoryService {
      *
      * @param goodsSkuId 商品 sku id
      * @return 库存
+     * @throws Exception
      */
     @Override
     public Long getSaleStockQuantity(Long goodsSkuId) {
@@ -231,6 +237,7 @@ public class InventoryServiceImpl implements InventoryService {
      * @param goodsSkuId        商品skuId
      * @param saleStockQuantity 销售库存
      * @return 设置结果
+     * @throws Exception
      */
     @Override
     public Boolean setSaleStockQuantity(Long goodsSkuId, Long saleStockQuantity) {

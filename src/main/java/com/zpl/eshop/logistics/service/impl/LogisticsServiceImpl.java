@@ -34,9 +34,10 @@ public class LogisticsServiceImpl implements LogisticsService {
      * @param order     订单
      * @param orderItem 订单条目
      * @return 商品 sku 的运费
+     * @throws Exception
      */
     @Override
-    public Double calculateFreight(OrderInfoDTO order, OrderItemDTO orderItem) {
+    public Double calculateFreight(OrderInfoDTO order, OrderItemDTO orderItem) throws Exception {
         return 5.5;
     }
 
@@ -45,9 +46,10 @@ public class LogisticsServiceImpl implements LogisticsService {
      *
      * @param order 订单
      * @return 物流单
+     * @throws Exception
      */
     @Override
-    public LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order) {
+    public LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order) throws Exception {
         return null;
     }
 

@@ -16,65 +16,73 @@ public interface ScheduleService {
     /**
      * 通知调度中心，“采购入库完成”事件发生了
      *
-     * @param purchaseInputOrderDTO 采购入库单DTO
+     * @param purchaseInputOrder 采购入库单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrderDTO);
+    Boolean informPurchaseInputFinished(PurchaseInputOrderDTO purchaseInputOrder) throws Exception;
 
     /**
      * 通知调度中心，“提交订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informSubmitOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informSubmitOrderEvent(OrderInfoDTO order) throws Exception;
 
     /**
      * 通知调度中心，“支付订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informPayOrderEvent(OrderInfoDTO orderDTO);
+    Boolean informPayOrderEvent(OrderInfoDTO order) throws Exception;
 
     /**
      * 通知调度中心，“取消订单”事件发生了
      *
-     * @param orderDTO 订单DTO
+     * @param order 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informCancelOrderEvent(OrderInfoDTO orderDTO);
+    Boolean cancelOrderEvent(OrderInfoDTO order) throws Exception;
 
     /**
      * 通知调度中心，“退货入库”事件发生了
      *
      * @param returnGoodsInputOrderDTO 退货入库DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO);
+    Boolean informReturnGoodsInputFinished(ReturnGoodsInputOrderDTO returnGoodsInputOrderDTO) throws Exception;
 
     /**
      * 调度采购入库
      *
      * @param purchaseOrderDTO 采购单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean schedulePurchaseInput(PurchaseOrderDTO purchaseOrderDTO);
+    Boolean schedulePurchaseInput(PurchaseOrderDTO purchaseOrderDTO) throws Exception;
 
     /**
      * 调度销售出库
      *
      * @param orderDTO 订单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean scheduleSaleDelivery(OrderInfoDTO orderDTO);
+    Boolean scheduleSaleDelivery(OrderInfoDTO orderDTO) throws Exception;
 
     /**
      * 调度退货入库
      *
-     * @param orderInfoDTO            订单DTO
-     * @param returnGoodsWorksheetDTO 退货入库单DTO
+     * @param orderInfo            订单DTO
+     * @param returnGoodsWorksheet 退货入库单DTO
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfoDTO, ReturnGoodsWorksheetDTO returnGoodsWorksheetDTO) throws Exception;
+    Boolean scheduleReturnGoodsInput(OrderInfoDTO orderInfo, ReturnGoodsWorksheetDTO returnGoodsWorksheet) throws Exception;
 }

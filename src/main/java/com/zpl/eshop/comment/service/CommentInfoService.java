@@ -14,17 +14,19 @@ public interface CommentInfoService {
     /**
      * 新增手动发表的评论信息
      *
-     * @param commentInfoDTO 评论信息DTO对象
+     * @param commentInfo 评论信息DTO对象
      * @return 新增是否成功
+     * @throws Exception
      */
-    Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfoDTO);
+    Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfo) throws Exception;
 
     /**
      * 新增自动发表的评论信息
      *
-     * @param orderInfoDTO 订单信息DTO
-     * @param orderItemDTO 订单项DTO
+     * @param orderInfo 订单信息DTO
+     * @param orderItem 订单项DTO
      * @return 新增成功返回 true
+     * @throws Exception
      */
-    CommentInfoDTO saveAutoPublishedCommentInfo(OrderInfoDTO orderInfoDTO, OrderItemDTO orderItemDTO);
+    CommentInfoDTO saveAutoPublishedCommentInfo(OrderInfoDTO orderInfo, OrderItemDTO orderItem) throws Exception;
 }

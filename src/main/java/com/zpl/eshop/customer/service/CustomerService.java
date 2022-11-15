@@ -16,10 +16,11 @@ public interface CustomerService {
      * @param returnGoodsReason 退货原因
      * @param returnGoodsRemark 退货备注
      * @return 处理结果
+     * @throws Exception
      */
     Boolean createReturnGoodsWorkSheet(
             Long orderId, String orderNo,
-            Integer returnGoodsReason, String returnGoodsRemark);
+            Integer returnGoodsReason, String returnGoodsRemark) throws Exception;
 
     /**
      * 同步物流单号
@@ -27,22 +28,25 @@ public interface CustomerService {
      * @param orderInfoId              订单id
      * @param returnGoodsLogisticsCode 退货物流单号
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean syncReturnGoodsLogisticsCode(Long orderInfoId, String returnGoodsLogisticsCode);
+    Boolean syncReturnGoodsLogisticsCode(Long orderInfoId, String returnGoodsLogisticsCode) throws Exception;
 
     /**
      * 通知客服中心，“完成退货入库”事件发生了
      *
      * @param returnGoodsWorksheetId 退货工单id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informReturnGoodsInputFinishedEvent(Long returnGoodsWorksheetId);
+    Boolean informReturnGoodsInputFinishedEvent(Long returnGoodsWorksheetId) throws Exception;
 
     /**
      * 通知客服中心，“完成退款”事件发生了
      *
      * @param returnGoodsWorksheetId 退货工单id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informRefundFinishedEvent(Long returnGoodsWorksheetId);
+    Boolean informRefundFinishedEvent(Long returnGoodsWorksheetId) throws Exception;
 }

@@ -12,8 +12,9 @@ public interface CommentInfoDAO {
     /**
      * 新增评论信息
      *
-     * @param commentInfoDO 评论信息对象
+     * @param commentInfo 评论信息对象
      * @return 新增是否成功
+     * @throws Exception
      */
-    Boolean saveCommentInfo(CommentInfoDO commentInfoDO);
+    Long saveCommentInfo(CommentInfoDO commentInfo) throws Exception;
 }

@@ -18,6 +18,7 @@ public interface CommentPictureService {
      * @param commentInfoId 评论信息id
      * @param files         文件
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean saveCommentPictures(String appBasePath, Long commentInfoId, MultipartFile[] files);
+    Boolean saveCommentPictures(String appBasePath, Long commentInfoId, MultipartFile[] files) throws Exception;
 }
