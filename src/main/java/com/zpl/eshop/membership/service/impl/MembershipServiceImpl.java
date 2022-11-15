@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * @date 2022/2/2 18:58
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class MembershipServiceImpl implements MembershipService {
 
     private static final Logger logger = LoggerFactory.getLogger(MembershipServiceImpl.class);
@@ -33,9 +35,10 @@ public class MembershipServiceImpl implements MembershipService {
      *
      * @param userAccountId 用户帐号 id
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean informFirstLoginDailyEvent(Long userAccountId) {
+    public Boolean informFirstLoginDailyEvent(Long userAccountId) throws Exception {
         return true;
     }
 
@@ -45,9 +48,10 @@ public class MembershipServiceImpl implements MembershipService {
      * @param userAccountId    用户帐号 id
      * @param totalOrderAmount 订单总金额
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean informPayOrderEvent(Long userAccountId, Double totalOrderAmount) {
+    public Boolean informPayOrderEvent(Long userAccountId, Double totalOrderAmount) throws Exception {
         return true;
     }
 
@@ -57,9 +61,10 @@ public class MembershipServiceImpl implements MembershipService {
      * @param userAccountId    用户帐号 id
      * @param totalOrderAmount 订单总金额
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean informFinishReturnGoodsEvent(Long userAccountId, Double totalOrderAmount) {
+    public Boolean informFinishReturnGoodsEvent(Long userAccountId, Double totalOrderAmount) throws Exception {
         return true;
     }
 
@@ -69,9 +74,10 @@ public class MembershipServiceImpl implements MembershipService {
      * @param userAccountId 用户帐号 id
      * @param showPictures  是否晒图
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean informPublishCommentEvent(Long userAccountId, Boolean showPictures) {
+    public Boolean informPublishCommentEvent(Long userAccountId, Boolean showPictures) throws Exception {
         return true;
     }
 
@@ -81,9 +87,10 @@ public class MembershipServiceImpl implements MembershipService {
      * @param userAccountId 用户帐号 id
      * @param showPictures  是否晒图
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean informRemoveCommentEvent(Long userAccountId, Boolean showPictures) {
+    public Boolean informRemoveCommentEvent(Long userAccountId, Boolean showPictures) throws Exception {
         return true;
     }
 
@@ -91,24 +98,18 @@ public class MembershipServiceImpl implements MembershipService {
      * 查询所有的用户账户
      *
      * @return 用户账户
+     * @throws Exception
      */
     @Override
-    public List<UserAccountDTO> listAllUserAccounts() {
+    public List<UserAccountDTO> listAllUserAccounts() throws Exception {
         List<UserAccountDTO> userAccounts = new ArrayList<>();
 
-        try {
-            UserAccountDTO userAccount = new UserAccountDTO();
-            userAccount.setUsername("zhangsan");
-            userAccount.setPassword("12345678");
-            userAccount.setEmail("zhangsan@sian.com");
-            userAccount.setCellPhoneNumber("18967543209");
-            userAccount.setGmtCreate(dateProvider.getCurrentTime());
-            userAccount.setGmtModified(dateProvider.getCurrentTime());
-
-            userAccounts.add(userAccount);
-        } catch (Exception e) {
-            logger.error("error", e);
-        }
+        UserAccountDTO userAccount = new UserAccountDTO();
+        userAccount.setUsername("zhangsan");
+        userAccount.setPassword("12345678");
+        userAccount.setEmail("zhangsan@sian.com");
+        userAccount.setCellPhoneNumber("18967543209");
+        userAccounts.add(userAccount);
 
         return userAccounts;
     }

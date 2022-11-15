@@ -14,8 +14,8 @@ public interface CommentPictureDAO {
     /**
      * 新增评论晒图
      *
-     * @param commentPictureDO 评论晒图DO对象
-     * @return 处理结果
+     * @param commentPicture 评论晒图DO对象
+     * @throws Exception
      */
-    Boolean saveCommentPicture(CommentPictureDO commentPictureDO);
+    void saveCommentPicture(CommentPictureDO commentPicture) throws Exception;
 }

@@ -28,10 +28,10 @@ public class PriorityServiceImpl implements PriorityService {
      * 查询根权限
      *
      * @return 根权限集合
+     * @throws Exception
      */
     @Override
-    public List<PriorityDTO> listRootPriorities() {
+    public List<PriorityDTO> listRootPriorities() throws Exception {
         return null;
     }
-
 }

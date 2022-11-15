@@ -21,9 +21,10 @@ public class FinanceServiceImpl implements FinanceService {
      *
      * @param purchaseInputOrder 采购入库单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean createPurchaseSettlementOrder(PurchaseInputOrderDTO purchaseInputOrder) {
+    public Boolean createPurchaseSettlementOrder(PurchaseInputOrderDTO purchaseInputOrder) throws Exception {
         return true;
     }
 
@@ -32,9 +33,10 @@ public class FinanceServiceImpl implements FinanceService {
      *
      * @param saleDeliveryOrder 销售出库单DTO
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean payForLogisticsCompany(SaleDeliveryOrderDTO saleDeliveryOrder) {
+    public Boolean payForLogisticsCompany(SaleDeliveryOrderDTO saleDeliveryOrder) throws Exception {
         return true;
     }
 }

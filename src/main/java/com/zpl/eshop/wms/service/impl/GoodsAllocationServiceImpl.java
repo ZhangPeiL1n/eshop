@@ -23,9 +23,10 @@ public class GoodsAllocationServiceImpl implements GoodsAllocationService {
      *
      * @param query 查询条件
      * @return 货位
+     * @throws Exception
      */
     @Override
-    public List<GoodsAllocationDTO> listByPage(GoodsAllocationQuery query) {
+    public List<GoodsAllocationDTO> listByPage(GoodsAllocationQuery query) throws Exception {
         return null;
     }
 
@@ -33,9 +34,10 @@ public class GoodsAllocationServiceImpl implements GoodsAllocationService {
      * 新增货位
      *
      * @param goodsAllocation 货位
+     * @throws Exception
      */
     @Override
-    public void save(GoodsAllocationDTO goodsAllocation) {
+    public void save(GoodsAllocationDTO goodsAllocation) throws Exception {
 
     }
 
@@ -44,9 +46,10 @@ public class GoodsAllocationServiceImpl implements GoodsAllocationService {
      *
      * @param id 货位id
      * @return 货位
+     * @throws Exception
      */
     @Override
-    public GoodsAllocationDTO getById(Long id) {
+    public GoodsAllocationDTO getById(Long id) throws Exception {
         return null;
     }
 
@@ -54,9 +57,10 @@ public class GoodsAllocationServiceImpl implements GoodsAllocationService {
      * 更新货位
      *
      * @param goodsAllocation 货位
+     * @throws Exception
      */
     @Override
-    public void update(GoodsAllocationDTO goodsAllocation) {
+    public void update(GoodsAllocationDTO goodsAllocation) throws Exception {
 
     }
 }

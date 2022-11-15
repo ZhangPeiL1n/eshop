@@ -20,11 +20,12 @@ public class CustomerServiceImpl implements CustomerService {
      * @param returnGoodsReason 退货原因
      * @param returnGoodsRemark 退货备注
      * @return 处理结果
+     * @throws Exception
      */
     @Override
     public Boolean createReturnGoodsWorkSheet(
             Long orderId, String orderNo,
-            Integer returnGoodsReason, String returnGoodsRemark) {
+            Integer returnGoodsReason, String returnGoodsRemark) throws Exception {
         return true;
     }
 
@@ -34,9 +35,10 @@ public class CustomerServiceImpl implements CustomerService {
      * @param orderInfoId              订单id
      * @param returnGoodsLogisticsCode 退货物流单号
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean syncReturnGoodsLogisticsCode(Long orderInfoId, String returnGoodsLogisticsCode) {
+    public Boolean syncReturnGoodsLogisticsCode(Long orderInfoId, String returnGoodsLogisticsCode) throws Exception {
         return true;
     }
 
@@ -45,9 +47,10 @@ public class CustomerServiceImpl implements CustomerService {
      *
      * @param returnGoodsWorksheetId 退货工单id
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean informReturnGoodsInputFinishedEvent(Long returnGoodsWorksheetId) {
+    public Boolean informReturnGoodsInputFinishedEvent(Long returnGoodsWorksheetId) throws Exception {
         return true;
     }
 
@@ -56,9 +59,10 @@ public class CustomerServiceImpl implements CustomerService {
      *
      * @param returnGoodsWorksheetId 退货工单id
      * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean informRefundFinishedEvent(Long returnGoodsWorksheetId) {
+    public Boolean informRefundFinishedEvent(Long returnGoodsWorksheetId) throws Exception {
         return true;
     }
 }

@@ -20,16 +20,18 @@ public interface LogisticsService {
      * @param order     订单
      * @param orderItem 订单条目
      * @return 商品 sku 的运费
+     * @throws Exception
      */
-    Double calculateFreight(OrderInfoDTO order, OrderItemDTO orderItem);
+    Double calculateFreight(OrderInfoDTO order, OrderItemDTO orderItem) throws Exception;
 
     /**
      * 申请物流单
      *
      * @param order 订单
      * @return 物流单
+     * @throws Exception
      */
-    LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order);
+    LogisticOrderDTO applyLogisticOrder(OrderInfoDTO order) throws Exception;
 
     /**
      * 获取订单签收时间

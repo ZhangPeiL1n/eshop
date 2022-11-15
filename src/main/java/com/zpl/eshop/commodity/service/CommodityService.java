@@ -16,14 +16,16 @@ public interface CommodityService {
      *
      * @param goodsSkuId 商品 sku id
      * @return 商品 sku dto
+     * @throws Exception
      */
-    GoodsSkuDTO getGoodsSkuById(Long goodsSkuId);
+    GoodsSkuDTO getGoodsSkuById(Long goodsSkuId) throws Exception;
 
     /**
      * 根据id查商品
      *
      * @param goodsId 商品id
      * @return 商品
+     * @throws Exception
      */
-    GoodsDTO getGoodsById(Long goodsId);
+    GoodsDTO getGoodsById(Long goodsId) throws Exception;
 }

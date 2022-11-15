@@ -12,10 +12,11 @@ import java.util.List;
 public interface PriorityService {
 
 	/**
-	 * 查询根权限
-	 *
-	 * @return 根权限集合
-	 */
-	List<PriorityDTO> listRootPriorities();
+     * 查询根权限
+     *
+     * @return 根权限集合
+     * @throws Exception
+     */
+    List<PriorityDTO> listRootPriorities() throws Exception;
 
 }

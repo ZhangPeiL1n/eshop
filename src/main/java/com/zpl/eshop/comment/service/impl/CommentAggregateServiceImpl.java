@@ -6,10 +6,9 @@ import com.zpl.eshop.comment.dao.CommentAggregateDAO;
 import com.zpl.eshop.comment.domain.CommentAggregateDO;
 import com.zpl.eshop.comment.domain.CommentInfoDTO;
 import com.zpl.eshop.comment.service.CommentAggregateService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -21,55 +20,54 @@ import java.util.Date;
  * @date 2022/1/18 21:53
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class CommentAggregateServiceImpl implements CommentAggregateService {
 
-    private final Logger logger = LoggerFactory.getLogger(CommentAggregateServiceImpl.class);
+    /**
+     * 评论统计管理DAO组件
+     */
     @Autowired
     private CommentAggregateDAO commentAggregateDAO;
 
     @Override
-    public Boolean updateCommentAggregate(CommentInfoDTO commentInfoDTO) {
-        try {
-            CommentAggregateDO commentAggregateDO = commentAggregateDAO.getCommentAggregateByGoodsId(commentInfoDTO.getGoodsId());
-            if (commentAggregateDO == null) {
-                commentAggregateDO = new CommentAggregateDO();
-                commentAggregateDO.setGoodsId(commentInfoDTO.getGoodsId());
-                commentAggregateDO.setTotalCommentCount(1L);
-                if (commentInfoDTO.getCommentType().equals(CommentType.GOOD_COMMENT)) {
-                    commentAggregateDO.setGoodCommentCount(1L);
-                } else if (commentInfoDTO.getCommentType().equals(CommentType.MEDIUM_COMMENT)) {
-                    commentAggregateDO.setMediumCommentCount(1L);
-                } else if (commentInfoDTO.getCommentType().equals(CommentType.BAD_COMMENT)) {
-                    commentAggregateDO.setBadCommentCount(1L);
-                }
-                Double goodCommentRate = Double.valueOf(new DecimalFormat("#.00").format(commentAggregateDO.getGoodCommentCount() / commentAggregateDO.getTotalCommentCount()));
-                commentAggregateDO.setGoodCommentRate(goodCommentRate);
-                if (ShowPicture.YES.equals(commentInfoDTO.getShowPicture())) {
-                    commentAggregateDO.setShowPictureCommentCount(1L);
-                }
-                commentAggregateDO.setGmtCreate(new Date());
-                commentAggregateDO.setGmtModified(new Date());
-                commentAggregateDAO.saveCommentAggregate(commentAggregateDO);
-            } else {
-                commentAggregateDO.setTotalCommentCount(commentAggregateDO.getTotalCommentCount() + 1L);
-                if (commentInfoDTO.getCommentType().equals(CommentType.GOOD_COMMENT)) {
-                    commentAggregateDO.setGoodCommentCount(commentAggregateDO.getGoodCommentCount() + 1L);
-                } else if (commentInfoDTO.getCommentType().equals(CommentType.MEDIUM_COMMENT)) {
-                    commentAggregateDO.setMediumCommentCount(commentAggregateDO.getMediumCommentCount() + 1L);
-                } else if (commentInfoDTO.getCommentType().equals(CommentType.BAD_COMMENT)) {
-                    commentAggregateDO.setBadCommentCount(commentAggregateDO.getBadCommentCount() + 1L);
-                }
-                Double goodCommentRate = Double.valueOf(new DecimalFormat("#.00").format(commentAggregateDO.getGoodCommentCount() / commentAggregateDO.getTotalCommentCount()));
-                commentAggregateDO.setGoodCommentRate(goodCommentRate);
-                if (ShowPicture.YES.equals(commentInfoDTO.getShowPicture())) {
-                    commentAggregateDO.setShowPictureCommentCount(commentAggregateDO.getShowPictureCommentCount() + 1L);
-                }
-                commentAggregateDO.setGmtModified(new Date());
-                commentAggregateDAO.updateCommentAggregate(commentAggregateDO);
+    public Boolean updateCommentAggregate(CommentInfoDTO commentInfo) throws Exception {
+
+        CommentAggregateDO commentAggregate = commentAggregateDAO.getCommentAggregateByGoodsId(commentInfo.getGoodsId());
+        if (commentAggregate == null) {
+            commentAggregate = new CommentAggregateDO();
+            commentAggregate.setGoodsId(commentInfo.getGoodsId());
+            commentAggregate.setTotalCommentCount(1L);
+            if (commentInfo.getCommentType().equals(CommentType.GOOD_COMMENT)) {
+                commentAggregate.setGoodCommentCount(1L);
+            } else if (commentInfo.getCommentType().equals(CommentType.MEDIUM_COMMENT)) {
+                commentAggregate.setMediumCommentCount(1L);
+            } else if (commentInfo.getCommentType().equals(CommentType.BAD_COMMENT)) {
+                commentAggregate.setBadCommentCount(1L);
             }
-        } catch (Exception e) {
-            logger.error("error", e);
-            return false;
+            Double goodCommentRate = Double.valueOf(new DecimalFormat("#.00").format(commentAggregate.getGoodCommentCount() / commentAggregate.getTotalCommentCount()));
+            commentAggregate.setGoodCommentRate(goodCommentRate);
+            if (ShowPicture.YES.equals(commentInfo.getShowPicture())) {
+                commentAggregate.setShowPictureCommentCount(1L);
+            }
+            commentAggregate.setGmtCreate(new Date());
+            commentAggregate.setGmtModified(new Date());
+            commentAggregateDAO.saveCommentAggregate(commentAggregate);
+        } else {
+            commentAggregate.setTotalCommentCount(commentAggregate.getTotalCommentCount() + 1L);
+            if (commentInfo.getCommentType().equals(CommentType.GOOD_COMMENT)) {
+                commentAggregate.setGoodCommentCount(commentAggregate.getGoodCommentCount() + 1L);
+            } else if (commentInfo.getCommentType().equals(CommentType.MEDIUM_COMMENT)) {
+                commentAggregate.setMediumCommentCount(commentAggregate.getMediumCommentCount() + 1L);
+            } else if (commentInfo.getCommentType().equals(CommentType.BAD_COMMENT)) {
+                commentAggregate.setBadCommentCount(commentAggregate.getBadCommentCount() + 1L);
+            }
+            Double goodCommentRate = Double.valueOf(new DecimalFormat("#.00").format(commentAggregate.getGoodCommentCount() / commentAggregate.getTotalCommentCount()));
+            commentAggregate.setGoodCommentRate(goodCommentRate);
+            if (ShowPicture.YES.equals(commentInfo.getShowPicture())) {
+                commentAggregate.setShowPictureCommentCount(commentAggregate.getShowPictureCommentCount() + 1L);
+            }
+            commentAggregate.setGmtModified(new Date());
+            commentAggregateDAO.updateCommentAggregate(commentAggregate);
         }
         return true;
     }

@@ -19,9 +19,10 @@ public class PayServiceImpl implements PayService {
      *
      * @param order 订单
      * @return 二维码
+     * @throws Exception
      */
     @Override
-    public String getQrCode(OrderInfoDTO order) {
+    public String getQrCode(OrderInfoDTO order) throws Exception {
         return null;
     }
 
@@ -30,9 +31,10 @@ public class PayServiceImpl implements PayService {
      *
      * @param returnGoodsInputOrder 退货入库单
      * @return 退款结果
+     * @throws Exception
      */
     @Override
-    public Boolean refund(ReturnGoodsInputOrderDTO returnGoodsInputOrder) {
+    public Boolean refund(ReturnGoodsInputOrderDTO returnGoodsInputOrder) throws Exception {
         return null;
     }
 }
