@@ -18,11 +18,9 @@ public interface CommentPictureService {
      * @param appBasePath   当前应用根路径
      * @param commentInfoId 评论信息id
      * @param files         评论晒图
-     * @return 处理结果
      * @throws Exception
      */
-    Boolean saveCommentPictures(String appBasePath,
-                                Long commentInfoId, MultipartFile[] files) throws Exception;
+    void saveCommentPictures(String appBasePath, Long commentInfoId, MultipartFile[] files) throws Exception;
 
     /**
      * 根据评论信息id查询图片
@@ -41,5 +39,4 @@ public interface CommentPictureService {
      * @throws Exception
      */
     CommentPictureDTO getById(Long id) throws Exception;
-
 }

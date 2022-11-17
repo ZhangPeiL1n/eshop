@@ -37,7 +37,7 @@ public class CouponStatusCheckTask {
 	/**
 	 * 执行任务
 	 */
-	@Scheduled(fixedRate = 1 * 60 * 1000)
+	@Scheduled(fixedRate = 60 * 1000)
 	public void execute() {
 		try {
 			List<CouponDO> coupons = couponDAO.listAll(); 
@@ -61,9 +61,8 @@ public class CouponStatusCheckTask {
 	 */
 	private void tryStart(CouponDO coupon) throws Exception {
 		if(dateProvider.getCurrentTime().after(coupon.getValidStartTime())) {
-			coupon.setStatus(CouponStatus.GIVING_OUT);  
-			coupon.setGmtModified(dateProvider.getCurrentTime()); 
-			couponDAO.updateStatus(coupon); 
+			coupon.setStatus(CouponStatus.GIVING_OUT);
+			couponDAO.updateStatus(coupon);
 		}
 	}
 	
@@ -74,9 +73,8 @@ public class CouponStatusCheckTask {
 	 */
 	private void tryExpire(CouponDO coupon) throws Exception {
 		if(dateProvider.getCurrentTime().after(coupon.getValidEndTime())) {
- 			coupon.setStatus(CouponStatus.EXPIRED);  
-			coupon.setGmtModified(dateProvider.getCurrentTime()); 
-			couponDAO.updateStatus(coupon); 
+			coupon.setStatus(CouponStatus.EXPIRED);
+			couponDAO.updateStatus(coupon);
 		}
 	}
 	

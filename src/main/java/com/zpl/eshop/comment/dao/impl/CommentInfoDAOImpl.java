@@ -25,14 +25,23 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
     private CommentInfoMapper commentInfoMapper;
 
     /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
+
+    /**
      * 新增评论信息
      *
-     * @param commentInfoDO 评论信息DO对象
+     * @param commentInfo 评论信息DO对象
+     * @throws Exception
      */
     @Override
-    public Long saveCommentInfo(CommentInfoDO commentInfoDO) {
-        commentInfoMapper.saveCommentInfo(commentInfoDO);
-        return commentInfoDO.getId();
+    public Long saveCommentInfo(CommentInfoDO commentInfo) throws Exception {
+        commentInfo.setGmtCreate(dateProvider.getCurrentTime());
+        commentInfo.setGmtModified(dateProvider.getCurrentTime());
+        commentInfoMapper.saveCommentInfo(commentInfo);
+        return commentInfo.getId();
     }
 
     /**
@@ -40,9 +49,10 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
      *
      * @param query 评论查询条件
      * @return 评论信息
+     * @throws Exception
      */
     @Override
-    public List<CommentInfoDO> listByPage(CommentInfoQuery query) {
+    public List<CommentInfoDO> listByPage(CommentInfoQuery query) throws Exception {
         return commentInfoMapper.listByPage(query);
     }
 
@@ -51,9 +61,10 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
      *
      * @param id 评论信息id
      * @return 评论信息
+     * @throws Exception
      */
     @Override
-    public CommentInfoDO getById(Long id) {
+    public CommentInfoDO getById(Long id) throws Exception {
         return commentInfoMapper.getById(id);
     }
 
@@ -61,9 +72,11 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
      * 更新评论
      *
      * @param comment 评论信息
+     * @throws Exception
      */
     @Override
-    public Boolean update(CommentInfoDO comment) {
+    public Boolean update(CommentInfoDO comment) throws Exception {
+        comment.setGmtModified(dateProvider.getCurrentTime());
         commentInfoMapper.update(comment);
         return true;
     }
@@ -72,11 +85,11 @@ public class CommentInfoDAOImpl implements CommentInfoDAO {
      * 删除评论
      *
      * @param id 评论id
+     * @throws Exception
      */
     @Override
-    public Boolean remove(Long id) {
+    public Boolean remove(Long id) throws Exception {
         commentInfoMapper.remove(id);
         return true;
     }
-
 }

@@ -46,7 +46,7 @@ public class PromotionController {
 					PromotionActivityVO.class);  
 		} catch (Exception e) {
 			logger.error("error", e); 
-			return new ArrayList<PromotionActivityVO>();
+			return new ArrayList<>();
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class PromotionController {
 		} catch (Exception e) {
 			logger.error("error", e); 
 		}
-		return new ArrayList<CouponVO>();
+        return new ArrayList<>();
 	}
 	
 }

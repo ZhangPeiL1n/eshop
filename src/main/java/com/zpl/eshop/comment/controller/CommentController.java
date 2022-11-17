@@ -80,32 +80,32 @@ public class CommentController {
 			
 			if(files != null && files.length > 0) {
 				for(MultipartFile file : files) {
-					if(file != null) {
+					if (file != null) {
 						showPictures = ShowPictures.YES;
 						break;
 					}
 				}
 			}
-			
-			commentInfoVO.setShowPictures(showPictures); 
-			
+
+			commentInfoVO.setShowPictures(showPictures);
+
 			// 保存评论信息
-			CommentInfoDTO commentInfoDTO = commentInfoVO.clone(CommentInfoDTO.class);
-			commentInfoService.saveManualPublishedCommentInfo(commentInfoDTO);
-			
+			CommentInfoDTO commentInfo = commentInfoVO.clone(CommentInfoDTO.class);
+			commentInfoService.saveManualPublishedCommentInfo(commentInfo);
+
 			// 上传评论晒图图片
 			String appBasePath = request.getSession().getServletContext().getRealPath("/");
-			commentPictureService.saveCommentPictures(appBasePath, commentInfoDTO.getId(), files);
-			
+			commentPictureService.saveCommentPictures(appBasePath, commentInfo.getId(), files);
+
 			// 更新评论统计信息
-			commentAggregateService.refreshCommentAggregate(commentInfoDTO);
-			
+			commentAggregateService.refreshCommentAggregate(commentInfo);
+
 			// 通知订单中心订单已经发表了评论
-			orderService.informPublishCommentEvent(commentInfoDTO.getOrderInfoId());
+			orderService.informPublishCommentEvent(commentInfo.getOrderInfoId());
 			
 			// 通知会员中心用户已经发表了评论
 			membershipService.informPublishCommentEvent(
-					commentInfoDTO.getUserAccountId(), ShowPictures.YES.equals(showPictures)); 
+					commentInfo.getUserAccountId(), ShowPictures.YES.equals(showPictures));
 		} catch (Exception e) {
 			logger.error("error", e); 
 			return false;
@@ -274,9 +274,9 @@ public class CommentController {
      * @return
      */
     private String getEncryptedUsername(String username) {
-    	StringBuilder builder = new StringBuilder(""); 
-    	
-    	builder.append(username.substring(0, 1)); 
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(username.charAt(0));
     	for(int i = 1; i < username.length() - 1; i++) {
     		builder.append("*"); 
     	}

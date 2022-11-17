@@ -42,21 +42,21 @@ public class CommentInfoServiceImpl implements CommentInfoService {
     /**
      * 新增手动发表的评论信息
      *
-     * @param commentInfoDTO 评论信息DTO对象
+     * @param commentInfo 评论信息DTO对象
      */
     @Override
-    public Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfoDTO) throws Exception {
+    public Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfo) throws Exception {
         // 计算评论的总分数
-        Integer totalScore = Math.round((commentInfoDTO.getGoodsScore()
-                + commentInfoDTO.getCustomerServiceScore()
-                + commentInfoDTO.getLogisticsScore()) / 3);
-        commentInfoDTO.setTotalScore(totalScore);
+        Integer totalScore = Math.round((commentInfo.getGoodsScore()
+                + commentInfo.getCustomerServiceScore()
+                + commentInfo.getLogisticsScore()) / 3);
+        commentInfo.setTotalScore(totalScore);
 
         // 设置是否为默认评论
-        commentInfoDTO.setDefaultComment(DefaultComment.NO);
+        commentInfo.setDefaultComment(DefaultComment.NO);
 
         // 设置评论的状态
-        commentInfoDTO.setCommentStatus(CommentStatus.APPROVING);
+        commentInfo.setCommentStatus(CommentStatus.APPROVING);
 
         // 设置评论的类型
         Integer commentType = 0;
@@ -68,72 +68,70 @@ public class CommentInfoServiceImpl implements CommentInfoService {
             commentType = CommentType.BAD_COMMENT;
         }
 
-        commentInfoDTO.setCommentType(commentType);
+        commentInfo.setCommentType(commentType);
 
         // 设置创建时间和修改时间
-        commentInfoDTO.setGmtCreate(dateProvider.getCurrentTime());
-        commentInfoDTO.setGmtModified(dateProvider.getCurrentTime());
+        commentInfo.setGmtCreate(dateProvider.getCurrentTime());
+        commentInfo.setGmtModified(dateProvider.getCurrentTime());
 
         // 将评论信息保存到数据库中去
-        CommentInfoDO commentInfoDO = commentInfoDTO.clone(CommentInfoDO.class);
+        CommentInfoDO commentInfoDO = commentInfo.clone(CommentInfoDO.class);
         commentInfoDAO.saveCommentInfo(commentInfoDO);
 
         // 设置评论信息的id
-        commentInfoDTO.setId(commentInfoDO.getId());
+        commentInfo.setId(commentInfoDO.getId());
         return true;
     }
 
     /**
      * 新增自动发表的评论信息
      *
-     * @param orderInfoDTO 订单信息DTO对象
-     * @param orderItemDTO 订单条目DTO对象
+     * @param orderInfo 订单信息DTO对象
+     * @param orderItem 订单条目DTO对象
      * @return 处理结果
      */
     @Override
     public CommentInfoDTO saveAutoPublishedCommentInfo(
-            OrderInfoDTO orderInfoDTO, OrderItemDTO orderItemDTO) throws Exception {
-        CommentInfoDTO commentInfoDTO;
-
-        commentInfoDTO = createAutoPublishedCommentInfoDTO(orderInfoDTO, orderItemDTO);
-        CommentInfoDO commentInfoDO = commentInfoDTO.clone(CommentInfoDO.class);
+            OrderInfoDTO orderInfo, OrderItemDTO orderItem) throws Exception {
+        CommentInfoDTO commentInfo = createAutoPublishedCommentInfoDTO(orderInfo, orderItem);
+        CommentInfoDO commentInfoDO = commentInfo.clone(CommentInfoDO.class);
         commentInfoDAO.saveCommentInfo(commentInfoDO);
-        commentInfoDTO.setId(commentInfoDO.getId());
+        commentInfo.setId(commentInfoDO.getId());
 
-        return commentInfoDTO;
+        return commentInfo;
     }
 
     /**
      * 创建评论信息DTO对象
      *
-     * @param orderInfoDTO 订单信息DTO对象
-     * @param orderItemDTO 订单条目DTO对象
+     * @param orderInfo 订单信息DTO对象
+     * @param orderItem 订单条目DTO对象
      * @return 评论信息DTO对象
      */
     private CommentInfoDTO createAutoPublishedCommentInfoDTO(
-            OrderInfoDTO orderInfoDTO, OrderItemDTO orderItemDTO) throws Exception {
-        CommentInfoDTO commentInfoDTO = new CommentInfoDTO();
+            OrderInfoDTO orderInfo, OrderItemDTO orderItem) throws Exception {
+        CommentInfoDTO commentInfo = new CommentInfoDTO();
 
-        commentInfoDTO.setUserAccountId(orderInfoDTO.getUserAccountId());
-        commentInfoDTO.setUsername(orderInfoDTO.getUsername());
-        commentInfoDTO.setOrderInfoId(orderInfoDTO.getId());
-        commentInfoDTO.setOrderItemId(orderItemDTO.getId());
-        commentInfoDTO.setGoodsId(orderItemDTO.getGoodsId());
-        commentInfoDTO.setGoodsSkuId(orderItemDTO.getGoodsSkuId());
-        commentInfoDTO.setGoodsSkuSaleProperties(orderItemDTO.getSaleProperties());
-        commentInfoDTO.setTotalScore(CommentInfoScore.FIVE);
-        commentInfoDTO.setGoodsScore(CommentInfoScore.FIVE);
-        commentInfoDTO.setCustomerServiceScore(CommentInfoScore.FIVE);
-        commentInfoDTO.setLogisticsScore(CommentInfoScore.FIVE);
-        commentInfoDTO.setCommentContent(CommentContent.DEFAULT);
-        commentInfoDTO.setShowPictures(ShowPictures.NO);
-        commentInfoDTO.setDefaultComment(DefaultComment.YES);
-        commentInfoDTO.setCommentStatus(CommentStatus.APPROVED);
-        commentInfoDTO.setCommentType(CommentType.GOOD_COMMENT);
-        commentInfoDTO.setGmtCreate(dateProvider.getCurrentTime());
-        commentInfoDTO.setGmtModified(dateProvider.getCurrentTime());
+        commentInfo.setUserAccountId(orderInfo.getUserAccountId());
+        commentInfo.setUsername(orderInfo.getUsername());
+        commentInfo.setOrderInfoId(orderInfo.getId());
+        commentInfo.setOrderItemId(orderItem.getId());
+        commentInfo.setGoodsId(orderItem.getGoodsId());
+        commentInfo.setGoodsSkuId(orderItem.getGoodsSkuId());
+        commentInfo.setGoodsSkuSaleProperties(orderItem.getSaleProperties());
+        commentInfo.setTotalScore(CommentInfoScore.FIVE);
+        commentInfo.setGoodsScore(CommentInfoScore.FIVE);
+        commentInfo.setCustomerServiceScore(CommentInfoScore.FIVE);
+        commentInfo.setLogisticsScore(CommentInfoScore.FIVE);
+        commentInfo.setCommentContent(CommentContent.DEFAULT);
+        commentInfo.setShowPictures(ShowPictures.NO);
+        commentInfo.setDefaultComment(DefaultComment.YES);
+        commentInfo.setCommentStatus(CommentStatus.APPROVED);
+        commentInfo.setCommentType(CommentType.GOOD_COMMENT);
+        commentInfo.setGmtCreate(dateProvider.getCurrentTime());
+        commentInfo.setGmtModified(dateProvider.getCurrentTime());
 
-        return commentInfoDTO;
+        return commentInfo;
     }
 
     /**
@@ -179,7 +177,7 @@ public class CommentInfoServiceImpl implements CommentInfoService {
      * @return 处理结果
      */
     @Override
-    public Boolean remove(Long id) {
+    public Boolean remove(Long id) throws Exception {
         return commentInfoDAO.remove(id);
     }
 

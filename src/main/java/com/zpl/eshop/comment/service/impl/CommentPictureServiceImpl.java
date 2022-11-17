@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -50,12 +49,12 @@ public class CommentPictureServiceImpl implements CommentPictureService {
      * @param appBasePath   当前应用的根路径
      * @param commentInfoId 评论信息id
      * @param files         评论晒图
-     * @return 处理结果
+     * @throws Exception
      */
     @Override
-    public Boolean saveCommentPictures(
+    public void saveCommentPictures(
             String appBasePath,
-            Long commentInfoId, MultipartFile[] files) throws IOException {
+            Long commentInfoId, MultipartFile[] files) throws Exception {
         // 处理上传目录
         String realUploadDirPath = uploadDirPath;
 
@@ -86,15 +85,14 @@ public class CommentPictureServiceImpl implements CommentPictureService {
             file.transferTo(targetFile);
 
             // 将评论晒图信息保存到数据库中去
-            CommentPictureDO commentPictureDO = new CommentPictureDO();
-            commentPictureDO.setCommentInfoId(commentInfoId);
-            commentPictureDO.setCommentPicturePath(targetFilePath);
-            commentPictureDO.setGmtCreate(new Date());
-            commentPictureDO.setGmtModified(new Date());
+            CommentPictureDO commentPicture = new CommentPictureDO();
+            commentPicture.setCommentInfoId(commentInfoId);
+            commentPicture.setCommentPicturePath(targetFilePath);
+            commentPicture.setGmtCreate(new Date());
+            commentPicture.setGmtModified(new Date());
 
-            commentPictureDAO.saveCommentPicture(commentPictureDO);
+            commentPictureDAO.saveCommentPicture(commentPicture);
         }
-        return true;
     }
 
     /**
@@ -102,6 +100,7 @@ public class CommentPictureServiceImpl implements CommentPictureService {
      *
      * @param commentId 评论信息id
      * @return 评论图片
+     * @throws Exception
      */
     @Override
     public List<CommentPictureDTO> listByCommentId(Long commentId) throws Exception {
@@ -114,11 +113,11 @@ public class CommentPictureServiceImpl implements CommentPictureService {
      *
      * @param id 评论图片id
      * @return 评论图片
+     * @throws Exception
      */
     @Override
     public CommentPictureDTO getById(Long id) throws Exception {
         CommentPictureDO picture = commentPictureDAO.getById(id);
         return picture.clone(CommentPictureDTO.class);
     }
-
 }

@@ -53,5 +53,4 @@ public interface PromotionActivityService {
      * @throws Exception
      */
     void remove(Long id) throws Exception;
-
 }

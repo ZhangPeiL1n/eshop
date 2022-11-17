@@ -38,7 +38,7 @@ public class PromotionActivityStatusCheckTask {
 	/**
 	 * 执行业务逻辑
 	 */
-    @Scheduled(fixedRate = 1 * 60 * 1000)
+    @Scheduled(fixedRate = 60 * 1000)
     public void execute() {
     	try {
     		List<PromotionActivityDO> activities = promotionActivityDAO.listAll();
@@ -62,10 +62,9 @@ public class PromotionActivityStatusCheckTask {
      */
     private void tryEnableActivity(PromotionActivityDO activity) throws Exception {
     	Date currentTime = dateProvider.getCurrentTime();
-    	if(currentTime.after(activity.getStartTime())) {  
-    		activity.setStatus(PromotionActivityStatus.ENABLED);
-    		activity.setGmtModified(dateProvider.getCurrentTime());  
-    		promotionActivityDAO.updateStatus(activity);  
+    	if(currentTime.after(activity.getStartTime())) {
+			activity.setStatus(PromotionActivityStatus.ENABLED);
+			promotionActivityDAO.updateStatus(activity);
     	}
     }
     
@@ -76,10 +75,9 @@ public class PromotionActivityStatusCheckTask {
      */
     private void tryDisableActivity(PromotionActivityDO activity) throws Exception {
     	Date currentTime = dateProvider.getCurrentTime();
-    	if(currentTime.after(activity.getEndTime())) {   
-    		activity.setStatus(PromotionActivityStatus.DISABLED);
-    		activity.setGmtModified(dateProvider.getCurrentTime()); 
-    		promotionActivityDAO.updateStatus(activity);  
+    	if(currentTime.after(activity.getEndTime())) {
+			activity.setStatus(PromotionActivityStatus.DISABLED);
+			promotionActivityDAO.updateStatus(activity);
     	}
     }
 

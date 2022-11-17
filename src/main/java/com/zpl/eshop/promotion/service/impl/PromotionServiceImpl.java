@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author ZhangPeiL1n
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class PromotionServiceImpl implements PromotionService {
 
 	private static final Logger logger = LoggerFactory.getLogger(PromotionServiceImpl.class);
@@ -33,16 +35,19 @@ public class PromotionServiceImpl implements PromotionService {
 	 */
 	@Autowired
 	private PromotionActivityDAO promotionActivityDAO;
+
 	/**
 	 * 优惠券领取记录管理DAO组件
 	 */
 	@Autowired
 	private CouponAchieveDAO couponAchieveDAO;
+
 	/**
 	 * 优惠券管理DAO组件
 	 */
 	@Autowired
 	private CouponDAO couponDAO;
+
 	/**
 	 * 日期辅助组件
 	 */
@@ -103,7 +108,6 @@ public class PromotionServiceImpl implements PromotionService {
 		} catch (Exception e) {
 			logger.error("error", e);
 		}
-
 		return coupons;
 	}
 
@@ -121,8 +125,6 @@ public class PromotionServiceImpl implements PromotionService {
 			couponAchieve.setUserAccountId(userAccountId);
 			couponAchieve.setUsed(1);
 			couponAchieve.setUsedTime(dateProvider.getCurrentTime());
-			couponAchieve.setGmtModified(dateProvider.getCurrentTime());
-
 			couponAchieveDAO.update(couponAchieve);
 
 			return true;

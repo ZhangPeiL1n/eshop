@@ -1,6 +1,5 @@
 package com.zpl.eshop.promotion.service.impl;
 
-import com.zpl.eshop.common.util.DateProvider;
 import com.zpl.eshop.common.util.ObjectUtils;
 import com.zpl.eshop.promotion.constant.PromotionActivityStatus;
 import com.zpl.eshop.promotion.dao.PromotionActivityDAO;
@@ -19,7 +18,7 @@ import java.util.List;
  *
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class PromotionActivityServiceImpl implements PromotionActivityService {
 	
 	/**
@@ -32,12 +31,7 @@ public class PromotionActivityServiceImpl implements PromotionActivityService {
 	 */
 	@Autowired
 	private PromotionActivityGoodsRelationDAO relationDAO;
-	/**
-	 * 日期辅助组件
-	 */
-	@Autowired
-	private DateProvider dateProvider;
-	
+
 	/**
 	 * 分页查询促销活动
 	 * @param query 查询条件
@@ -67,8 +61,6 @@ public class PromotionActivityServiceImpl implements PromotionActivityService {
 	 * @param activity 促销活动
 	 */
 	public void save(PromotionActivityDTO activity) throws Exception {
-		activity.setGmtCreate(dateProvider.getCurrentTime()); 
-		activity.setGmtModified(dateProvider.getCurrentTime());  
 		activity.setStatus(PromotionActivityStatus.DISABLED); 
 		
 		Long promotionActivityId = promotionActivityDAO.save(
@@ -83,12 +75,9 @@ public class PromotionActivityServiceImpl implements PromotionActivityService {
 	 * @param activity 促销活动
 	 */
 	public void update(PromotionActivityDTO activity) throws Exception {
-		activity.setGmtModified(dateProvider.getCurrentTime());  
-		promotionActivityDAO.update(activity.clone(PromotionActivityDO.class));  
-		
-		relationDAO.removeByActivityId(activity.getId()); 
-		
-		saveRelations(activity); 
+		promotionActivityDAO.update(activity.clone(PromotionActivityDO.class));
+		relationDAO.removeByActivityId(activity.getId());
+		saveRelations(activity);
 	}
 	
 	/**
@@ -107,11 +96,8 @@ public class PromotionActivityServiceImpl implements PromotionActivityService {
 	 */
 	private void saveRelations(PromotionActivityDTO activity) throws Exception {
 		for(PromotionActivityGoodsRelationDTO relation : activity.getRelations()) {
-			relation.setPromotionActivityId(activity.getId());  
-			relation.setGmtCreate(dateProvider.getCurrentTime()); 
-			relation.setGmtModified(dateProvider.getCurrentTime());  
+			relation.setPromotionActivityId(activity.getId());
 			relationDAO.save(relation.clone(PromotionActivityGoodsRelationDO.class));  
 		}
 	}
-	
 }

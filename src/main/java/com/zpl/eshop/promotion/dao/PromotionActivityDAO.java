@@ -17,59 +17,66 @@ public interface PromotionActivityDAO {
      *
      * @param query 查询条件
      * @return 促销活动
+     * @throws Exception
      */
-    List<PromotionActivityDO> listByPage(PromotionActivityQuery query);
+    List<PromotionActivityDO> listByPage(PromotionActivityQuery query) throws Exception;
 
     /**
      * 根据id查询促销活动
      *
      * @param id 促销活动id
      * @return 促销活动
+     * @throws Exception
      */
-    PromotionActivityDO getById(Long id);
+    PromotionActivityDO getById(Long id) throws Exception;
 
     /**
      * 查询全部促销活动
      *
      * @return 促销活动
+     * @throws Exception
      */
-    List<PromotionActivityDO> listAll();
+    List<PromotionActivityDO> listAll() throws Exception;
 
     /**
      * 查询指定商品目前可以使用的启用状态的促销活动
      *
      * @param goodsId 商品id
      * @return 促销活动
+     * @throws Exception
      */
-    List<PromotionActivityDO> listEnabledByGoodsId(Long goodsId);
+    List<PromotionActivityDO> listEnabledByGoodsId(Long goodsId) throws Exception;
 
     /**
      * 新增促销活动
      *
      * @param activity 促销活动
      * @return id
+     * @throws Exception
      */
-    Long save(PromotionActivityDO activity);
+    Long save(PromotionActivityDO activity) throws Exception;
 
     /**
      * 更新促销活动
      *
      * @param activity 促销活动
+     * @throws Exception
      */
-    void update(PromotionActivityDO activity);
+    void update(PromotionActivityDO activity) throws Exception;
 
     /**
      * 更新促销活动的状态
      *
      * @param activity 活动
+     * @throws Exception
      */
-    void updateStatus(PromotionActivityDO activity);
+    void updateStatus(PromotionActivityDO activity) throws Exception;
 
     /**
      * 删除促销活动
      *
      * @param id 促销活动id
+     * @throws Exception
      */
-    void remove(Long id);
-
+    void remove(Long id) throws Exception;
 }

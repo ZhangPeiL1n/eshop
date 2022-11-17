@@ -66,7 +66,7 @@ public interface CommentInfoService {
      *
      * @param id 删除评论
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean remove(Long id);
-
+    Boolean remove(Long id) throws Exception;
 }

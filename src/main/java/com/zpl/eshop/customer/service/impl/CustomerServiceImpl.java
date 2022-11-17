@@ -97,7 +97,7 @@ public class CustomerServiceImpl implements CustomerService {
      * @throws Exception
      */
     @Override
-    public Boolean informReturnGoodsInputFinishEvent(Long returnGoodsWorksheetId) {
+    public Boolean informReturnGoodsInputFinishedEvent(Long returnGoodsWorksheetId) {
         try {
             ReturnGoodsWorksheetDO worksheet = returnGoodsWorksheetDAO.getById(returnGoodsWorksheetId);
             worksheet.setStatus(ReturnGoodsWorksheetStatus.FINISH_RETURN_GOODS_INPUT);
@@ -121,7 +121,7 @@ public class CustomerServiceImpl implements CustomerService {
      * @throws Exception
      */
     @Override
-    public Boolean informRefundFinishEvent(Long returnGoodsWorksheetId) {
+    public Boolean informRefundFinishedEvent(Long returnGoodsWorksheetId) {
         try {
             ReturnGoodsWorksheetDO worksheet = returnGoodsWorksheetDAO
                     .getById(returnGoodsWorksheetId);

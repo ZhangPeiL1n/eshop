@@ -38,7 +38,7 @@ public interface PromotionService {
      * @return 有效优惠券
      * @throws Exception
      */
-    List<CouponDTO> listValidByUserAccount(Long userAccountId) throws Exception;
+    List<CouponDTO> listValidByUserAccountId(Long userAccountId) throws Exception;
 
     /**
      * 使用优惠券
