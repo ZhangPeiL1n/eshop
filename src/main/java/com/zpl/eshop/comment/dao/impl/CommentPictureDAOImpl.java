@@ -3,6 +3,7 @@ package com.zpl.eshop.comment.dao.impl;
 import com.zpl.eshop.comment.dao.CommentPictureDAO;
 import com.zpl.eshop.comment.domain.CommentPictureDO;
 import com.zpl.eshop.comment.mapper.CommentPictureMapper;
+import com.zpl.eshop.common.util.DateProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +33,11 @@ public class CommentPictureDAOImpl implements CommentPictureDAO {
         commentPictureMapper.saveCommentPicture(commentPictureDO);
         return commentPictureDO.getId();
     }
+    /**
+     * 日期辅助组件
+     */
+    @Autowired
+    private DateProvider dateProvider;
 
     /**
      * 根据评论信息id查询图片

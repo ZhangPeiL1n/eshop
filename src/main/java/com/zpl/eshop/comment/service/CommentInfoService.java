@@ -21,7 +21,7 @@ public interface CommentInfoService {
      * @return 新增结果
      * @throws Exception
      */
-    Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfoDTO) throws Exception;
+    Boolean saveManualPublishedCommentInfo(CommentInfoDTO commentInfo) throws Exception;
 
     /**
      * 新增自动发表的评论信息

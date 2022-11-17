@@ -3,32 +3,36 @@ package com.zpl.eshop.comment.dao;
 import com.zpl.eshop.comment.domain.CommentAggregateDO;
 
 /**
- * 评论统计信息管理模块的DAO组件接口
- * @author ZhangPeiL1n
+ * 评论管理模块DAO组件接口
  *
- */
+ * @author ZhangPeiL1n
+ * @date 2022/1/18 21:42
+ **/
 public interface CommentAggregateDAO {
 
-	/**
-	 * 根据商品id查询评论统计信息
-	 * @param goodsId 商品id
-	 * @return 评论统计信息
-	 */
-	CommentAggregateDO getCommentAggregateByGoodsId(Long goodsId);
-	
-	/**
+    /**
+     * 根据商品 id 查询评论统计信息
+     *
+     * @param goodsId 商品id
+     * @return 评论统计信息
+     * @throws Exception
+     */
+    CommentAggregateDO getCommentAggregateByGoodsId(Long goodsId) throws Exception;
+
+
+    /**
      * 新增评论统计信息
      *
-     * @param commentAggregateDO 评论统计信息DO对象
-     * @return 新增结果
+     * @param commentAggregate 评论统计信息DO
+     * @throws Exception
      */
-	Boolean saveCommentAggregate(CommentAggregateDO commentAggregateDO);
+    void saveCommentAggregate(CommentAggregateDO commentAggregate) throws Exception;
 
     /**
      * 更新评论统计信息
-     * @param commentAggregateDO 评论统计信息DO对象
-     * @return 更新结果
-	 */
-	Boolean updateCommentAggregate(CommentAggregateDO commentAggregateDO);
-	
+     *
+     * @param commentAggregate 评论统计信息DO
+     * @throws Exception
+     */
+    void updateCommentAggregate(CommentAggregateDO commentAggregate) throws Exception;
 }

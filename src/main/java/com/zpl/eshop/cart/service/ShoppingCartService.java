@@ -1,7 +1,5 @@
 package com.zpl.eshop.cart.service;
 
-import java.text.ParseException;
-
 /**
  * 购物车管理模块Service组件接口
  *
@@ -16,9 +14,7 @@ public interface ShoppingCartService {
      * @param userAccountId 用户帐号id
      * @param goodsSkuId    商品条目
      * @return 处理结果
-     * @throws ParseException
+     * @throws Exception
      */
-    Boolean addShoppingCartItem(Long userAccountId, Long goodsSkuId) throws ParseException;
-
-
+    Boolean addShoppingCartItem(Long userAccountId, Long goodsSkuId) throws Exception;
 }

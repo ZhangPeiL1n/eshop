@@ -17,8 +17,9 @@ public interface MembershipService {
      *
      * @param userAccountId 用户帐号 id
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informFirstLoginDailyEvent(Long userAccountId);
+    Boolean informFirstLoginDailyEvent(Long userAccountId) throws Exception;
 
     /**
      * 通知会员中心，“支付订单”事件发生了
@@ -26,8 +27,9 @@ public interface MembershipService {
      * @param userAccountId    用户帐号 id
      * @param totalOrderAmount 订单总金额
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informPayOrderEvent(Long userAccountId, Double totalOrderAmount);
+    Boolean informPayOrderEvent(Long userAccountId, Double totalOrderAmount) throws Exception;
 
     /**
      * 通知会员中心，“完成退货”事件发生了
@@ -35,8 +37,9 @@ public interface MembershipService {
      * @param userAccountId    用户帐号 id
      * @param totalOrderAmount 订单总金额
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informFinishReturnGoodsEvent(Long userAccountId, Double totalOrderAmount);
+    Boolean informFinishReturnGoodsEvent(Long userAccountId, Double totalOrderAmount) throws Exception;
 
     /**
      * 通知会员中心，“发表评论”事件发生了
@@ -44,8 +47,9 @@ public interface MembershipService {
      * @param userAccountId 用户帐号 id
      * @param showPictures  是否晒图
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informPublishCommentEvent(Long userAccountId, Boolean showPictures);
+    Boolean informPublishCommentEvent(Long userAccountId, Boolean showPictures) throws Exception;
 
     /**
      * 通知会员中心，“删除评论”事件发生了
@@ -53,13 +57,15 @@ public interface MembershipService {
      * @param userAccountId 用户帐号 id
      * @param showPictures  是否晒图
      * @return 处理结果
+     * @throws Exception
      */
-    Boolean informRemoveCommentEvent(Long userAccountId, Boolean showPictures);
+    Boolean informRemoveCommentEvent(Long userAccountId, Boolean showPictures) throws Exception;
 
     /**
      * 查询所有的用户账户
      *
      * @return 用户账户
+     * @throws Exception
      */
-    List<UserAccountDTO> listAllUserAccounts();
+    List<UserAccountDTO> listAllUserAccounts() throws Exception;
 }

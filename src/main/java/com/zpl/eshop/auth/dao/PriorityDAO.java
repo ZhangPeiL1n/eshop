@@ -12,10 +12,10 @@ import java.util.List;
 public interface PriorityDAO {
 
 	/**
-	 * 查询根权限
-	 *
-	 * @return 根权限集合
-	 */
-	List<PriorityDO> listRootPriorities();
-
+     * 查询根权限
+     *
+     * @return 根权限集合
+     * @throws Exception
+     */
+    List<PriorityDO> listRootPriorities() throws Exception;
 }
